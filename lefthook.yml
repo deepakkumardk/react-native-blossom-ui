@@ -1,0 +1,16 @@
+pre-commit:
+  parallel: true
+  commands:
+    tsc:
+      run: yarn tsc
+    lint:
+      run: yarn lint
+    build:
+      run: yarn build
+    test:
+      run: yarn test
+commit-msg:
+  parallel: true
+  commands:
+    commitlint:
+      run: yarn commitlint --edit

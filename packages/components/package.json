@@ -1,0 +1,29 @@
+{
+  "name": "@react-native-blossom-ui/components",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "main": "./src/index",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist node_modules",
+    "tsc": "tsc --skipLibCheck --noEmit",
+    "lint": "eslint src/ --fix"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "react": "~18.2.0",
+    "react-native": "0.72.10",
+    "@react-native-blossom-ui/typescript-config": "*",
+    "@types/chroma-js": "2.4.4",
+    "@types/react": "~18.2.0",
+    "@types/react-native": "0.73.0",
+    "tsup": "^8.0.1"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  }
+}

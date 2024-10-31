@@ -2,27 +2,36 @@
   "name": "web",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "tsc": "tsc --skipLibCheck --noEmit",
+    "lint": "eslint app/ --fix",
+    "clean": "rm -rf node_modules"
   },
   "dependencies": {
-    "@repo/ui": "*",
+    "@react-native-blossom-ui/components": "*",
+    "@uiw/react-color": "2.3.0",
+    "chroma-js": "3.1.1",
     "next": "^14.0.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-native-web": "^0.19.10"
+    "react": "~18.2.0",
+    "react-dom": "~18.2.0",
+    "react-native-web": "0.19.10"
   },
   "devDependencies": {
-    "@repo/typescript-config": "*",
+    "@react-native-blossom-ui/typescript-config": "*",
+    "@types/chroma-js": "2.4.4",
     "@types/node": "^20.10.6",
-    "@types/react": "^18.2.46",
-    "@types/react-dom": "^18.2.18",
-    "babel-plugin-react-native-web": "^0.19.10",
+    "@types/react": "~18.2.0",
+    "@types/react-dom": "~18.2.0",
+    "babel-plugin-react-native-web": "0.19.10",
     "eslint": "^8.56.0",
     "eslint-config-next": "14.0.4",
     "typescript": "^5.3.3"
+  },
+  "resolutions": {
+    "react": "~18.2.0"
   }
 }

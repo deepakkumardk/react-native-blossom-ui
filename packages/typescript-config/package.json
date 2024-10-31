@@ -1,7 +1,8 @@
 {
-  "name": "@repo/typescript-config",
+  "name": "@react-native-blossom-ui/typescript-config",
   "version": "0.0.0",
   "private": true,
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   }

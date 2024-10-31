@@ -1,0 +1,19 @@
+{
+  "extends": "@react-native-blossom-ui/typescript-config/react-native-library",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@react-native-blossom-ui/components/*": [
+        "./packages/components/src/*"
+      ],
+      "react": [
+        "./node_modules/@types/react"
+      ],
+    },
+  },
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules"
+  ],
+}
