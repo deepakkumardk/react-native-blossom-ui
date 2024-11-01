@@ -9,6 +9,7 @@ import {
   ViewStyle,
   PressableProps,
 } from 'react-native'
+import {TypographyOptions} from '../types'
 
 export type BlossomStatus =
   | 'primary'
@@ -17,24 +18,6 @@ export type BlossomStatus =
   | 'info'
   | 'warning'
   | 'error'
-
-export type TypographyOptions =
-  | 'h1'
-  | 'h2'
-  | 'h3'
-  | 'h4'
-  | 'h5'
-  | 'h6'
-  // Other options
-  | 's1'
-  | 's2'
-  | 'b1'
-  | 'b2'
-  | 'b3'
-  | 'l1'
-  | 'l2'
-  | 'c1'
-  | 'c2'
 
 export type BlossomSize = 'small' | 'medium' | 'large'
 

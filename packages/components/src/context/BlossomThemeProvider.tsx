@@ -1,33 +1,37 @@
-import React, {createContext, useCallback, useContext, useMemo} from 'react'
+import React, {createContext, useContext, useMemo} from 'react'
+import deepmerge from 'deepmerge'
 import {
   BlossomContext,
   BlossomThemeColors,
   BlossomThemeProviderProps,
-} from './types'
+} from '../types'
+import {typographyStyle} from '../components/text/typography'
 
 const defaultValue: BlossomContext = {
   colors: {} as BlossomThemeColors,
   isDark: false,
+  options: {
+    borderRadius: 12,
+    typography: typographyStyle,
+  },
 }
 
-export const BlossomThemeContext = createContext<BlossomContext>(defaultValue)
+const BlossomThemeContext = createContext<BlossomContext>(defaultValue)
 
 export const BlossomThemeProvider = ({
   theme,
   isDark,
+  options,
   children,
 }: BlossomThemeProviderProps) => {
-  const values =
-    //  useCallback(
-    //   () => (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    {
+  const values = useMemo(
+    () => ({
       colors: theme,
       isDark,
-    }
-  // ),
-  //   [theme, isDark],
-  // )
+      options: deepmerge(defaultValue.options || {}, options || {}),
+    }),
+    [theme, isDark, options],
+  )
 
   return (
     <BlossomThemeContext.Provider value={values}>

@@ -8,6 +8,7 @@ import {StatusBar} from 'expo-status-bar'
 
 import lightTheme from '../lightTheme.json'
 import darkTheme from '../darkTheme.json'
+import options from '../options.json'
 
 export default function Layout() {
   const [isDark, setIsDark] = useState(false)
@@ -15,7 +16,8 @@ export default function Layout() {
   return (
     <BlossomThemeProvider
       theme={isDark ? darkTheme : lightTheme}
-      isDark={isDark}>
+      isDark={isDark}
+      options={options}>
       <Container />
       <StatusBar style={isDark ? 'light' : 'dark'} />
     </BlossomThemeProvider>

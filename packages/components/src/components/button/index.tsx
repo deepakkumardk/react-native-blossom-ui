@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {Pressable, StyleSheet} from 'react-native'
 
-import {useBlossomTheme} from '../../context'
-import {BlossomSize, ButtonProps, TypographyOptions} from '../types'
+import {TypographyOptions, useBlossomTheme} from '../../context'
+import {BlossomSize, ButtonProps} from '../types'
 import Text from '../text/Text'
 import {
   getFlatStyle,
@@ -30,7 +30,7 @@ const Button = (props: ButtonProps) => {
     ...rest
   } = props
 
-  const {colors, isDark} = useBlossomTheme()
+  const {colors, isDark, options} = useBlossomTheme()
 
   const getButtonColor = useCallback(() => {
     if (disabled) return colors.bgDark100
@@ -41,16 +41,29 @@ const Button = (props: ButtonProps) => {
     return colors.background100
   }, [mode, disabled, status, colors, isDark])
 
-  const containerStyle = [
-    {
-      backgroundColor: getButtonColor(),
-      borderColor: colors[getStatusColorName(status, isDark)],
-    },
-    mode === 'outlined' ? styles.outlinedButton : {},
-    styles.buttonContainer,
-    sizeStyle[size],
-    style,
-  ]
+  const containerStyle = useMemo(
+    () => [
+      {
+        backgroundColor: getButtonColor(),
+        borderColor: colors[getStatusColorName(status, isDark)],
+        borderRadius: options?.borderRadius,
+      },
+      mode === 'outlined' ? styles.outlinedButton : {},
+      styles.buttonContainer,
+      sizeStyle[size],
+      style,
+    ],
+    [
+      colors,
+      getButtonColor,
+      isDark,
+      mode,
+      options?.borderRadius,
+      size,
+      status,
+      style,
+    ],
+  )
 
   return (
     <Pressable
@@ -102,7 +115,6 @@ export default Button
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    borderRadius: 12,
     paddingVertical: 14,
     paddingHorizontal: 11, // 3 coming from below text style
     flexDirection: 'row',

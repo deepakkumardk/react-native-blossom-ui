@@ -1,4 +1,5 @@
 import {ReactNode} from 'react'
+import {TextStyle} from 'react-native'
 
 export type BlossomColor = string
 
@@ -34,6 +35,7 @@ export type BlossomThemeColors = {
 export interface BlossomContext {
   colors: BlossomThemeColors
   isDark?: boolean
+  options?: BlossomUIOptions
 }
 
 export type Children = {
@@ -47,5 +49,34 @@ export type WithChildren<T> = {
 export type BlossomThemeProviderProps = {
   theme: BlossomThemeColors
   isDark?: boolean
-  options?: object
+  options?: BlossomUIOptions
 } & Children
+
+export type TypographyValues = {
+  [K in `${TypographyOptions}`]?:
+    | Pick<TextStyle, 'fontSize' | 'fontWeight'>
+    | object
+}
+
+export type BlossomUIOptions = {
+  borderRadius?: number
+  typography?: TypographyValues
+}
+
+export type TypographyOptions =
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  // Other options
+  | 's1'
+  | 's2'
+  | 'b1'
+  | 'b2'
+  | 'b3'
+  | 'l1'
+  | 'l2'
+  | 'c1'
+  | 'c2'

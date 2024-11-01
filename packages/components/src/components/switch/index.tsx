@@ -1,9 +1,9 @@
-import React, {forwardRef, useCallback} from 'react'
+import React, {forwardRef} from 'react'
 import {Switch as RNSwitch, StyleSheet} from 'react-native'
 
 import {getBorderColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
-import {SwitchProps} from '../types'
+import {BlossomSize, SwitchProps} from '../types'
 import View from '../view'
 import SizedText from '../text/SizedText'
 
@@ -25,16 +25,6 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
   } = props
 
   const {colors, isDark} = useBlossomTheme()
-
-  const getScale = useCallback(() => {
-    if (size === 'small') {
-      return 0.75
-    }
-    if (size === 'large') {
-      return 1.25
-    }
-    return 1
-  }, [size])
 
   return (
     <View
@@ -80,7 +70,7 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
         }
         {...rest}
         style={[
-          {transform: [{scaleX: getScale()}, {scaleY: getScale()}]},
+          {transform: [{scaleX: sizeMap[size]}, {scaleY: sizeMap[size]}]},
           size === 'small'
             ? styles.sizeSmall
             : size === 'large'
@@ -117,3 +107,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 6,
   },
 })
+
+const sizeMap: Record<BlossomSize, number> = {
+  small: 0.75,
+  medium: 1,
+  large: 1.25,
+}

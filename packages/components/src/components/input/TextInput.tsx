@@ -30,7 +30,7 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
     ...rest
   } = props
 
-  const {colors, isDark} = useBlossomTheme()
+  const {colors, isDark, options} = useBlossomTheme()
 
   const [isFocused, setIsFocused] = useState(false)
 
@@ -47,8 +47,15 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
       <View
         style={[
           styles.innerContainer,
-          mode === 'outlined' ? styles.outlined : styles.flat,
-          mode === 'outlined' ? textInputSizeStyle[size].outlined : {},
+          mode === 'outlined'
+            ? [
+                styles.outlined,
+                textInputSizeStyle[size].outlined,
+                {
+                  borderRadius: options?.borderRadius,
+                },
+              ]
+            : styles.flat,
           {
             borderColor:
               colors[
@@ -120,9 +127,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
   },
   outlined: {
-    padding: 18,
     borderWidth: 1,
-    borderRadius: 12,
   },
   flat: {
     paddingBottom: 6,

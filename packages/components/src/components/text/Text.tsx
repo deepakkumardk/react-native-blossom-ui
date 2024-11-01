@@ -2,7 +2,7 @@ import React, {forwardRef} from 'react'
 import {Text as RNText} from 'react-native'
 
 import {TextProps} from '../types'
-import {typographyStyle} from './typography'
+
 import {getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
 
@@ -12,14 +12,14 @@ import {useBlossomTheme} from '../../context'
 const Text = (props: TextProps, ref: React.Ref<RNText>) => {
   const {typography = 'b2', ...rest} = props
 
-  const {colors, isDark} = useBlossomTheme()
+  const {colors, isDark, options} = useBlossomTheme()
 
   return (
     <RNText
       ref={ref}
       {...rest}
       style={[
-        typographyStyle[typography],
+        options?.typography?.[typography],
         {color: colors[getStatusColorName(rest?.status, isDark)]},
         rest?.style,
       ]}

@@ -1,0 +1,9 @@
+{
+  "borderRadius": 12,
+  "typography": {
+    "l1": {
+      "fontSize": 14,
+      "fontWeight": "600"
+    }
+  }
+}
