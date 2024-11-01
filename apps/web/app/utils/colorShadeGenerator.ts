@@ -85,9 +85,9 @@ export function colorShadesFromArray(array: string[], name: string) {
   return obj
 }
 
-export function getBgColors(mode: 'light' | 'dark') {
-  const firstColor = mode === 'light' ? 'white' : 'gray'
-  const lastColor = mode === 'light' ? 'gray' : 'black'
+export function getBgColors(mode: 'light' | 'dark', surfaceColor?: string) {
+  const firstColor = mode === 'light' ? surfaceColor || 'white' : 'gray'
+  const lastColor = mode === 'light' ? 'gray' : surfaceColor || 'black'
 
   const shades = chroma
     .bezier([firstColor, lastColor])

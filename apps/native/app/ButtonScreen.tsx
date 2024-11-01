@@ -1,65 +1,94 @@
 import React from 'react'
-import {Alert, StyleSheet} from 'react-native'
+import {Alert, ScrollView, StyleSheet} from 'react-native'
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
 import {Text, View, Button} from '@react-native-blossom-ui/components'
-import {BUTTON_MODES, STATUS_LIST} from '../lib/constants'
+import {BUTTON_MODES, SIZE_LIST, STATUS_LIST} from '../lib/constants'
+import {Heading} from '../components'
 
 export default function ButtonScreen() {
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-        {BUTTON_MODES.map((value) => (
-          <Button key={value} mode={value} style={styles.button}>
+      <ScrollView>
+        <Heading>Sizes</Heading>
+        <View style={styles.row}>
+          {SIZE_LIST.map((value) => (
+            <Button key={value} size={value} style={styles.button}>
+              {value}
+            </Button>
+          ))}
+        </View>
+
+        <Heading>Modes</Heading>
+
+        <View style={styles.row}>
+          {BUTTON_MODES.map((value) => (
+            <Button key={value} mode={value} style={styles.button}>
+              {value}
+            </Button>
+          ))}
+        </View>
+        <View style={styles.row}>
+          {BUTTON_MODES.map((value) => (
+            <Button
+              key={value}
+              mode={value}
+              status="error"
+              style={styles.button}>
+              {value}
+            </Button>
+          ))}
+        </View>
+        <Heading>Statuses</Heading>
+
+        {STATUS_LIST.map((value) => (
+          <Button key={value} status={value} style={styles.button}>
             {value}
           </Button>
         ))}
-      </View>
-      <View style={styles.row}>
-        {BUTTON_MODES.map((value) => (
-          <Button key={value} mode={value} status="error" style={styles.button}>
-            {value}
-          </Button>
-        ))}
-      </View>
-      {STATUS_LIST.map((value) => (
-        <Button key={value} status={value} style={styles.button}>
-          {value}
-        </Button>
-      ))}
-      <Button
-        loaderStyle={{
-          color: 'red',
-        }}
-        style={[styles.button, {width: '100%', backgroundColor: 'green'}]}
-        onPress={() => Alert.alert('Hello')}>
-        Prefix <Text status="error">Custom Button</Text> Suffix
-      </Button>
-      <View style={styles.row}>
+        <Heading>Custom</Heading>
+
         <Button
-          isLoading
           loaderStyle={{
-            color: 'white',
+            color: 'red',
           }}
-          style={styles.button}>
-          Loading...
+          style={[styles.button, {width: '100%', backgroundColor: 'green'}]}
+          onPress={() => Alert.alert('Hello')}>
+          Prefix <Text status="error">Custom Button</Text> Suffix
         </Button>
+
+        <View style={styles.row}>
+          <Button
+            isLoading
+            loaderStyle={{
+              color: 'white',
+            }}
+            style={styles.button}>
+            Loading...
+          </Button>
+          <Button
+            left={
+              <MaterialCommunityIcons name="plus" size={24} color="white" />
+            }
+            status="success"
+            style={styles.button}
+          />
+        </View>
         <Button
-          left={<MaterialCommunityIcons name="plus" size={24} color="white" />}
-          status="success"
+          disabled
+          left={
+            <MaterialCommunityIcons name="cancel" size={24} color="white" />
+          }
+          right={
+            <MaterialCommunityIcons name="cancel" size={24} color="white" />
+          }
           style={styles.button}
-        />
-      </View>
-      <Button
-        disabled
-        left={<MaterialCommunityIcons name="cancel" size={24} color="white" />}
-        right={<MaterialCommunityIcons name="cancel" size={24} color="white" />}
-        style={styles.button}
-        status="success"
-        onPress={() => Alert.alert('Hello')}>
-        Disabled Button
-      </Button>
+          status="success"
+          onPress={() => Alert.alert('Hello')}>
+          Disabled Button
+        </Button>
+      </ScrollView>
     </View>
   )
 }

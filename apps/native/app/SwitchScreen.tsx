@@ -3,6 +3,7 @@ import {ScrollView, StyleSheet} from 'react-native'
 import {View, Switch, Text} from '@react-native-blossom-ui/components'
 
 import {SIZE_LIST, STATUS_LIST} from '../lib/constants'
+import {Heading} from '../components'
 
 export default function SwitchScreen() {
   const [isOn, setIsOn] = useState(false)
@@ -10,9 +11,10 @@ export default function SwitchScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Text typography="h6">Sizes</Text>
+        <Heading>Sizes</Heading>
         {SIZE_LIST.map((size) => (
           <Switch
+            key={size}
             label={size}
             caption={size}
             error="Error will appear here"
@@ -23,10 +25,11 @@ export default function SwitchScreen() {
           />
         ))}
 
-        <Text typography="h6">Statuses</Text>
+        <Heading>Statuses</Heading>
 
         {STATUS_LIST.map((status) => (
           <Switch
+            key={status}
             label={status}
             caption={status}
             error={status === 'error' ? 'Error will appear here' : ''}
@@ -37,8 +40,7 @@ export default function SwitchScreen() {
           />
         ))}
 
-        <Text typography="h6">Custom</Text>
-
+        <Heading>Custom</Heading>
         <Switch
           label="Switch next to label"
           value={isOn}

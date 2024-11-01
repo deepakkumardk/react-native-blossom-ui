@@ -36,13 +36,13 @@ export const getTextColorName = (
   color?: string | ColorValue,
   isDark?: boolean,
 ) => {
-  if (!color) return 'background1100'
+  if (!color) return 'text100'
 
   const lum = chroma(color as string).luminance()
   if (isDark) {
-    return lum < 0.4 ? 'background1100' : 'background100'
+    return lum < 0.4 ? 'text100' : 'text1100'
   }
-  return lum < 0.4 ? 'background100' : 'background1100'
+  return lum < 0.4 ? 'text1100' : 'text100'
 }
 
 export const getFlatStyle = (

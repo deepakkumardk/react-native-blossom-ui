@@ -22,10 +22,10 @@ export type ColorNames =
   | 'error'
   | 'warning'
   | 'info'
-  // | 'text'
+  | 'background'
+  | 'text'
   | 'bgLight'
   | 'bgDark'
-  | 'background'
 
 export type BlossomThemeColors = {
   [K in `${ColorNames}${ColorVariants}`]: BlossomColor

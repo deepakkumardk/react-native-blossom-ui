@@ -8,6 +8,7 @@ import {
 } from '@react-native-blossom-ui/components'
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import {SIZE_LIST, STATUS_LIST} from '../lib/constants'
+import {Heading} from '../components'
 
 export default function TextInputScreen() {
   const {colors} = useBlossomTheme()
@@ -15,7 +16,7 @@ export default function TextInputScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Text typography="h6">Modes</Text>
+        <Heading>Modes</Heading>
 
         <TextInput
           accessibilityLabel="Text input field"

@@ -2,7 +2,7 @@ import React, {useCallback} from 'react'
 import {Pressable, StyleSheet} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
-import {ButtonProps} from '../types'
+import {BlossomSize, ButtonProps, TypographyOptions} from '../types'
 import Text from '../text/Text'
 import {
   getFlatStyle,
@@ -48,6 +48,7 @@ const Button = (props: ButtonProps) => {
     },
     mode === 'outlined' ? styles.outlinedButton : {},
     styles.buttonContainer,
+    sizeStyle[size],
     style,
   ]
 
@@ -56,7 +57,7 @@ const Button = (props: ButtonProps) => {
       {...rest}
       style={({pressed}) => [
         containerStyle,
-        pressed
+        pressed && !isLoading && !disabled
           ? {
               backgroundColor: getPressedColor(
                 mode === 'filled'
@@ -71,7 +72,7 @@ const Button = (props: ButtonProps) => {
       {left}
       {children || text ? (
         <Text
-          typography="b1"
+          typography={sizeMap[size]}
           style={[
             {
               color:
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     borderRadius: 12,
     paddingVertical: 14,
-    paddingHorizontal: 16,
+    paddingHorizontal: 11, // 3 coming from below text style
     flexDirection: 'row',
     alignSelf: 'baseline',
     justifyContent: 'center',
@@ -116,3 +117,24 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
   },
 })
+
+const sizeStyle = {
+  small: {
+    paddingHorizontal: 7,
+    paddingVertical: 11,
+  },
+  medium: {
+    paddingHorizontal: 11, // 3 coming from below text style
+    paddingVertical: 14,
+  },
+  large: {
+    paddingHorizontal: 15,
+    paddingVertical: 16,
+  },
+}
+
+const sizeMap: Record<BlossomSize, TypographyOptions> = {
+  small: 'l1',
+  medium: 'b1',
+  large: 's1',
+}

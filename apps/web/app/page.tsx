@@ -14,17 +14,20 @@ import {
   getTextColor,
   textColorShade,
 } from './utils'
+import {ColorPicker} from './components/ColorPicker'
 
 export default function Web() {
   const [isDark, setIsDark] = useState(false)
 
   const [colors, setColors] = useState({
-    primary: '#1A73E8',
+    primary: '#1A7AF5',
     accent: '#7B2EDA',
-    success: '#6BD731',
-    info: '#318CE7',
-    warning: '#FFFF00',
-    error: '#F06418',
+    success: '#22bb33',
+    info: '#2d9de5',
+    warning: '#f9e154',
+    error: '#ff3333',
+    bgLight: '#fff',
+    bgDark: '#000',
   })
 
   const themeObjRef = useRef({})
@@ -60,35 +63,15 @@ export default function Web() {
           marginTop: 8,
         }}>
         <b>{name}</b>
-        <button
-          type="button"
-          style={{
-            // @ts-ignore
 
-            background: colors[name],
-            width: 30,
-            height: 30,
-            margin: 8,
-            borderWidth: 0,
-            borderRadius: 20,
-            alignSelf: 'center',
-          }}
-          onClick={() => {
-            setShowColorPicker((prev) => !prev)
+        <ColorPicker
+          inputColor={inputColor}
+          // @ts-ignore
+          background={colors[name]}
+          onChange={(value) => {
+            setColors((prev) => ({...prev, [name]: value}))
           }}
         />
-        {name && inputColor && showColorPicker ? (
-          <Colorful
-            style={{
-              position: 'absolute',
-              top: 120,
-            }}
-            color={inputColor}
-            onChange={(value) => {
-              setColors((prev) => ({...prev, [name]: value.hexa}))
-            }}
-          />
-        ) : null}
 
         {Object.entries(colorsData).map(
           ([key, color]: [string, string], index) => (
@@ -148,22 +131,35 @@ export default function Web() {
           Copy JSON
         </button>
       </div>
-      <input
-        defaultValue={colors.primary}
-        placeholder="Primary Color"
-        onChange={(e) => {
-          if (chroma.valid(e.target.value))
-            setColors((prev) => ({...prev, primary: e.target.value}))
-        }}
-      />
-      <input
-        defaultValue={colors.accent}
-        placeholder="Accent Color"
-        onChange={(e) => {
-          if (chroma.valid(e.target.value))
-            setColors((prev) => ({...prev, accent: e.target.value}))
-        }}
-      />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+        }}>
+        <div>
+          <label>Choose Light Theme Surface Color</label>
+
+          <ColorPicker
+            inputColor={colors['bgLight']}
+            background={colors['bgLight']}
+            onChange={(value) => {
+              setColors((prev) => ({...prev, bgLight: value}))
+            }}
+          />
+        </div>
+        <div>
+          <label>Choose Dark Theme Surface Color</label>
+
+          <ColorPicker
+            inputColor={colors['bgDark']}
+            background={colors['bgDark']}
+            onChange={(value) => {
+              setColors((prev) => ({...prev, bgDark: value}))
+            }}
+          />
+        </div>
+      </div>
 
       <div style={{flexDirection: 'row', display: 'flex'}}>
         {renderColorShades(colors.primary, 'primary')}
@@ -176,21 +172,30 @@ export default function Web() {
 
         {renderColorShades(
           undefined,
-          'bgLight',
-          colorShadesFromArray(getBgColors('light'), 'bgLight'),
-        )}
-        {renderColorShades(
-          undefined,
-          'bgDark',
-          colorShadesFromArray(getBgColors('dark'), 'bgDark'),
-        )}
-        {renderColorShades(
-          undefined,
           'background',
           colorShadesFromArray(
             isDark ? textColorShade().reverse() : textColorShade(),
             'background',
           ),
+        )}
+        {renderColorShades(
+          undefined,
+          'text',
+          colorShadesFromArray(
+            !isDark ? textColorShade().reverse() : textColorShade(),
+            'text',
+          ),
+        )}
+
+        {renderColorShades(
+          undefined,
+          'bgLight',
+          colorShadesFromArray(getBgColors('light', colors.bgLight), 'bgLight'),
+        )}
+        {renderColorShades(
+          undefined,
+          'bgDark',
+          colorShadesFromArray(getBgColors('dark', colors.bgDark), 'bgDark'),
         )}
       </div>
     </div>
