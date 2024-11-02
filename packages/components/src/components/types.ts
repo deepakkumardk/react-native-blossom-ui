@@ -8,6 +8,9 @@ import {
   TextStyle,
   ViewStyle,
   PressableProps,
+  ViewProps,
+  DimensionValue,
+  ImageProps,
 } from 'react-native'
 import {TypographyOptions} from '../types'
 
@@ -120,4 +123,27 @@ export interface SwitchProps extends RNSwitchProps, BaseUIProps {
   labelStyle?: StyleProp<TextStyle>
   captionStyle?: StyleProp<TextStyle>
   errorStyle?: StyleProp<TextStyle>
+}
+
+export interface DividerProps extends ViewProps {
+  /**
+   * @default 100%
+   */
+  width?: DimensionValue
+  /**
+   * @default 0.6
+   */
+  height?: DimensionValue
+  /**
+   * @default background900
+   */
+  color?: string
+}
+
+export interface AvatarProps extends Partial<ImageProps>, OmitSizeProps {
+  size?: number | BlossomSize
+  mode?: 'circle' | 'round' | 'square'
+  initials?: string
+  initialStyle?: StyleProp<TextStyle>
+  icon?: (size: number) => ReactNode
 }

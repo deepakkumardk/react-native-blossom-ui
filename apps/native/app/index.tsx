@@ -1,10 +1,9 @@
 import React from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
 import {router} from 'expo-router'
-import {Text, useBlossomTheme, View} from '@react-native-blossom-ui/components'
+import {Divider, Text, View} from '@react-native-blossom-ui/components'
 
 export default function Page() {
-  const {colors} = useBlossomTheme()
   return (
     <View style={styles.container}>
       {dataList.map((item) => (
@@ -14,13 +13,7 @@ export default function Page() {
           style={styles.item}
           onPress={() => router.push(item.navigateTo)}>
           <Text typography="h6">{item.title}</Text>
-          <View
-            style={{
-              backgroundColor: colors.bgDark100,
-              height: 0.5,
-              marginVertical: 12,
-            }}
-          />
+          <Divider style={{marginVertical: 12}} />
         </TouchableOpacity>
       ))}
     </View>
@@ -57,5 +50,9 @@ const dataList = [
   {
     title: 'Switch',
     navigateTo: './SwitchScreen',
+  },
+  {
+    title: 'Avatar',
+    navigateTo: './AvatarScreen',
   },
 ]

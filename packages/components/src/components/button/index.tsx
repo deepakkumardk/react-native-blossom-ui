@@ -115,8 +115,6 @@ export default Button
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    paddingVertical: 14,
-    paddingHorizontal: 11, // 3 coming from below text style
     flexDirection: 'row',
     alignSelf: 'baseline',
     justifyContent: 'center',
@@ -132,15 +130,15 @@ const styles = StyleSheet.create({
 
 const sizeStyle = {
   small: {
-    paddingHorizontal: 7,
+    paddingHorizontal: 11,
     paddingVertical: 11,
   },
   medium: {
-    paddingHorizontal: 11, // 3 coming from below text style
+    paddingHorizontal: 14, // 3 coming from below text style
     paddingVertical: 14,
   },
   large: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 16,
     paddingVertical: 16,
   },
 }

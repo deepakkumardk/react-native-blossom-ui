@@ -10,6 +10,7 @@ const View = (props: ViewProps, ref: React.Ref<RNView>) => {
 
   return (
     <RNView
+      ref={ref}
       {...rest}
       style={[{backgroundColor: colors.background100}, rest.style]}
     />

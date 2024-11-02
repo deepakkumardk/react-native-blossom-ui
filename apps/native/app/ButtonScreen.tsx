@@ -19,6 +19,18 @@ export default function ButtonScreen() {
             </Button>
           ))}
         </View>
+        <View style={styles.row}>
+          {SIZE_LIST.map((value) => (
+            <Button
+              key={value}
+              size={value}
+              style={styles.button}
+              left={
+                <MaterialCommunityIcons name="plus" size={24} color="white" />
+              }
+            />
+          ))}
+        </View>
 
         <Heading>Modes</Heading>
 
