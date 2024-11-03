@@ -11,6 +11,7 @@ import {
   getTextColorName,
 } from '../utils'
 import Loader from '../loader'
+import {useMergedProps} from '../../common'
 
 const Button = (props: ButtonProps) => {
   const {
@@ -28,7 +29,7 @@ const Button = (props: ButtonProps) => {
     onPress,
     loaderStyle,
     ...rest
-  } = props
+  } = useMergedProps('Button', props)
 
   const {colors, isDark, options} = useBlossomTheme()
 

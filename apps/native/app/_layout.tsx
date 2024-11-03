@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {
   BlossomThemeProvider,
+  ComponentManager,
   useBlossomTheme,
 } from '@react-native-blossom-ui/components'
 import {Stack} from 'expo-router'
@@ -26,6 +27,20 @@ export default function Layout() {
 
 export const Container = () => {
   const {colors} = useBlossomTheme()
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+    ComponentManager.setDefaultProps({
+      Switch: {
+        size: 'small',
+        status: 'accent',
+      },
+      Avatar: {
+        size: 'large',
+        status: 'accent',
+      },
+    })
+  }, [])
 
   return (
     <Stack

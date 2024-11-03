@@ -7,6 +7,7 @@ import {getBorderColorName, getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
 import View from '../view'
 import {Text} from '../text'
+import {useMergedProps} from '../../common'
 
 /**
  * Avatar component to show profile images, icon & initials
@@ -20,7 +21,7 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
     status = 'primary',
     size = 'medium',
     ...rest
-  } = props
+  } = useMergedProps('Avatar', props)
 
   const {colors, isDark, options} = useBlossomTheme()
 

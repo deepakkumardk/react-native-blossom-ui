@@ -6,6 +6,7 @@ import {useBlossomTheme} from '../../context'
 import {BlossomSize, SwitchProps} from '../types'
 import View from '../view'
 import SizedText from '../text/SizedText'
+import {useMergedProps} from '../../common'
 
 const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
   const {
@@ -19,10 +20,10 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
     labelStyle,
     captionStyle,
     errorStyle,
-    status = 'primary',
+    status = 'accent',
     size = 'medium',
     ...rest
-  } = props
+  } = useMergedProps('Switch', props)
 
   const {colors, isDark} = useBlossomTheme()
 

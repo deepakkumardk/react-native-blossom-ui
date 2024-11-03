@@ -5,6 +5,7 @@ import {BlossomSize, LoaderProps} from '../types'
 
 import {getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
+import {useMergedProps} from '../../common'
 
 const newSize: Record<BlossomSize, number> = {
   small: 20,
@@ -13,14 +14,18 @@ const newSize: Record<BlossomSize, number> = {
 }
 
 const Loader = (props: LoaderProps) => {
-  const {visible = true, status = 'primary', size = 'medium', ...rest} = props
+  const {
+    visible = true,
+    status = 'primary',
+    size = 'medium',
+    ...rest
+  } = useMergedProps('Loader', props)
 
   const {colors, isDark} = useBlossomTheme()
 
   const getScale = useCallback(() => {
     if (Platform.OS === 'ios') {
       const scale = (typeof size === 'number' ? size : newSize[size]) / 20
-      console.log('getScale -> scale', scale)
       return scale
     }
     return 1

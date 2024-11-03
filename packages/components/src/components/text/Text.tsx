@@ -5,12 +5,13 @@ import {TextProps} from '../types'
 
 import {getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
+import {useMergedProps} from '../../common'
 
 /**
  * Text component extension of react-native text with default typography of b2
  */
 const Text = (props: TextProps, ref: React.Ref<RNText>) => {
-  const {typography = 'b2', ...rest} = props
+  const {typography = 'b2', ...rest} = useMergedProps('Text', props)
 
   const {colors, isDark, options} = useBlossomTheme()
 

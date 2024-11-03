@@ -3,9 +3,15 @@ import {View as RNView} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
 import {DividerProps} from '../types'
+import {useMergedProps} from '../../common'
 
 const Divider = (props: DividerProps, ref: React.Ref<RNView>) => {
-  const {width = '100%', height = 0.6, color, ...rest} = props
+  const {
+    width = '100%',
+    height = 0.6,
+    color,
+    ...rest
+  } = useMergedProps('Divider', props)
 
   const {colors} = useBlossomTheme()
 
