@@ -40,12 +40,16 @@ const dataList = [
     navigateTo: './ButtonScreen',
   },
   {
-    title: 'Loader',
-    navigateTo: './LoaderScreen',
+    title: 'ActivityIndicator',
+    navigateTo: './ActivityIndicatorScreen',
   },
   {
     title: 'TextInput',
     navigateTo: './TextInputScreen',
+  },
+  {
+    title: 'SearchInput',
+    navigateTo: './SearchInputScreen',
   },
   {
     title: 'Switch',
@@ -54,5 +58,9 @@ const dataList = [
   {
     title: 'Avatar',
     navigateTo: './AvatarScreen',
+  },
+  {
+    title: 'Icon',
+    navigateTo: './IconScreen',
   },
 ]

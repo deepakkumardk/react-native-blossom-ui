@@ -10,7 +10,7 @@ import {
   getStatusColorName,
   getTextColorName,
 } from '../utils'
-import Loader from '../loader'
+import ActivityIndicator from '../loader'
 import {useMergedProps} from '../../common'
 
 const Button = (props: ButtonProps) => {
@@ -82,7 +82,7 @@ const Button = (props: ButtonProps) => {
           : {},
       ]}
       onPress={isLoading || disabled ? undefined : onPress}>
-      <Loader visible={isLoading} size={16} {...loaderStyle} />
+      <ActivityIndicator visible={isLoading} size={16} {...loaderStyle} />
       {left}
       {children || text ? (
         <Text

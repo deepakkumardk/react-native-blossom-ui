@@ -1,19 +1,13 @@
 import React, {useCallback} from 'react'
-import {ActivityIndicator, Platform} from 'react-native'
+import {ActivityIndicator as RNActivityIndicator, Platform} from 'react-native'
 
-import {BlossomSize, LoaderProps} from '../types'
+import {BlossomSize, ActivityIndicatorProps} from '../types'
 
 import {getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
 import {useMergedProps} from '../../common'
 
-const newSize: Record<BlossomSize, number> = {
-  small: 20,
-  medium: 28,
-  large: 36,
-}
-
-const Loader = (props: LoaderProps) => {
+const ActivityIndicator = (props: ActivityIndicatorProps) => {
   const {
     visible = true,
     status = 'primary',
@@ -25,20 +19,20 @@ const Loader = (props: LoaderProps) => {
 
   const getScale = useCallback(() => {
     if (Platform.OS === 'ios') {
-      const scale = (typeof size === 'number' ? size : newSize[size]) / 20
+      const scale = (typeof size === 'number' ? size : sizeMap[size]) / 20
       return scale
     }
     return 1
   }, [size])
 
   return visible ? (
-    <ActivityIndicator
+    <RNActivityIndicator
       {...rest}
       color={rest.color || colors[getStatusColorName(status, isDark)]}
       size={
         // Platform.OS === 'android'
         //   ?
-        typeof size === 'number' ? size : newSize[size]
+        typeof size === 'number' ? size : sizeMap[size]
         // : 'small'
       }
       style={[
@@ -52,4 +46,10 @@ const Loader = (props: LoaderProps) => {
   ) : null
 }
 
-export default Loader
+export default ActivityIndicator
+
+const sizeMap: Record<BlossomSize, number> = {
+  small: 20,
+  medium: 28,
+  large: 36,
+}

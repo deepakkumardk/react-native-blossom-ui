@@ -19,6 +19,8 @@ export default function ButtonScreen() {
             </Button>
           ))}
         </View>
+        <Heading>Icon Button</Heading>
+
         <View style={styles.row}>
           {SIZE_LIST.map((value) => (
             <Button
@@ -26,8 +28,19 @@ export default function ButtonScreen() {
               size={value}
               style={styles.button}
               left={
-                <MaterialCommunityIcons name="plus" size={24} color="white" />
+                <MaterialCommunityIcons name="plus" size={16} color="white" />
               }
+            />
+          ))}
+        </View>
+        <View style={styles.row}>
+          {BUTTON_MODES.map((value) => (
+            <Button
+              key={value}
+              mode={value}
+              status="warning"
+              style={styles.button}
+              left={<MaterialCommunityIcons name="plus" size={16} />}
             />
           ))}
         </View>
@@ -79,13 +92,6 @@ export default function ButtonScreen() {
             style={styles.button}>
             Loading...
           </Button>
-          <Button
-            left={
-              <MaterialCommunityIcons name="plus" size={24} color="white" />
-            }
-            status="success"
-            style={styles.button}
-          />
         </View>
         <Button
           disabled

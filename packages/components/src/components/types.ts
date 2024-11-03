@@ -11,6 +11,7 @@ import {
   ViewProps,
   DimensionValue,
   ImageProps,
+  ColorValue,
 } from 'react-native'
 import {TypographyOptions} from '../types'
 
@@ -66,10 +67,10 @@ export interface ButtonProps extends PressableProps, BaseUIProps {
   /**
    * Loader style
    */
-  loaderStyle?: LoaderProps
+  loaderStyle?: ActivityIndicatorProps
 }
 
-export interface LoaderProps
+export interface ActivityIndicatorProps
   extends Omit<RNActivityIndicatorProps, 'size'>,
     Omit<BaseUIProps, 'size'> {
   /**
@@ -111,6 +112,12 @@ export interface TextInputProps
   mode?: TextInputMode
 }
 
+export interface SearchInputProps extends TextInputProps {
+  withClearIcon?: boolean
+  onQueryChange?: (query: string) => void
+  debounceDelay?: number
+}
+
 export interface SwitchProps extends RNSwitchProps, BaseUIProps {
   color?: string
   label?: string
@@ -146,4 +153,22 @@ export interface AvatarProps extends Partial<ImageProps>, OmitSizeProps {
   initials?: string
   initialStyle?: StyleProp<TextStyle>
   icon?: (size: number) => ReactNode
+}
+
+export interface IconProps extends TextProps, OmitSizeProps {
+  /**
+   * Size of the icon, can also be passed as fontSize in the style object.
+   * @default 12
+   */
+  size?: number | undefined
+
+  /**
+   * Name of the icon to show
+   */
+  name: string
+
+  /**
+   * Color of the icon
+   */
+  color?: ColorValue | number
 }
