@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View, Switch} from '@react-native-blossom-ui/components'
+import {View, Radio} from '@react-native-blossom-ui/components'
 
 import {SIZE_LIST, STATUS_LIST} from '../lib/constants'
 import {Heading} from '../components'
 
-export default function SwitchScreen() {
+export default function RadioScreen() {
   const [isOn, setIsOn] = useState(false)
 
   return (
@@ -13,7 +13,7 @@ export default function SwitchScreen() {
       <ScrollView>
         <Heading>Sizes</Heading>
         {SIZE_LIST.map((size) => (
-          <Switch
+          <Radio
             key={size}
             label={size}
             caption={size}
@@ -21,14 +21,13 @@ export default function SwitchScreen() {
             size={size}
             value={isOn}
             onValueChange={setIsOn}
-            containerStyle={styles.switchContainer}
+            containerStyle={styles.itemContainer}
           />
         ))}
 
         <Heading>Statuses</Heading>
-
         {STATUS_LIST.map((status) => (
-          <Switch
+          <Radio
             key={status}
             label={status}
             caption={status}
@@ -36,21 +35,36 @@ export default function SwitchScreen() {
             status={status}
             value={isOn}
             onValueChange={setIsOn}
-            containerStyle={styles.switchContainer}
+            containerStyle={styles.itemContainer}
           />
         ))}
 
         <Heading>Custom</Heading>
-        <Switch
-          label="Switch next to label"
+
+        <Radio
+          label="Intermediate"
+          value={isOn}
+          onValueChange={setIsOn}
+          containerStyle={styles.itemContainer}
+          intermediate
+        />
+        <Radio
+          label="Disabled"
+          value={isOn}
+          onValueChange={setIsOn}
+          containerStyle={styles.itemContainer}
+          disabled
+        />
+        <Radio
+          label="Checkbox next to label"
           value={isOn}
           onValueChange={setIsOn}
           labelStyle={styles.label}
           size="small"
-          containerStyle={[styles.switchContainer, {justifyContent: undefined}]}
+          containerStyle={[styles.itemContainer, {justifyContent: undefined}]}
         />
 
-        <Switch
+        <Radio
           label="Agree to T&C"
           caption="Click here to see Privacy Policy"
           status="info"
@@ -69,7 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  switchContainer: {
+  itemContainer: {
     marginVertical: 4,
   },
   label: {

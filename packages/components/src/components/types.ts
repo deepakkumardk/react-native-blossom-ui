@@ -118,20 +118,6 @@ export interface SearchInputProps extends TextInputProps {
   debounceDelay?: number
 }
 
-export interface SwitchProps extends RNSwitchProps, BaseUIProps {
-  color?: string
-  label?: string
-  caption?: string
-  error?: string
-  position?: 'left' | 'right'
-
-  containerStyle?: StyleProp<ViewStyle>
-
-  labelStyle?: StyleProp<TextStyle>
-  captionStyle?: StyleProp<TextStyle>
-  errorStyle?: StyleProp<TextStyle>
-}
-
 export interface DividerProps extends ViewProps {
   /**
    * @default 100%
@@ -172,3 +158,35 @@ export interface IconProps extends TextProps, OmitSizeProps {
    */
   color?: ColorValue | number
 }
+
+/**
+ * Start of Form Fields Components
+ */
+
+export interface BaseBooleanFieldProps extends BaseUIProps, Children {
+  color?: string
+  label?: string
+  caption?: string
+  error?: string
+  position?: 'left' | 'right'
+
+  containerStyle?: StyleProp<ViewStyle>
+
+  labelStyle?: StyleProp<TextStyle>
+  captionStyle?: StyleProp<TextStyle>
+  errorStyle?: StyleProp<TextStyle>
+}
+
+export interface SwitchProps extends RNSwitchProps, BaseBooleanFieldProps {}
+
+export interface CheckboxProps extends BaseBooleanFieldProps {
+  value?: boolean
+  intermediate?: boolean
+  onValueChange?: ((value: boolean) => Promise<void> | void) | null
+  disabled?: boolean
+  style?: StyleProp<ViewStyle>
+}
+
+/**
+ * End of Form Fields Components
+ */

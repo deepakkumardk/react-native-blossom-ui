@@ -56,6 +56,14 @@ const dataList = [
     navigateTo: './SwitchScreen',
   },
   {
+    title: 'Checkbox',
+    navigateTo: './CheckboxScreen',
+  },
+  {
+    title: 'Radio',
+    navigateTo: './RadioScreen',
+  },
+  {
     title: 'Avatar',
     navigateTo: './AvatarScreen',
   },
