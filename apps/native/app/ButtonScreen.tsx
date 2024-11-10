@@ -1,9 +1,7 @@
 import React from 'react'
 import {Alert, ScrollView, StyleSheet} from 'react-native'
 
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
-
-import {Text, View, Button} from '@react-native-blossom-ui/components'
+import {Text, View, Button, Icon} from '@react-native-blossom-ui/components'
 import {BUTTON_MODES, SIZE_LIST, STATUS_LIST} from '../lib/constants'
 import {Heading} from '../components'
 
@@ -19,93 +17,109 @@ export default function ButtonScreen() {
             </Button>
           ))}
         </View>
-        <Heading>Icon Button</Heading>
 
-        <View style={styles.row}>
-          {SIZE_LIST.map((value) => (
-            <Button
-              key={value}
-              size={value}
-              style={styles.button}
-              left={
-                <MaterialCommunityIcons name="plus" size={16} color="white" />
-              }
-            />
-          ))}
-        </View>
-        <View style={styles.row}>
-          {BUTTON_MODES.map((value) => (
-            <Button
-              key={value}
-              mode={value}
-              status="warning"
-              style={styles.button}
-              left={<MaterialCommunityIcons name="plus" size={16} />}
-            />
-          ))}
-        </View>
+        <Heading>Icon & Modes</Heading>
+        {BUTTON_MODES.map((modeValue) => (
+          <View key={modeValue} style={styles.row}>
+            {SIZE_LIST.map((value) => (
+              <Button
+                key={value}
+                size={value}
+                mode={modeValue}
+                style={[styles.button]}
+                // disabled
+                // isLoading
+                left={<Icon name="add" size={16} />}
+              />
+            ))}
+          </View>
+        ))}
 
-        <Heading>Modes</Heading>
+        <Heading>Modes & Sizes</Heading>
 
-        <View style={styles.row}>
-          {BUTTON_MODES.map((value) => (
-            <Button key={value} mode={value} style={styles.button}>
-              {value}
-            </Button>
-          ))}
-        </View>
-        <View style={styles.row}>
-          {BUTTON_MODES.map((value) => (
-            <Button
-              key={value}
-              mode={value}
-              status="error"
-              style={styles.button}>
-              {value}
-            </Button>
-          ))}
-        </View>
+        {BUTTON_MODES.map((modeValue) => (
+          <View key={modeValue} style={styles.row}>
+            {SIZE_LIST.map((sizeValue) => (
+              <Button
+                key={modeValue + sizeValue}
+                size={sizeValue}
+                mode={modeValue}
+                style={styles.button}>
+                {modeValue}
+              </Button>
+            ))}
+          </View>
+        ))}
+
         <Heading>Statuses</Heading>
 
-        {STATUS_LIST.map((value) => (
-          <Button key={value} status={value} style={styles.button}>
-            {value}
-          </Button>
-        ))}
-        <Heading>Custom</Heading>
+        <View style={styles.row}>
+          {BUTTON_MODES.map((value) => (
+            <Heading key={value}>{value}</Heading>
+          ))}
+        </View>
 
+        {STATUS_LIST.map((status) => (
+          <View key={status} style={styles.row}>
+            {BUTTON_MODES.map((modeValue) => (
+              <Button
+                key={modeValue}
+                mode={modeValue}
+                status={status}
+                size="small"
+                style={styles.button}>
+                {status}
+              </Button>
+            ))}
+          </View>
+        ))}
+
+        <Heading>Disabled</Heading>
+
+        {STATUS_LIST.map((status) => (
+          <View key={status} style={styles.row}>
+            {BUTTON_MODES.map((modeValue) => (
+              <Button
+                key={modeValue}
+                mode={modeValue}
+                status={status}
+                size="small"
+                disabled
+                style={styles.button}>
+                {status}
+              </Button>
+            ))}
+          </View>
+        ))}
+
+        <Heading>Custom</Heading>
         <Button
           loaderStyle={{
-            color: 'red',
+            color: 'black',
           }}
+          isLoading
+          left={<Icon name="add" size={24} color="white" />}
+          right={<Icon name="add" size={24} color="white" />}
           style={[styles.button, {width: '100%', backgroundColor: 'green'}]}
           onPress={() => Alert.alert('Hello')}>
-          Prefix <Text status="error">Custom Button</Text> Suffix
+          Prefix <Text status="error">Text Children</Text> Suffix
         </Button>
 
         <View style={styles.row}>
-          <Button
-            isLoading
-            loaderStyle={{
-              color: 'white',
-            }}
-            style={styles.button}>
+          <Button isLoading style={styles.button}>
             Loading...
           </Button>
         </View>
-        <Button
-          disabled
-          left={
-            <MaterialCommunityIcons name="cancel" size={24} color="white" />
-          }
-          right={
-            <MaterialCommunityIcons name="cancel" size={24} color="white" />
-          }
-          style={styles.button}
-          status="success"
-          onPress={() => Alert.alert('Hello')}>
-          Disabled Button
-        </Button>
+        <View style={styles.row}>
+          {BUTTON_MODES.map((value) => (
+            <Button
+              key={value}
+              mode={value}
+              style={[styles.button, {backgroundColor: 'cyan'}]}
+              left={<Icon name="add" size={16} color="white" />}
+            />
+          ))}
+        </View>
       </ScrollView>
     </View>
   )

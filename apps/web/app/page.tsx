@@ -8,11 +8,12 @@ import chroma from 'chroma-js'
 
 import styles from '../styles/index.module.css'
 import {
-  colorShadesFromArray,
-  colorShadesWithName,
+  shadesArrayToObject,
+  getColorShadesWithName,
   getBgColors,
   getTextColor,
   textColorShade,
+  generateColorShades,
 } from './utils'
 import {ColorPicker} from './components/ColorPicker'
 
@@ -44,7 +45,7 @@ export default function Web() {
     if (!inputColor && !Object.keys(data).length) return null
     let colorsData = data
     if (!Object.keys(data).length) {
-      colorsData = colorShadesWithName(inputColor, name)
+      colorsData = getColorShadesWithName(inputColor, name)
     }
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [showColorPicker, setShowColorPicker] = useState(false)
@@ -173,7 +174,7 @@ export default function Web() {
         {renderColorShades(
           undefined,
           'background',
-          colorShadesFromArray(
+          shadesArrayToObject(
             isDark ? textColorShade().reverse() : textColorShade(),
             'background',
           ),
@@ -181,7 +182,7 @@ export default function Web() {
         {renderColorShades(
           undefined,
           'text',
-          colorShadesFromArray(
+          shadesArrayToObject(
             !isDark ? textColorShade().reverse() : textColorShade(),
             'text',
           ),
@@ -190,12 +191,12 @@ export default function Web() {
         {renderColorShades(
           undefined,
           'bgLight',
-          colorShadesFromArray(getBgColors('light', colors.bgLight), 'bgLight'),
+          shadesArrayToObject(getBgColors('light', colors.bgLight), 'bgLight'),
         )}
         {renderColorShades(
           undefined,
           'bgDark',
-          colorShadesFromArray(getBgColors('dark', colors.bgDark), 'bgDark'),
+          shadesArrayToObject(getBgColors('dark', colors.bgDark), 'bgDark'),
         )}
       </div>
     </div>

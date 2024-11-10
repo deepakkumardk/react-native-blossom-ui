@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import {
   BlossomThemeProvider,
+  Button,
   ComponentManager,
+  Icon,
   useBlossomTheme,
 } from '@react-native-blossom-ui/components'
 import {Stack} from 'expo-router'
@@ -21,6 +23,17 @@ export default function Layout() {
       options={options}>
       <Container />
       <StatusBar style={isDark ? 'light' : 'dark'} />
+      <Icon
+        name="contrast"
+        size={40}
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          end: 0,
+          padding: 40,
+        }}
+        onPress={() => setIsDark((prev) => !prev)}
+      />
     </BlossomThemeProvider>
   )
 }

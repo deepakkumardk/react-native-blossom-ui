@@ -27,18 +27,12 @@ const ActivityIndicator = (props: ActivityIndicatorProps) => {
 
   return visible ? (
     <RNActivityIndicator
+      color={colors[getStatusColorName(status, isDark)]}
       {...rest}
-      color={rest.color || colors[getStatusColorName(status, isDark)]}
-      size={
-        // Platform.OS === 'android'
-        //   ?
-        typeof size === 'number' ? size : sizeMap[size]
-        // : 'small'
-      }
+      size={typeof size === 'number' ? size : sizeMap[size]}
       style={[
         {
           transform: [{scaleX: getScale()}, {scaleY: getScale()}],
-          padding: 6,
         },
         rest.style,
       ]}

@@ -49,17 +49,14 @@ const Checkbox = (props: CheckboxProps) => {
           styles.checkbox,
           style,
         ]}
-        onPress={() => !disabled && onValueChange?.(!value)}>
+        onPress={() =>
+          !disabled && onValueChange?.(intermediate ? true : !value)
+        }>
         {value || intermediate ? (
           <Icon
             name={getIconName()}
             size={sizeMap[size]}
-            onLayout={(e) => {
-              console.log(e.nativeEvent.layout)
-            }}
-            // onPress={() => onValueChange?.(!value)}
-            // color={colors[getTextColorName(getBgColor(), isDark)]}
-            // color={getBgColor()}
+            color={colors.bgLight100}
           />
         ) : null}
       </Pressable>

@@ -1,86 +1,109 @@
 import chroma from 'chroma-js'
 
-const SHADES_COUNT = 12
-const size = Math.floor(SHADES_COUNT / 2)
+const SHADES_COUNT = 10
+// const FILTER_INDEX = [0, 1, 3, 5, 7]
+// 100 to 900
+const FILTER_INDEX = [0, 2, 4, 7]
+const BG_SHADES_COUNT = 9
 
-export const generateColorShades = (inputColor: string) => {
-  const firstColor = chroma(inputColor)
-    // @ts-ignore
-    .tint(6 * 0.12)
-    .hex()
+// 100 to 700
+// const SHADES_COUNT = 10
+// const FILTER_INDEX = [1, 4, 7]
+// const BG_SHADES_COUNT = 7
 
-  const lastColor = chroma(inputColor)
-    // @ts-ignore
-    .shade(7 * 0.12)
-    .hex()
+const SIZE = Math.floor(BG_SHADES_COUNT / 2)
 
-  const lowerShades = chroma
-    .bezier([firstColor, inputColor])
+const getTintColors = (inputColor: string) => {
+  return Array(SHADES_COUNT)
+    .fill(0)
+    .map((_, i) =>
+      chroma(inputColor)
+        // @ts-ignore
+        .tint((i + 1) / SHADES_COUNT)
+        .hex(),
+    )
+}
+
+const getShadeColors = (inputColor: string) => {
+  return Array(SHADES_COUNT)
+    .fill(0)
+    .map((_, i) =>
+      chroma(inputColor)
+        // @ts-ignore
+        .shade((i + 1) / SHADES_COUNT)
+        .hex(),
+    )
+}
+
+export const generateColorShades = (
+  inputColor: string,
+  filterIndex = FILTER_INDEX,
+) => {
+  const lowerShades = getTintColors(inputColor)
+    .filter((_, i) => (filterIndex?.length ? filterIndex?.includes(i) : true))
+    .reverse()
+
+  if (filterIndex.length) {
+    lowerShades[0] = chroma(inputColor).alpha(0.1).hex()
+    lowerShades[1] = chroma(inputColor).alpha(0.25).hex()
+  }
+
+  const higherShades = getShadeColors(inputColor).filter((_, i) =>
+    filterIndex?.length ? filterIndex?.includes(i) : true,
+  )
+
+  return [...lowerShades, inputColor.toLowerCase(), ...higherShades]
+}
+
+export const generateColorShadesBetween = (
+  startColor: string,
+  midColor: string,
+  endColor: string,
+) => {
+  const lightShades = chroma
+    .bezier([startColor, midColor])
     .scale()
-    .mode('hcl')
-    .colors(6)
+    .mode('lab')
+    .colors(SIZE)
 
-  const higherShades = chroma
-    .scale([inputColor, lastColor])
-    .mode('hcl')
-    .colors(size)
+  const darkShades = chroma.scale([midColor, endColor]).mode('lab').colors(SIZE)
 
-  return [...lowerShades.slice(0, -1), ...higherShades]
+  return [...lightShades.slice(0, -1), ...darkShades]
 }
 
 export function textColorShade(inputColor = 'gray') {
-  const firstColor = 'white'
-  const lastColor = 'black'
-
-  const lightShades = chroma
-    .bezier([firstColor, inputColor])
-    .scale()
+  return chroma
+    .scale(['white', inputColor, 'black'])
     .mode('lab')
-    .colors(size)
-
-  const darkShades = chroma
-    .scale([inputColor, lastColor])
-    .mode('lab')
-    .colors(size)
-
-  return [...lightShades.slice(0, -1), ...darkShades]
+    .colors(BG_SHADES_COUNT)
 }
 
 export const getTextColor = (color?: string) => {
   if (!color) return 'black'
   const lum = chroma(color).luminance()
-  return lum < 0.4 ? 'white' : 'black'
+  return lum < 0.2 ? 'white' : 'black'
 }
 
-export function colorShadesWithName(color?: string, name?: string) {
+export function getColorShadesWithName(color?: string, name?: string) {
   let obj = {}
   if (!color) return obj
-  const shadeColors = generateColorShades(color)
-    // .reverse()
+
+  return shadesArrayToObject(generateColorShades(color), name ?? '')
+}
+
+export function shadesArrayToObject(array: string[], name: string) {
+  let obj = {}
+
+  array
     .map((value, i) => ({
       [`${name}${(i + 1) * 100}`]: value,
     }))
-  shadeColors.forEach((item) => {
-    obj = {
-      ...obj,
-      ...item,
-    }
-  })
-
-  return obj
-}
-
-export function colorShadesFromArray(array: string[], name: string) {
-  let obj = {}
-  const shadeColors = array.map((value, i) => ({
-    [`${name}${(i + 1) * 100}`]: value,
-  }))
-  shadeColors.forEach((item) => {
-    obj = {
-      ...obj,
-      ...item,
-    }
-  })
+    .forEach((item) => {
+      obj = {
+        ...obj,
+        ...item,
+      }
+    })
 
   return obj
 }
@@ -93,7 +116,7 @@ export function getBgColors(mode: 'light' | 'dark', surfaceColor?: string) {
     .bezier([firstColor, lastColor])
     .scale()
     .mode('lab')
-    .colors(SHADES_COUNT - 1)
+    .colors(BG_SHADES_COUNT)
 
   return shades
 }

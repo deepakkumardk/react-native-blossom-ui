@@ -14,7 +14,7 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
     label,
     placeholder,
     caption,
-    error = '',
+    error,
     labelStyle,
     placeholderStyle,
     captionStyle,
@@ -41,7 +41,7 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
         <SizedText
           size={size}
           status={error ? 'error' : undefined}
-          style={[{color: colors.background800}, labelStyle]}>
+          style={[!error && {color: colors.background800}, labelStyle]}>
           {label}
         </SizedText>
       ) : null}
@@ -73,15 +73,15 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
         {left}
         <RNTextInput
           ref={ref}
+          placeholderTextColor={colors.background600} // TODO
           {...rest}
           placeholder={placeholder}
-          placeholderTextColor={colors.background600}
           editable={!disabled}
           style={[
             styles.inputText,
             textInputSizeStyle[size].inputText,
             {
-              color: colors.background1100,
+              color: colors.text100,
             },
             left ? styles.leftMargin : {},
             textStyle,

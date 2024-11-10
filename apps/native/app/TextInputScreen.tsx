@@ -31,14 +31,14 @@ export default function TextInputScreen() {
             <MaterialCommunityIcons
               name="cancel"
               size={24}
-              color={colors.background1000}
+              color={colors.background800}
             />
           }
           right={
             <MaterialCommunityIcons
               name="account"
               size={24}
-              color={colors.background1000}
+              color={colors.background800}
             />
           }
         />

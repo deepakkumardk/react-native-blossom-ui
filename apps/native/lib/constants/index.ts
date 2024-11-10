@@ -15,4 +15,9 @@ export const STATUS_LIST: BlossomStatus[] = [
 
 export const SIZE_LIST: BlossomSize[] = ['small', 'medium', 'large']
 
-export const BUTTON_MODES: ButtonMode[] = ['filled', 'outlined', 'text']
+export const BUTTON_MODES: ButtonMode[] = [
+  'filled',
+  'tinted',
+  'outlined',
+  'plain',
+]

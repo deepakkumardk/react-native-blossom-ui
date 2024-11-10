@@ -42,13 +42,6 @@ export default function RadioScreen() {
         <Heading>Custom</Heading>
 
         <Radio
-          label="Intermediate"
-          value={isOn}
-          onValueChange={setIsOn}
-          containerStyle={styles.itemContainer}
-          intermediate
-        />
-        <Radio
           label="Disabled"
           value={isOn}
           onValueChange={setIsOn}
@@ -82,6 +75,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    paddingBottom: 64,
   },
   itemContainer: {
     marginVertical: 4,

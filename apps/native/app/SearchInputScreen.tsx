@@ -32,7 +32,7 @@ export default function SearchInputScreen() {
             <MaterialCommunityIcons
               name="magnify"
               size={24}
-              color={colors.background1000}
+              color={colors.background800}
             />
           }
         />

@@ -37,8 +37,7 @@ const Radio = (props: CheckboxProps) => {
       <MaterialCommunityIcons
         name={getIconName()}
         size={sizeMap[size]}
-        onPress={() => !disabled && !value && onValueChange?.(!value)}
-        // color={colors[getTextColorName(getBgColor(), isDark)]}
+        {...(!disabled && !value && {onPress: () => onValueChange?.(!value)})}
         color={getBgColor()}
       />
     </BaseBooleanField>

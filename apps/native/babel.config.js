@@ -8,6 +8,10 @@ module.exports = function (api) {
       '@babel/preset-flow',
       'module:metro-react-native-babel-preset',
     ],
-    plugins: ['expo-router/babel'],
+    plugins: [
+      'expo-router/babel',
+      // '@babel/plugin-proposal-export-namespace-from',
+      // 'react-native-reanimated/plugin',
+    ],
   }
 }

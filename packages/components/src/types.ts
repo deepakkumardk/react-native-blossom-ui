@@ -13,8 +13,8 @@ export type ColorVariants =
   | '700'
   | '800'
   | '900'
-  | '1000'
-  | '1100'
+// | '1000'
+// | '1100'
 
 export type ColorNames =
   | 'primary'
