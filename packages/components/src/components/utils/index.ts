@@ -3,14 +3,14 @@ import {ColorValue, StyleProp, TextStyle, ViewStyle} from 'react-native'
 import chroma from 'chroma-js'
 
 import {BlossomThemeColors, ColorVariants} from '../../types'
-import {BlossomStatus} from '../types'
+import {BlossomStatus, ButtonMode} from '../types'
 
 export const getStatusColorName = (
   status?: BlossomStatus,
   isDark?: boolean,
-  colorVariant: ColorVariants = '600',
+  colorVariant: ColorVariants = '500',
 ) => {
-  if (!status) return 'background1100'
+  if (!status) return 'background900'
   // TODO if shades count changes change it
   const color = `${status}${colorVariant}` as keyof BlossomThemeColors
 
@@ -20,7 +20,7 @@ export const getStatusColorName = (
 export const getBorderColorName = (
   status?: BlossomStatus,
   isDark?: boolean,
-  colorVariant: ColorVariants = '600',
+  colorVariant: ColorVariants = '500',
 ) => {
   if (!status) return 'background900'
   // TODO if shades count changes change it
@@ -35,14 +35,26 @@ export const getBorderColorName = (
 export const getTextColorName = (
   color?: string | ColorValue,
   isDark?: boolean,
-) => {
+  isDisabled?: boolean,
+  mode: ButtonMode = 'filled',
+): keyof BlossomThemeColors => {
   if (!color) return 'text100'
+
+  if (isDisabled) {
+    const modeColorMap: Record<ButtonMode, keyof BlossomThemeColors> = {
+      filled: 'text500',
+      tinted: 'text500',
+      outlined: 'text600',
+      plain: 'text600',
+    }
+    return modeColorMap[mode]
+  }
 
   const lum = chroma(color as string).luminance()
   if (isDark) {
-    return lum < 0.4 ? 'text100' : 'text1100'
+    return lum < 0.4 ? 'text100' : 'text900'
   }
-  return lum < 0.4 ? 'text1100' : 'text100'
+  return lum < 0.4 ? 'text900' : 'text100'
 }
 
 export const getFlatStyle = (
@@ -66,14 +78,8 @@ export const getFlatStyle = (
   return style as ViewStyle | TextStyle
 }
 
-export const getPressedColor = (color?: string | ColorValue) => {
-  if (!color) return undefined
-
-  return chroma(color as string)
-    .alpha(0.8)
-    .hex()
-}
-
 export const isColor = (color?: unknown) => {
   return chroma.valid(color)
 }
+
+export * from './colorUtils'

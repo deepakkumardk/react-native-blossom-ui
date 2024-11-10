@@ -2,17 +2,21 @@ import React, {useCallback, useMemo} from 'react'
 import {Pressable, StyleSheet} from 'react-native'
 
 import {TypographyOptions, useBlossomTheme} from '../../context'
-import {BlossomSize, ButtonProps} from '../types'
+import {BlossomSize, ButtonMode, ButtonProps} from '../types'
 import Text from '../text/Text'
 import {
+  getAlphaColor,
+  getDarkenColor,
   getFlatStyle,
-  getPressedColor,
   getStatusColorName,
   getTextColorName,
 } from '../utils'
 import ActivityIndicator from '../loader'
 import {useMergedProps} from '../../common'
 
+/**
+ * Standard Button component with multiple customizations
+ */
 const Button = (props: ButtonProps) => {
   const {
     text,
@@ -34,19 +38,41 @@ const Button = (props: ButtonProps) => {
   const {colors, isDark, options} = useBlossomTheme()
 
   const getButtonColor = useCallback(() => {
-    if (disabled) return colors.bgDark100
-
-    if (mode === 'filled') {
-      return colors[getStatusColorName(status, isDark)]
+    const modeColorMap: Record<
+      ButtonMode,
+      {
+        true: string
+        false: string
+      }
+    > = {
+      filled: {
+        true: colors.background300,
+        false: colors[getStatusColorName(status, isDark)],
+      },
+      tinted: {
+        true: colors.background200,
+        false: colors[getStatusColorName(status, isDark, '200')],
+      },
+      outlined: {
+        true: colors.background100,
+        false: colors.background100,
+      },
+      plain: {
+        true: colors.background100,
+        false: colors.background100,
+      },
     }
-    return colors.background100
+
+    return modeColorMap[mode][disabled ? 'true' : 'false']
   }, [mode, disabled, status, colors, isDark])
 
   const containerStyle = useMemo(
     () => [
       {
         backgroundColor: getButtonColor(),
-        borderColor: colors[getStatusColorName(status, isDark)],
+        borderColor: disabled
+          ? colors.background400
+          : colors[getStatusColorName(status, isDark, '300')],
         borderRadius: options?.borderRadius,
       },
       mode === 'outlined' ? styles.outlinedButton : {},
@@ -56,6 +82,7 @@ const Button = (props: ButtonProps) => {
     ],
     [
       colors,
+      disabled,
       getButtonColor,
       isDark,
       mode,
@@ -66,6 +93,44 @@ const Button = (props: ButtonProps) => {
     ],
   )
 
+  const getPressedColor = useCallback(() => {
+    const bgColor = getFlatStyle(containerStyle)?.backgroundColor
+    const buttonColor = getButtonColor()
+
+    let color = colors[`${status}700`]
+
+    if (mode === 'filled') {
+      color = colors[`${status}700`]
+    } else if (mode === 'tinted') {
+      color = colors[`${status}100`]
+    } else {
+      color = colors[`${status}${isDark ? '200' : '100'}`]
+    }
+
+    if (bgColor !== buttonColor) {
+      if (mode === 'filled') {
+        color = getDarkenColor(bgColor as string, 0.8)
+      } else {
+        color = getAlphaColor(bgColor as string, 0.5)
+      }
+    }
+
+    return color
+  }, [colors, containerStyle, getButtonColor, isDark, mode, status])
+
+  const getTextColor = useCallback(() => {
+    return disabled || mode === 'filled'
+      ? colors[
+          getTextColorName(
+            getFlatStyle(containerStyle)?.backgroundColor,
+            isDark,
+            disabled,
+            mode,
+          )
+        ]
+      : colors[getStatusColorName(status, isDark)]
+  }, [colors, containerStyle, disabled, isDark, mode, status])
+
   return (
     <Pressable
       {...rest}
@@ -73,31 +138,25 @@ const Button = (props: ButtonProps) => {
         containerStyle,
         pressed && !isLoading && !disabled
           ? {
-              backgroundColor: getPressedColor(
-                mode === 'filled'
-                  ? getFlatStyle(containerStyle)?.backgroundColor
-                  : colors[getStatusColorName(status, isDark, '100')],
-              ),
+              backgroundColor: getPressedColor(),
             }
           : {},
       ]}
       onPress={isLoading || disabled ? undefined : onPress}>
-      <ActivityIndicator visible={isLoading} size={16} {...loaderStyle} />
+      <ActivityIndicator
+        visible={isLoading}
+        size={16}
+        style={styles.loader}
+        color={getTextColor()}
+        {...loaderStyle}
+      />
       {left}
       {children || text ? (
         <Text
           typography={sizeMap[size]}
           style={[
             {
-              color:
-                mode === 'filled'
-                  ? colors[
-                      getTextColorName(
-                        getFlatStyle(containerStyle)?.backgroundColor,
-                        isDark,
-                      )
-                    ]
-                  : colors[getStatusColorName(status, isDark)],
+              color: getTextColor(),
             },
             styles.text,
             textStyle,
@@ -125,22 +184,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
   outlinedButton: {
-    borderWidth: 1.5,
+    borderWidth: 1,
+  },
+  loader: {
+    paddingHorizontal: 4,
   },
 })
 
 const sizeStyle = {
   small: {
-    paddingHorizontal: 11,
-    paddingVertical: 11,
+    paddingHorizontal: 9,
+    paddingVertical: 10,
   },
   medium: {
-    paddingHorizontal: 14, // 3 coming from below text style
+    paddingHorizontal: 13, // 3 coming from below text style
     paddingVertical: 14,
   },
   large: {
     paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingVertical: 15,
   },
 }
 

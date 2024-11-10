@@ -50,10 +50,13 @@ export interface TextProps extends RNTextProps, OmitSizeProps {
 }
 
 export interface SizedTextProps extends TextProps, BaseUIProps {
+  /**
+   * @default label
+   */
   mode?: 'label' | 'caption'
 }
 
-export type ButtonMode = 'filled' | 'outlined' | 'text'
+export type ButtonMode = 'filled' | 'tinted' | 'outlined' | 'plain'
 
 export interface ButtonProps extends PressableProps, BaseUIProps {
   text?: string
