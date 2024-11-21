@@ -8,7 +8,7 @@ import {
   TextStyle,
   ViewStyle,
   PressableProps,
-  ViewProps,
+  ViewProps as RNViewProps,
   DimensionValue,
   ImageProps,
   ColorValue,
@@ -54,6 +54,10 @@ export interface SizedTextProps extends TextProps, BaseUIProps {
    * @default label
    */
   mode?: 'label' | 'caption'
+}
+
+export interface ViewProps extends RNViewProps {
+  row?: boolean
 }
 
 export type ButtonMode = 'filled' | 'tinted' | 'outlined' | 'plain'
@@ -139,12 +143,35 @@ export interface DividerProps extends ViewProps {
 export interface AvatarProps extends Partial<ImageProps>, OmitSizeProps {
   size?: number | BlossomSize
   mode?: 'circle' | 'round' | 'square'
+  url?: string
   initials?: string
   initialStyle?: StyleProp<TextStyle>
   icon?: (size: number) => ReactNode
+  onPress?: () => void
 }
 
+export type IconFamily =
+  | 'AntDesign'
+  | 'Entypo'
+  | 'EvilIcons'
+  | 'Feather'
+  | 'FontAwesome'
+  | 'FontAwesome5'
+  | 'Fontisto'
+  | 'Foundation'
+  | 'Ionicons'
+  | 'MaterialCommunityIcons'
+  | 'MaterialIcons'
+  | 'Octicons'
+  | 'SimpleLineIcons'
+  | 'Zocial'
+
 export interface IconProps extends TextProps, OmitSizeProps {
+  /**
+   * Vector icons family
+   * @default Ionicons
+   */
+  family?: IconFamily
   /**
    * Size of the icon, can also be passed as fontSize in the style object.
    * @default 12

@@ -1,13 +1,14 @@
 import React, {forwardRef} from 'react'
-import {Image, ImageStyle, StyleSheet} from 'react-native'
+import {Image, ImageStyle, StyleSheet, TouchableOpacity} from 'react-native'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {AvatarProps, BlossomSize} from '../types'
 
 import {getBorderColorName, getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
-import View from '../view'
 import {Text} from '../text'
 import {useMergedProps} from '../../common'
+import View from '../view'
 
 /**
  * Avatar component to show profile images, icon & initials
@@ -16,10 +17,12 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
   const {
     mode = 'circle',
     icon,
+    url,
     initials,
     initialStyle,
     status = 'primary',
     size = 'medium',
+    onPress,
     ...rest
   } = useMergedProps('Avatar', props)
 
@@ -39,21 +42,29 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
     borderRadius: borderRadiusMap[mode],
   }
 
+  const Container = onPress ? TouchableOpacity : View
+
   return (
-    <View {...rest} style={[imageStyle, styles.container, rest?.style]}>
-      {rest?.source ? (
+    <Container
+      activeOpacity={0.75}
+      {...rest}
+      style={[imageStyle, styles.container, rest?.style]}
+      onPress={onPress}>
+      {rest?.source || url ? (
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         <Image
           ref={ref}
           accessibilityIgnoresInvertColors
-          defaultSource={undefined}
+          source={{
+            uri: url,
+          }}
           {...rest}
           style={[imageStyle]}
         />
       ) : icon ? (
         icon((imageStyle.width as number) - OFFSET)
-      ) : (
+      ) : initials ? (
         <Text
           typography="h6"
           style={[
@@ -66,8 +77,14 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
           ]}>
           {initials}
         </Text>
+      ) : (
+        <MaterialCommunityIcons
+          name="account"
+          size={(imageStyle.width as number) - OFFSET}
+          color="white"
+        />
       )}
-    </View>
+    </Container>
   )
 }
 

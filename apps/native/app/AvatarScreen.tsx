@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
+import {Alert, StyleSheet} from 'react-native'
 import {View, Avatar} from '@react-native-blossom-ui/components'
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 
@@ -21,27 +21,15 @@ export default function AvatarScreen() {
       </View>
       <View style={styles.row}>
         {SIZE_LIST.map((size) => (
-          <Avatar
-            size={size}
-            // source={imgSrc}
-            // eslint-disable-next-line react/no-unstable-nested-components
-            icon={(sizeValue: number) => (
-              <MaterialCommunityIcons
-                name="account"
-                size={sizeValue}
-                color="white"
-              />
-            )}
-            style={styles.image}
-          />
+          <Avatar size={size} style={styles.image} />
         ))}
       </View>
 
       <Heading>Modes</Heading>
       <View style={styles.row}>
-        <Avatar mode="circle" source={imgSrc} style={styles.image} />
-        <Avatar mode="round" source={imgSrc} style={styles.image} />
-        <Avatar mode="square" source={imgSrc} style={styles.image} />
+        <Avatar mode="circle" url={imgSrc.uri} style={styles.image} />
+        <Avatar mode="round" url={imgSrc.uri} style={styles.image} />
+        <Avatar mode="square" url={imgSrc.uri} style={styles.image} />
       </View>
 
       <Heading>Statuses</Heading>
@@ -50,7 +38,6 @@ export default function AvatarScreen() {
           <Avatar
             size="small"
             status={size}
-            // source={imgSrc}
             // eslint-disable-next-line react/no-unstable-nested-components
             icon={(sizeValue: number) => (
               <MaterialCommunityIcons
@@ -77,6 +64,7 @@ export default function AvatarScreen() {
           initialStyle={{
             color: 'blue',
           }}
+          onPress={() => Alert.alert('Pressed')}
         />
       </View>
     </View>
