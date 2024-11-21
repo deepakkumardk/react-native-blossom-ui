@@ -1,15 +1,18 @@
 import React, {useCallback, useMemo} from 'react'
-import {Pressable, StyleSheet} from 'react-native'
+import {Pressable, StyleSheet, ViewStyle} from 'react-native'
 
-import {TypographyOptions, useBlossomTheme} from '../../context'
-import {BlossomSize, ButtonMode, ButtonProps} from '../types'
+import {
+  BlossomThemeColors,
+  TypographyOptions,
+  useBlossomTheme,
+} from '../../context'
+import {BlossomSize, ButtonMode, ButtonProps, PressableState} from '../types'
 import Text from '../text/Text'
 import {
-  getAlphaColor,
   getDarkenColor,
-  getFlatStyle,
   getStatusColorName,
   getTextColorName,
+  getTransparentStatusColorName,
 } from '../utils'
 import ActivityIndicator from '../loader'
 import {useMergedProps} from '../../common'
@@ -19,9 +22,9 @@ import {useMergedProps} from '../../common'
  */
 const Button = (props: ButtonProps) => {
   const {
-    text,
+    title,
     style,
-    textStyle,
+    titleStyle,
     isLoading = false,
     disabled,
     children,
@@ -51,7 +54,8 @@ const Button = (props: ButtonProps) => {
       },
       tinted: {
         true: colors.background200,
-        false: colors[getStatusColorName(status, isDark, '200')],
+        false:
+          colors[getTransparentStatusColorName(status, isDark ? '200' : '100')],
       },
       outlined: {
         true: colors.background100,
@@ -67,19 +71,20 @@ const Button = (props: ButtonProps) => {
   }, [mode, disabled, status, colors, isDark])
 
   const containerStyle = useMemo(
-    () => [
-      {
-        backgroundColor: getButtonColor(),
-        borderColor: disabled
-          ? colors.background400
-          : colors[getStatusColorName(status, isDark, '300')],
-        borderRadius: options?.borderRadius,
-      },
-      mode === 'outlined' ? styles.outlinedButton : {},
-      styles.buttonContainer,
-      sizeStyle[size],
-      style,
-    ],
+    () =>
+      StyleSheet.flatten([
+        {
+          backgroundColor: getButtonColor(),
+          borderColor: disabled
+            ? colors.background400
+            : colors[getStatusColorName(status, isDark, '500')],
+          borderRadius: options?.borderRadius,
+        },
+        mode === 'outlined' ? styles.outlinedButton : {},
+        styles.buttonContainer,
+        sizeStyle[size],
+        style,
+      ]) as ViewStyle,
     [
       colors,
       disabled,
@@ -93,36 +98,46 @@ const Button = (props: ButtonProps) => {
     ],
   )
 
-  const getPressedColor = useCallback(() => {
-    const bgColor = getFlatStyle(containerStyle)?.backgroundColor
-    const buttonColor = getButtonColor()
+  const getButtonStateColor = useCallback(
+    (state: 'hovered' | 'pressed') => {
+      const bgColor = containerStyle?.backgroundColor
+      const buttonColor = getButtonColor()
 
-    let color = colors[`${status}700`]
-
-    if (mode === 'filled') {
-      color = colors[`${status}700`]
-    } else if (mode === 'tinted') {
-      color = colors[`${status}100`]
-    } else {
-      color = colors[`${status}${isDark ? '200' : '100'}`]
-    }
-
-    if (bgColor !== buttonColor) {
-      if (mode === 'filled') {
-        color = getDarkenColor(bgColor as string, 0.8)
-      } else {
-        color = getAlphaColor(bgColor as string, 0.5)
+      const hoverColorMap: Record<ButtonMode, keyof BlossomThemeColors> = {
+        filled: `${status}600`,
+        tinted: `${status}Transparent${isDark ? '300' : '200'}`,
+        outlined: `${status}Transparent${isDark ? '200' : '100'}`,
+        plain: `${status}Transparent${isDark ? '200' : '100'}`,
       }
-    }
 
-    return color
-  }, [colors, containerStyle, getButtonColor, isDark, mode, status])
+      const pressColorMap: Record<ButtonMode, keyof BlossomThemeColors> = {
+        filled: `${status}700`,
+        tinted: `${status}Transparent${isDark ? '400' : '300'}`,
+        outlined: `${status}Transparent${isDark ? '300' : '200'}`,
+        plain: `${status}Transparent${isDark ? '300' : '200'}`,
+      }
+
+      let color =
+        colors[state === 'hovered' ? hoverColorMap[mode] : pressColorMap[mode]]
+
+      if (bgColor !== buttonColor) {
+        const alphaColorMap: Record<typeof state, number> = {
+          hovered: mode === 'filled' ? 0.6 : 0.4,
+          pressed: mode === 'filled' ? 0.8 : 0.5,
+        }
+        color = getDarkenColor(bgColor as string, alphaColorMap[state])
+      }
+
+      return color
+    },
+    [colors, containerStyle, getButtonColor, isDark, mode, status],
+  )
 
   const getTextColor = useCallback(() => {
     return disabled || mode === 'filled'
       ? colors[
           getTextColorName(
-            getFlatStyle(containerStyle)?.backgroundColor,
+            containerStyle?.backgroundColor,
             isDark,
             disabled,
             mode,
@@ -134,14 +149,18 @@ const Button = (props: ButtonProps) => {
   return (
     <Pressable
       {...rest}
-      style={({pressed}) => [
-        containerStyle,
-        pressed && !isLoading && !disabled
-          ? {
-              backgroundColor: getPressedColor(),
-            }
-          : {},
-      ]}
+      style={({pressed, hovered, focused}: PressableState) => {
+        return [
+          containerStyle,
+          (hovered || pressed) &&
+            !isLoading &&
+            !disabled && {
+              backgroundColor: getButtonStateColor(
+                hovered ? 'hovered' : 'pressed',
+              ),
+            },
+        ]
+      }}
       onPress={isLoading || disabled ? undefined : onPress}>
       <ActivityIndicator
         visible={isLoading}
@@ -151,7 +170,7 @@ const Button = (props: ButtonProps) => {
         {...loaderStyle}
       />
       {left}
-      {children || text ? (
+      {children || title ? (
         <Text
           typography={sizeMap[size]}
           style={[
@@ -159,11 +178,12 @@ const Button = (props: ButtonProps) => {
               color: getTextColor(),
             },
             styles.text,
-            textStyle,
-          ]}>
+            titleStyle,
+          ]}
+          selectable={false}>
           {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
           {/* @ts-ignore */}
-          {children || text}
+          {children || title}
         </Text>
       ) : null}
       {right}
@@ -197,8 +217,8 @@ const sizeStyle = {
     paddingVertical: 10,
   },
   medium: {
-    paddingHorizontal: 13, // 3 coming from below text style
-    paddingVertical: 14,
+    paddingHorizontal: 13, // 3 coming from text style
+    paddingVertical: 12,
   },
   large: {
     paddingHorizontal: 16,

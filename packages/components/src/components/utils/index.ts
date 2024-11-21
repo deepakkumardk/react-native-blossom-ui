@@ -2,7 +2,11 @@ import {ColorValue, StyleProp, TextStyle, ViewStyle} from 'react-native'
 
 import chroma from 'chroma-js'
 
-import {BlossomThemeColors, ColorVariants} from '../../types'
+import {
+  BlossomThemeColors,
+  ColorVariants,
+  TransparentColorVariants,
+} from '../../types'
 import {BlossomStatus, ButtonMode} from '../types'
 
 export const getStatusColorName = (
@@ -13,6 +17,18 @@ export const getStatusColorName = (
   if (!status) return 'background900'
   // TODO if shades count changes change it
   const color = `${status}${colorVariant}` as keyof BlossomThemeColors
+
+  return color
+}
+
+export const getTransparentStatusColorName = (
+  status?: BlossomStatus,
+  colorVariant: TransparentColorVariants = '500',
+) => {
+  if (!status) return 'background900'
+  // TODO if shades count changes change it
+  const color =
+    `${status}Transparent${colorVariant}` as keyof BlossomThemeColors
 
   return color
 }
@@ -57,6 +73,9 @@ export const getTextColorName = (
   return lum < 0.4 ? 'text900' : 'text100'
 }
 
+/**
+ * @deprecated
+ */
 export const getFlatStyle = (
   style?: StyleProp<ViewStyle | TextStyle>,
 ): ViewStyle | TextStyle => {

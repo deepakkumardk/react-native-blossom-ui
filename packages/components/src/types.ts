@@ -13,23 +13,25 @@ export type ColorVariants =
   | '700'
   | '800'
   | '900'
-// | '1000'
-// | '1100'
 
-export type ColorNames =
+export type TransparentColorVariants = '100' | '200' | '300' | '400' | '500'
+
+export type ThemeColorNames = SemanticColorNames | SurfaceColorNames
+
+export type SemanticColorNames =
   | 'primary'
   | 'accent'
   | 'success'
   | 'error'
   | 'warning'
   | 'info'
-  | 'background'
-  | 'text'
-  | 'bgLight'
-  | 'bgDark'
+
+export type SurfaceColorNames = 'background' | 'text' | 'bgLight' | 'bgDark'
 
 export type BlossomThemeColors = {
-  [K in `${ColorNames}${ColorVariants}`]: BlossomColor
+  [K in `${ThemeColorNames}${ColorVariants}`]: BlossomColor
+} & {
+  [K in `${SemanticColorNames}Transparent${TransparentColorVariants}`]: BlossomColor
 }
 
 export interface BlossomContext {

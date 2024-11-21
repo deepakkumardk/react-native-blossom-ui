@@ -28,7 +28,7 @@ export function Native({onPress}: {onPress: () => void}) {
         onPress={() => {
           console.log('Native -> onPress')
         }}
-        text="Blossom Button"
+        title="Blossom Button"
       />
       <Button status="accent">Blossom Button UI</Button>
 
@@ -36,7 +36,7 @@ export function Native({onPress}: {onPress: () => void}) {
         style={{
           backgroundColor: 'green',
         }}
-        text="Click Me">
+        title="Click Me">
         <Text>With Children</Text>
       </Button>
       <StatusBar style={!isDark ? 'dark' : 'light'} />

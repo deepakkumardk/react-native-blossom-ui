@@ -17,6 +17,14 @@ export default function ButtonScreen() {
             </Button>
           ))}
         </View>
+        <Heading>Loading</Heading>
+        <View style={styles.row}>
+          {SIZE_LIST.map((value) => (
+            <Button key={value} isLoading size={value} style={styles.button}>
+              {value}
+            </Button>
+          ))}
+        </View>
 
         <Heading>Icon & Modes</Heading>
         {BUTTON_MODES.map((modeValue) => (
@@ -104,6 +112,15 @@ export default function ButtonScreen() {
           onPress={() => Alert.alert('Hello')}>
           Prefix <Text status="error">Text Children</Text> Suffix
         </Button>
+        <Button
+          style={[
+            styles.button,
+            {justifyContent: 'space-between', width: '100%'},
+          ]}
+          left={<Icon name="add" size={24} color="white" />}
+          right={<Icon name="add" size={24} color="white" />}>
+          Icons Space-Between
+        </Button>
 
         <View style={styles.row}>
           <Button isLoading style={styles.button}>
@@ -131,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   container: {
-    flex: 1,
+    // flex: 1,
     padding: 16,
   },
   button: {

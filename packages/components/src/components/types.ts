@@ -23,6 +23,8 @@ export type BlossomStatus =
   | 'warning'
   | 'error'
 
+export type BlossomTransparentStatus = `${BlossomStatus}Transparent`
+
 export type BlossomSize = 'small' | 'medium' | 'large'
 
 /**
@@ -63,9 +65,9 @@ export interface ViewProps extends RNViewProps {
 export type ButtonMode = 'filled' | 'tinted' | 'outlined' | 'plain'
 
 export interface ButtonProps extends PressableProps, BaseUIProps {
-  text?: string
+  title?: string
   mode?: ButtonMode
-  textStyle?: StyleProp<TextStyle>
+  titleStyle?: StyleProp<TextStyle>
   style?: StyleProp<ViewStyle>
   isLoading?: boolean
   disabled?: boolean
@@ -76,6 +78,12 @@ export interface ButtonProps extends PressableProps, BaseUIProps {
    */
   loaderStyle?: ActivityIndicatorProps
 }
+
+export type PressableState = Readonly<{
+  pressed: boolean
+  hovered?: boolean
+  focused?: boolean
+}>
 
 export interface ActivityIndicatorProps
   extends Omit<RNActivityIndicatorProps, 'size'>,
