@@ -1,7 +1,6 @@
 {
   "name": "@react-native-blossom-ui/components",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.1",
   "license": "MIT",
   "main": "./src/index",
   "types": "./dist/index.d.ts",
@@ -12,7 +11,6 @@
     "tsc": "tsc --skipLibCheck --noEmit",
     "lint": "eslint src/ --fix"
   },
-  "dependencies": {},
   "devDependencies": {
     "@react-native-blossom-ui/typescript-config": "*",
     "@types/chroma-js": "2.4.4",
@@ -29,5 +27,8 @@
     "react": "*",
     "react-native": "*",
     "react-native-vector-icons": "*"
-  }
+  },
+  "keywords": [],
+  "author": "",
+  "description": ""
 }
