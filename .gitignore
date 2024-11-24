@@ -21,6 +21,7 @@ build
 .DS_Store
 *.pem
 dist
+*.tgz
 
 # debug
 npm-debug.log*
