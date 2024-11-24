@@ -4,9 +4,10 @@ import {Pressable, StyleSheet, ViewStyle} from 'react-native'
 import {
   BlossomThemeColors,
   TypographyOptions,
-  useBlossomTheme,
-} from '../../context'
-import {BlossomSize, ButtonMode, ButtonProps, PressableState} from '../types'
+  BlossomSize,
+  useMergedProps,
+} from '../../common'
+import {ButtonMode, ButtonProps, PressableState} from '../types'
 import Text from '../text/Text'
 import {
   getDarkenColor,
@@ -15,7 +16,7 @@ import {
   getTransparentStatusColorName,
 } from '../utils'
 import ActivityIndicator from '../loader'
-import {useMergedProps} from '../../common'
+import {useBlossomTheme} from '../../context'
 
 /**
  * Standard Button component with multiple customizations

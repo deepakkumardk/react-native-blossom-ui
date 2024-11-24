@@ -1,4 +1,4 @@
-import {TypographyOptions} from '../../types'
+import {TypographyOptions} from '../../common'
 
 export const typographyStyle: Record<TypographyOptions, object> = {
   h1: {

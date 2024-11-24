@@ -2,7 +2,7 @@ import React from 'react'
 
 import {SizedTextProps} from '../types'
 import Text from './Text'
-import {TypographyOptions} from '../../context'
+import {TypographyOptions} from '../../common'
 
 /**
  * Text component to be used for label, caption & Error

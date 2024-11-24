@@ -2,12 +2,12 @@ import React, {forwardRef} from 'react'
 import {Image, ImageStyle, StyleSheet, TouchableOpacity} from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import {AvatarProps, BlossomSize} from '../types'
+import {AvatarProps} from '../types'
 
 import {getBorderColorName, getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
 import {Text} from '../text'
-import {useMergedProps} from '../../common'
+import {useMergedProps, BlossomSize} from '../../common'
 import View from '../view'
 
 /**

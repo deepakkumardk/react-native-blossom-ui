@@ -1,6 +1,18 @@
 import {ReactNode} from 'react'
 import {TextStyle} from 'react-native'
 
+export type BlossomStatus =
+  | 'primary'
+  | 'accent'
+  | 'success'
+  | 'info'
+  | 'warning'
+  | 'error'
+
+export type BlossomTransparentStatus = `${BlossomStatus}Transparent`
+
+export type BlossomSize = 'small' | 'medium' | 'large'
+
 export type BlossomColor = string
 
 export type ColorVariants =
@@ -41,16 +53,24 @@ export interface BlossomContext {
 }
 
 export type Children = {
+  /**
+   * Children
+   */
   children?: ReactNode
 }
 
-export type WithChildren<T> = {
-  children?: ReactNode
-} & T
-
 export type BlossomThemeProviderProps = {
+  /**
+   * App theme colors json for light and dark mode
+   */
   theme: BlossomThemeColors
+  /**
+   * Whether the app is in dark mode or not
+   */
   isDark?: boolean
+  /**
+   * Extra options to control the other aspects of the library
+   */
   options?: BlossomUIOptions
 } & Children
 
@@ -61,7 +81,13 @@ export type TypographyValues = {
 }
 
 export type BlossomUIOptions = {
+  /**
+   * Control the border radius for all components like input, button etc.
+   */
   borderRadius?: number
+  /**
+   * Modify the default typography values using this
+   */
   typography?: TypographyValues
 }
 
@@ -82,3 +108,19 @@ export type TypographyOptions =
   | 'l2'
   | 'c1'
   | 'c2'
+
+/**
+ * -----Base for almost all components-----
+ */
+export interface BaseUIProps {
+  /**
+   * @default primary
+   */
+  status?: BlossomStatus
+  /**
+   * @default medium
+   */
+  size?: BlossomSize
+}
+
+export type OmitSizeProps = Omit<BaseUIProps, 'size'>

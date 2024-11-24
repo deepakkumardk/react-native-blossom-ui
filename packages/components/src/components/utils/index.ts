@@ -3,11 +3,12 @@ import {ColorValue, StyleProp, TextStyle, ViewStyle} from 'react-native'
 import chroma from 'chroma-js'
 
 import {
+  BlossomStatus,
   BlossomThemeColors,
   ColorVariants,
   TransparentColorVariants,
-} from '../../types'
-import {BlossomStatus, ButtonMode} from '../types'
+} from '../../common'
+import {ButtonMode} from '../types'
 
 export const getStatusColorName = (
   status?: BlossomStatus,

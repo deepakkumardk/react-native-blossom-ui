@@ -3,8 +3,8 @@ import {Switch as RNSwitch, StyleSheet} from 'react-native'
 
 import {getBorderColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
-import {BlossomSize, SwitchProps} from '../types'
-import {useMergedProps} from '../../common'
+import {SwitchProps} from '../types'
+import {useMergedProps, BlossomSize} from '../../common'
 import BaseBooleanField from './BaseBooleanField'
 
 const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {

@@ -4,7 +4,7 @@ import {
   BlossomContext,
   BlossomThemeColors,
   BlossomThemeProviderProps,
-} from '../types'
+} from '../common'
 import {typographyStyle} from '../components/text/typography'
 
 const defaultValue: BlossomContext = {

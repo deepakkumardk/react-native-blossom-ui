@@ -3,8 +3,8 @@ import React, {useCallback} from 'react'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import {getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
-import {BlossomSize, CheckboxProps} from '../types'
-import {useMergedProps} from '../../common'
+import {CheckboxProps} from '../types'
+import {useMergedProps, BlossomSize} from '../../common'
 import BaseBooleanField from './BaseBooleanField'
 
 const Radio = (props: CheckboxProps) => {

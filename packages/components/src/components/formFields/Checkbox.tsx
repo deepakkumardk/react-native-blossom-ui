@@ -3,8 +3,8 @@ import {Pressable, StyleSheet} from 'react-native'
 
 import {getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
-import {BlossomSize, CheckboxProps} from '../types'
-import {useMergedProps} from '../../common'
+import {CheckboxProps} from '../types'
+import {useMergedProps, BlossomSize} from '../../common'
 import BaseBooleanField from './BaseBooleanField'
 import Icon from '../icon'
 

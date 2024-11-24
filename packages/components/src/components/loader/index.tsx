@@ -1,11 +1,11 @@
 import React, {useCallback} from 'react'
 import {ActivityIndicator as RNActivityIndicator, Platform} from 'react-native'
 
-import {BlossomSize, ActivityIndicatorProps} from '../types'
+import {ActivityIndicatorProps} from '../types'
 
 import {getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
-import {useMergedProps} from '../../common'
+import {useMergedProps, BlossomSize} from '../../common'
 
 const ActivityIndicator = (props: ActivityIndicatorProps) => {
   const {
