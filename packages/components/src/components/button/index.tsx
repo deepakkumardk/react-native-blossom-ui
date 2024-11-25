@@ -15,7 +15,7 @@ import {
   getTextColorName,
   getTransparentStatusColorName,
 } from '../utils'
-import ActivityIndicator from '../loader'
+import ActivityIndicator from '../loader/ActivityIndicator'
 import {useBlossomTheme} from '../../context'
 
 /**
@@ -35,7 +35,7 @@ const Button = (props: ButtonProps) => {
     left,
     right,
     onPress,
-    loaderStyle,
+    loaderProps,
     ...rest
   } = useMergedProps('Button', props)
 
@@ -119,7 +119,7 @@ const Button = (props: ButtonProps) => {
       }
 
       let color =
-        colors[state === 'hovered' ? hoverColorMap[mode] : pressColorMap[mode]]
+        colors[state === 'pressed' ? pressColorMap[mode] : hoverColorMap[mode]]
 
       if (bgColor !== buttonColor) {
         const alphaColorMap: Record<typeof state, number> = {
@@ -153,11 +153,11 @@ const Button = (props: ButtonProps) => {
       style={({pressed, hovered, focused}: PressableState) => {
         return [
           containerStyle,
-          (hovered || pressed) &&
+          (pressed || hovered) &&
             !isLoading &&
             !disabled && {
               backgroundColor: getButtonStateColor(
-                hovered ? 'hovered' : 'pressed',
+                pressed ? 'pressed' : 'hovered',
               ),
             },
         ]
@@ -168,7 +168,7 @@ const Button = (props: ButtonProps) => {
         size={16}
         style={styles.loader}
         color={getTextColor()}
-        {...loaderStyle}
+        {...loaderProps}
       />
       {left}
       {children || title ? (

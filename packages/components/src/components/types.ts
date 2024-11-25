@@ -48,18 +48,43 @@ export interface ViewProps extends RNViewProps {
 export type ButtonMode = 'filled' | 'tinted' | 'outlined' | 'plain'
 
 export interface ButtonProps extends PressableProps, BaseUIProps {
-  title?: string
+  /**
+   *
+   */
   mode?: ButtonMode
+
+  /**
+   * Button title text
+   */
+  title?: string
+  /**
+   * Title text style
+   */
   titleStyle?: StyleProp<TextStyle>
+  /**
+   * Button style to add padding/margin etc.
+   */
   style?: StyleProp<ViewStyle>
+  /**
+   * Set it to true to show the activity indicator to the left
+   */
   isLoading?: boolean
+  /**
+   * Set to true to disable the button
+   */
   disabled?: boolean
+  /**
+   * Render any icon/JSX on left of the title
+   */
   left?: ReactNode
+  /**
+   * Render any icon/JSX on right of the title
+   */
   right?: ReactNode
   /**
-   * Loader style
+   * Loader props
    */
-  loaderStyle?: ActivityIndicatorProps
+  loaderProps?: ActivityIndicatorProps
 }
 
 export type PressableState = Readonly<{
@@ -81,6 +106,19 @@ export interface ActivityIndicatorProps
    * @default medium
    */
   size?: BlossomSize | number
+  /**
+   * Label text below indicator
+   */
+  label?: string
+  /**
+   * Label text style
+   */
+  labelStyle?: StyleProp<TextStyle>
+
+  /**
+   * Container style wrapping both label and ActivityIndicator
+   */
+  containerStyle?: StyleProp<ViewStyle>
 }
 
 export type TextInputMode = 'flat' | 'outlined'
@@ -88,6 +126,12 @@ export type TextInputMode = 'flat' | 'outlined'
 export interface TextInputProps
   extends Omit<RNTextInputProps, 'style'>,
     BaseUIProps {
+  /**
+   * Control the different modes of the text input
+   * @default outlined
+   */
+  mode?: 'flat' | 'outlined'
+
   /**
    * Label text above the input
    */
@@ -102,7 +146,7 @@ export interface TextInputProps
   caption?: string
   /**
    * TODO: TextInput will always render this and take the space to fix the flicker issue in show/hide error
-   * Error text in error status below caption text
+   * @description Error text in error status below caption text
    */
   error?: string
   /**
@@ -145,11 +189,6 @@ export interface TextInputProps
    * Render Icon/JSX on the right of the button
    */
   right?: ReactNode
-  /**
-   * Control the different modes of the text input
-   * @default outlined
-   */
-  mode?: 'flat' | 'outlined'
 }
 
 export interface SearchInputProps extends TextInputProps {
@@ -229,7 +268,7 @@ export type IconFamily =
   | 'SimpleLineIcons'
   | 'Zocial'
 
-export interface IconProps extends TextProps, OmitSizeProps {
+export interface IconProps extends RNTextProps, OmitSizeProps {
   /**
    * Vector icons family from vector-icons set
    * @default Ionicons
