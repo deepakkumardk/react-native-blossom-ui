@@ -1,18 +1,19 @@
 import React, {useCallback} from 'react'
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from '../icon'
 import {getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
-import {CheckboxProps} from '../types'
+import {RadioProps} from '../types'
 import {useMergedProps, BlossomSize} from '../../common'
 import BaseBooleanField from './BaseBooleanField'
 
-const Radio = (props: CheckboxProps) => {
+const Radio = (props: RadioProps) => {
   const {
     value,
     onValueChange,
     disabled,
     style,
+    color,
     status = 'accent',
     size = 'medium',
     ...rest
@@ -33,12 +34,13 @@ const Radio = (props: CheckboxProps) => {
   }, [value])
 
   return (
-    <BaseBooleanField status={status} size={size} {...rest}>
-      <MaterialCommunityIcons
+    <BaseBooleanField status={status} size={size} disabled={disabled} {...rest}>
+      <Icon
+        family="MaterialCommunityIcons"
         name={getIconName()}
         size={sizeMap[size]}
         {...(!disabled && !value && {onPress: () => onValueChange?.(!value)})}
-        color={getBgColor()}
+        color={color || getBgColor()}
       />
     </BaseBooleanField>
   )

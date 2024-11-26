@@ -7,12 +7,17 @@ import {BaseBooleanFieldProps} from '../types'
 import View from '../view'
 import SizedText from '../text/SizedText'
 
+/**
+ * Centralized component to have blueprint of boolean based fields
+ */
 const BaseBooleanField = (props: BaseBooleanFieldProps) => {
   const {
     label,
     caption,
     error,
-    position = 'right',
+    disabled,
+    position = 'left',
+    adjacent = true,
     containerStyle,
     labelStyle,
     captionStyle,
@@ -28,17 +33,30 @@ const BaseBooleanField = (props: BaseBooleanFieldProps) => {
     <View
       style={[
         styles.outerContainer,
-        position === 'left' ? styles.positionLeft : {},
+        position === 'right' ? styles.positionRight : {},
+        adjacent && styles.adjacent,
         containerStyle,
       ]}>
+      {children}
+
       <View
         style={[
-          position === 'left' ? styles.innerContainerLeftPosition : {},
           {borderColor: colors[getBorderColorName(status, isDark)]},
+          position === 'right' || !adjacent ? styles.alignEndRightPosition : {},
+          position === 'right' && !adjacent && styles.alignLeftRightPosition,
+          position === 'left' ? styles.startMargin : styles.endMargin,
           containerStyle,
         ]}>
         {label ? (
-          <SizedText size={size} style={[styles.label, labelStyle]}>
+          <SizedText
+            size={size}
+            style={[
+              styles.label,
+              disabled && {
+                color: colors.text400,
+              },
+              labelStyle,
+            ]}>
             {label}
           </SizedText>
         ) : null}
@@ -54,8 +72,6 @@ const BaseBooleanField = (props: BaseBooleanFieldProps) => {
           </SizedText>
         ) : null}
       </View>
-
-      {children}
     </View>
   )
 }
@@ -63,18 +79,30 @@ const BaseBooleanField = (props: BaseBooleanFieldProps) => {
 export default BaseBooleanField
 
 const styles = StyleSheet.create({
+  alignLeftRightPosition: {
+    alignItems: undefined,
+  },
   outerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  innerContainerLeftPosition: {
+  alignEndRightPosition: {
     alignItems: 'flex-end',
   },
-  positionLeft: {
+  positionRight: {
     flexDirection: 'row-reverse',
+  },
+  adjacent: {
+    justifyContent: undefined,
   },
   label: {
     fontWeight: '500',
+  },
+  startMargin: {
+    marginStart: 12,
+  },
+  endMargin: {
+    marginEnd: 12,
   },
 })

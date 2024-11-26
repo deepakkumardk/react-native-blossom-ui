@@ -1,6 +1,5 @@
 import React, {forwardRef} from 'react'
 import {Image, ImageStyle, StyleSheet, TouchableOpacity} from 'react-native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {AvatarProps} from '../types'
 
@@ -9,6 +8,7 @@ import {useBlossomTheme} from '../../context'
 import {Text} from '../text'
 import {useMergedProps, BlossomSize} from '../../common'
 import View from '../view'
+import Icon from '../icon'
 
 /**
  * Avatar component to show profile images, icon & initials
@@ -78,7 +78,8 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
           {initials}
         </Text>
       ) : (
-        <MaterialCommunityIcons
+        <Icon
+          family="MaterialCommunityIcons"
           name="account"
           size={(imageStyle.width as number) - OFFSET}
           color="white"

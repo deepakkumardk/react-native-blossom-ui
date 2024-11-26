@@ -12,8 +12,9 @@ const Checkbox = (props: CheckboxProps) => {
   const {
     value,
     onValueChange,
-    intermediate,
+    indeterminate,
     disabled,
+    color,
     style,
     status = 'accent',
     size = 'medium',
@@ -23,21 +24,27 @@ const Checkbox = (props: CheckboxProps) => {
   const {colors, isDark} = useBlossomTheme()
 
   const getBgColor = useCallback(() => {
-    if (disabled) return colors.bgDark100
+    if (disabled) return isDark ? colors.bgDark400 : colors.bgLight400
 
-    return colors[getStatusColorName(status, isDark)]
-  }, [disabled, colors, status, isDark])
+    if (value) return color || colors[getStatusColorName(status, isDark)]
+
+    return isDark ? colors.bgDark800 : colors.bgLight200
+  }, [disabled, colors, value, color, status, isDark])
 
   const getIconName = useCallback(() => {
-    if (intermediate) return 'remove'
+    if (indeterminate) return 'minus'
 
-    return 'checkmark'
+    return 'check'
+  }, [indeterminate])
 
-    // return 'square-outline'
-  }, [intermediate])
+  const getIconColor = useCallback(() => {
+    if (disabled) return colors.bgDark100
+
+    return colors.bgLight100
+  }, [colors, disabled])
 
   return (
-    <BaseBooleanField status={status} size={size} {...rest}>
+    <BaseBooleanField status={status} size={size} disabled={disabled} {...rest}>
       <Pressable
         accessibilityRole="button"
         style={[
@@ -50,13 +57,14 @@ const Checkbox = (props: CheckboxProps) => {
           style,
         ]}
         onPress={() =>
-          !disabled && onValueChange?.(intermediate ? true : !value)
+          !disabled && onValueChange?.(indeterminate ? true : !value)
         }>
-        {value || intermediate ? (
+        {value || indeterminate ? (
           <Icon
+            family="MaterialCommunityIcons"
             name={getIconName()}
-            size={sizeMap[size]}
-            color={colors.bgLight100}
+            size={sizeMap[size] - 4}
+            color={getIconColor()}
           />
         ) : null}
       </Pressable>
@@ -68,7 +76,7 @@ export default Checkbox
 
 const styles = StyleSheet.create({
   checkbox: {
-    borderRadius: 4,
+    borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -76,7 +84,7 @@ const styles = StyleSheet.create({
 })
 
 const sizeMap: Record<BlossomSize, number> = {
-  small: 20,
-  medium: 28,
+  small: 24,
+  medium: 30,
   large: 36,
 }

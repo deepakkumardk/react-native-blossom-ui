@@ -302,6 +302,15 @@ export interface BaseBooleanFieldProps extends BaseUIProps, Children {
    */
   position?: 'left' | 'right'
   /**
+   * Set it to false to position them apart i.e. space-between
+   * @default true
+   */
+  adjacent?: boolean
+  /**
+   * Set to true for disabled field
+   */
+  disabled?: boolean
+  /**
    * Set custom color
    */
   color?: string
@@ -339,6 +348,8 @@ export interface BaseBooleanFieldProps extends BaseUIProps, Children {
 
 export interface SwitchProps extends RNSwitchProps, BaseBooleanFieldProps {}
 
+export interface RadioProps extends RNSwitchProps, BaseBooleanFieldProps {}
+
 export interface CheckboxProps extends BaseBooleanFieldProps {
   /**
    * Control the state of the checkbox with value
@@ -347,15 +358,11 @@ export interface CheckboxProps extends BaseBooleanFieldProps {
   /**
    * Set to true for an intermediate state
    */
-  intermediate?: boolean
+  indeterminate?: boolean
   /**
    * Callback for on value change
    */
   onValueChange?: ((value: boolean) => Promise<void> | void) | null
-  /**
-   * Set to true for disabled field
-   */
-  disabled?: boolean
   /**
    * Style of the checkbox
    */
