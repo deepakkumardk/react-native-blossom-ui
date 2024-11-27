@@ -1,5 +1,5 @@
-import React, {forwardRef, useState} from 'react'
-import {TextInput as RNTextInput, StyleSheet} from 'react-native'
+import React, {forwardRef, useMemo, useState} from 'react'
+import {Platform, TextInput as RNTextInput, StyleSheet} from 'react-native'
 
 import {TextInputProps} from '../types'
 
@@ -35,16 +35,24 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
 
   const [isFocused, setIsFocused] = useState(false)
 
+  const textInputSizeStyle = useMemo(() => textInputSizeStylesMap, [])
+
   return (
     <View style={[containerStyle]}>
       {label ? (
         <SizedText
           size={size}
           status={error ? 'error' : undefined}
-          style={[!error && {color: colors.background800}, labelStyle]}>
+          style={[
+            !error && {
+              color: disabled ? colors.text400 : colors.text100,
+            },
+            labelStyle,
+          ]}>
           {label}
         </SizedText>
       ) : null}
+
       <View
         style={[
           styles.innerContainer,
@@ -58,22 +66,23 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
               ]
             : styles.flat,
           {
-            borderColor:
-              colors[
-                getBorderColorName(
-                  error
-                    ? 'error'
-                    : status || (isFocused ? 'primary' : undefined),
-                  isDark,
-                )
-              ],
+            borderColor: disabled
+              ? colors.background500
+              : colors[
+                  getBorderColorName(
+                    error
+                      ? 'error'
+                      : status || (isFocused ? 'primary' : undefined),
+                    isDark,
+                  )
+                ],
           },
           inputStyle,
         ]}>
         {left}
         <RNTextInput
           ref={ref}
-          placeholderTextColor={colors.background600} // TODO
+          placeholderTextColor={colors.text400}
           {...rest}
           placeholder={placeholder}
           editable={!disabled}
@@ -81,10 +90,16 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
             styles.inputText,
             textInputSizeStyle[size].inputText,
             {
-              color: colors.text100,
+              color: disabled ? colors.text500 : colors.text100,
             },
             left ? styles.leftMargin : {},
             textStyle,
+            Platform.OS === 'web' && {
+              // Note: this style won't work in the stylesheet
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              outline: 'none',
+            },
           ]}
           onFocus={(e) => {
             setIsFocused(true)
@@ -136,7 +151,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const textInputSizeStyle = {
+const textInputSizeStylesMap = {
   small: {
     outlined: {
       padding: 8,

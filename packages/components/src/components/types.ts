@@ -174,7 +174,7 @@ export interface TextInputProps
    */
   inputStyle?: StyleProp<ViewStyle>
   /**
-   * Input text style
+   * Input text style equivalent to react-native style for TextInput
    */
   textStyle?: StyleProp<TextStyle>
   /**

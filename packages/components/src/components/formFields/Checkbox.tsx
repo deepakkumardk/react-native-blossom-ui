@@ -52,6 +52,8 @@ const Checkbox = (props: CheckboxProps) => {
             width: sizeMap[size],
             height: sizeMap[size],
             backgroundColor: getBgColor(),
+            borderColor: colors.background300,
+            borderWidth: value ? 0 : 1,
           },
           styles.checkbox,
           style,

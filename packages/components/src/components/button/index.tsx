@@ -214,8 +214,8 @@ const styles = StyleSheet.create({
 
 const sizeStyle = {
   small: {
-    paddingHorizontal: 9,
-    paddingVertical: 10,
+    paddingHorizontal: 8,
+    paddingVertical: 9,
   },
   medium: {
     paddingHorizontal: 13, // 3 coming from text style

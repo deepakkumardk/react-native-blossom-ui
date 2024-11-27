@@ -39,7 +39,7 @@ export const getBorderColorName = (
   isDark?: boolean,
   colorVariant: ColorVariants = '500',
 ) => {
-  if (!status) return 'background900'
+  if (!status) return 'background300'
   // TODO if shades count changes change it
   const color = `${status}${colorVariant}` as keyof BlossomThemeColors
 
