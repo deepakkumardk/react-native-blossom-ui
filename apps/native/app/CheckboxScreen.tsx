@@ -1,78 +1,43 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View, Checkbox} from '@react-native-blossom-ui/components'
+import {View} from '@react-native-blossom-ui/components'
 
-import {SIZE_LIST, STATUS_LIST} from '../lib/constants'
+import {
+  CheckboxUsage,
+  CheckboxCustom,
+  CheckboxDisabled,
+  CheckboxIndeterminate,
+  CheckboxPositions,
+  CheckboxSizes,
+  CheckboxStatuses,
+} from '@react-native-blossom-ui/showcase'
+
 import {Heading} from '../components'
 
 export default function CheckboxScreen() {
-  const [isOn, setIsOn] = useState(true)
-
   return (
     <View style={styles.container}>
       <ScrollView>
+        <Heading>Usage</Heading>
+        <CheckboxUsage />
+
+        <Heading>Positions</Heading>
+        <CheckboxPositions />
+
         <Heading>Sizes</Heading>
-        {SIZE_LIST.map((size) => (
-          <Checkbox
-            key={size}
-            label={size}
-            caption={size}
-            error="Error will appear here"
-            size={size}
-            value={isOn}
-            onValueChange={setIsOn}
-            containerStyle={styles.itemContainer}
-          />
-        ))}
+        <CheckboxSizes />
 
         <Heading>Statuses</Heading>
-        {STATUS_LIST.map((status) => (
-          <Checkbox
-            key={status}
-            label={status}
-            caption={status}
-            error={status === 'error' ? 'Error will appear here' : ''}
-            status={status}
-            value={isOn}
-            onValueChange={setIsOn}
-            containerStyle={styles.itemContainer}
-          />
-        ))}
+        <CheckboxStatuses />
+
+        <Heading>Disabled</Heading>
+        <CheckboxDisabled />
+
+        <Heading>Indeterminate</Heading>
+        <CheckboxIndeterminate />
 
         <Heading>Custom</Heading>
-
-        <Checkbox
-          label="Intermediate"
-          value={isOn}
-          onValueChange={setIsOn}
-          containerStyle={styles.itemContainer}
-          intermediate
-        />
-        <Checkbox
-          label="Disabled"
-          value={isOn}
-          onValueChange={setIsOn}
-          containerStyle={styles.itemContainer}
-          disabled
-        />
-        <Checkbox
-          label="Checkbox next to label"
-          value={isOn}
-          onValueChange={setIsOn}
-          labelStyle={styles.label}
-          size="small"
-          containerStyle={[styles.itemContainer, {justifyContent: undefined}]}
-        />
-
-        <Checkbox
-          label="Agree to T&C"
-          caption="Click here to see Privacy Policy"
-          status="info"
-          size="large"
-          position="left"
-          value={isOn}
-          onValueChange={setIsOn}
-        />
+        <CheckboxCustom />
       </ScrollView>
     </View>
   )
@@ -83,11 +48,5 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     paddingBottom: 64,
-  },
-  itemContainer: {
-    marginVertical: 4,
-  },
-  label: {
-    marginEnd: 8,
   },
 })

@@ -1,0 +1,39 @@
+{
+  "name": "@react-native-blossom-ui/showcase",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "./src/index",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist node_modules",
+    "tsc": "tsc --skipLibCheck --noEmit",
+    "lint": "eslint src/ --fix"
+  },
+  "devDependencies": {
+    "@react-native-blossom-ui/typescript-config": "*",
+    "@react-native-blossom-ui/components": "*",
+    "@types/chroma-js": "2.4.4",
+    "@types/react": "~18.2.0",
+    "@types/react-native": "0.73.0",
+    "@types/react-native-vector-icons": "6.4.18",
+    "deepmerge": "4.3.1",
+    "react": "~18.2.0",
+    "react-native": "0.72.10",
+    "tsup": "^8.0.1"
+  },
+  "peerDependencies": {
+    "deepmerge": "*",
+    "react": "*",
+    "react-native": "*",
+    "react-native-vector-icons": "*",
+    "@react-native-blossom-ui/components": "*"
+  },
+  "keywords": [],
+  "author": "",
+  "description": ""
+}

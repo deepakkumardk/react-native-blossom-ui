@@ -1,64 +1,39 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View, Switch} from '@react-native-blossom-ui/components'
+import {View} from '@react-native-blossom-ui/components'
 
-import {SIZE_LIST, STATUS_LIST} from '../lib/constants'
+import {
+  SwitchCustom,
+  SwitchDisabled,
+  SwitchPositions,
+  SwitchSizes,
+  SwitchStatuses,
+  SwitchUsage,
+} from '@react-native-blossom-ui/showcase'
+
 import {Heading} from '../components'
 
 export default function SwitchScreen() {
-  const [isOn, setIsOn] = useState(false)
-
   return (
     <View style={styles.container}>
       <ScrollView>
+        <Heading>Usage</Heading>
+        <SwitchUsage />
+
+        <Heading>Positions</Heading>
+        <SwitchPositions />
+
         <Heading>Sizes</Heading>
-        {SIZE_LIST.map((size) => (
-          <Switch
-            key={size}
-            label={size}
-            caption={size}
-            error="Error will appear here"
-            size={size}
-            value={isOn}
-            onValueChange={setIsOn}
-            containerStyle={styles.switchContainer}
-          />
-        ))}
+        <SwitchSizes />
 
         <Heading>Statuses</Heading>
+        <SwitchStatuses />
 
-        {STATUS_LIST.map((status) => (
-          <Switch
-            key={status}
-            label={status}
-            caption={status}
-            error={status === 'error' ? 'Error will appear here' : ''}
-            status={status}
-            value={isOn}
-            onValueChange={setIsOn}
-            containerStyle={styles.switchContainer}
-          />
-        ))}
+        <Heading>Disabled</Heading>
+        <SwitchDisabled />
 
         <Heading>Custom</Heading>
-        <Switch
-          label="Switch next to label"
-          value={isOn}
-          onValueChange={setIsOn}
-          labelStyle={styles.label}
-          size="small"
-          containerStyle={[styles.switchContainer, {justifyContent: undefined}]}
-        />
-
-        <Switch
-          label="Agree to T&C"
-          caption="Click here to see Privacy Policy"
-          status="info"
-          size="large"
-          position="left"
-          value={isOn}
-          onValueChange={setIsOn}
-        />
+        <SwitchCustom />
       </ScrollView>
     </View>
   )
@@ -68,11 +43,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-  },
-  switchContainer: {
-    marginVertical: 4,
-  },
-  label: {
-    marginEnd: 8,
+    paddingBottom: 64,
   },
 })
