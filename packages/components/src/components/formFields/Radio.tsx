@@ -8,6 +8,8 @@ import {useMergedProps, BlossomSize} from '../../common'
 import BaseBooleanField from './BaseBooleanField'
 
 const Radio = (props: RadioProps) => {
+  const {colors, isDark} = useBlossomTheme()
+
   const {
     value,
     onValueChange,
@@ -17,9 +19,7 @@ const Radio = (props: RadioProps) => {
     status = 'accent',
     size = 'medium',
     ...rest
-  } = useMergedProps('Checkbox', props)
-
-  const {colors, isDark} = useBlossomTheme()
+  } = useMergedProps('Checkbox', props, {colors, isDark})
 
   const getBgColor = useCallback(() => {
     if (disabled) return colors.bgDark100

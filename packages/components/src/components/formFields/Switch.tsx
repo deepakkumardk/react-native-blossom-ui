@@ -11,6 +11,8 @@ import BaseBooleanField from './BaseBooleanField'
  * Switch component with form fields support like label, caption error etc.
  */
 const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
+  const {colors, isDark} = useBlossomTheme()
+
   const {
     disabled,
     color,
@@ -18,9 +20,7 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
     status = 'accent',
     size = 'medium',
     ...rest
-  } = useMergedProps('Switch', props)
-
-  const {colors, isDark} = useBlossomTheme()
+  } = useMergedProps('Switch', props, {colors, isDark})
 
   return (
     <BaseBooleanField status={status} size={size} disabled={disabled} {...rest}>

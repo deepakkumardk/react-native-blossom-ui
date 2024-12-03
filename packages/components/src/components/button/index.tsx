@@ -22,6 +22,8 @@ import {useBlossomTheme} from '../../context'
  * Standard Button component with multiple customizations
  */
 const Button = (props: ButtonProps) => {
+  const {colors, isDark, options} = useBlossomTheme()
+
   const {
     title,
     style,
@@ -37,9 +39,7 @@ const Button = (props: ButtonProps) => {
     onPress,
     loaderProps,
     ...rest
-  } = useMergedProps('Button', props)
-
-  const {colors, isDark, options} = useBlossomTheme()
+  } = useMergedProps('Button', props, {colors, isDark})
 
   const getButtonColor = useCallback(() => {
     const modeColorMap: Record<

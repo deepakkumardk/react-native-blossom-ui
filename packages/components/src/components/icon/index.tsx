@@ -13,14 +13,15 @@ import {useMergedProps} from '../../common'
  * Icon component for vector Icons defaulted to Ionicons
  */
 const Icon = (props: IconProps) => {
+  const {colors, isDark} = useBlossomTheme()
+
   const {
     status,
     size = 24,
     family = 'Ionicons',
     ...rest
-  } = useMergedProps('Icon', props)
+  } = useMergedProps('Icon', props, {colors, isDark})
 
-  const {colors, isDark} = useBlossomTheme()
   const IconComponent = getIconFamily(family)
 
   return (

@@ -11,6 +11,8 @@ import SizedText from '../text/SizedText'
  * Centralized component to have blueprint of boolean based fields
  */
 const BaseBooleanField = (props: BaseBooleanFieldProps) => {
+  const {colors, isDark} = useBlossomTheme()
+
   const {
     label,
     caption,
@@ -26,8 +28,6 @@ const BaseBooleanField = (props: BaseBooleanFieldProps) => {
     size = 'medium',
     children,
   } = props
-
-  const {colors, isDark} = useBlossomTheme()
 
   return (
     <View

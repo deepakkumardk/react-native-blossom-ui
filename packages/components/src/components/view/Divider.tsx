@@ -6,14 +6,14 @@ import {DividerProps} from '../types'
 import {useMergedProps} from '../../common'
 
 const Divider = (props: DividerProps, ref: React.Ref<RNView>) => {
+  const {colors, isDark} = useBlossomTheme()
+
   const {
     width = '100%',
     height = 0.6,
     color,
     ...rest
-  } = useMergedProps('Divider', props)
-
-  const {colors} = useBlossomTheme()
+  } = useMergedProps('Divider', props, {colors, isDark})
 
   return (
     <RNView

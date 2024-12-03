@@ -9,7 +9,9 @@ export type BlossomStatus =
   | 'warning'
   | 'error'
 
-export type BlossomTransparentStatus = `${BlossomStatus}Transparent`
+export type BlossomTransparentStatus =
+  | `${BlossomStatus}Transparent`
+  | `backgroundTransparent`
 
 export type BlossomSize = 'small' | 'medium' | 'large'
 
@@ -43,7 +45,7 @@ export type SurfaceColorNames = 'background' | 'text' | 'bgLight' | 'bgDark'
 export type BlossomThemeColors = {
   [K in `${ThemeColorNames}${ColorVariants}`]: BlossomColor
 } & {
-  [K in `${SemanticColorNames}Transparent${TransparentColorVariants}`]: BlossomColor
+  [K in `${BlossomTransparentStatus}${TransparentColorVariants}`]: BlossomColor
 }
 
 export interface BlossomContext {
@@ -124,3 +126,22 @@ export interface BaseUIProps {
 }
 
 export type OmitSizeProps = Omit<BaseUIProps, 'size'>
+
+/**
+ * Start of ComponentManager Props
+ */
+
+// export type ThemeValues = Pick<BlossomContext, 'colors' | 'isDark'>
+export type ThemeValues = {
+  colors: BlossomThemeColors
+  isDark?: boolean
+  // options?: BlossomUIOptions
+}
+
+export type ComponentPropsObjectMap<T> = {
+  [K in keyof T]?: (props: T[K], theme: ThemeValues) => Partial<T[K]>
+}
+
+/**
+ * End of ComponentManager Props
+ */

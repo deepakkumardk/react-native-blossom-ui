@@ -7,14 +7,18 @@ import TextInput from './TextInput'
 import {useDebouncedValue} from './useDebouncedValue'
 import Icon from '../icon'
 import {useMergedProps} from '../../common'
+import {useBlossomTheme} from '../../context'
 
 /**
  * Uncontrolled SearchInput with debouncing support
  */
 const SearchInput = (props: SearchInputProps, ref: React.Ref<RNTextInput>) => {
+  const {colors, isDark} = useBlossomTheme()
+
   const {debounceDelay, onQueryChange, status, ...rest} = useMergedProps(
     'SearchInput',
     props,
+    {colors, isDark},
   )
 
   const [searchQuery, setSearchQuery] = useState('')

@@ -18,6 +18,8 @@ import {SizedText} from '../text'
  * This shows the native loader of the platform.
  */
 const ActivityIndicator = (props: ActivityIndicatorProps) => {
+  const {colors, isDark} = useBlossomTheme()
+
   const {
     visible = true,
     status = 'primary',
@@ -26,9 +28,7 @@ const ActivityIndicator = (props: ActivityIndicatorProps) => {
     labelStyle,
     containerStyle,
     ...rest
-  } = useMergedProps('Loader', props)
-
-  const {colors, isDark} = useBlossomTheme()
+  } = useMergedProps('Loader', props, {colors, isDark})
 
   const getScale = useCallback(() => {
     if (Platform.OS === 'ios') {

@@ -10,6 +10,8 @@ import View from '../view'
 import {useMergedProps} from '../../common'
 
 const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
+  const {colors, isDark, options} = useBlossomTheme()
+
   const {
     label,
     placeholder,
@@ -21,6 +23,7 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
     errorStyle,
     disabled,
     mode = 'outlined',
+    dense,
     left,
     right,
     containerStyle,
@@ -29,9 +32,7 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
     status,
     size = 'medium',
     ...rest
-  } = useMergedProps('TextInput', props)
-
-  const {colors, isDark, options} = useBlossomTheme()
+  } = useMergedProps('TextInput', props, {colors, isDark})
 
   const [isFocused, setIsFocused] = useState(false)
 
@@ -66,6 +67,9 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
               ]
             : styles.flat,
           {
+            backgroundColor: dense
+              ? colors.backgroundTransparent300
+              : undefined,
             borderColor: disabled
               ? colors.background500
               : colors[
@@ -146,6 +150,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   flat: {
+    paddingTop: 4,
     paddingBottom: 6,
     borderBottomWidth: 1,
   },

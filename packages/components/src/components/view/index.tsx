@@ -6,9 +6,9 @@ import {useMergedProps} from '../../common'
 import {ViewProps} from '../types'
 
 const View = (props: ViewProps, ref: React.Ref<RNView>) => {
-  const {row, ...rest} = useMergedProps('View', props)
+  const {colors, isDark} = useBlossomTheme()
 
-  const {colors} = useBlossomTheme()
+  const {row, ...rest} = useMergedProps('View', props, {colors, isDark})
 
   return (
     <RNView

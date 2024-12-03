@@ -9,6 +9,8 @@ import BaseBooleanField from './BaseBooleanField'
 import Icon from '../icon'
 
 const Checkbox = (props: CheckboxProps) => {
+  const {colors, isDark} = useBlossomTheme()
+
   const {
     value,
     onValueChange,
@@ -19,9 +21,7 @@ const Checkbox = (props: CheckboxProps) => {
     status = 'accent',
     size = 'medium',
     ...rest
-  } = useMergedProps('Checkbox', props)
-
-  const {colors, isDark} = useBlossomTheme()
+  } = useMergedProps('Checkbox', props, {colors, isDark})
 
   const getBgColor = useCallback(() => {
     if (disabled) return isDark ? colors.bgDark400 : colors.bgLight400

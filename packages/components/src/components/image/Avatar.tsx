@@ -14,6 +14,8 @@ import Icon from '../icon'
  * Avatar component to show profile images, icon & initials
  */
 const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
+  const {colors, isDark, options} = useBlossomTheme()
+
   const {
     mode = 'circle',
     icon,
@@ -24,9 +26,7 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
     size = 'medium',
     onPress,
     ...rest
-  } = useMergedProps('Avatar', props)
-
-  const {colors, isDark, options} = useBlossomTheme()
+  } = useMergedProps('Avatar', props, {colors, isDark})
 
   const borderRadiusMap: Record<typeof mode, number> = {
     circle: typeof size === 'number' ? size : sizeMap[size] / 2,
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
 })
 
 const sizeMap: Record<BlossomSize, number> = {
-  small: 32,
+  small: 40,
   medium: 64,
   large: 96,
 }

@@ -20,7 +20,7 @@ import {
   Children,
   OmitSizeProps,
   BaseUIProps,
-} from '../common'
+} from '../common/types'
 
 export interface TextProps extends RNTextProps, OmitSizeProps {
   /**
@@ -131,6 +131,10 @@ export interface TextInputProps
    * @default outlined
    */
   mode?: 'flat' | 'outlined'
+  /**
+   * Have a denser background in the text input
+   */
+  dense?: boolean
 
   /**
    * Label text above the input
@@ -372,3 +376,25 @@ export interface CheckboxProps extends BaseBooleanFieldProps {
 /**
  * End of Form Fields Components
  */
+
+/**
+ * Mapping of props to their component name
+ */
+export type ComponentPropsMap = {
+  ActivityIndicator: ActivityIndicatorProps
+  Text: TextProps
+  Button: ButtonProps
+
+  View: ViewProps
+  Divider: DividerProps
+
+  Icon: IconProps
+  Avatar: AvatarProps
+
+  TextInput: TextInputProps
+  SearchInput: SearchInputProps
+
+  Checkbox: CheckboxProps
+  Switch: SwitchProps
+  Radio: RadioProps
+}

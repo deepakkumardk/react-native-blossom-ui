@@ -1,9 +1,15 @@
 {
   "name": "@react-native-blossom-ui/components",
   "version": "0.0.1",
+  "description": "Awesome Blossom UI",
   "license": "MIT",
   "main": "./src/index",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": ["react-native", "ui", "components"],
+  "author": "Deepak Kumar <dpk950@gmail.com>",
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -11,24 +17,22 @@
     "tsc": "tsc --skipLibCheck --noEmit",
     "lint": "eslint src/ --fix"
   },
+  "dependencies": {
+    "deepmerge": "4.3.1"
+  },
   "devDependencies": {
     "@react-native-blossom-ui/typescript-config": "*",
     "@types/chroma-js": "2.4.4",
     "@types/react": "~18.2.0",
     "@types/react-native": "0.73.0",
     "@types/react-native-vector-icons": "6.4.18",
-    "deepmerge": "4.3.1",
     "react": "~18.2.0",
     "react-native": "0.72.10",
     "tsup": "^8.0.1"
   },
   "peerDependencies": {
-    "deepmerge": "*",
     "react": "*",
     "react-native": "*",
     "react-native-vector-icons": "*"
-  },
-  "keywords": [],
-  "author": "",
-  "description": ""
+  }
 }
