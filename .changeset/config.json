@@ -1,11 +1,19 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.4/schema.json",
-  "changelog": "@changesets/cli/changelog",
-  "commit": true,
-  "fixed": [],
+  "changelogs": "@changesets/cli/changelog",
+  "changelog": [
+    "@changesets/changelog-github",
+    {
+      "repo": "deepakkumardk/react-native-blossom-ui"
+    }
+  ],
+  "commit": false,
+  "fixed": [
+    ["@react-native-blossom-ui/components", "@react-native-blossom-ui/showcase"]
+  ],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": ["@react-native-blossom-ui/showcase", "native"]
 }
