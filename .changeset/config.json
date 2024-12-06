@@ -15,5 +15,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@react-native-blossom-ui/showcase", "native"]
+  "ignore": ["native", "web"]
 }

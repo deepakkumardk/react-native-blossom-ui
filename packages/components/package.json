@@ -6,7 +6,8 @@
   "main": "./src/index",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "keywords": [
     "react-native",

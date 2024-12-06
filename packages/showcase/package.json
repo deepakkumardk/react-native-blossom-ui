@@ -18,9 +18,11 @@
     "tsc": "tsc --skipLibCheck --noEmit",
     "lint": "eslint src/ --fix"
   },
+  "dependencies": {
+    "@react-native-blossom-ui/components": "0.1.0"
+  },
   "devDependencies": {
     "@react-native-blossom-ui/typescript-config": "*",
-    "@react-native-blossom-ui/components": "*",
     "@types/chroma-js": "2.4.4",
     "@types/react": "~18.2.0",
     "@types/react-native": "0.73.0",
@@ -32,7 +34,6 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-vector-icons": "*",
-    "@react-native-blossom-ui/components": "*"
+    "react-native-vector-icons": "*"
   }
 }
