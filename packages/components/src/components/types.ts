@@ -1,4 +1,4 @@
-import {ReactNode} from 'react'
+import {LegacyRef, ReactNode} from 'react'
 import {
   TextProps as RNTextProps,
   ActivityIndicatorProps as RNActivityIndicatorProps,
@@ -25,6 +25,7 @@ import {
 export interface TextProps extends RNTextProps, OmitSizeProps {
   /**
    * Typography option to control the size of the text
+   * @default b2
    */
   typography?: TypographyOptions
 }
@@ -49,7 +50,8 @@ export type ButtonMode = 'filled' | 'tinted' | 'outlined' | 'plain'
 
 export interface ButtonProps extends PressableProps, BaseUIProps {
   /**
-   *
+   * Change the appearance of the button using this
+   * @default filled
    */
   mode?: ButtonMode
 
@@ -397,4 +399,47 @@ export type ComponentPropsMap = {
   Checkbox: CheckboxProps
   Switch: SwitchProps
   Radio: RadioProps
+}
+
+export interface PopoverProps {
+  /**
+   * Set it true to show the popover
+   */
+  visible?: boolean
+  /**
+   * Popover JSX content to show
+   */
+  children?: ReactNode
+  /**
+   * callback on clicking the outside area or back button of the popover to close it
+   */
+  onBackdropPress?: () => void
+  /**
+   * Style of the popover shown
+   */
+  contentStyle?: StyleProp<ViewStyle>
+  /**
+   * Render the target JSX using this prop
+   */
+  Target?: ReactNode
+  /**
+   * Target ref object to control it without states
+   * If Target is passed then that will be given priority
+   */
+  targetRef?: LegacyRef<unknown>
+  /**
+   * Set it true to have the same width as of the Target view
+   */
+  fitTargetWidth?: boolean
+}
+
+export interface PopoverRef {
+  /**
+   * Open the popover
+   */
+  open: () => void
+  /**
+   * Close the popover
+   */
+  close: () => void
 }

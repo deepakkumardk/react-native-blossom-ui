@@ -8,6 +8,7 @@ export {default as TextInput} from './input/TextInput'
 export {default as SearchInput} from './input/SearchInput'
 export {default as Avatar} from './image/Avatar'
 export * from './formFields'
+export * from './modal'
 
 export {default as Icon} from './icon'
 
