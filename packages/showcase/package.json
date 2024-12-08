@@ -1,7 +1,7 @@
 {
   "name": "@react-native-blossom-ui/showcase",
   "version": "0.1.1",
-  "description": "Showcase components for UI",
+  "description": "Showcase components for Blossom UI components",
   "license": "MIT",
   "main": "./src/index",
   "types": "./dist/index.d.ts",
@@ -19,7 +19,7 @@
     "lint": "eslint src/ --fix"
   },
   "dependencies": {
-    "@react-native-blossom-ui/components": "0.1.1"
+    "@react-native-blossom-ui/components": "*"
   },
   "devDependencies": {
     "@react-native-blossom-ui/typescript-config": "*",
