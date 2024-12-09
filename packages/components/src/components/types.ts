@@ -4,11 +4,12 @@ import {
   ActivityIndicatorProps as RNActivityIndicatorProps,
   TextInputProps as RNTextInputProps,
   SwitchProps as RNSwitchProps,
+  ModalProps as RNModalProps,
+  ViewProps as RNViewProps,
   StyleProp,
   TextStyle,
   ViewStyle,
   PressableProps,
-  ViewProps as RNViewProps,
   DimensionValue,
   ImageProps,
   ColorValue,
@@ -399,6 +400,19 @@ export type ComponentPropsMap = {
   Checkbox: CheckboxProps
   Switch: SwitchProps
   Radio: RadioProps
+}
+
+export interface ModalProps extends RNModalProps {
+  onBackdropPress?: () => void
+  backdropStyle?: StyleProp<ViewStyle>
+  contentStyle?: StyleProp<ViewStyle>
+}
+
+export interface ModalContentProps {
+  title?: string
+  description?: string
+  children?: string
+  actionButtons?: ButtonProps[]
 }
 
 export interface PopoverProps {
