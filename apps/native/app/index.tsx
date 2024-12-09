@@ -71,4 +71,12 @@ const dataList = [
     title: 'Icon',
     navigateTo: './IconScreen',
   },
+  {
+    title: 'Popover',
+    navigateTo: './PopoverScreen',
+  },
+  {
+    title: 'Modal',
+    navigateTo: './ModalScreen',
+  },
 ]
