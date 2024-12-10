@@ -13,6 +13,7 @@ import {
   DimensionValue,
   ImageProps,
   ColorValue,
+  FlatListProps,
 } from 'react-native'
 
 import {
@@ -37,7 +38,7 @@ export interface SizedTextProps extends TextProps, BaseUIProps {
    * Caption will be used for both a caption or error text in form control inputs
    * @default label
    */
-  mode?: 'label' | 'caption'
+  mode?: 'label' | 'caption' | 'body'
 }
 
 export interface ViewProps extends RNViewProps {
@@ -400,6 +401,11 @@ export type ComponentPropsMap = {
   Checkbox: CheckboxProps
   Switch: SwitchProps
   Radio: RadioProps
+
+  Modal: ModalProps
+  Popover: PopoverProps
+  SelectItem: SelectItemProps<unknown>
+  SelectInput: SelectProps<unknown>
 }
 
 export interface ModalProps extends RNModalProps {
@@ -457,3 +463,95 @@ export interface PopoverRef {
    */
   close: () => void
 }
+
+/**
+ * Start of Select Props
+ */
+
+export interface SelectItemT<T> {
+  /**
+   * Label to show in the select
+   */
+  label: string
+  /**
+   * Any value data for select
+   */
+  value: T
+
+  /**
+   * This will disable the item to be selected
+   */
+  disabled?: boolean
+}
+
+export interface SelectItemProps<T> extends BaseUIProps {
+  /**
+   * Select Item object
+   */
+  item: SelectItemT<T>
+  /**
+   * Current index of the item
+   */
+  index: number
+  /**
+   * Currently selected index in the list
+   */
+  selectedIndex?: number
+  /**
+   * Item view style
+   */
+  style?: StyleProp<ViewStyle>
+  /**
+   * Item on press callback
+   */
+  onPress?: () => void
+
+  /**
+   * Set it to true to show tick icon on the selected row
+   * @default true
+   */
+  withTickIcon?: boolean
+}
+
+export type RNFlatListProps<ItemT> = Partial<
+  Omit<FlatListProps<SelectItemT<ItemT>>, 'data'>
+>
+
+export interface SelectProps<ItemT>
+  extends BaseUIProps,
+    Pick<TextInputProps, 'placeholder' | 'defaultValue' | 'disabled'>,
+    RNFlatListProps<ItemT> {
+  /**
+   * List of options
+   */
+  options?: SelectItemT<ItemT>[]
+  /**
+   * Selected value from the data object
+   * i.e. pass the `item.value` object that you get from `onValueChange`
+   */
+  value?: ItemT
+
+  /**
+   * Callback on every value change
+   * @param selectedItem Clicked item value
+   */
+  onValueChange?: (selectedItem?: SelectItemT<ItemT>) => void
+
+  /**
+   * Set it true to open keyboard and show search results
+   * TODO: add support for this
+   */
+  searchable?: boolean
+  /**
+   * Show the close icon at right to clear the selection
+   */
+  clearable?: boolean
+  /**
+   * Height of the popover shown for selecting the item
+   */
+  pickerHeight?: number
+}
+
+/**
+ * End of Select Props
+ */

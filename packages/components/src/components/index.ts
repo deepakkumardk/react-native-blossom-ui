@@ -9,6 +9,7 @@ export {default as SearchInput} from './input/SearchInput'
 export {default as Avatar} from './image/Avatar'
 export * from './formFields'
 export * from './modal'
+export * from './select'
 
 export {default as Icon} from './icon'
 
