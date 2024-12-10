@@ -79,4 +79,8 @@ const dataList = [
     title: 'Modal',
     navigateTo: './ModalScreen',
   },
+  {
+    title: 'Select',
+    navigateTo: './SelectScreen',
+  },
 ]
