@@ -404,6 +404,7 @@ export type ComponentPropsMap = {
 
   Modal: ModalProps
   Popover: PopoverProps
+  Tooltip: TooltipProps
   SelectItem: SelectItemProps<unknown>
   SelectInput: SelectProps<unknown>
 }
@@ -462,6 +463,21 @@ export interface PopoverRef {
    * Close the popover
    */
   close: () => void
+}
+
+export interface TooltipProps
+  extends Pick<
+    PopoverProps,
+    'visible' | 'contentStyle' | 'Target' | 'onBackdropPress'
+  > {
+  /**
+   * Title text for the tooltip
+   */
+  title: string
+  /**
+   * Style of the tooltip title text
+   */
+  titleStyle?: StyleProp<TextStyle>
 }
 
 /**
