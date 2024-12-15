@@ -506,13 +506,9 @@ export interface SelectItemProps<T> extends BaseUIProps {
    */
   item: SelectItemT<T>
   /**
-   * Current index of the item
+   * Set it to true to show the item selected
    */
-  index: number
-  /**
-   * Currently selected index in the list
-   */
-  selectedIndex?: number
+  isSelected?: boolean
   /**
    * Item view style
    */
@@ -527,6 +523,11 @@ export interface SelectItemProps<T> extends BaseUIProps {
    * @default true
    */
   withTickIcon?: boolean
+
+  /**
+   * Render custom icon on left
+   */
+  leftIcon?: ReactNode
 }
 
 export type RNFlatListProps<ItemT> = Partial<
@@ -548,6 +549,11 @@ export interface SelectProps<ItemT>
   value?: ItemT
 
   /**
+   * Set custom display value
+   */
+  displayValue?: string
+
+  /**
    * Callback on every value change
    * @param selectedItem Clicked item value
    */
@@ -566,6 +572,23 @@ export interface SelectProps<ItemT>
    * Height of the popover shown for selecting the item
    */
   pickerHeight?: number
+}
+
+export interface MultiSelectProps<ItemT>
+  extends Omit<SelectProps<ItemT>, 'value' | 'onValueChange'> {
+  /**
+   * List of selected item values
+   */
+  values?: SelectItemT<ItemT>[]
+  /**
+   * Callback on select item press
+   * @param selectedItems selected item values
+   */
+  onValuesChange?: (selectedItems: SelectItemT<ItemT>[]) => void
+  /**
+   * Limit the selection to max count
+   */
+  maxSelectCount?: number
 }
 
 /**

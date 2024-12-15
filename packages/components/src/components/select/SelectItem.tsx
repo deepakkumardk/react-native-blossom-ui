@@ -16,8 +16,8 @@ const SelectItem = <T,>(props: SelectItemProps<T>) => {
     item,
     onPress,
     withTickIcon = true,
-    index,
-    selectedIndex,
+    leftIcon,
+    isSelected,
     style,
     size,
   } = props
@@ -27,20 +27,21 @@ const SelectItem = <T,>(props: SelectItemProps<T>) => {
       accessibilityRole="button"
       style={[
         styles.item,
-        index === selectedIndex && {
+        isSelected && {
           backgroundColor: colors.primaryTransparent100,
         },
         style,
       ]}
       onPress={item.disabled ? undefined : onPress}>
-      {withTickIcon && index === selectedIndex && (
-        <Icon
-          family="MaterialCommunityIcons"
-          name="check"
-          size={20}
-          style={styles.icon}
-        />
-      )}
+      {leftIcon ||
+        (withTickIcon && isSelected && (
+          <Icon
+            family="MaterialCommunityIcons"
+            name="check"
+            size={20}
+            style={styles.icon}
+          />
+        ))}
       <SizedText
         mode="body"
         size={size}
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
     padding: 8,
     marginHorizontal: 4,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   label: {
     paddingStart: 12,

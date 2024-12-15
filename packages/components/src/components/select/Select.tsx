@@ -21,6 +21,7 @@ const Select = <T,>(props: SelectProps<T>) => {
   const {
     options = [],
     value,
+    displayValue,
     onValueChange,
     searchable,
     clearable,
@@ -46,8 +47,8 @@ const Select = <T,>(props: SelectProps<T>) => {
   }, [options, value])
 
   const getDisplayValue = useCallback(() => {
-    return options[getSelectedIndex()]?.label || ''
-  }, [options, getSelectedIndex])
+    return displayValue || options[getSelectedIndex()]?.label || ''
+  }, [displayValue, options, getSelectedIndex])
 
   const openPicker = useCallback(() => {
     !disabled && setShowPicker((prev) => !prev)
@@ -116,8 +117,7 @@ const Select = <T,>(props: SelectProps<T>) => {
             <SelectItem
               size={size}
               item={item}
-              index={index}
-              selectedIndex={getSelectedIndex()}
+              isSelected={index === getSelectedIndex()}
               onPress={() => {
                 onValueChange?.(item)
                 setShowPicker(false)
