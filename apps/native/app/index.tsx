@@ -76,11 +76,19 @@ const dataList = [
     navigateTo: './PopoverScreen',
   },
   {
+    title: 'Tooltip',
+    navigateTo: './TooltipScreen',
+  },
+  {
     title: 'Modal',
     navigateTo: './ModalScreen',
   },
   {
     title: 'Select',
     navigateTo: './SelectScreen',
+  },
+  {
+    title: 'MultiSelect',
+    navigateTo: './MultiSelectScreen',
   },
 ]

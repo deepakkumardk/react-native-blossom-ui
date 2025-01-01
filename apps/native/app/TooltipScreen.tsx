@@ -1,31 +1,19 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-
 import {View} from '@react-native-blossom-ui/components'
-import {
-  SelectClearable,
-  SelectDisabled,
-  SelectObjectOptions,
-  SelectUsage,
-} from '@react-native-blossom-ui/showcase'
+import {TooltipUsage, TooltipCustom} from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
 
-export default function SelectScreen() {
+export default function TooltipScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
-        <SelectUsage />
+        <TooltipUsage />
 
-        <Heading>Clearable</Heading>
-        <SelectClearable />
-
-        <Heading>Disabled</Heading>
-        <SelectDisabled />
-
-        <Heading>Object List Options</Heading>
-        <SelectObjectOptions />
+        <Heading>Custom</Heading>
+        <TooltipCustom />
       </ScrollView>
     </View>
   )

@@ -7,15 +7,12 @@ import {
   Text,
 } from '@react-native-blossom-ui/components'
 
-import {Alert} from 'react-native'
 import {SIZE_LIST, STATUS_LIST, BUTTON_MODES} from './constants'
 
 export function ButtonUsage() {
   return (
     <View>
-      <Button onPress={() => Alert.alert('You are Awesome')}>
-        Blossom Button
-      </Button>
+      <Button onPress={() => alert('You are Awesome')}>Blossom Button</Button>
     </View>
   )
 }
@@ -251,7 +248,7 @@ export function ButtonCustom() {
         left={<Icon name="add" size={24} color="white" />}
         right={<Icon name="add" size={24} color="white" />}
         style={[{width: '100%', backgroundColor: 'green'}]}
-        onPress={() => Alert.alert('Awesome Blossom Button')}>
+        onPress={() => alert('Awesome Blossom Button')}>
         Prefix <Text status="error">Text Children</Text> Suffix
       </Button>
       <Button

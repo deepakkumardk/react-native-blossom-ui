@@ -3,29 +3,37 @@ import {ScrollView, StyleSheet} from 'react-native'
 
 import {View} from '@react-native-blossom-ui/components'
 import {
-  SelectClearable,
-  SelectDisabled,
-  SelectObjectOptions,
-  SelectUsage,
+  MultiSelectClearable,
+  MultiSelectControlled,
+  MultiSelectDisabled,
+  MultiSelectMaxSelect,
+  MultiSelectObjectOptions,
+  MultiSelectUsage,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
 
-export default function SelectScreen() {
+export default function MultiSelectScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
-        <SelectUsage />
+        <MultiSelectUsage />
 
         <Heading>Clearable</Heading>
-        <SelectClearable />
+        <MultiSelectClearable />
 
         <Heading>Disabled</Heading>
-        <SelectDisabled />
+        <MultiSelectDisabled />
+
+        <Heading>Max Select</Heading>
+        <MultiSelectMaxSelect />
+
+        <Heading>Controlled</Heading>
+        <MultiSelectControlled />
 
         <Heading>Object List Options</Heading>
-        <SelectObjectOptions />
+        <MultiSelectObjectOptions />
       </ScrollView>
     </View>
   )
