@@ -17,7 +17,9 @@ const MultiSelect = <T,>(props: MultiSelectProps<T>) => {
     values = [],
     onValuesChange,
     disabled,
-    pickerHeight,
+    maxSelectCount,
+    label,
+    placeholder,
     ...rest
   } = useMergedProps('MultiSelect', props, {colors, isDark})
 
@@ -40,6 +42,9 @@ const MultiSelect = <T,>(props: MultiSelectProps<T>) => {
         (item) => JSON.stringify(item) === JSON.stringify(selectedItem),
       )
       if (indexFoundValue === -1) {
+        if (maxSelectCount && nextValues.length >= maxSelectCount) {
+          return
+        }
         // Add the item if not found
         nextValues.push(selectedItem)
       } else {
@@ -51,7 +56,7 @@ const MultiSelect = <T,>(props: MultiSelectProps<T>) => {
       onValuesChange?.(nextValues)
       setSelectedValues(nextValues)
     },
-    [selectedValues, onValuesChange],
+    [maxSelectCount, selectedValues, onValuesChange],
   )
 
   const isItemSelected = useCallback(
@@ -65,6 +70,8 @@ const MultiSelect = <T,>(props: MultiSelectProps<T>) => {
 
   return (
     <Select
+      label={label}
+      placeholder={placeholder}
       displayValue={getDisplayValue()}
       renderItem={({item}) => (
         <SelectItem
@@ -85,6 +92,7 @@ const MultiSelect = <T,>(props: MultiSelectProps<T>) => {
         />
       )}
       {...rest}
+      disabled={disabled}
       onValueChange={handleValueChange}
       value={undefined}
     />

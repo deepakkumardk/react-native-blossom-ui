@@ -3,6 +3,7 @@
 /* eslint-disable global-require */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react'
+import {TouchableOpacity} from 'react-native'
 
 import {IconProps} from '../types'
 import {getStatusColorName} from '../utils'
@@ -24,7 +25,17 @@ const Icon = (props: IconProps) => {
 
   const IconComponent = getIconFamily(family)
 
-  return (
+  return rest?.onPress ? (
+    <TouchableOpacity accessibilityRole="button" activeOpacity={0.5}>
+      {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment //
+      @ts-expect-error */}
+      <IconComponent
+        color={colors[getStatusColorName(status, isDark)]}
+        size={size}
+        {...rest}
+      />
+    </TouchableOpacity>
+  ) : (
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     <IconComponent

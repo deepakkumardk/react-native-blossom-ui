@@ -536,7 +536,7 @@ export type RNFlatListProps<ItemT> = Partial<
 
 export interface SelectProps<ItemT>
   extends BaseUIProps,
-    Pick<TextInputProps, 'placeholder' | 'defaultValue' | 'disabled'>,
+    Pick<TextInputProps, 'placeholder' | 'defaultValue' | 'disabled' | 'label'>,
     RNFlatListProps<ItemT> {
   /**
    * List of options

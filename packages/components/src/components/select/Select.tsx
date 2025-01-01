@@ -28,6 +28,7 @@ const Select = <T,>(props: SelectProps<T>) => {
     // TODO add support
     defaultValue,
     disabled,
+    label,
     placeholder = 'Select Option',
     pickerHeight = PICKER_HEIGHT,
     status,
@@ -86,6 +87,7 @@ const Select = <T,>(props: SelectProps<T>) => {
               color: colors.text100,
             },
           ]}
+          label={label}
           placeholder={placeholder}
           value={getDisplayValue()}
           disabled={disabled || !searchable}

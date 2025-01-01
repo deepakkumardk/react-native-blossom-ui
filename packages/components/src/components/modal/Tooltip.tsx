@@ -15,10 +15,7 @@ const Tooltip = (props: TooltipProps) => {
   const {visible, title, titleStyle, ...rest} = useMergedProps(
     'Tooltip',
     props,
-    {
-      colors,
-      isDark,
-    },
+    {colors, isDark},
   )
 
   const [showPopover, setShowPopover] = useState(visible)

@@ -8,6 +8,9 @@ import {useMergedProps, BlossomSize} from '../../common'
 import BaseBooleanField from './BaseBooleanField'
 import Icon from '../icon'
 
+/**
+ * Checkbox control field component
+ */
 const Checkbox = (props: CheckboxProps) => {
   const {colors, isDark} = useBlossomTheme()
 
@@ -48,6 +51,7 @@ const Checkbox = (props: CheckboxProps) => {
       <Pressable
         accessibilityRole="button"
         style={[
+          styles.checkbox,
           {
             width: sizeMap[size],
             height: sizeMap[size],
@@ -55,7 +59,6 @@ const Checkbox = (props: CheckboxProps) => {
             borderColor: colors.background300,
             borderWidth: value ? 0 : 1,
           },
-          styles.checkbox,
           style,
         ]}
         onPress={() =>

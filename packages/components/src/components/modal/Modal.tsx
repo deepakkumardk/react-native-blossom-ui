@@ -1,5 +1,5 @@
 import React from 'react'
-import {Pressable, Modal as RNModal, StyleSheet} from 'react-native'
+import {Platform, Pressable, Modal as RNModal, StyleSheet} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
 import {useMergedProps} from '../../common'
@@ -62,8 +62,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   content: {
+    margin: 24,
     padding: 16,
     borderRadius: 8,
-    margin: 24,
+    ...Platform.select({
+      web: {
+        alignSelf: 'center',
+        maxWidth: 500,
+        minWidth: 300,
+      },
+    }),
   },
 })
