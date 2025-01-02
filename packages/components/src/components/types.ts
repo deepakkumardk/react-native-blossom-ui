@@ -452,6 +452,15 @@ export interface PopoverProps {
    * Set it true to have the same width as of the Target view
    */
   fitTargetWidth?: boolean
+  /**
+   * Popover content position
+   * @default bottom
+   */
+  position?: 'top' | 'bottom' | 'left' | 'right'
+  /**
+   * Content offset
+   */
+  offset?: number
 }
 
 export interface PopoverRef {

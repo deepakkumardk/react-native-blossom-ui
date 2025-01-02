@@ -13,6 +13,7 @@ import {
   UIManager,
   findNodeHandle,
   View as RNView,
+  useWindowDimensions,
 } from 'react-native'
 import {useBlossomTheme} from '../../context'
 import View from '../view'
@@ -29,6 +30,8 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
 
   const {
     visible,
+    position = 'bottom',
+    offset = 2,
     Target,
     targetRef,
     fitTargetWidth,
@@ -43,13 +46,17 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
   //   {colors, isDark},
   // )
 
+  const {width: deviceWidth, height: deviceHeight} = useWindowDimensions()
+
   const [showContent, setShowContent] = useState(visible)
 
-  const [position, setPosition] = useState({
-    top: 0,
-    left: 0,
-    width: 0,
-  })
+  const [positionStyle, setPositionStyle] = useState<{
+    left?: number
+    right?: number
+    top?: number
+    bottom?: number
+    maxWidth?: number
+  }>({})
 
   useImperativeHandle(
     ref,
@@ -65,10 +72,17 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
   )
 
   const measureContent = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const node = findNodeHandle(targetViewRef?.current || targetRef?.current)
+    const node = findNodeHandle(
+      // Find the first children inside the target ref
+      // eslint-disable-next-line
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access, no-underscore-dangle
+      targetViewRef?.current?._children?.[0] ||
+        targetViewRef?.current ||
+        // eslint-disable-next-line
+        // @ts-ignore
+        targetRef?.current,
+    )
     if (!node) return
 
     UIManager.measure(
@@ -81,14 +95,41 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
         pageX: number,
         pageY: number,
       ) => {
-        setPosition({
-          left: pageX,
-          top: pageY + height,
-          width,
+        const offsetWidthMap: Record<typeof position, number> = {
+          // top: deviceWidth - pageX,
+          // bottom: deviceWidth - pageX,
+          top: width,
+          bottom: width,
+          left: pageX - offset,
+          right: deviceWidth - (pageX + width + offset),
+        }
+        const positionStyleMap: Record<typeof position, typeof positionStyle> =
+          {
+            left: {
+              right: deviceWidth - pageX + offset,
+              top: pageY,
+            },
+            right: {
+              left: pageX + width + offset,
+              top: pageY,
+            },
+            top: {
+              left: pageX,
+              bottom: -pageY + offset,
+            },
+            bottom: {
+              left: pageX,
+              top: pageY + height + offset,
+            },
+          }
+
+        setPositionStyle({
+          ...positionStyleMap[position],
+          maxWidth: offsetWidthMap[position],
         })
       },
     )
-  }, [targetRef, targetViewRef])
+  }, [deviceWidth, offset, position, targetRef])
 
   useEffect(() => {
     setShowContent(visible)
@@ -103,6 +144,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
   return (
     <View>
       <View ref={targetViewRef}>{Target}</View>
+
       <Modal transparent visible={showContent} onRequestClose={onBackdropPress}>
         <Pressable
           accessibilityRole="alert"
@@ -114,14 +156,16 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
               style={[
                 styles.content,
                 styles.shadow,
+                positionStyle,
                 {
-                  top: position.top,
-                  left: position.left,
+                  // left: positionStyle.left,
+                  // right: positionStyle.right,
+                  // top: positionStyle.top,
+                  // bottom: positionStyle.bottom,
                   borderColor: colors.background300,
                   shadowColor: colors.background200,
-                  maxWidth: position.width,
                 },
-                fitTargetWidth && {width: position.width},
+                fitTargetWidth && {width: positionStyle.maxWidth},
                 contentStyle,
               ]}>
               {children}

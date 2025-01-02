@@ -1,5 +1,12 @@
-import React, {useCallback, useRef, useState} from 'react'
-import {Pressable, StyleSheet, FlatList, View as RNView} from 'react-native'
+import React, {useCallback, useMemo, useRef, useState} from 'react'
+import {
+  Pressable,
+  StyleSheet,
+  FlatList,
+  View as RNView,
+  LayoutRectangle,
+  useWindowDimensions,
+} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
 import View from '../view'
@@ -39,6 +46,13 @@ const Select = <T,>(props: SelectProps<T>) => {
   const anchorRef = useRef<RNView>(null)
   const flatListRef = useRef<FlatList>(null)
 
+  const [pressableLayout, setPressableLayout] = useState<LayoutRectangle>({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  })
+
   const [showPicker, setShowPicker] = useState(false)
 
   const getSelectedIndex = useCallback(() => {
@@ -55,8 +69,19 @@ const Select = <T,>(props: SelectProps<T>) => {
     !disabled && setShowPicker((prev) => !prev)
   }, [disabled])
 
+  const {height: deviceHeight} = useWindowDimensions()
+
+  const pickerPosition = useMemo(() => {
+    let autoPosition = 'bottom'
+    if (deviceHeight - pressableLayout.y < pickerHeight) {
+      autoPosition = 'top'
+    }
+
+    return autoPosition
+  }, [deviceHeight, pickerHeight, pressableLayout])
+
   return (
-    <View>
+    <View onLayout={(e) => setPressableLayout(e.nativeEvent.layout)}>
       <Pressable
         ref={anchorRef}
         accessibilityRole="button"
@@ -100,6 +125,10 @@ const Select = <T,>(props: SelectProps<T>) => {
       <Popover
         targetRef={anchorRef}
         visible={showPicker}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        position={pickerPosition}
+        offset={pickerPosition === 'top' ? pressableLayout.height : 0}
         fitTargetWidth
         contentStyle={[
           styles.popover,
