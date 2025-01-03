@@ -2,9 +2,11 @@ import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
 import {View} from '@react-native-blossom-ui/components'
 import {
+  PopoverUsage,
+  PopoverPosition,
+  PopoverOffset,
   PopoverFitTargetWidth,
   PopoverTargetRefUsage,
-  PopoverUsage,
 } from '@react-native-blossom-ui/showcase'
 import {Heading} from '../components'
 
@@ -15,11 +17,17 @@ export default function PopoverScreen() {
         <Heading>Usage</Heading>
         <PopoverUsage />
 
-        <Heading>Ref Usage</Heading>
-        <PopoverTargetRefUsage />
+        <Heading>Position</Heading>
+        <PopoverPosition />
+
+        <Heading>Offset</Heading>
+        <PopoverOffset />
 
         <Heading>Fit Target Width</Heading>
         <PopoverFitTargetWidth />
+
+        <Heading>Ref Usage</Heading>
+        <PopoverTargetRefUsage />
       </ScrollView>
     </View>
   )

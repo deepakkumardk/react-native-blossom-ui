@@ -8,7 +8,7 @@ export function TooltipUsage() {
   return (
     <View>
       <Tooltip
-        title="Hey from Tooltip!"
+        title="Hey from Blossom Tooltip!"
         visible={showTooltip}
         Target={
           <Button onPress={() => setShowTooltip((prev) => !prev)}>
@@ -31,7 +31,9 @@ export function TooltipCustom() {
       title="Hello from Tooltip!"
       visible={showTooltip}
       Target={
-        <Button onPress={() => setShowTooltip((prev) => !prev)}>
+        <Button
+          style={{alignSelf: 'center'}}
+          onPress={() => setShowTooltip((prev) => !prev)}>
           Show Tooltip
         </Button>
       }
@@ -40,6 +42,7 @@ export function TooltipCustom() {
       }}
       contentStyle={{
         backgroundColor: 'green',
+        width: 160,
       }}
       titleStyle={{color: 'white'}}
     />

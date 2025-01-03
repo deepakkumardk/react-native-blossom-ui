@@ -3,10 +3,10 @@ import {ScrollView, StyleSheet} from 'react-native'
 
 import {View} from '@react-native-blossom-ui/components'
 import {
+  SelectUsage,
   SelectClearable,
   SelectDisabled,
   SelectObjectOptions,
-  SelectUsage,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
@@ -27,6 +27,8 @@ export default function SelectScreen() {
         <Heading>Object List Options</Heading>
         <SelectObjectOptions />
       </ScrollView>
+      <Heading>Auto Top Position</Heading>
+      <SelectUsage />
     </View>
   )
 }

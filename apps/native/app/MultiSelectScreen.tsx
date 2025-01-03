@@ -3,12 +3,12 @@ import {ScrollView, StyleSheet} from 'react-native'
 
 import {View} from '@react-native-blossom-ui/components'
 import {
+  MultiSelectUsage,
   MultiSelectClearable,
   MultiSelectControlled,
   MultiSelectDisabled,
   MultiSelectMaxSelect,
   MultiSelectObjectOptions,
-  MultiSelectUsage,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
