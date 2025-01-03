@@ -1,5 +1,15 @@
 # @react-native-blossom-ui/components
 
+## 0.2.0
+
+### Minor Changes
+
+- fb4da0b: Add popover component
+
+### Patch Changes
+
+- fb4da0b: - Add Select, MultiSelect, Popover, Tooltip, Modal, ModalContent components
+
 ## 0.1.1
 
 ### Patch Changes
