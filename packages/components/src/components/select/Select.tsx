@@ -107,6 +107,11 @@ const Select = <T,>(props: SelectProps<T>) => {
               />
             </View>
           }
+          inputStyle={[
+            disabled && {
+              backgroundColor: colors.background200,
+            },
+          ]}
           textStyle={[
             !disabled && {
               color: colors.text100,

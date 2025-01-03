@@ -461,6 +461,10 @@ export interface PopoverProps {
    * Content offset
    */
   offset?: number
+  /**
+   * Wrap Content the popover
+   */
+  wrapContent?: boolean
 }
 
 export interface PopoverRef {
@@ -477,7 +481,12 @@ export interface PopoverRef {
 export interface TooltipProps
   extends Pick<
     PopoverProps,
-    'visible' | 'contentStyle' | 'Target' | 'onBackdropPress'
+    | 'visible'
+    | 'contentStyle'
+    | 'Target'
+    | 'onBackdropPress'
+    | 'position'
+    | 'offset'
   > {
   /**
    * Title text for the tooltip

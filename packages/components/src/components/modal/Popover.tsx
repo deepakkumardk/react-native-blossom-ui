@@ -20,6 +20,8 @@ import View from '../view'
 import {PopoverProps, PopoverRef} from '../types'
 import {useMergedProps} from '../../common'
 
+const OFFSET_PADDING = 16
+
 /**
  * Show a UI relative to the target view
  */
@@ -31,7 +33,8 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
   const {
     visible,
     position = 'bottom',
-    offset = 2,
+    wrapContent,
+    offset = 6,
     Target,
     targetRef,
     fitTargetWidth,
@@ -46,7 +49,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
   //   {colors, isDark},
   // )
 
-  const {width: deviceWidth, height: deviceHeight} = useWindowDimensions()
+  const {width: deviceWidth} = useWindowDimensions()
 
   const [showContent, setShowContent] = useState(visible)
 
@@ -56,6 +59,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
     top?: number
     bottom?: number
     maxWidth?: number
+    targetWidth?: number
   }>({})
 
   useImperativeHandle(
@@ -96,10 +100,8 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
         pageY: number,
       ) => {
         const offsetWidthMap: Record<typeof position, number> = {
-          // top: deviceWidth - pageX,
-          // bottom: deviceWidth - pageX,
-          top: width,
-          bottom: width,
+          top: deviceWidth,
+          bottom: deviceWidth,
           left: pageX - offset,
           right: deviceWidth - (pageX + width + offset),
         }
@@ -125,11 +127,18 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
 
         setPositionStyle({
           ...positionStyleMap[position],
+          ...(!fitTargetWidth &&
+            !wrapContent &&
+            (position === 'top' || position === 'bottom') && {
+              left: OFFSET_PADDING,
+              right: OFFSET_PADDING,
+            }),
           maxWidth: offsetWidthMap[position],
+          targetWidth: width,
         })
       },
     )
-  }, [deviceWidth, offset, position, targetRef])
+  }, [deviceWidth, fitTargetWidth, offset, position, targetRef, wrapContent])
 
   useEffect(() => {
     setShowContent(visible)
@@ -158,14 +167,10 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
                 styles.shadow,
                 positionStyle,
                 {
-                  // left: positionStyle.left,
-                  // right: positionStyle.right,
-                  // top: positionStyle.top,
-                  // bottom: positionStyle.bottom,
                   borderColor: colors.background300,
                   shadowColor: colors.background200,
                 },
-                fitTargetWidth && {width: positionStyle.maxWidth},
+                fitTargetWidth && {width: positionStyle.targetWidth},
                 contentStyle,
               ]}>
               {children}
@@ -187,7 +192,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     padding: 8,
     borderRadius: 8,
-    borderWidth: 0.4,
+    borderWidth: 1,
     maxWidth: '100%',
   },
   shadow: {
