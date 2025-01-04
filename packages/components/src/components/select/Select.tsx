@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {
   Pressable,
   StyleSheet,
@@ -18,6 +18,7 @@ import {SelectProps} from '../types'
 import {useMergedProps} from '../../common'
 
 const PICKER_HEIGHT = 180
+const HEIGHT_OFFSET = 120
 
 /**
  * Select Input component for single select
@@ -32,19 +33,22 @@ const Select = <T,>(props: SelectProps<T>) => {
     onValueChange,
     searchable,
     clearable,
-    // TODO add support
     defaultValue,
     disabled,
     label,
     placeholder = 'Select Option',
     pickerHeight = PICKER_HEIGHT,
+    pickerProps,
     status,
     size,
-    ...rest
+    renderItem,
+    inputProps,
   } = useMergedProps('Select', props, {colors, isDark})
 
   const anchorRef = useRef<RNView>(null)
   const flatListRef = useRef<FlatList>(null)
+
+  const [selectedValue, setSelectedValue] = useState(value)
 
   const [pressableLayout, setPressableLayout] = useState<LayoutRectangle>({
     x: 0,
@@ -55,11 +59,21 @@ const Select = <T,>(props: SelectProps<T>) => {
 
   const [showPicker, setShowPicker] = useState(false)
 
+  useEffect(() => {
+    setSelectedValue(value)
+  }, [value])
+
+  useEffect(() => {
+    // Set the default value for the first time, on mount
+    setSelectedValue(defaultValue)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const getSelectedIndex = useCallback(() => {
     return options.findIndex(
-      (item) => JSON.stringify(item.value) === JSON.stringify(value),
+      (item) => JSON.stringify(item.value) === JSON.stringify(selectedValue),
     )
-  }, [options, value])
+  }, [options, selectedValue])
 
   const getDisplayValue = useCallback(() => {
     return displayValue || options[getSelectedIndex()]?.label || ''
@@ -73,12 +87,49 @@ const Select = <T,>(props: SelectProps<T>) => {
 
   const pickerPosition = useMemo(() => {
     let autoPosition = 'bottom'
-    if (deviceHeight - pressableLayout.y < pickerHeight) {
+    if (deviceHeight - pressableLayout.y < pickerHeight + HEIGHT_OFFSET) {
       autoPosition = 'top'
     }
 
     return autoPosition
   }, [deviceHeight, pickerHeight, pressableLayout])
+
+  const RightView = useCallback(
+    () => (
+      <View
+        row
+        style={[
+          disabled && {
+            backgroundColor: colors.background200,
+          },
+        ]}>
+        {clearable && getDisplayValue() && (
+          <Icon
+            name="close"
+            size={24}
+            style={styles.closeIcon}
+            color={colors.background700}
+            onPress={() => onValueChange?.(undefined)}
+          />
+        )}
+        <Icon
+          name="chevron-down"
+          size={24}
+          color={disabled ? colors.text500 : colors.text100}
+        />
+      </View>
+    ),
+    [
+      clearable,
+      colors.background200,
+      colors.background700,
+      colors.text100,
+      colors.text500,
+      disabled,
+      getDisplayValue,
+      onValueChange,
+    ],
+  )
 
   return (
     <View onLayout={(e) => setPressableLayout(e.nativeEvent.layout)}>
@@ -89,24 +140,7 @@ const Select = <T,>(props: SelectProps<T>) => {
         <SearchInput
           accessibilityLabel="Select input field"
           left={null}
-          right={
-            <View row>
-              {clearable && getDisplayValue() && (
-                <Icon
-                  name="close"
-                  size={24}
-                  style={styles.closeIcon}
-                  color={colors.background700}
-                  onPress={() => onValueChange?.(undefined)}
-                />
-              )}
-              <Icon
-                name="chevron-down"
-                size={24}
-                color={disabled ? colors.text500 : colors.text100}
-              />
-            </View>
-          }
+          right={<RightView />}
           inputStyle={[
             disabled && {
               backgroundColor: colors.background200,
@@ -124,6 +158,7 @@ const Select = <T,>(props: SelectProps<T>) => {
           onPressOut={openPicker}
           status={status}
           size={size}
+          {...inputProps}
         />
       </Pressable>
 
@@ -149,18 +184,23 @@ const Select = <T,>(props: SelectProps<T>) => {
           ref={flatListRef}
           data={options}
           keyExtractor={(item) => item.label}
-          renderItem={({item, index}) => (
-            <SelectItem
-              size={size}
-              item={item}
-              isSelected={index === getSelectedIndex()}
-              onPress={() => {
-                onValueChange?.(item)
-                setShowPicker(false)
-              }}
-            />
-          )}
-          {...rest}
+          {...pickerProps}
+          renderItem={
+            renderItem ||
+            (({item, index}) => (
+              <SelectItem
+                size={size}
+                item={item}
+                isSelected={index === getSelectedIndex()}
+                onPress={() => {
+                  setSelectedValue(item.value)
+                  onValueChange?.(item.value, item, index)
+                  setShowPicker(false)
+                }}
+              />
+            ))
+          }
+          {...pickerProps}
         />
       </Popover>
     </View>

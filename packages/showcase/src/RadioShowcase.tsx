@@ -49,69 +49,36 @@ export function RadioPositions() {
 }
 
 export function RadioStatuses() {
-  const [isOn, setIsOn] = useState(false)
-
   return (
     <View style={{justifyContent: 'space-evenly'}}>
       <Radio
         status="primary"
         label="primary"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.container}
       />
-      <Radio
-        status="accent"
-        label="accent"
-        value={isOn}
-        onValueChange={setIsOn}
-        containerStyle={styles.container}
-      />
+      <Radio status="accent" label="accent" containerStyle={styles.container} />
       <Radio
         status="success"
         label="success"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.container}
       />
-      <Radio
-        status="info"
-        label="info"
-        value={isOn}
-        onValueChange={setIsOn}
-        containerStyle={styles.container}
-      />
+      <Radio status="info" label="info" containerStyle={styles.container} />
       <Radio
         status="warning"
         label="warning"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.container}
       />
-      <Radio
-        status="error"
-        label="error"
-        value={isOn}
-        onValueChange={setIsOn}
-        containerStyle={styles.container}
-      />
+      <Radio status="error" label="error" containerStyle={styles.container} />
     </View>
   )
 }
 
 export function RadioSizes() {
-  const [isOn, setIsOn] = useState(true)
-
   return (
     <View row style={{justifyContent: 'space-evenly'}}>
-      <Radio label="small" size="small" value={isOn} onValueChange={setIsOn} />
-      <Radio
-        label="medium"
-        size="medium"
-        value={isOn}
-        onValueChange={setIsOn}
-      />
-      <Radio label="large" size="large" value={isOn} onValueChange={setIsOn} />
+      <Radio label="small" size="small" />
+      <Radio label="medium" size="medium" />
+      <Radio label="large" size="large" />
     </View>
   )
 }
@@ -127,7 +94,7 @@ export function RadioDisabled() {
 }
 
 export function RadioCustom() {
-  const [isOn, setIsOn] = useState(true)
+  const [isOn, setIsOn] = useState(false)
 
   return (
     <View style={{justifyContent: 'space-evenly'}}>

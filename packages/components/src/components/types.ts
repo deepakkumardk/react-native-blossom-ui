@@ -502,7 +502,7 @@ export interface TooltipProps
  * Start of Select Props
  */
 
-export interface SelectItemT<T> {
+export interface SelectItemT<ItemT> {
   /**
    * Label to show in the select
    */
@@ -510,7 +510,7 @@ export interface SelectItemT<T> {
   /**
    * Any value data for select
    */
-  value: T
+  value: ItemT
 
   /**
    * This will disable the item to be selected
@@ -518,11 +518,11 @@ export interface SelectItemT<T> {
   disabled?: boolean
 }
 
-export interface SelectItemProps<T> extends BaseUIProps {
+export interface SelectItemProps<ItemT> extends BaseUIProps {
   /**
    * Select Item object
    */
-  item: SelectItemT<T>
+  item: SelectItemT<ItemT>
   /**
    * Set it to true to show the item selected
    */
@@ -554,8 +554,7 @@ export type RNFlatListProps<ItemT> = Partial<
 
 export interface SelectProps<ItemT>
   extends BaseUIProps,
-    Pick<TextInputProps, 'placeholder' | 'defaultValue' | 'disabled' | 'label'>,
-    RNFlatListProps<ItemT> {
+    Pick<TextInputProps, 'placeholder' | 'disabled' | 'label'> {
   /**
    * List of options
    */
@@ -565,6 +564,10 @@ export interface SelectProps<ItemT>
    * i.e. pass the `item.value` object that you get from `onValueChange`
    */
   value?: ItemT
+  /**
+   * Default value from the item.value
+   */
+  defaultValue?: ItemT
 
   /**
    * Set custom display value
@@ -573,9 +576,14 @@ export interface SelectProps<ItemT>
 
   /**
    * Callback on every value change
-   * @param selectedItem Clicked item value
+   * @param selectedValue Clicked item.value
+   * @param selectedItem Clicked item object with label and value
    */
-  onValueChange?: (selectedItem?: SelectItemT<ItemT>) => void
+  onValueChange?: (
+    selectedValue?: ItemT,
+    selectedItem?: SelectItemT<ItemT>,
+    index?: number,
+  ) => void
 
   /**
    * Set it true to open keyboard and show search results
@@ -590,19 +598,40 @@ export interface SelectProps<ItemT>
    * Height of the popover shown for selecting the item
    */
   pickerHeight?: number
+  /**
+   * Picker flat list props
+   */
+  pickerProps?: RNFlatListProps<ItemT>
+  /**
+   * Render a custom view for picker item
+   */
+  renderItem?: RNFlatListProps<ItemT>['renderItem']
+
+  /**
+   * Input props
+   */
+  inputProps?: Omit<TextInputProps, 'value' | 'defaultValue'>
 }
 
 export interface MultiSelectProps<ItemT>
-  extends Omit<SelectProps<ItemT>, 'value' | 'onValueChange'> {
+  extends Omit<SelectProps<ItemT>, 'value' | 'onValueChange' | 'defaultValue'> {
   /**
    * List of selected item values
    */
-  values?: SelectItemT<ItemT>[]
+  values?: ItemT[]
+  /**
+   * List of default item values
+   */
+  defaultValue?: ItemT[]
   /**
    * Callback on select item press
-   * @param selectedItems selected item values
+   * @param selectedValues selected values i.e ItemT
+   * @param selectedItems selected items with label & value
    */
-  onValuesChange?: (selectedItems: SelectItemT<ItemT>[]) => void
+  onValuesChange?: (
+    selectedValues: ItemT[],
+    selectedItems: SelectItemT<ItemT>[],
+  ) => void
   /**
    * Limit the selection to max count
    */

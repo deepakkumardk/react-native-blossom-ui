@@ -26,13 +26,17 @@ const Icon = (props: IconProps) => {
   const IconComponent = getIconFamily(family)
 
   return rest?.onPress ? (
-    <TouchableOpacity accessibilityRole="button" activeOpacity={0.5}>
+    <TouchableOpacity
+      accessibilityRole="button"
+      activeOpacity={0.5}
+      onPress={rest?.onPress}>
       {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment //
       @ts-expect-error */}
       <IconComponent
         color={colors[getStatusColorName(status, isDark)]}
         size={size}
         {...rest}
+        onPress={undefined}
       />
     </TouchableOpacity>
   ) : (

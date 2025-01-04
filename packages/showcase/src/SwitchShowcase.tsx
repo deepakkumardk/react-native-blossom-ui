@@ -39,69 +39,40 @@ export function SwitchPositions() {
 }
 
 export function SwitchStatuses() {
-  const [isOn, setIsOn] = useState(false)
-
   return (
     <View style={{justifyContent: 'space-evenly'}}>
       <Switch
         status="primary"
         label="primary"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.container}
       />
       <Switch
         status="accent"
         label="accent"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.container}
       />
       <Switch
         status="success"
         label="success"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.container}
       />
-      <Switch
-        status="info"
-        label="info"
-        value={isOn}
-        onValueChange={setIsOn}
-        containerStyle={styles.container}
-      />
+      <Switch status="info" label="info" containerStyle={styles.container} />
       <Switch
         status="warning"
         label="warning"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.container}
       />
-      <Switch
-        status="error"
-        label="error"
-        value={isOn}
-        onValueChange={setIsOn}
-        containerStyle={styles.container}
-      />
+      <Switch status="error" label="error" containerStyle={styles.container} />
     </View>
   )
 }
 
 export function SwitchSizes() {
-  const [isOn, setIsOn] = useState(true)
-
   return (
     <View row style={{justifyContent: 'space-evenly'}}>
-      <Switch label="small" size="small" value={isOn} onValueChange={setIsOn} />
-      <Switch
-        label="medium"
-        size="medium"
-        value={isOn}
-        onValueChange={setIsOn}
-      />
-      <Switch label="large" size="large" value={isOn} onValueChange={setIsOn} />
+      <Switch label="small" size="small" />
+      <Switch label="medium" size="medium" />
+      <Switch label="large" size="large" />
     </View>
   )
 }
@@ -118,6 +89,7 @@ export function SwitchDisabled() {
 
 export function SwitchCustom() {
   const [isOn, setIsOn] = useState(true)
+
   return (
     <View style={{justifyContent: 'space-evenly'}}>
       <Switch

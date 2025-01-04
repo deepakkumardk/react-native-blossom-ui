@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, useEffect, useState} from 'react'
 import {Platform, Switch as RNSwitch, StyleSheet} from 'react-native'
 
 import {getBorderColorName} from '../utils'
@@ -14,6 +14,7 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
   const {colors, isDark} = useBlossomTheme()
 
   const {
+    value,
     disabled,
     color,
     style: switchStyle,
@@ -22,10 +23,17 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
     ...rest
   } = useMergedProps('Switch', props, {colors, isDark})
 
+  const [fieldValue, setFieldValue] = useState(value)
+
+  useEffect(() => {
+    setFieldValue(value)
+  }, [value])
+
   return (
     <BaseBooleanField status={status} size={size} disabled={disabled} {...rest}>
       <RNSwitch
         ref={ref}
+        value={fieldValue}
         trackColor={{
           true: disabled
             ? colors.bgDark100
@@ -49,6 +57,7 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
           size === 'large' && styles.sizeLarge,
           switchStyle,
         ]}
+        onValueChange={() => setFieldValue((prev) => !prev)}
       />
     </BaseBooleanField>
   )

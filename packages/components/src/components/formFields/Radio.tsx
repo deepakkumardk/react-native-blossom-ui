@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 
 import Icon from '../icon'
 import {getStatusColorName} from '../utils'
@@ -7,6 +7,9 @@ import {RadioProps} from '../types'
 import {useMergedProps, BlossomSize} from '../../common'
 import BaseBooleanField from './BaseBooleanField'
 
+/**
+ * Custom Radio component built from vector icons
+ */
 const Radio = (props: RadioProps) => {
   const {colors, isDark} = useBlossomTheme()
 
@@ -19,7 +22,13 @@ const Radio = (props: RadioProps) => {
     status = 'accent',
     size = 'medium',
     ...rest
-  } = useMergedProps('Checkbox', props, {colors, isDark})
+  } = useMergedProps('Radio', props, {colors, isDark})
+
+  const [fieldValue, setFieldValue] = useState(value)
+
+  useEffect(() => {
+    setFieldValue(value)
+  }, [value])
 
   const getBgColor = useCallback(() => {
     if (disabled) return colors.bgDark100
@@ -28,10 +37,10 @@ const Radio = (props: RadioProps) => {
   }, [disabled, colors, status, isDark])
 
   const getIconName = useCallback(() => {
-    if (value) return 'radiobox-marked'
+    if (fieldValue) return 'radiobox-marked'
 
     return 'radiobox-blank'
-  }, [value])
+  }, [fieldValue])
 
   return (
     <BaseBooleanField status={status} size={size} disabled={disabled} {...rest}>
@@ -39,7 +48,14 @@ const Radio = (props: RadioProps) => {
         family="MaterialCommunityIcons"
         name={getIconName()}
         size={sizeMap[size]}
-        {...(!disabled && !value && {onPress: () => onValueChange?.(!value)})}
+        onPress={
+          fieldValue || disabled
+            ? undefined
+            : () => {
+                setFieldValue(true)
+                void onValueChange?.(true)
+              }
+        }
         color={color || getBgColor()}
       />
     </BaseBooleanField>

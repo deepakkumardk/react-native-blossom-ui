@@ -25,50 +25,36 @@ export function CheckboxPositions() {
 }
 
 export function CheckboxStatuses() {
-  const [isOn, setIsOn] = useState(true)
-
   return (
     <View>
       <Checkbox
         status="primary"
         label="primary"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.itemContainer}
       />
       <Checkbox
         status="accent"
         label="accent"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.itemContainer}
       />
       <Checkbox
         status="success"
         label="success"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.itemContainer}
       />
       <Checkbox
         status="info"
         label="info"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.itemContainer}
       />
       <Checkbox
         status="warning"
         label="warning"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.itemContainer}
       />
       <Checkbox
         status="error"
         label="error"
-        value={isOn}
-        onValueChange={setIsOn}
         containerStyle={styles.itemContainer}
       />
     </View>
@@ -76,42 +62,30 @@ export function CheckboxStatuses() {
 }
 
 export function CheckboxSizes() {
-  const [isOn, setIsOn] = useState(true)
-
   return (
     <View row style={{justifyContent: 'space-evenly'}}>
-      <Checkbox
-        label="small"
-        size="small"
-        value={isOn}
-        onValueChange={setIsOn}
-      />
-      <Checkbox
-        label="medium"
-        size="medium"
-        value={isOn}
-        onValueChange={setIsOn}
-      />
-      <Checkbox
-        label="large"
-        size="large"
-        value={isOn}
-        onValueChange={setIsOn}
-      />
+      <Checkbox label="small" size="small" />
+      <Checkbox label="medium" size="medium" />
+      <Checkbox label="large" size="large" />
     </View>
   )
 }
 
 export function CheckboxIndeterminate() {
   const [isOn, setIsOn] = useState(true)
+  const [indeterminate, setIndeterminate] = useState(true)
+
   return (
     <View row style={{justifyContent: 'space-evenly'}}>
       <Checkbox
         label="Indeterminate"
         value={isOn}
-        onValueChange={setIsOn}
+        onValueChange={(value) => {
+          setIsOn(value)
+          setIndeterminate(false)
+        }}
         containerStyle={styles.itemContainer}
-        indeterminate
+        indeterminate={indeterminate}
       />
       <Checkbox
         label="Indeterminate"
@@ -137,6 +111,7 @@ export function CheckboxDisabled() {
 
 export function CheckboxCustom() {
   const [isOn, setIsOn] = useState(true)
+
   return (
     <View>
       <Checkbox

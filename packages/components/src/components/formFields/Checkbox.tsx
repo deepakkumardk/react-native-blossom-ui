@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {Pressable, StyleSheet} from 'react-native'
 
 import {getStatusColorName} from '../utils'
@@ -7,6 +7,8 @@ import {CheckboxProps} from '../types'
 import {useMergedProps, BlossomSize} from '../../common'
 import BaseBooleanField from './BaseBooleanField'
 import Icon from '../icon'
+
+const OFFSET_SIZE = 4
 
 /**
  * Checkbox control field component
@@ -26,13 +28,19 @@ const Checkbox = (props: CheckboxProps) => {
     ...rest
   } = useMergedProps('Checkbox', props, {colors, isDark})
 
+  const [fieldValue, setFieldValue] = useState(value)
+
+  useEffect(() => {
+    setFieldValue(value)
+  }, [value])
+
   const getBgColor = useCallback(() => {
     if (disabled) return isDark ? colors.bgDark400 : colors.bgLight400
 
-    if (value) return color || colors[getStatusColorName(status, isDark)]
+    if (fieldValue) return color || colors[getStatusColorName(status, isDark)]
 
     return isDark ? colors.bgDark800 : colors.bgLight200
-  }, [disabled, colors, value, color, status, isDark])
+  }, [disabled, colors, fieldValue, color, status, isDark])
 
   const getIconName = useCallback(() => {
     if (indeterminate) return 'minus'
@@ -57,18 +65,20 @@ const Checkbox = (props: CheckboxProps) => {
             height: sizeMap[size],
             backgroundColor: getBgColor(),
             borderColor: colors.background300,
-            borderWidth: value ? 0 : 1,
+            borderWidth: fieldValue ? 0 : 1,
           },
           style,
         ]}
-        onPress={() =>
-          !disabled && onValueChange?.(indeterminate ? true : !value)
-        }>
-        {value || indeterminate ? (
+        onPress={() => {
+          if (disabled) return
+          setFieldValue?.(indeterminate ? true : !fieldValue)
+          void onValueChange?.(indeterminate ? true : !fieldValue)
+        }}>
+        {fieldValue || indeterminate ? (
           <Icon
             family="MaterialCommunityIcons"
             name={getIconName()}
-            size={sizeMap[size] - 4}
+            size={sizeMap[size] - OFFSET_SIZE}
             color={getIconColor()}
           />
         ) : null}
