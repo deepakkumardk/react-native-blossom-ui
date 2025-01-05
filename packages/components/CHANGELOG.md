@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/components
 
+## 0.2.1
+
+### Patch Changes
+
+- Update value type for Select & MultiSelect & add it's defaultValue support
+
 ## 0.2.0
 
 ### Minor Changes
