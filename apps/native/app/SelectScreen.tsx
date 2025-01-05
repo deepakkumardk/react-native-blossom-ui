@@ -4,6 +4,7 @@ import {ScrollView, StyleSheet} from 'react-native'
 import {View} from '@react-native-blossom-ui/components'
 import {
   SelectUsage,
+  SelectDefaultValue,
   SelectClearable,
   SelectDisabled,
   SelectObjectOptions,
@@ -17,6 +18,9 @@ export default function SelectScreen() {
       <ScrollView>
         <Heading>Usage</Heading>
         <SelectUsage />
+
+        <Heading>Default Value</Heading>
+        <SelectDefaultValue />
 
         <Heading>Clearable</Heading>
         <SelectClearable />

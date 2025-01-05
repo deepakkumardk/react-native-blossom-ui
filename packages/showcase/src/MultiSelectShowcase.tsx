@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {MultiSelect, SelectItemT} from '@react-native-blossom-ui/components'
+import {MultiSelect} from '@react-native-blossom-ui/components'
 
 const OPTIONS = Array(25)
   .fill(0)
@@ -12,6 +12,10 @@ const OPTIONS = Array(25)
 
 export function MultiSelectUsage() {
   return <MultiSelect options={OPTIONS} />
+}
+
+export function MultiSelectDefaultValue() {
+  return <MultiSelect options={OPTIONS} defaultValue={[2, 4]} />
 }
 
 export function MultiSelectClearable() {
@@ -33,9 +37,7 @@ export function MultiSelectMaxSelect() {
 }
 
 export function MultiSelectControlled() {
-  const [selectedValues, setSelectedValues] = useState<SelectItemT<number>[]>(
-    [],
-  )
+  const [selectedValues, setSelectedValues] = useState<number[]>([])
 
   return (
     <MultiSelect

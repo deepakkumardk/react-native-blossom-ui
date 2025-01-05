@@ -42,7 +42,7 @@ export function PopoverPosition() {
       <Select
         options={options}
         value={position}
-        onValueChange={(item) => setPosition(item?.value)}
+        onValueChange={(value) => setPosition(value)}
       />
       <Popover
         visible={showPopover}

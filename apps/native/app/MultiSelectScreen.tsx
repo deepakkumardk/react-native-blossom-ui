@@ -9,6 +9,7 @@ import {
   MultiSelectDisabled,
   MultiSelectMaxSelect,
   MultiSelectObjectOptions,
+  MultiSelectDefaultValue,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
@@ -19,6 +20,9 @@ export default function MultiSelectScreen() {
       <ScrollView>
         <Heading>Usage</Heading>
         <MultiSelectUsage />
+
+        <Heading>Default Value</Heading>
+        <MultiSelectDefaultValue />
 
         <Heading>Clearable</Heading>
         <MultiSelectClearable />

@@ -17,9 +17,13 @@ export function SelectUsage() {
     <Select
       options={OPTIONS}
       value={selectedValue}
-      onValueChange={(item) => setSelectedValue(item?.value)}
+      onValueChange={(value) => setSelectedValue(value)}
     />
   )
+}
+
+export function SelectDefaultValue() {
+  return <Select options={OPTIONS} defaultValue={3} />
 }
 
 export function SelectClearable() {
@@ -30,7 +34,7 @@ export function SelectClearable() {
       options={OPTIONS}
       value={selectedValue}
       clearable
-      onValueChange={(item) => setSelectedValue(item?.value)}
+      onValueChange={(value) => setSelectedValue(value)}
     />
   )
 }
@@ -43,7 +47,7 @@ export function SelectDisabled() {
       disabled
       options={OPTIONS}
       value={selectedValue}
-      onValueChange={(item) => setSelectedValue(item?.value)}
+      onValueChange={(value) => setSelectedValue(value)}
     />
   )
 }
@@ -76,9 +80,9 @@ export function SelectObjectOptions() {
     <Select
       options={FRUIT_LIST}
       value={selectedValue}
-      onValueChange={(item) => {
-        setSelectedValue(item?.value)
-        alert(`Selected Value\n${JSON.stringify(item?.value)}`)
+      onValueChange={(value, item) => {
+        setSelectedValue(value)
+        alert(`Selected Value\n${JSON.stringify(item)}`)
       }}
     />
   )
