@@ -1,32 +1,20 @@
-# Turborepo react-native starter
+# React-Native Blossom UI
 
-This is an official starter Turborepo.
+[Documentation](https://docs-react-native-blossom-ui.vercel.app/)
 
-## Using this example
+Blossom UI helps you to create an awesome UI on mobile and web platform. This library is based on custom design system and it's totally configurable.
 
-Run the following command:
+- **Base components** - This contains all the basic components that react-native provides
+- **Theme Support** - Out of the box Theme support with dark theme mode
+- **Customizability** - You can customize all the components to match to your UI need
+- **Icons Support** - _react-native-vector-icons_ support out of the box
 
-```sh
-npx create-turbo@latest -e react-native-blossom-ui
+# Installation
+
+```bash
+yarn add @react-native-blossom-ui/components
 ```
 
-## What's inside?
+# License
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `native`: a [react-native](https://reactnative.dev/) app built with [expo](https://docs.expo.dev/)
-- `web`: a [Next.js](https://nextjs.org/) app built with [react-native-web](https://necolas.github.io/react-native-web/)
-- `@react-native-blossom-ui/components`: a stub [react-native](https://reactnative.dev/) component library shared by both `web` and `native` applications
-- `@react-native-blossom-ui/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [Expo](https://docs.expo.dev/) for native development
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [Prettier](https://prettier.io) for code formatting
+[MIT](LICENSE) License
