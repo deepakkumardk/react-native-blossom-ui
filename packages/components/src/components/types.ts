@@ -223,6 +223,10 @@ export interface DividerProps extends ViewProps {
   color?: string
 }
 
+export interface CardProps extends ViewProps {
+  shadow?: boolean
+}
+
 export interface AvatarProps extends Partial<ImageProps>, OmitSizeProps {
   /**
    * Size of the Avatar

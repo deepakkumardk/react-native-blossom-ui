@@ -16,7 +16,7 @@ import {
   useWindowDimensions,
 } from 'react-native'
 import {useBlossomTheme} from '../../context'
-import View from '../view'
+import {View} from '../view'
 import {PopoverProps, PopoverRef} from '../types'
 import {useMergedProps} from '../../common'
 

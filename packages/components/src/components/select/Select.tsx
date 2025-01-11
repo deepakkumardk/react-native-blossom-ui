@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import {useBlossomTheme} from '../../context'
-import View from '../view'
+import {View} from '../view'
 import Icon from '../icon'
 import Popover from '../modal/Popover'
 import SearchInput from '../input/SearchInput'

@@ -4,7 +4,7 @@ import {StyleSheet} from 'react-native'
 import {getBorderColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
 import {BaseBooleanFieldProps} from '../types'
-import View from '../view'
+import {View} from '../view'
 import SizedText from '../text/SizedText'
 
 /**

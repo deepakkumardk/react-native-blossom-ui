@@ -3,7 +3,7 @@ import {Platform, Pressable, Modal as RNModal, StyleSheet} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
 import {useMergedProps} from '../../common'
-import View from '../view'
+import {View} from '../view'
 import {getAlphaColor} from '../utils'
 import {ModalProps} from '../types'
 

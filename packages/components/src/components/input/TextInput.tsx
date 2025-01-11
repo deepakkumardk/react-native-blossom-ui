@@ -6,7 +6,7 @@ import {TextInputProps} from '../types'
 import {useBlossomTheme} from '../../context'
 import {getBorderColorName} from '../utils'
 import SizedText from '../text/SizedText'
-import View from '../view'
+import {View} from '../view'
 import {useMergedProps} from '../../common'
 
 const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
