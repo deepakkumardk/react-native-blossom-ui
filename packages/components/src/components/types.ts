@@ -223,6 +223,10 @@ export interface DividerProps extends ViewProps {
   color?: string
 }
 
+export interface CardProps extends ViewProps {
+  shadow?: boolean
+}
+
 export interface AvatarProps extends Partial<ImageProps>, OmitSizeProps {
   /**
    * Size of the Avatar
@@ -575,6 +579,11 @@ export interface SelectProps<ItemT>
   displayValue?: string
 
   /**
+   * Set it true to show the loader
+   */
+  isLoading?: boolean
+
+  /**
    * Callback on every value change
    * @param selectedValue Clicked item.value
    * @param selectedItem Clicked item object with label and value
@@ -584,6 +593,11 @@ export interface SelectProps<ItemT>
     selectedItem?: SelectItemT<ItemT>,
     index?: number,
   ) => void
+
+  /**
+   * On clear callback
+   */
+  onClearPress?: () => void
 
   /**
    * Set it true to open keyboard and show search results

@@ -9,13 +9,14 @@ import {
 } from 'react-native'
 
 import {useBlossomTheme} from '../../context'
-import View from '../view'
+import {View} from '../view'
 import Icon from '../icon'
 import Popover from '../modal/Popover'
 import SearchInput from '../input/SearchInput'
 import SelectItem from './SelectItem'
 import {SelectProps} from '../types'
 import {useMergedProps} from '../../common'
+import ActivityIndicator from '../loader/ActivityIndicator'
 
 const PICKER_HEIGHT = 180
 const HEIGHT_OFFSET = 120
@@ -31,9 +32,11 @@ const Select = <T,>(props: SelectProps<T>) => {
     value,
     displayValue,
     onValueChange,
+    onClearPress,
     searchable,
     clearable,
     defaultValue,
+    isLoading,
     disabled,
     label,
     placeholder = 'Select Option',
@@ -103,13 +106,17 @@ const Select = <T,>(props: SelectProps<T>) => {
             backgroundColor: colors.background200,
           },
         ]}>
+        {isLoading && <ActivityIndicator size="small" style={styles.loader} />}
         {clearable && getDisplayValue() && (
           <Icon
             name="close"
             size={24}
             style={styles.closeIcon}
             color={colors.background700}
-            onPress={() => onValueChange?.(undefined)}
+            onPress={() => {
+              onClearPress?.()
+              onValueChange?.(undefined)
+            }}
           />
         )}
         <Icon
@@ -120,13 +127,15 @@ const Select = <T,>(props: SelectProps<T>) => {
       </View>
     ),
     [
-      clearable,
+      disabled,
       colors.background200,
       colors.background700,
-      colors.text100,
       colors.text500,
-      disabled,
+      colors.text100,
+      isLoading,
+      clearable,
       getDisplayValue,
+      onClearPress,
       onValueChange,
     ],
   )
@@ -211,6 +220,9 @@ export default Select
 
 const styles = StyleSheet.create({
   closeIcon: {
+    paddingHorizontal: 4,
+  },
+  loader: {
     paddingHorizontal: 4,
   },
   popover: {

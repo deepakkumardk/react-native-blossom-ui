@@ -10,7 +10,7 @@ import {ActivityIndicatorProps} from '../types'
 import {getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
 import {useMergedProps, BlossomSize} from '../../common'
-import View from '../view'
+import {View} from '../view'
 import {SizedText} from '../text'
 
 /**

@@ -1,21 +1,25 @@
 import React from 'react'
-import {StyleSheet, TouchableOpacity} from 'react-native'
+import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native'
 import {router} from 'expo-router'
 import {Divider, Text, View} from '@react-native-blossom-ui/components'
 
 export default function Page() {
   return (
     <View style={styles.container}>
-      {dataList.map((item) => (
-        <TouchableOpacity
-          accessibilityRole="button"
-          key={item.title}
-          style={styles.item}
-          onPress={() => router.push(item.navigateTo)}>
-          <Text typography="h6">{item.title}</Text>
-          <Divider style={{marginVertical: 12}} />
-        </TouchableOpacity>
-      ))}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {dataList
+          .sort((a, b) => a.title.localeCompare(b.title))
+          .map((item) => (
+            <TouchableOpacity
+              accessibilityRole="button"
+              key={item.title}
+              style={styles.item}
+              onPress={() => router.push(item.navigateTo)}>
+              <Text typography="h6">{item.title}</Text>
+              <Divider style={{marginVertical: 8}} />
+            </TouchableOpacity>
+          ))}
+      </ScrollView>
     </View>
   )
 }
@@ -23,10 +27,10 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
+    paddingHorizontal: 16,
   },
   item: {
-    paddingVertical: 0,
+    paddingVertical: 2,
   },
 })
 
@@ -38,6 +42,14 @@ const dataList = [
   {
     title: 'Button',
     navigateTo: './ButtonScreen',
+  },
+  {
+    title: 'Card',
+    navigateTo: './CardScreen',
+  },
+  {
+    title: 'Divider',
+    navigateTo: './DividerScreen',
   },
   {
     title: 'ActivityIndicator',

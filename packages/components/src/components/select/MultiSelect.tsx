@@ -120,6 +120,10 @@ const MultiSelect = <T,>(props: MultiSelectProps<T>) => {
       {...rest}
       disabled={disabled}
       onValueChange={undefined}
+      onClearPress={() => {
+        rest?.onClearPress?.()
+        handleValueChange(undefined)
+      }}
       value={undefined}
     />
   )

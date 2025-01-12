@@ -17,6 +17,8 @@ export function SelectUsage() {
     <Select
       options={OPTIONS}
       value={selectedValue}
+      status="primary"
+      searchable
       onValueChange={(value) => setSelectedValue(value)}
     />
   )
@@ -37,6 +39,10 @@ export function SelectClearable() {
       onValueChange={(value) => setSelectedValue(value)}
     />
   )
+}
+
+export function SelectLoading() {
+  return <Select options={OPTIONS} isLoading />
 }
 
 export function SelectDisabled() {
