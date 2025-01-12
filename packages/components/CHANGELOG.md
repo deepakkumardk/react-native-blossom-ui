@@ -1,5 +1,15 @@
 # @react-native-blossom-ui/components
 
+## 0.3.0
+
+### Minor Changes
+
+- 836a57f: Add Card Component
+
+### Patch Changes
+
+- b159856: Update value type for Select & MultiSelect & add it's defaultValue support
+
 ## 0.2.1
 
 ### Patch Changes

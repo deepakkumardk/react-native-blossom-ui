@@ -1,5 +1,13 @@
 # @react-native-blossom-ui/showcase
 
+## 0.3.0
+
+### Patch Changes
+
+- Updated dependencies [b159856]
+- Updated dependencies [836a57f]
+  - @react-native-blossom-ui/components@0.3.0
+
 ## 0.2.1
 
 ### Patch Changes
