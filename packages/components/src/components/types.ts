@@ -91,11 +91,43 @@ export interface ButtonProps extends PressableProps, BaseUIProps {
   loaderProps?: ActivityIndicatorProps
 }
 
+export interface BaseButtonProps extends ButtonProps {
+  /**
+   * Callback on text color change
+   * @param textColor color of the text based on status
+   */
+  onTextColorChange?: (textColor: string) => void
+  /**
+   * Callback on background color change
+   * @param backgroundColor background color of the view based on status
+   */
+  onBackgroundColorChange?: (backgroundColor: string) => void
+}
+
 export type PressableState = Readonly<{
   pressed: boolean
   hovered?: boolean
   focused?: boolean
 }>
+
+export interface ChipProps extends ButtonProps {
+  /**
+   * Set it to true if selected
+   */
+  isSelected?: boolean
+  /**
+   * Show the close icon at right to clear the selection
+   */
+  clearable?: boolean
+  /**
+   * Set it to true to make it unselectable
+   */
+  viewOnly?: boolean
+  /**
+   * On clear callback
+   */
+  onClearPress?: () => void
+}
 
 export interface ActivityIndicatorProps
   extends Omit<RNActivityIndicatorProps, 'size'>,
@@ -288,7 +320,7 @@ export interface IconProps extends RNTextProps, OmitSizeProps {
   family?: IconFamily
   /**
    * Size of the icon, can also be passed as fontSize in the style object.
-   * @default 12
+   * @default 24
    */
   size?: number | undefined
 

@@ -1,5 +1,6 @@
 export {default as Text} from './text/Text'
 export {default as Button} from './button'
+export {default as Chip} from './button/Chip'
 export {default as ActivityIndicator} from './loader/ActivityIndicator'
 export {default as TextInput} from './input/TextInput'
 export {default as SearchInput} from './input/SearchInput'

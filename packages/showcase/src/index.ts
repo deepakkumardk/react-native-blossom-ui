@@ -1,6 +1,7 @@
 export * from './ActivityIndicatorShowcase'
 export * from './AvatarShowcase'
 export * from './ButtonShowcase'
+export * from './ChipShowcase'
 export * from './CheckboxShowcase'
 export * from './IconShowcase'
 export * from './DividerShowcase'
