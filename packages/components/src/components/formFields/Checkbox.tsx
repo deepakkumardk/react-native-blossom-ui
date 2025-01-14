@@ -6,7 +6,7 @@ import {useBlossomTheme} from '../../context'
 import {CheckboxProps} from '../types'
 import {useMergedProps, BlossomSize} from '../../common'
 import BaseBooleanField from './BaseBooleanField'
-import Icon from '../icon'
+import {Icon} from '../icon'
 
 const OFFSET_SIZE = 4
 

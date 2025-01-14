@@ -11,7 +11,7 @@ import {getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
 import {useMergedProps, BlossomSize} from '../../common'
 import {View} from '../view'
-import {SizedText} from '../text'
+import SizedText from '../text/SizedText'
 
 /**
  * An extension of the React Native ActivityIndicator component with extension of visible and label props.

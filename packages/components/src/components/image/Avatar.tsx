@@ -8,7 +8,7 @@ import {useBlossomTheme} from '../../context'
 import {Text} from '../text'
 import {useMergedProps, BlossomSize} from '../../common'
 import {View} from '../view'
-import Icon from '../icon'
+import {Icon} from '../icon'
 
 /**
  * Avatar component to show profile images, icon & initials

@@ -1,8 +1,8 @@
 import React, {memo} from 'react'
 import {Pressable, StyleSheet} from 'react-native'
 
-import {SizedText} from '../text'
-import Icon from '../icon'
+import SizedText from '../text/SizedText'
+import {Icon} from '../icon'
 import {SelectItemProps} from '../types'
 import {useBlossomTheme} from '../../context'
 

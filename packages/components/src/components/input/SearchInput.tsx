@@ -5,7 +5,7 @@ import {SearchInputProps} from '../types'
 
 import TextInput from './TextInput'
 import {useDebouncedValue} from './useDebouncedValue'
-import Icon from '../icon'
+import {Icon} from '../icon'
 import {useMergedProps} from '../../common'
 import {useBlossomTheme} from '../../context'
 

@@ -10,7 +10,7 @@ import {
 
 import {useBlossomTheme} from '../../context'
 import {View} from '../view'
-import Icon from '../icon'
+import {Icon} from '../icon'
 import Popover from '../modal/Popover'
 import SearchInput from '../input/SearchInput'
 import SelectItem from './SelectItem'
