@@ -1,17 +1,13 @@
 import React, {useCallback, useMemo} from 'react'
 import {Pressable, StyleSheet, ViewStyle} from 'react-native'
 
-import {BlossomThemeColors, TypographyOptions, BlossomSize} from '../../common'
-import {BaseButtonProps, ButtonMode, PressableState} from '../types'
+import {TypographyOptions, BlossomSize} from '../../common'
+import {BaseButtonProps, PressableState} from '../types'
 import Text from '../text/Text'
-import {
-  getDarkenColor,
-  getStatusColorName,
-  getTextColorName,
-  getTransparentStatusColorName,
-} from '../utils'
+import {getStatusColorName} from '../utils'
 import ActivityIndicator from '../loader/ActivityIndicator'
 import {useBlossomTheme} from '../../context'
+import {ColorHelper} from './helper'
 
 /**
  * It's the Base Button view that will be consumed by Button, Chip & SegmentedButton
@@ -33,40 +29,23 @@ const BaseButton = (props: BaseButtonProps) => {
     right,
     onPress,
     loaderProps,
+    disabledStyle,
+    disabledTitleStyle,
     onTextColorChange,
     onBackgroundColorChange,
     ...rest
   } = props
 
   const getButtonColor = useCallback(() => {
-    const modeColorMap: Record<
-      ButtonMode,
-      {
-        true: string
-        false: string
-      }
-    > = {
-      filled: {
-        true: colors.background300,
-        false: colors[getStatusColorName(status, isDark)],
-      },
-      tinted: {
-        true: colors.background200,
-        false:
-          colors[getTransparentStatusColorName(status, isDark ? '200' : '100')],
-      },
-      outlined: {
-        true: colors.background100,
-        false: colors.background100,
-      },
-      plain: {
-        true: colors.background100,
-        false: colors.background100,
-      },
-    }
-
-    const color = modeColorMap[mode][disabled ? 'true' : 'false']
+    const color = ColorHelper.getButtonColor({
+      status,
+      mode,
+      disabled,
+      colors,
+      isDark,
+    })
     onBackgroundColorChange?.(color)
+
     return color
   }, [colors, status, isDark, mode, disabled, onBackgroundColorChange])
 
@@ -80,81 +59,62 @@ const BaseButton = (props: BaseButtonProps) => {
             : colors[getStatusColorName(status, isDark, '500')],
           borderRadius: options?.borderRadius,
         },
+        disabled && disabledStyle,
         mode === 'outlined' ? styles.outlinedButton : {},
         styles.buttonContainer,
         sizeStyle[size],
         style,
       ]) as ViewStyle,
     [
-      colors,
-      disabled,
-      getButtonColor,
-      isDark,
-      mode,
-      options?.borderRadius,
-      size,
       status,
+      mode,
+      disabled,
+      colors,
+      isDark,
       style,
+      size,
+      options?.borderRadius,
+      disabledStyle,
+      getButtonColor,
     ],
   )
 
   const getButtonStateColor = useCallback(
     (state: 'hovered' | 'pressed') => {
-      const bgColor = containerStyle?.backgroundColor
-      const buttonColor = getButtonColor()
-
-      const hoverColorMap: Record<ButtonMode, keyof BlossomThemeColors> = {
-        filled: `${status}600`,
-        tinted: `${status}Transparent${isDark ? '300' : '200'}`,
-        outlined: `${status}Transparent${isDark ? '200' : '100'}`,
-        plain: `${status}Transparent${isDark ? '200' : '100'}`,
-      }
-
-      const pressColorMap: Record<ButtonMode, keyof BlossomThemeColors> = {
-        filled: `${status}700`,
-        tinted: `${status}Transparent${isDark ? '400' : '300'}`,
-        outlined: `${status}Transparent${isDark ? '300' : '200'}`,
-        plain: `${status}Transparent${isDark ? '300' : '200'}`,
-      }
-
-      let color =
-        colors[state === 'pressed' ? pressColorMap[mode] : hoverColorMap[mode]]
-
-      if (bgColor !== buttonColor) {
-        const alphaColorMap: Record<typeof state, number> = {
-          hovered: mode === 'filled' ? 0.6 : 0.4,
-          pressed: mode === 'filled' ? 0.8 : 0.5,
-        }
-        color = getDarkenColor(bgColor as string, alphaColorMap[state])
-      }
+      const color = ColorHelper.getButtonStateColor({
+        state,
+        status,
+        mode,
+        backgroundColor: containerStyle?.backgroundColor,
+        disabled,
+        colors,
+        isDark,
+      })
 
       return color
     },
-    [colors, containerStyle, getButtonColor, isDark, mode, status],
+    [status, mode, containerStyle?.backgroundColor, disabled, colors, isDark],
   )
 
   const getTextColor = useCallback(() => {
-    const color =
-      disabled || mode === 'filled'
-        ? colors[
-            getTextColorName(
-              containerStyle?.backgroundColor,
-              isDark,
-              disabled,
-              mode,
-            )
-          ]
-        : colors[getStatusColorName(status, isDark)]
+    const color = ColorHelper.getTextColor({
+      status,
+      mode,
+      backgroundColor: containerStyle?.backgroundColor,
+      disabled,
+      colors,
+      isDark,
+    })
 
     onTextColorChange?.(color)
     return color
   }, [
-    colors,
+    status,
+    mode,
     containerStyle?.backgroundColor,
     disabled,
+    colors,
     isDark,
-    mode,
-    status,
     onTextColorChange,
   ])
 
@@ -189,6 +149,7 @@ const BaseButton = (props: BaseButtonProps) => {
             {
               color: getTextColor(),
             },
+            disabled && disabledTitleStyle,
             styles.text,
             titleStyle,
           ]}

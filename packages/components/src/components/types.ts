@@ -78,6 +78,14 @@ export interface ButtonProps extends PressableProps, BaseUIProps {
    */
   disabled?: boolean
   /**
+   * button style for disabled state
+   */
+  disabledStyle?: StyleProp<ViewStyle>
+  /**
+   * button text style for disabled state
+   */
+  disabledTitleStyle?: StyleProp<TextStyle>
+  /**
    * Render any icon/JSX on left of the title
    */
   left?: ReactNode
