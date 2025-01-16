@@ -1,12 +1,17 @@
 import React from 'react'
 import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native'
 import {router} from 'expo-router'
-import {Divider, Text, View} from '@react-native-blossom-ui/components'
+import {Chip, Divider, Text, View} from '@react-native-blossom-ui/components'
 
 export default function Page() {
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <View row style={styles.row}>
+          <Chip title={`${dataList.length}+`} size="small" viewOnly />
+          <Text>Components</Text>
+        </View>
+
         {dataList
           .sort((a, b) => a.title.localeCompare(b.title))
           .map((item) => (
@@ -27,10 +32,14 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
+    padding: 16,
   },
   item: {
     paddingVertical: 2,
+  },
+  row: {
+    alignSelf: 'flex-end',
+    alignItems: 'center',
   },
 })
 
@@ -42,6 +51,10 @@ const dataList = [
   {
     title: 'Button',
     navigateTo: './ButtonScreen',
+  },
+  {
+    title: 'SegmentedButton',
+    navigateTo: './SegmentedButtonScreen',
   },
   {
     title: 'Chip',

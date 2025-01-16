@@ -137,6 +137,66 @@ export interface ChipProps extends ButtonProps {
   onClearPress?: () => void
 }
 
+export interface SegmentedButtonProps extends BaseUIProps {
+  /**
+   * List of props for control buttons
+   */
+  data?: ControlButtonProps[]
+  /**
+   * Mode of the button view
+   */
+  mode?: ButtonMode
+  /**
+   * Take the full width available
+   */
+  fullWidth?: boolean
+  /**
+   * Control the border radius of the edge buttons
+   */
+  borderRadius?: number
+  /**
+   * Show the vertical divider between the buttons
+   */
+  withVerticalDivider?: boolean
+  /**
+   * Set to true for multiple select
+   */
+  multiSelect?: boolean
+
+  /**
+   * active color when the button is selected
+   */
+  activeColor?: string
+  /**
+   * inactive color when the button is unselected
+   */
+  inactiveColor?: string
+
+  /**
+   * Container style
+   */
+  style?: StyleProp<ViewStyle>
+  /**
+   * Disable the whole control
+   */
+  disabled?: boolean
+  /**
+   * OnPress callback with value
+   */
+  onPress?: (value: string, selectedIndex: number) => void
+}
+
+export interface ControlButtonProps extends ChipProps {
+  /**
+   * Label of the control button
+   */
+  label?: string
+  /**
+   * Value of the control button that will be passed to on Press & will fallback to label if not passed
+   */
+  value?: string
+}
+
 export interface ActivityIndicatorProps
   extends Omit<RNActivityIndicatorProps, 'size'>,
     Omit<BaseUIProps, 'size'> {
@@ -431,7 +491,10 @@ export interface CheckboxProps extends BaseBooleanFieldProps {
 export type ComponentPropsMap = {
   ActivityIndicator: ActivityIndicatorProps
   Text: TextProps
+
   Button: ButtonProps
+  Chip: ChipProps
+  SegmentedButton: SegmentedButtonProps
 
   View: ViewProps
   Divider: DividerProps

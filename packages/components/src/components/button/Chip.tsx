@@ -42,11 +42,12 @@ const Chip = (props: ChipProps) => {
   }, [backgroundColor, colors, isDark, mode, rest.disabled])
 
   return (
+    // NOTE: this view wrapper is needed to fix the vertical align issue in row
     <View>
       <BaseButton
         {...rest}
         mode={mode}
-        style={[sizeStyle[size], styles.baseContainer, rest.style]}
+        style={[sizeStyle[size], rest.style]}
         titleStyle={[sizeMap[size], rest?.titleStyle]}
         left={
           <View row style={styles.row}>
@@ -94,11 +95,6 @@ const styles = StyleSheet.create({
     alignSelf: 'baseline',
     alignItems: 'center',
   },
-
-  baseContainer: {
-    flexWrap: 'wrap',
-  },
-
   closeIcon: {
     paddingHorizontal: 2,
   },
@@ -110,7 +106,7 @@ const sizeStyle = {
     paddingVertical: 2,
   },
   medium: {
-    paddingHorizontal: 6, // 3 coming from text style
+    paddingHorizontal: 6,
     paddingVertical: 4,
   },
   large: {
