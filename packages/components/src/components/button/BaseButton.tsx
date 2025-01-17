@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useEffect, useMemo} from 'react'
 import {Pressable, StyleSheet, ViewStyle} from 'react-native'
 
 import {TypographyOptions, BlossomSize} from '../../common'
@@ -20,6 +20,7 @@ const BaseButton = (props: BaseButtonProps) => {
     style,
     titleStyle,
     isLoading = false,
+    viewOnly,
     disabled,
     children,
     status = 'primary',
@@ -36,7 +37,7 @@ const BaseButton = (props: BaseButtonProps) => {
     ...rest
   } = props
 
-  const getButtonColor = useCallback(() => {
+  const buttonBackgroundColor = useMemo(() => {
     const color = ColorHelper.getButtonColor({
       status,
       mode,
@@ -44,16 +45,15 @@ const BaseButton = (props: BaseButtonProps) => {
       colors,
       isDark,
     })
-    onBackgroundColorChange?.(color)
 
     return color
-  }, [colors, status, isDark, mode, disabled, onBackgroundColorChange])
+  }, [colors, status, isDark, mode, disabled])
 
   const containerStyle = useMemo(
     () =>
       StyleSheet.flatten([
         {
-          backgroundColor: getButtonColor(),
+          backgroundColor: buttonBackgroundColor,
           borderColor: disabled
             ? colors.background400
             : colors[getStatusColorName(status, isDark, '500')],
@@ -75,7 +75,7 @@ const BaseButton = (props: BaseButtonProps) => {
       size,
       options?.borderRadius,
       disabledStyle,
-      getButtonColor,
+      buttonBackgroundColor,
     ],
   )
 
@@ -96,7 +96,7 @@ const BaseButton = (props: BaseButtonProps) => {
     [status, mode, containerStyle?.backgroundColor, disabled, colors, isDark],
   )
 
-  const getTextColor = useCallback(() => {
+  const textColor = useMemo(() => {
     const color = ColorHelper.getTextColor({
       status,
       mode,
@@ -118,9 +118,18 @@ const BaseButton = (props: BaseButtonProps) => {
     onTextColorChange,
   ])
 
+  useEffect(() => {
+    onBackgroundColorChange?.(buttonBackgroundColor)
+  }, [buttonBackgroundColor, onBackgroundColorChange])
+
+  useEffect(() => {
+    onTextColorChange?.(textColor)
+  }, [textColor, onTextColorChange])
+
   return (
     <Pressable
       {...rest}
+      disabled={viewOnly || disabled}
       style={({pressed, hovered, focused}: PressableState) => {
         return [
           containerStyle,
@@ -138,7 +147,7 @@ const BaseButton = (props: BaseButtonProps) => {
         visible={isLoading}
         size={16}
         style={styles.loader}
-        color={getTextColor()}
+        color={textColor}
         {...loaderProps}
       />
       {left}
@@ -147,7 +156,7 @@ const BaseButton = (props: BaseButtonProps) => {
           typography={sizeMap[size]}
           style={[
             {
-              color: getTextColor(),
+              color: textColor,
             },
             disabled && disabledTitleStyle,
             styles.text,

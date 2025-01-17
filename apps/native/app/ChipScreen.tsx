@@ -6,6 +6,9 @@ import {
   ChipUsage,
   ChipViewOnly,
   ChipClearable,
+  ChipCheckIcon,
+  ChipWithoutCheckIcon,
+  ChipAsBadge,
   ChipModes,
   ChipSizes,
   ChipStatusesMobile,
@@ -30,6 +33,15 @@ export default function ChipScreen() {
 
         <Heading>Clearable</Heading>
         <ChipClearable />
+
+        <Heading>Hide Check Icon</Heading>
+        <ChipWithoutCheckIcon />
+
+        <Heading>Custom Check Icon</Heading>
+        <ChipCheckIcon />
+
+        <Heading>As Badge</Heading>
+        <ChipAsBadge />
 
         <Heading>Modes</Heading>
         <ChipModes />

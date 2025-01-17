@@ -17,8 +17,11 @@ const Chip = (props: ChipProps) => {
 
   const {
     isSelected,
+    withCheckIcon,
+    checkIcon,
     clearable,
     viewOnly,
+    asBadge,
     onClearPress,
     mode = 'filled',
     size = 'medium',
@@ -47,17 +50,20 @@ const Chip = (props: ChipProps) => {
       <BaseButton
         {...rest}
         mode={mode}
-        style={[sizeStyle[size], rest.style]}
+        viewOnly={viewOnly || asBadge}
+        style={[sizeStyle[size], asBadge && styles.badge, rest.style]}
         titleStyle={[sizeMap[size], rest?.titleStyle]}
         left={
           <View row style={styles.row}>
-            {isChipSelected && (
-              <Icon
-                name="checkmark-sharp"
-                color={iconColor}
-                size={checkIconSize[size]}
-              />
-            )}
+            {withCheckIcon &&
+              isChipSelected &&
+              (checkIcon || (
+                <Icon
+                  name="checkmark-sharp"
+                  color={iconColor}
+                  size={checkIconSize[size]}
+                />
+              ))}
             {rest?.left}
           </View>
         }
@@ -81,6 +87,7 @@ const Chip = (props: ChipProps) => {
           !viewOnly && setIsChipSelected((prev) => !prev)
           rest?.onPress?.(e)
         }}
+        // NOTE: this is needed to  fix the select icon color in light mode
         onBackgroundColorChange={setBackgroundColor}
       />
     </View>
@@ -97,6 +104,10 @@ const styles = StyleSheet.create({
   },
   closeIcon: {
     paddingHorizontal: 2,
+  },
+  badge: {
+    paddingHorizontal: 0,
+    paddingVertical: 0,
   },
 })
 

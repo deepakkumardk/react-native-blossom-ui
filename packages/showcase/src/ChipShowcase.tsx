@@ -11,8 +11,30 @@ export function ChipViewOnly() {
   return <Chip viewOnly>Blossom Chip</Chip>
 }
 
+export function ChipWithoutCheckIcon() {
+  return <Chip withCheckIcon={false}>Blossom Chip</Chip>
+}
+
 export function ChipClearable() {
   return <Chip clearable>Blossom Chip</Chip>
+}
+
+export function ChipCheckIcon() {
+  return (
+    <Chip checkIcon={<Icon name="information-sharp" size={16} />}>
+      Custom Icon
+    </Chip>
+  )
+}
+
+export function ChipAsBadge() {
+  return (
+    <View row style={{alignItems: 'center'}}>
+      <Chip size="small" asBadge title="2" />
+      <Chip size="medium" asBadge title="40" />
+      <Chip size="large" asBadge title="99+" />
+    </View>
+  )
 }
 
 export function ChipModes() {
@@ -169,9 +191,7 @@ export function ChipModesSizesMobile() {
           key={mode}
           style={{
             flexDirection: 'row',
-            // alignItems: 'center',
-            // justifyContent: 'space-between',
-            marginVertical: 2,
+            // marginVertical: 2,
           }}>
           {SIZE_LIST.map((size) => (
             <Chip key={size} mode={mode} size={size}>
@@ -240,8 +260,8 @@ export function ChipCustom() {
     <View style={{justifyContent: 'space-evenly'}}>
       <Chip
         style={[{backgroundColor: 'cyan'}]}
-        left={<Icon name="add" size={24} color="white" />}
-        right={<Icon name="add" size={24} color="white" />}>
+        left={<Icon name="add" size={16} color="white" />}
+        right={<Icon name="add" size={16} color="white" />}>
         Custom Chip
       </Chip>
     </View>

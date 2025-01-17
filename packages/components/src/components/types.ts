@@ -101,6 +101,10 @@ export interface ButtonProps extends PressableProps, BaseUIProps {
 
 export interface BaseButtonProps extends ButtonProps {
   /**
+   * Set it to true to make it unselectable
+   */
+  viewOnly?: boolean
+  /**
    * Callback on text color change
    * @param textColor color of the text based on status
    */
@@ -120,9 +124,17 @@ export type PressableState = Readonly<{
 
 export interface ChipProps extends ButtonProps {
   /**
+   * Use any custom icon for selected state
+   */
+  checkIcon?: ReactNode
+  /**
    * Set it to true if selected
    */
   isSelected?: boolean
+  /**
+   * Show the select icon
+   */
+  withCheckIcon?: boolean
   /**
    * Show the close icon at right to clear the selection
    */
@@ -135,6 +147,10 @@ export interface ChipProps extends ButtonProps {
    * On clear callback
    */
   onClearPress?: () => void
+  /**
+   * Render it as a badge
+   */
+  asBadge?: boolean
 }
 
 export interface SegmentedButtonProps extends BaseUIProps {

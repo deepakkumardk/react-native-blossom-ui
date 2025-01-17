@@ -72,6 +72,11 @@ export const Container = () => {
           },
         }
       },
+      Chip(props, theme) {
+        return {
+          withCheckIcon: true,
+        }
+      },
     })
   }, [])
 
