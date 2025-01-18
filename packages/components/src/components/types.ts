@@ -495,6 +495,14 @@ export interface CheckboxProps extends BaseBooleanFieldProps {
    * Style of the checkbox
    */
   style?: StyleProp<ViewStyle>
+  /**
+   * Render custom icon when value is true
+   */
+  checkedIcon?: ReactNode
+  /**
+   * Render custom icon when value is false
+   */
+  uncheckedIcon?: ReactNode
 }
 
 /**

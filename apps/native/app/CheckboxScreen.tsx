@@ -4,12 +4,13 @@ import {View} from '@react-native-blossom-ui/components'
 
 import {
   CheckboxUsage,
-  CheckboxCustom,
+  CheckboxCustomIcon,
   CheckboxDisabled,
   CheckboxIndeterminate,
   CheckboxPositions,
   CheckboxSizes,
   CheckboxStatuses,
+  CheckboxCustom,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
@@ -20,6 +21,9 @@ export default function CheckboxScreen() {
       <ScrollView>
         <Heading>Usage</Heading>
         <CheckboxUsage />
+
+        <Heading>Custom Icon</Heading>
+        <CheckboxCustomIcon />
 
         <Heading>Positions</Heading>
         <CheckboxPositions />

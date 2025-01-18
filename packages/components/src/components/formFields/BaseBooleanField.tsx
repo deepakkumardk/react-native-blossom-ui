@@ -34,7 +34,7 @@ const BaseBooleanField = (props: BaseBooleanFieldProps) => {
       style={[
         styles.outerContainer,
         position === 'right' ? styles.positionRight : {},
-        adjacent && styles.adjacent,
+        !adjacent && styles.apart,
         containerStyle,
       ]}>
       {children}
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
   outerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     backgroundColor: 'transparent',
   },
   alignEndRightPosition: {
@@ -94,8 +93,8 @@ const styles = StyleSheet.create({
   positionRight: {
     flexDirection: 'row-reverse',
   },
-  adjacent: {
-    justifyContent: undefined,
+  apart: {
+    justifyContent: 'space-between',
   },
   label: {
     fontWeight: '500',

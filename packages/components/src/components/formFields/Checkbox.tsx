@@ -11,7 +11,7 @@ import {Icon} from '../icon'
 const OFFSET_SIZE = 4
 
 /**
- * Checkbox control field component
+ * Checkbox control field component with custom icon support
  */
 const Checkbox = (props: CheckboxProps) => {
   const {colors, isDark} = useBlossomTheme()
@@ -23,6 +23,8 @@ const Checkbox = (props: CheckboxProps) => {
     disabled,
     color,
     style,
+    checkedIcon,
+    uncheckedIcon,
     status = 'accent',
     size = 'medium',
     ...rest
@@ -60,7 +62,7 @@ const Checkbox = (props: CheckboxProps) => {
         accessibilityRole="button"
         style={[
           styles.checkbox,
-          {
+          !uncheckedIcon && {
             width: sizeMap[size],
             height: sizeMap[size],
             backgroundColor: getBgColor(),
@@ -74,14 +76,16 @@ const Checkbox = (props: CheckboxProps) => {
           setFieldValue?.(indeterminate ? true : !fieldValue)
           void onValueChange?.(indeterminate ? true : !fieldValue)
         }}>
-        {fieldValue || indeterminate ? (
-          <Icon
-            family="MaterialCommunityIcons"
-            name={getIconName()}
-            size={sizeMap[size] - OFFSET_SIZE}
-            color={getIconColor()}
-          />
-        ) : null}
+        {fieldValue || indeterminate
+          ? checkedIcon || (
+              <Icon
+                family="MaterialCommunityIcons"
+                name={getIconName()}
+                size={sizeMap[size] - OFFSET_SIZE}
+                color={getIconColor()}
+              />
+            )
+          : uncheckedIcon}
       </Pressable>
     </BaseBooleanField>
   )

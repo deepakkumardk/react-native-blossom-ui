@@ -18,10 +18,17 @@ const CardView = (props: CardProps) => {
     <View
       style={[
         styles.shadow,
+        styles.border,
         {
           borderRadius: options?.borderRadius,
           shadowColor: colors.background300,
+          borderColor: colors.background400,
         },
+        Platform.select({
+          web: {
+            boxShadow: `1px 1px 1px 1px ${colors.background300}`,
+          },
+        }),
         style,
       ]}
       {...rest}
@@ -53,12 +60,17 @@ const Card = Object.assign(CardView, {
 export default Card
 
 const styles = StyleSheet.create({
+  border: {
+    borderWidth: 0.2,
+  },
   shadow: {
     ...Platform.select({
       android: {
         elevation: 2,
       },
-      default: {
+      ios: {
+        borderWidth: 1,
+        borderColor: 'red',
         shadowOpacity: 1,
         shadowRadius: 1,
         shadowOffset: {
@@ -70,5 +82,6 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 10,
+    backgroundColor: 'transparent',
   },
 })

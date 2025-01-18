@@ -54,6 +54,7 @@ const SegmentedButton = (props: SegmentedButtonProps) => {
           ]}
           status={status}
           size={size}
+          withCheckIcon
           {...item}
           isSelected={item.isSelected || selectedIndexes.includes(index)}
           disabled={item.disabled || rest.disabled}

@@ -67,22 +67,6 @@ export function ChipDisabled() {
   )
 }
 
-export function ChipLoading() {
-  return (
-    <View row style={{justifyContent: 'space-evenly'}}>
-      <Chip isLoading size="small">
-        small
-      </Chip>
-      <Chip isLoading size="medium">
-        medium
-      </Chip>
-      <Chip isLoading size="large">
-        large
-      </Chip>
-    </View>
-  )
-}
-
 export function ChipSizes() {
   return (
     <View row style={{justifyContent: 'space-evenly'}}>

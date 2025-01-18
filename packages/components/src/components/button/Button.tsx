@@ -11,7 +11,7 @@ import BaseButton from './BaseButton'
 const Button = (props: ButtonProps) => {
   const {colors, isDark} = useBlossomTheme()
 
-  const {onPress, ...rest} = useMergedProps('Button', props, {colors, isDark})
+  const {...rest} = useMergedProps('Button', props, {colors, isDark})
 
   return <BaseButton {...rest} />
 }

@@ -15,7 +15,6 @@ import {
   ChipDisabled,
   ChipModesSizesMobile,
   ChipAllStatuses,
-  ChipAllStatusesDisabled,
   ChipCustom,
 } from '@react-native-blossom-ui/showcase'
 
@@ -43,14 +42,14 @@ export default function ChipScreen() {
         <Heading>As Badge</Heading>
         <ChipAsBadge />
 
-        <Heading>Modes</Heading>
-        <ChipModes />
+        <Heading>Statuses</Heading>
+        <ChipStatusesMobile />
 
         <Heading>Sizes</Heading>
         <ChipSizes />
 
-        <Heading>Statuses</Heading>
-        <ChipStatusesMobile />
+        <Heading>Modes</Heading>
+        <ChipModes />
 
         <Heading>Disabled</Heading>
         <ChipDisabled />
@@ -60,9 +59,6 @@ export default function ChipScreen() {
 
         <Heading>Modes & Status</Heading>
         <ChipAllStatuses />
-
-        <Heading>Modes & Status - Disabled</Heading>
-        <ChipAllStatusesDisabled />
 
         <Heading>Custom</Heading>
         <ChipCustom />
