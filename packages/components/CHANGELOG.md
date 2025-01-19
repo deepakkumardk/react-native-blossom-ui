@@ -1,5 +1,14 @@
 # @react-native-blossom-ui/components
 
+## 0.4.0
+
+### Minor Changes
+
+- 4e9c196: - Add Chip component
+  - Add SegmentedButton component
+  - Add customIcon support in Checkbox
+  - Add checkIcon,withCheckIcon,asBadge props to Chip
+
 ## 0.3.0
 
 ### Minor Changes
