@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {StyleSheet} from 'react-native'
 
-import {View, Checkbox} from '@react-native-blossom-ui/components'
+import {View, Checkbox, Icon} from '@react-native-blossom-ui/components'
 
 export function CheckboxUsage() {
   const [isOn, setIsOn] = useState(false)
@@ -9,6 +9,22 @@ export function CheckboxUsage() {
   return (
     <View>
       <Checkbox label="primary" value={isOn} onValueChange={setIsOn} />
+    </View>
+  )
+}
+
+export function CheckboxCustomIcon() {
+  return (
+    <View row>
+      <Checkbox
+        checkedIcon={<Icon name="heart" color="red" size={32} />}
+        uncheckedIcon={<Icon name="heart-outline" size={32} />}
+      />
+
+      <Checkbox
+        checkedIcon={<Icon name="bookmark" color="gold" />}
+        uncheckedIcon={<Icon name="bookmark-outline" />}
+      />
     </View>
   )
 }

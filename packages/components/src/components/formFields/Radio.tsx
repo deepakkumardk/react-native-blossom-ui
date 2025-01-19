@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react'
 
-import Icon from '../icon'
+import {Icon} from '../icon'
 import {getStatusColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
 import {RadioProps} from '../types'

@@ -78,6 +78,14 @@ export interface ButtonProps extends PressableProps, BaseUIProps {
    */
   disabled?: boolean
   /**
+   * button style for disabled state
+   */
+  disabledStyle?: StyleProp<ViewStyle>
+  /**
+   * button text style for disabled state
+   */
+  disabledTitleStyle?: StyleProp<TextStyle>
+  /**
    * Render any icon/JSX on left of the title
    */
   left?: ReactNode
@@ -91,11 +99,119 @@ export interface ButtonProps extends PressableProps, BaseUIProps {
   loaderProps?: ActivityIndicatorProps
 }
 
+export interface BaseButtonProps extends ButtonProps {
+  /**
+   * Set it to true to make it unselectable
+   */
+  viewOnly?: boolean
+  /**
+   * Callback on text color change
+   * @param textColor color of the text based on status
+   */
+  onTextColorChange?: (textColor: string) => void
+  /**
+   * Callback on background color change
+   * @param backgroundColor background color of the view based on status
+   */
+  onBackgroundColorChange?: (backgroundColor: string) => void
+}
+
 export type PressableState = Readonly<{
   pressed: boolean
   hovered?: boolean
   focused?: boolean
 }>
+
+export interface ChipProps extends ButtonProps {
+  /**
+   * Use any custom icon for selected state
+   */
+  checkIcon?: ReactNode
+  /**
+   * Set it to true if selected
+   */
+  isSelected?: boolean
+  /**
+   * Show the select icon
+   */
+  withCheckIcon?: boolean
+  /**
+   * Show the close icon at right to clear the selection
+   */
+  clearable?: boolean
+  /**
+   * Set it to true to make it unselectable
+   */
+  viewOnly?: boolean
+  /**
+   * On clear callback
+   */
+  onClearPress?: () => void
+  /**
+   * Render it as a badge
+   */
+  asBadge?: boolean
+}
+
+export interface SegmentedButtonProps extends BaseUIProps {
+  /**
+   * List of props for control buttons
+   */
+  data?: ControlButtonProps[]
+  /**
+   * Mode of the button view
+   */
+  mode?: ButtonMode
+  /**
+   * Take the full width available
+   */
+  fullWidth?: boolean
+  /**
+   * Control the border radius of the edge buttons
+   */
+  borderRadius?: number
+  /**
+   * Show the vertical divider between the buttons
+   */
+  withVerticalDivider?: boolean
+  /**
+   * Set to true for multiple select
+   */
+  multiSelect?: boolean
+
+  /**
+   * active color when the button is selected
+   */
+  activeColor?: string
+  /**
+   * inactive color when the button is unselected
+   */
+  inactiveColor?: string
+
+  /**
+   * Container style
+   */
+  style?: StyleProp<ViewStyle>
+  /**
+   * Disable the whole control
+   */
+  disabled?: boolean
+  /**
+   * OnPress callback with value
+   */
+  onPress?: (value: string, selectedIndex: number) => void
+}
+
+export interface ControlButtonProps extends ChipProps {
+  /**
+   * Label of the control button
+   */
+  label?: string
+  /**
+   * Value of the control button that will be passed to on Press & will fallback to label if not passed
+   */
+  value?: string
+}
 
 export interface ActivityIndicatorProps
   extends Omit<RNActivityIndicatorProps, 'size'>,
@@ -288,7 +404,7 @@ export interface IconProps extends RNTextProps, OmitSizeProps {
   family?: IconFamily
   /**
    * Size of the icon, can also be passed as fontSize in the style object.
-   * @default 12
+   * @default 24
    */
   size?: number | undefined
 
@@ -379,6 +495,14 @@ export interface CheckboxProps extends BaseBooleanFieldProps {
    * Style of the checkbox
    */
   style?: StyleProp<ViewStyle>
+  /**
+   * Render custom icon when value is true
+   */
+  checkedIcon?: ReactNode
+  /**
+   * Render custom icon when value is false
+   */
+  uncheckedIcon?: ReactNode
 }
 
 /**
@@ -391,7 +515,10 @@ export interface CheckboxProps extends BaseBooleanFieldProps {
 export type ComponentPropsMap = {
   ActivityIndicator: ActivityIndicatorProps
   Text: TextProps
+
   Button: ButtonProps
+  Chip: ChipProps
+  SegmentedButton: SegmentedButtonProps
 
   View: ViewProps
   Divider: DividerProps

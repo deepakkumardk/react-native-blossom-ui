@@ -4,7 +4,7 @@ import {StyleSheet} from 'react-native'
 import {useBlossomTheme} from '../../context'
 import {useMergedProps} from '../../common'
 import {Text} from '../text'
-import Button from '../button'
+import {Button} from '../button'
 import {View} from '../view'
 import {ModalContentProps} from '../types'
 

@@ -143,7 +143,7 @@ export function ButtonStatusesMobile() {
 export function ButtonModesSizes() {
   return (
     <View style={{justifyContent: 'space-evenly'}}>
-      {MODES.map((mode) => (
+      {BUTTON_MODES.map((mode) => (
         <View
           key={mode}
           style={{
@@ -166,7 +166,7 @@ export function ButtonModesSizes() {
 export function ButtonModesSizesMobile() {
   return (
     <View style={{justifyContent: 'space-evenly'}}>
-      {MODES.map((mode) => (
+      {BUTTON_MODES.map((mode) => (
         <View
           key={mode}
           style={{
@@ -258,9 +258,16 @@ export function ButtonCustom() {
         Icons Space-Between
       </Button>
 
-      <Button isLoading>Loading...</Button>
+      <Button
+        disabled
+        disabledTitleStyle={{
+          color: 'black',
+        }}
+        disabledStyle={{
+          backgroundColor: 'gray',
+        }}>
+        Custom Disabled Buttons
+      </Button>
     </View>
   )
 }
-
-const MODES: ButtonProps['mode'][] = ['filled', 'tinted', 'outlined', 'plain']

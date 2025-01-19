@@ -65,6 +65,18 @@ export const Container = () => {
           mode: 'round',
         }
       },
+      SegmentedButton(props, theme) {
+        return {
+          style: {
+            marginVertical: 8,
+          },
+        }
+      },
+      Chip(props, theme) {
+        return {
+          withCheckIcon: true,
+        }
+      },
     })
   }, [])
 
@@ -80,6 +92,7 @@ export const Container = () => {
         },
       }}>
       {/* Optionally configure static options outside the route. */}
+      <Stack.Screen name="index" options={{title: 'Blossom UI'}} />
     </Stack>
   )
 }
