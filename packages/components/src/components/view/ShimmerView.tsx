@@ -13,7 +13,7 @@ const ShimmerView = (props: ShimmerViewProps) => {
   const {colors, isDark, options} = useBlossomTheme()
 
   const {
-    width = '100%',
+    width,
     height = 10,
     visible = true,
     animated = true,

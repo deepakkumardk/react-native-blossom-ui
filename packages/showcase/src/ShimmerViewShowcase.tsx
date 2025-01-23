@@ -9,7 +9,14 @@ import {
 export function ShimmerViewUsage() {
   return (
     <View>
-      <ShimmerView />
+      <ShimmerView height={140} borderRadius={20} />
+      <View row>
+        <ShimmerView circular height={60} />
+        <View style={{marginStart: 20, alignSelf: 'center'}}>
+          <ShimmerView width={200} />
+          <ShimmerView width={100} />
+        </View>
+      </View>
     </View>
   )
 }
@@ -24,6 +31,22 @@ export function ShimmerViewCircular() {
         color="gold"
         style={{marginHorizontal: 20}}
       />
+    </View>
+  )
+}
+
+export function ShimmerViewDuration() {
+  return (
+    <View>
+      <ShimmerView width="100%" height={40} duration={400} />
+    </View>
+  )
+}
+
+export function ShimmerViewStopAnimation() {
+  return (
+    <View>
+      <ShimmerView width="100%" height={40} animated={false} />
     </View>
   )
 }
@@ -51,21 +74,6 @@ export function ShimmerViewVisibility() {
         />
       </ShimmerView>
       <Button title="Reset" size="small" onPress={onReset} />
-    </View>
-  )
-}
-
-export function ShimmerViewCustom() {
-  return (
-    <View>
-      <ShimmerView height={140} borderRadius={8} />
-      <View row>
-        <ShimmerView circular height={60} />
-        <View style={{marginStart: 20, alignSelf: 'center'}}>
-          <ShimmerView width={200} />
-          <ShimmerView width={100} />
-        </View>
-      </View>
     </View>
   )
 }

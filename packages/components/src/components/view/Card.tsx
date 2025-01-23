@@ -37,6 +37,32 @@ const CardView = (props: CardProps) => {
 }
 
 /**
+ * Card Cover to show the cover images in the card without any default padding
+ */
+const CardCover = (props: ViewProps) => {
+  const {colors, isDark, options} = useBlossomTheme()
+
+  const {style, ...rest} = useMergedProps('Card.Cover', props, {
+    colors,
+    isDark,
+  })
+
+  return (
+    <View
+      style={[
+        styles.cover,
+        {
+          borderTopLeftRadius: options?.borderRadius,
+          borderTopRightRadius: options?.borderRadius,
+        },
+        style,
+      ]}
+      {...rest}
+    />
+  )
+}
+
+/**
  * Card Content with default padding to be used inside Card
  */
 const CardContent = (props: ViewProps) => {
@@ -55,6 +81,7 @@ const CardContent = (props: ViewProps) => {
  */
 const Card = Object.assign(CardView, {
   Content: CardContent,
+  Cover: CardCover,
 })
 
 export default Card
@@ -83,5 +110,9 @@ const styles = StyleSheet.create({
   content: {
     padding: 10,
     backgroundColor: 'transparent',
+  },
+  cover: {
+    overflow: 'hidden',
+    marginBottom: 4,
   },
 })

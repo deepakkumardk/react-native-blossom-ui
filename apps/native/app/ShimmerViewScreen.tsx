@@ -5,7 +5,8 @@ import {
   ShimmerViewUsage,
   ShimmerViewCircular,
   ShimmerViewVisibility,
-  ShimmerViewCustom,
+  ShimmerViewDuration,
+  ShimmerViewStopAnimation,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
@@ -20,11 +21,14 @@ export default function ShimmerViewScreen() {
         <Heading>Circular</Heading>
         <ShimmerViewCircular />
 
+        <Heading>Animation Duration</Heading>
+        <ShimmerViewDuration />
+
+        <Heading>Stop Animation</Heading>
+        <ShimmerViewStopAnimation />
+
         <Heading>Visibility</Heading>
         <ShimmerViewVisibility />
-
-        <Heading>Custom</Heading>
-        <ShimmerViewCustom />
       </ScrollView>
     </View>
   )

@@ -337,6 +337,15 @@ export interface DividerProps extends ViewProps {
    * @default background900
    */
   color?: string
+  /**
+   * Label inside the divider
+   */
+  label?: string
+  /**
+   * Label position where it will be rendered
+   * @default center
+   */
+  labelPosition?: 'left' | 'right' | 'center'
 }
 
 export interface ShimmerViewProps extends DividerProps {
