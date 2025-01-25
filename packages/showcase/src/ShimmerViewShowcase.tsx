@@ -38,7 +38,7 @@ export function ShimmerViewCircular() {
 export function ShimmerViewDuration() {
   return (
     <View>
-      <ShimmerView width="100%" height={40} duration={400} />
+      <ShimmerView height={40} duration={400} />
     </View>
   )
 }
@@ -46,7 +46,7 @@ export function ShimmerViewDuration() {
 export function ShimmerViewStopAnimation() {
   return (
     <View>
-      <ShimmerView width="100%" height={40} animated={false} />
+      <ShimmerView height={40} animated={false} />
     </View>
   )
 }

@@ -48,6 +48,17 @@ export interface ViewProps extends RNViewProps {
   row?: boolean
 }
 
+export interface SpacerProps extends RNViewProps {
+  /**
+   * Width of the spacer
+   */
+  width?: number
+  /**
+   * Height of the spacer
+   */
+  height?: number
+}
+
 export type ButtonMode = 'filled' | 'tinted' | 'outlined' | 'plain'
 
 export interface ButtonProps extends PressableProps, BaseUIProps {

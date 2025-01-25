@@ -69,6 +69,10 @@ const dataList = [
     navigateTo: './DividerScreen',
   },
   {
+    title: 'Spacer',
+    navigateTo: './SpacerScreen',
+  },
+  {
     title: 'ActivityIndicator',
     navigateTo: './ActivityIndicatorScreen',
   },

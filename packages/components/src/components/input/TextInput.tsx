@@ -9,6 +9,9 @@ import SizedText from '../text/SizedText'
 import {View} from '../view'
 import {useMergedProps} from '../../common'
 
+/**
+ * TextInput along with label,placeholder,caption & error support
+ */
 const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
   const {colors, isDark, options} = useBlossomTheme()
 
