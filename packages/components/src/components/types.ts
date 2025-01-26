@@ -59,6 +59,45 @@ export interface SpacerProps extends RNViewProps {
   height?: number
 }
 
+export interface AccordionProps {
+  /**
+   * Set it to true to open the accordion
+   */
+  isCollapsed?: boolean
+  /**
+   * Title of the accordion
+   */
+  title?: string | ReactNode
+  /**
+   * Title of the accordion
+   */
+  subtitle?: string | ReactNode
+  /**
+   * Title of the accordion
+   */
+  description?: string
+  /**
+   * Render custom view inside the accordion instead of the description only
+   */
+  children?: ReactNode
+  /**
+   * Render any icon/JSX on left of the title
+   */
+  left?: ReactNode
+  /**
+   * Render any icon/JSX on right of the title
+   */
+  right?: ReactNode
+  /**
+   * Container style for the accordion
+   */
+  containerStyle?: StyleProp<ViewStyle>
+  /**
+   * On press callback on the title section
+   */
+  onPress?: () => void
+}
+
 export type ButtonMode = 'filled' | 'tinted' | 'outlined' | 'plain'
 
 export interface ButtonProps extends PressableProps, BaseUIProps {
