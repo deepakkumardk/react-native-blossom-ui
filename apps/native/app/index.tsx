@@ -65,8 +65,16 @@ const dataList = [
     navigateTo: './CardScreen',
   },
   {
+    title: 'Accordion',
+    navigateTo: './AccordionScreen',
+  },
+  {
     title: 'Divider',
     navigateTo: './DividerScreen',
+  },
+  {
+    title: 'Spacer',
+    navigateTo: './SpacerScreen',
   },
   {
     title: 'ActivityIndicator',
