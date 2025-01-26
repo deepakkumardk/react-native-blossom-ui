@@ -1,5 +1,15 @@
 # @react-native-blossom-ui/components
 
+## 0.5.0
+
+### Minor Changes
+
+- 2e16ed4: Add Accordion component
+- bd19590: - Add ShimmerView component for skeleton
+  - Add ProgressBar component
+  - Add Spacer component
+  - Add label, labelPosition in the Divider
+
 ## 0.4.0
 
 ### Minor Changes
