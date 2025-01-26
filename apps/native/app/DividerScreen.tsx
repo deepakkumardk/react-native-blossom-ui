@@ -1,7 +1,12 @@
 import React from 'react'
 import {StyleSheet} from 'react-native'
 import {View} from '@react-native-blossom-ui/components'
-import {DividerUsage, DividerVertical} from '@react-native-blossom-ui/showcase'
+import {
+  DividerCustom,
+  DividerLabel,
+  DividerUsage,
+  DividerVertical,
+} from '@react-native-blossom-ui/showcase'
 import {Heading} from '../components'
 
 export default function DividerScreen() {
@@ -10,8 +15,14 @@ export default function DividerScreen() {
       <Heading>Usage</Heading>
       <DividerUsage />
 
+      <Heading>Label Positions</Heading>
+      <DividerLabel />
+
       <Heading>Vertical</Heading>
       <DividerVertical />
+
+      <Heading>Custom</Heading>
+      <DividerCustom />
     </View>
   )
 }

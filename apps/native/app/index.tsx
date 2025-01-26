@@ -120,4 +120,12 @@ const dataList = [
     title: 'MultiSelect',
     navigateTo: './MultiSelectScreen',
   },
+  {
+    title: 'ShimmerView',
+    navigateTo: './ShimmerViewScreen',
+  },
+  {
+    title: 'ProgressBar',
+    navigateTo: './ProgressBarScreen',
+  },
 ]

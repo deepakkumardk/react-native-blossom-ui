@@ -77,6 +77,13 @@ export const Container = () => {
           withCheckIcon: true,
         }
       },
+      ProgressBar(props, theme) {
+        return {
+          style: {
+            marginVertical: 8,
+          },
+        }
+      },
     })
   }, [])
 

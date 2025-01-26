@@ -15,6 +15,18 @@ Blossom UI helps you to create an awesome UI on mobile and web platform. This li
 yarn add @react-native-blossom-ui/components
 ```
 
+Now, install the peer dependency that is required to work the library.
+
+```bash
+yarn add react-native-vector-icons
+```
+
+Follow the extra steps that is needed to work for this library from [here](https://github.com/oblador/react-native-vector-icons)
+
+# Thanks
+
+Special Thanks to [mantine](mantine.dev), This library has taken inspiration from this to have the best experience across mobile too and expose useful props here too.
+
 # License
 
-[MIT](LICENSE) License
+[MIT License](LICENSE)

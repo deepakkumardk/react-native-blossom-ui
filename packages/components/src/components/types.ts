@@ -337,6 +337,41 @@ export interface DividerProps extends ViewProps {
    * @default background900
    */
   color?: string
+  /**
+   * Label inside the divider
+   */
+  label?: string
+  /**
+   * Label position where it will be rendered
+   * @default center
+   */
+  labelPosition?: 'left' | 'right' | 'center'
+}
+
+export interface ShimmerViewProps extends DividerProps {
+  /**
+   * Set it to false to disable the animation
+   * @default true
+   */
+  animated?: boolean
+  /**
+   * Set it to false to Hide the shimmer view and show it's children
+   * @default true
+   */
+  visible?: boolean
+  /**
+   * Set it to true to have the circular shape
+   */
+  circular?: boolean
+  /**
+   * Border radius of the view
+   */
+  borderRadius?: number
+  /**
+   * Set it to false to disable the animation
+   * @default 1000
+   */
+  duration?: number
 }
 
 export interface CardProps extends ViewProps {
@@ -523,6 +558,9 @@ export type ComponentPropsMap = {
   View: ViewProps
   Divider: DividerProps
 
+  ShimmerView: ShimmerViewProps
+  ProgressBar: ProgressBarProps
+
   Icon: IconProps
   Avatar: AvatarProps
 
@@ -537,7 +575,8 @@ export type ComponentPropsMap = {
   Popover: PopoverProps
   Tooltip: TooltipProps
   SelectItem: SelectItemProps<unknown>
-  SelectInput: SelectProps<unknown>
+  Select: SelectProps<unknown>
+  MultiSelect: SelectProps<unknown>
 }
 
 export interface ModalProps extends RNModalProps {
@@ -782,3 +821,35 @@ export interface MultiSelectProps<ItemT>
 /**
  * End of Select Props
  */
+
+export interface ProgressBarProps extends BaseUIProps {
+  /**
+   * Progress value for the track color
+   */
+  value?: number
+
+  /**
+   * Width of the progress bar
+   */
+  width?: number
+  /**
+   * height of the progress bar
+   */
+  height?: number
+  /**
+   * Background color of the unfilled color
+   */
+  color?: ColorValue
+  /**
+   * Main trackColor of the progress bar
+   */
+  trackColor?: ColorValue
+  /**
+   * Set it to true to have the infinite animation
+   */
+  indeterminate?: boolean
+  /**
+   * Style of the container view
+   */
+  style?: StyleProp<ViewStyle>
+}
