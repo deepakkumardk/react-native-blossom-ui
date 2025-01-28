@@ -53,6 +53,10 @@ const dataList = [
     navigateTo: './ButtonScreen',
   },
   {
+    title: 'FAB',
+    navigateTo: './FABScreen',
+  },
+  {
     title: 'SegmentedButton',
     navigateTo: './SegmentedButtonScreen',
   },

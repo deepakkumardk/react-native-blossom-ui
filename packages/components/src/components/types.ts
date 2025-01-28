@@ -172,6 +172,23 @@ export type PressableState = Readonly<{
   focused?: boolean
 }>
 
+export interface FABProps extends ButtonProps {
+  /**
+   * Set the icon of the FAB
+   */
+  icon?: ReactNode
+  /**
+   * Horizontal offset position for the fab
+   * @default 48
+   */
+  offsetX?: number
+  /**
+   * Vertical offset position for the fab
+   * @default 48
+   */
+  offsetY?: number
+}
+
 export interface ChipProps extends ButtonProps {
   /**
    * Use any custom icon for selected state
