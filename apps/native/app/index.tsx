@@ -89,6 +89,10 @@ const dataList = [
     navigateTo: './TextInputScreen',
   },
   {
+    title: 'OtpInput',
+    navigateTo: './OtpInputScreen',
+  },
+  {
     title: 'SearchInput',
     navigateTo: './SearchInputScreen',
   },

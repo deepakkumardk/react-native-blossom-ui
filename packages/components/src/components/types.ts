@@ -388,6 +388,40 @@ export interface SearchInputProps extends TextInputProps {
   debounceDelay?: number
 }
 
+export interface OtpInputProps extends Omit<TextInputProps, 'mode'> {
+  /**
+   * Set the otp input length
+   * @default 4
+   */
+  maxLength?: number
+  /**
+   * Set the style for each box with isFocused prop
+   */
+  boxStyle?:
+    | StyleProp<ViewStyle>
+    | ((isFocused: boolean) => StyleProp<ViewStyle>)
+  /**
+   * different view based on the mode
+   * @default box
+   */
+  mode?: 'box' | 'dash'
+  /**
+   * Set the alphanumeric keyboard
+   */
+  withAlphanumericKeyboard?: boolean
+  /**
+   * onComplete callback with otp input text
+   */
+  onComplete?: (otp: string) => void
+}
+
+export type OtpInputRef = {
+  /**
+   * Clear the otp input text
+   */
+  clear: () => void
+}
+
 export interface DividerProps extends ViewProps {
   /**
    * Control Width of the divider
