@@ -1,5 +1,12 @@
 # @react-native-blossom-ui/components
 
+## 0.6.0
+
+### Minor Changes
+
+- b56ccb4: Add FAB, Link & OtpInput components
+  Fix Popover fixed position issue on scroll
+
 ## 0.5.0
 
 ### Minor Changes
