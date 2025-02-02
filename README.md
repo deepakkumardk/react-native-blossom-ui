@@ -25,7 +25,7 @@ Follow the extra steps that is needed to work for this library from [here](https
 
 # Thanks
 
-Special Thanks to [mantine](mantine.dev), This library has taken inspiration from this to have the best experience across mobile too and expose useful props here too.
+Special Thanks to [mantine](https://mantine.dev), This library has taken inspiration from this to have the best experience across mobile too and expose useful props here too.
 
 # License
 

@@ -49,6 +49,10 @@ const dataList = [
     navigateTo: './TextScreen',
   },
   {
+    title: 'Link',
+    navigateTo: './LinkScreen',
+  },
+  {
     title: 'Button',
     navigateTo: './ButtonScreen',
   },

@@ -41,6 +41,25 @@ export interface SizedTextProps extends TextProps, BaseUIProps {
   mode?: 'label' | 'caption' | 'body'
 }
 
+export interface LinkProps extends TextProps {
+  /**
+   * Set the left side of the text
+   */
+  leftText?: string | ReactNode
+  /**
+   * Set the left side of the text
+   */
+  rightText?: string | ReactNode
+  /**
+   * Set the link label to show
+   */
+  title?: string
+  /**
+   * Set the href url for link
+   */
+  href?: string
+}
+
 export interface ViewProps extends RNViewProps {
   /**
    * Set true for horizontal(flexDirection) view
