@@ -121,25 +121,13 @@ export function ChipStatuses() {
 
 export function ChipStatusesMobile() {
   return (
-    <View style={{justifyContent: 'space-evenly'}}>
-      <Chip status="primary" size="small">
-        primary
-      </Chip>
-      <Chip status="accent" size="small">
-        accent
-      </Chip>
-      <Chip status="success" size="small">
-        success
-      </Chip>
-      <Chip status="info" size="small">
-        info
-      </Chip>
-      <Chip status="warning" size="small">
-        warning
-      </Chip>
-      <Chip status="error" size="small">
-        error
-      </Chip>
+    <View>
+      <Chip status="primary">primary</Chip>
+      <Chip status="accent">accent</Chip>
+      <Chip status="success">success</Chip>
+      <Chip status="info">info</Chip>
+      <Chip status="warning">warning</Chip>
+      <Chip status="error">error</Chip>
     </View>
   )
 }

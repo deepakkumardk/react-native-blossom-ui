@@ -41,6 +41,25 @@ export interface SizedTextProps extends TextProps, BaseUIProps {
   mode?: 'label' | 'caption' | 'body'
 }
 
+export interface LinkProps extends TextProps {
+  /**
+   * Set the left side of the text
+   */
+  leftText?: string | ReactNode
+  /**
+   * Set the left side of the text
+   */
+  rightText?: string | ReactNode
+  /**
+   * Set the link label to show
+   */
+  title?: string
+  /**
+   * Set the href url for link
+   */
+  href?: string
+}
+
 export interface ViewProps extends RNViewProps {
   /**
    * Set true for horizontal(flexDirection) view
@@ -171,6 +190,23 @@ export type PressableState = Readonly<{
   hovered?: boolean
   focused?: boolean
 }>
+
+export interface FABProps extends ButtonProps {
+  /**
+   * Set the icon of the FAB
+   */
+  icon?: ReactNode
+  /**
+   * Horizontal offset position for the fab
+   * @default 48
+   */
+  offsetX?: number
+  /**
+   * Vertical offset position for the fab
+   * @default 48
+   */
+  offsetY?: number
+}
 
 export interface ChipProps extends ButtonProps {
   /**
@@ -369,6 +405,40 @@ export interface SearchInputProps extends TextInputProps {
   withClearIcon?: boolean
   onQueryChange?: (query: string) => void
   debounceDelay?: number
+}
+
+export interface OtpInputProps extends Omit<TextInputProps, 'mode'> {
+  /**
+   * Set the otp input length
+   * @default 4
+   */
+  maxLength?: number
+  /**
+   * Set the style for each box with isFocused prop
+   */
+  boxStyle?:
+    | StyleProp<ViewStyle>
+    | ((isFocused: boolean) => StyleProp<ViewStyle>)
+  /**
+   * different view based on the mode
+   * @default box
+   */
+  mode?: 'box' | 'dash'
+  /**
+   * Set the alphanumeric keyboard
+   */
+  withAlphanumericKeyboard?: boolean
+  /**
+   * onComplete callback with otp input text
+   */
+  onComplete?: (otp: string) => void
+}
+
+export type OtpInputRef = {
+  /**
+   * Clear the otp input text
+   */
+  clear: () => void
 }
 
 export interface DividerProps extends ViewProps {

@@ -150,6 +150,10 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
     measureContent()
   }, [measureContent, showContent])
 
+  if (showContent) {
+    measureContent()
+  }
+
   return (
     <View>
       <View ref={targetViewRef}>{Target}</View>

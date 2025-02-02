@@ -49,8 +49,16 @@ const dataList = [
     navigateTo: './TextScreen',
   },
   {
+    title: 'Link',
+    navigateTo: './LinkScreen',
+  },
+  {
     title: 'Button',
     navigateTo: './ButtonScreen',
+  },
+  {
+    title: 'FAB',
+    navigateTo: './FABScreen',
   },
   {
     title: 'SegmentedButton',
@@ -83,6 +91,10 @@ const dataList = [
   {
     title: 'TextInput',
     navigateTo: './TextInputScreen',
+  },
+  {
+    title: 'OtpInput',
+    navigateTo: './OtpInputScreen',
   },
   {
     title: 'SearchInput',
