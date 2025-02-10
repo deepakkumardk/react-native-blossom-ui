@@ -9,7 +9,11 @@
   ],
   "commit": false,
   "fixed": [
-    ["@react-native-blossom-ui/components", "@react-native-blossom-ui/showcase"]
+    [
+      "@react-native-blossom-ui/components",
+      "@react-native-blossom-ui/dates",
+      "@react-native-blossom-ui/showcase"
+    ]
   ],
   "linked": [],
   "access": "public",
