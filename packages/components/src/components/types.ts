@@ -425,6 +425,10 @@ export interface OtpInputProps extends Omit<TextInputProps, 'mode'> {
    */
   mode?: 'box' | 'dash'
   /**
+   * Set it to true to enable otp cursor
+   */
+  withCursor?: boolean
+  /**
    * Set the alphanumeric keyboard
    */
   withAlphanumericKeyboard?: boolean

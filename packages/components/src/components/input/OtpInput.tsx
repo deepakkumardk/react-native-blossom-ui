@@ -1,11 +1,15 @@
 import React, {
   forwardRef,
   useCallback,
+  useEffect,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState,
 } from 'react'
 import {
+  Animated,
+  Easing,
   TextInput as RNTextInput,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -30,6 +34,7 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
     boxStyle,
     mode = 'box',
     withAlphanumericKeyboard,
+    withCursor,
     onComplete,
     status = 'primary',
     size = 'medium',
@@ -40,6 +45,7 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
   const [isFocused, setIsFocused] = useState(false)
 
   const inputRef = useRef<RNTextInput | null>(null)
+  const cursorOpacity = useRef(new Animated.Value(0)).current
 
   const onInputChange = useCallback(
     (text: string) => {
@@ -51,6 +57,16 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
     [maxLength, onComplete],
   )
 
+  const getOtpInputText = useCallback(
+    (value?: string, label?: string) => {
+      if (value) {
+        return rest?.secureTextEntry ? '*' : value
+      }
+      return label || ''
+    },
+    [rest?.secureTextEntry],
+  )
+
   useImperativeHandle(ref, () => {
     return {
       clear: () => {
@@ -58,6 +74,33 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
       },
     }
   }, [])
+
+  const cursorLoop = useMemo(() => {
+    return Animated.loop(
+      Animated.sequence([
+        Animated.timing(cursorOpacity, {
+          toValue: 0.5,
+          duration: 500,
+          easing: Easing.ease,
+          useNativeDriver: true,
+        }),
+        Animated.timing(cursorOpacity, {
+          toValue: 1,
+          duration: 500,
+          easing: Easing.ease,
+          useNativeDriver: true,
+        }),
+      ]),
+    )
+  }, [cursorOpacity])
+
+  useEffect(() => {
+    if (withCursor && isFocused && otp.length !== maxLength) {
+      cursorLoop.start()
+    } else {
+      cursorLoop.reset()
+    }
+  }, [cursorLoop, isFocused, maxLength, otp.length, withCursor])
 
   return (
     <TouchableWithoutFeedback
@@ -72,6 +115,8 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
           onChangeText={onInputChange}
           maxLength={maxLength}
           keyboardType={withAlphanumericKeyboard ? 'default' : 'numeric'}
+          textContentType="oneTimeCode"
+          autoComplete="one-time-code"
           onFocus={(e) => {
             setIsFocused(true)
             rest?.onFocus?.(e)
@@ -85,7 +130,7 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
         <View row style={[styles.boxRow]}>
           {Array(maxLength)
             .fill(rest?.placeholder || '')
-            .map((label, index) => (
+            .map((label: string, index) => (
               <View
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
@@ -98,26 +143,48 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
                     borderColor:
                       otp.length === index && isFocused
                         ? colors[getStatusColorName(status)]
-                        : colors.background900,
+                        : colors.background800,
                   },
                   typeof boxStyle === 'function'
                     ? boxStyle?.(otp.length === index && isFocused)
                     : boxStyle,
                 ]}>
-                <SizedText
-                  mode="body"
-                  style={[
-                    [
+                {rest?.secureTextEntry && otp.charAt(index) ? (
+                  <View
+                    style={[
+                      styles.dot,
                       {
-                        color: otp.charAt(index)
-                          ? colors.text100
-                          : colors.text500,
+                        backgroundColor: colors.background900,
                       },
-                      rest?.textStyle,
-                    ],
-                  ]}>
-                  {otp.charAt(index) || label || ''}
-                </SizedText>
+                    ]}
+                  />
+                ) : (
+                  <SizedText
+                    mode="body"
+                    style={[
+                      [
+                        {
+                          color: otp.charAt(index)
+                            ? colors.text100
+                            : colors.text500,
+                        },
+                        rest?.textStyle,
+                      ],
+                    ]}>
+                    {otp.charAt(index) || label || ''}
+                  </SizedText>
+                )}
+                {otp.length === index && isFocused && !otp.charAt(index) && (
+                  <Animated.View
+                    style={[
+                      styles.cursor,
+                      {
+                        opacity: cursorOpacity,
+                        backgroundColor: colors.text100,
+                      },
+                    ]}
+                  />
+                )}
               </View>
             ))}
         </View>
@@ -127,6 +194,8 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
 }
 
 export default forwardRef(OtpInput)
+
+const DOT_SIZE = 10
 
 const styles = StyleSheet.create({
   container: {
@@ -151,6 +220,16 @@ const styles = StyleSheet.create({
   dash: {
     margin: 6,
     borderBottomWidth: 1,
+  },
+  dot: {
+    borderRadius: DOT_SIZE,
+    width: DOT_SIZE,
+    height: DOT_SIZE,
+  },
+  cursor: {
+    position: 'absolute',
+    height: '50%',
+    width: 1.25,
   },
 })
 
