@@ -18,7 +18,9 @@
     "tsc": "tsc --skipLibCheck --noEmit",
     "lint": "eslint src/ --fix"
   },
-  "dependencies": {},
+  "dependencies": {
+    "dayjs": "1.11.13"
+  },
   "devDependencies": {
     "@react-native-blossom-ui/components": "*",
     "@react-native-blossom-ui/typescript-config": "*",
@@ -31,6 +33,7 @@
     "tsup": "^8.0.1"
   },
   "peerDependencies": {
+    "@react-native-blossom-ui/components": "*",
     "react": "*",
     "react-native": "*",
     "react-native-vector-icons": "*"

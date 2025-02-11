@@ -6,6 +6,9 @@
       "@react-native-blossom-ui/components/*": [
         "./packages/components/src/*"
       ],
+      "@react-native-blossom-ui/dates/*": [
+        "./packages/dates/src/*"
+      ],
       "@react-native-blossom-ui/showcase/*": [
         "./packages/showcase/src/*"
       ],
