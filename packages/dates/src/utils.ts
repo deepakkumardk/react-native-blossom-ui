@@ -1,5 +1,11 @@
 import dayjs from 'dayjs'
 
+/**
+ *
+ * @param month current month for which you want your days list
+ * @param year current year for which you want your days list
+ * @returns list of days along with prev & next appended days
+ */
 export const getAppendedDaysListForMonth = (month: number, year: number) => {
   const date = getDateWithDMY(1, month, year)
   const totalDays = getDaysInMonth(month, year)
@@ -79,3 +85,37 @@ export const getDateWithDMY = (day: number, month: number, year: number) => {
 
 export const getFormattedDate = (date: Date, format = 'dd mmm yyyy') =>
   dayjs(date).format(format)
+
+// -------- Year Utils ---------
+/**
+ * Returns the next yearsCount
+ */
+export const getYearsList = ({
+  currentYear,
+  yearsCount = 12,
+  minYear,
+  maxYear,
+}: {
+  currentYear: number
+  yearsCount?: number
+  minYear?: number
+  maxYear?: number
+}) => {
+  const years = Array(yearsCount)
+    .fill(currentYear)
+    .map((value: number, index) => value + index)
+    .filter((value) => {
+      if (minYear && maxYear) {
+        return value >= minYear && value <= maxYear
+      }
+      if (minYear) {
+        return value >= minYear
+      }
+      if (maxYear) {
+        return value <= maxYear
+      }
+      return true
+    })
+
+  return years
+}

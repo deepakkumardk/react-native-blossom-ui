@@ -1,32 +1,62 @@
-import React, {useCallback, useMemo, useState} from 'react'
+import React, {useCallback, useMemo, useRef, useState} from 'react'
+import {StyleSheet, TouchableOpacity} from 'react-native'
+
 import {
   Icon,
   Text,
   useBlossomTheme,
   View,
 } from '@react-native-blossom-ui/components'
-import {FlatList, StyleSheet, TouchableOpacity} from 'react-native'
-import {MonthCalendarProps, MonthDayItem} from './types'
-import {
-  getAppendedDaysListForMonth,
-  getDateWithDMY,
-  getFormattedDate,
-} from './utils'
 
-const weekArray = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+import {MonthCalendarProps, MonthDayItem, YearsListRef} from './types'
+import {getDateWithDMY, getFormattedDate} from './utils'
+import MonthDaysList from './MonthDaysList'
+import MonthNamesList from './MonthNamesList'
+import YearList from './YearList'
 
-export function MonthCalendar(props: MonthCalendarProps) {
-  const {colors, isDark, options} = useBlossomTheme()
+/**
+ * Display the calendar days of the month with current month-year text
+ */
+function MonthCalendar(props: MonthCalendarProps) {
+  const {colors, isDark} = useBlossomTheme()
+
+  const {yearListProps} = props
 
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [currentMonth, setCurrentMonth] = useState(selectedDate.getMonth())
   const [currentYear, setCurrentYear] = useState(selectedDate.getFullYear())
+  const [viewMode, setViewMode] = useState<'Days' | 'Month' | 'Year'>('Days')
 
-  const daysList = useMemo(() => {
-    return getAppendedDaysListForMonth(currentMonth, currentYear)
-  }, [currentMonth, currentYear])
+  const yearsRef = useRef<YearsListRef>(null)
+
+  const onMonthHeaderPress = useCallback(() => {
+    setViewMode((prev) => {
+      if (prev === 'Month') {
+        return 'Days'
+      }
+      return 'Month'
+    })
+  }, [])
+
+  const onYearHeaderPress = useCallback(() => {
+    setViewMode((prev) => {
+      if (prev === 'Year') {
+        return 'Days'
+      }
+      return 'Year'
+    })
+  }, [])
 
   const onPrevPress = useCallback(() => {
+    if (viewMode === 'Month') return
+
+    if (viewMode === 'Year') {
+      if (yearsRef.current?.hasMinYear()) return
+
+      yearsRef.current?.loadPrevYears()
+      return
+    }
+
     setCurrentMonth((prev) => {
       if (prev === 0) {
         setCurrentYear((prevYear) => prevYear - 1)
@@ -34,9 +64,18 @@ export function MonthCalendar(props: MonthCalendarProps) {
       }
       return prev - 1
     })
-  }, [])
+  }, [viewMode])
 
   const onNextPress = useCallback(() => {
+    if (viewMode === 'Month') return
+
+    if (viewMode === 'Year') {
+      if (yearsRef.current?.hasMaxYear()) return
+
+      yearsRef.current?.loadNextYears()
+      return
+    }
+
     setCurrentMonth((prev) => {
       if (prev === 11) {
         setCurrentYear((prevYear) => prevYear + 1)
@@ -44,46 +83,29 @@ export function MonthCalendar(props: MonthCalendarProps) {
       }
       return prev + 1
     })
-  }, [])
+  }, [viewMode])
 
   const onTodayPress = useCallback(() => {
+    if (viewMode === 'Month') return
+
     const today = new Date()
-    setSelectedDate(today)
     setCurrentMonth(today.getMonth())
     setCurrentYear(today.getFullYear())
-  }, [])
+  }, [viewMode])
 
   const onDatePress = useCallback((item: MonthDayItem) => {
     setSelectedDate(getDateWithDMY(item.day, item.month, item.year))
   }, [])
 
-  const isDaySelected = useCallback(
-    (item: MonthDayItem) => {
-      if (
-        item.day === selectedDate.getDate() &&
-        item.month === selectedDate.getMonth() &&
-        item.year === selectedDate.getFullYear()
-      )
-        return true
-      return false
-    },
-    [selectedDate],
-  )
+  const onMonthPress = useCallback((month: number) => {
+    setCurrentMonth(month)
+    setViewMode('Days')
+  }, [])
 
-  const isToday = useCallback(
-    (day: number) => {
-      const today = new Date()
-      if (
-        day === today.getDate() &&
-        currentMonth === today.getMonth() &&
-        currentYear === today.getFullYear()
-      ) {
-        return true
-      }
-      return false
-    },
-    [currentMonth, currentYear],
-  )
+  const onYearPress = useCallback((year: number) => {
+    setCurrentYear(year)
+    setViewMode('Days')
+  }, [])
 
   const formattedMonth = useMemo(() => {
     return getFormattedDate(
@@ -94,75 +116,83 @@ export function MonthCalendar(props: MonthCalendarProps) {
 
   return (
     <View>
-      <View row style={{justifyContent: 'space-evenly', alignItems: 'center'}}>
-        <Text>
-          {formattedMonth} {currentYear}
+      <View row style={styles.header}>
+        <Text onPress={onMonthHeaderPress}>
+          {formattedMonth}
           <Icon name="chevron-down" size={16} />
         </Text>
+        <Text onPress={onYearHeaderPress}>
+          {currentYear}
+          <Icon name="chevron-down" size={16} />
+        </Text>
+
         <View row style={{alignItems: 'center'}}>
-          <Icon name="chevron-back" onPress={onPrevPress} />
+          <Icon
+            name="chevron-back"
+            onPress={onPrevPress}
+            disabled={yearsRef.current?.hasMinYear()}
+          />
           <TouchableOpacity
             accessibilityRole="button"
             activeOpacity={0.5}
+            disabled={viewMode !== 'Days'}
             onPress={onTodayPress}>
-            <Text style={{paddingHorizontal: 4}}>Today</Text>
-          </TouchableOpacity>
-          <Icon name="chevron-forward" onPress={onNextPress} />
-        </View>
-      </View>
-      <FlatList
-        data={daysList}
-        numColumns={7}
-        ListHeaderComponent={
-          <View row>
-            {weekArray.map((name) => (
-              <View key={name} style={styles.day}>
-                <Text
-                  typography="c1"
-                  style={{
-                    color: colors.text300,
-                  }}>
-                  {name}
-                </Text>
-              </View>
-            ))}
-          </View>
-        }
-        renderItem={({item}) => (
-          <TouchableOpacity
-            accessibilityRole="button"
-            activeOpacity={0.5}
-            style={[
-              styles.day,
-              isDaySelected(item) && {
-                backgroundColor: colors.primary500,
-              },
-              isToday(item.day) && {
-                borderWidth: 1,
-                borderColor: colors.primary500,
-              },
-            ]}
-            onPress={() => onDatePress(item)}>
             <Text
               style={[
-                !item.isCurrentMonth && {
+                styles.todayText,
+                viewMode !== 'Days' && {
                   color: colors.text400,
                 },
-                isDaySelected(item) && {
-                  color: isDark ? colors.text100 : colors.text900,
-                },
               ]}>
-              {item.day}
+              Today
             </Text>
           </TouchableOpacity>
-        )}
-        scrollEnabled={false}
-      />
+          <Icon
+            name="chevron-forward"
+            onPress={onNextPress}
+            disabled={yearsRef.current?.hasMaxYear()}
+          />
+        </View>
+      </View>
+
+      {viewMode === 'Days' && (
+        <MonthDaysList
+          currentMonth={currentMonth}
+          currentYear={currentYear}
+          selectedDate={selectedDate}
+          onItemPress={onDatePress}
+        />
+      )}
+      {viewMode === 'Month' && (
+        <MonthNamesList
+          currentMonth={currentMonth}
+          onItemPress={onMonthPress}
+        />
+      )}
+      {viewMode === 'Year' && (
+        <YearList
+          ref={yearsRef}
+          {...yearListProps}
+          currentYear={currentYear}
+          onItemPress={onYearPress}
+        />
+      )}
     </View>
   )
 }
 
+export default MonthCalendar
+
 const styles = StyleSheet.create({
+  todayText: {
+    paddingHorizontal: 4,
+  },
+  header: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    maxWidth: 300,
+    marginHorizontal: 8,
+  },
   day: {
     width: 40,
     height: 40,
