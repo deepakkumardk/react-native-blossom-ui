@@ -2,8 +2,8 @@ import React, {useCallback, useMemo} from 'react'
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {Text, useBlossomTheme, View} from '@react-native-blossom-ui/components'
-import {MonthDayItem, MonthDaysListProps} from './types'
-import {getAppendedDaysListForMonth} from './utils'
+import {MonthDayItem, MonthDaysListProps} from '../types'
+import {getAppendedDaysListForMonth} from '../utils'
 
 const weekArray = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 

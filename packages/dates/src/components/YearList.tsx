@@ -8,8 +8,8 @@ import {FlatList, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {Text, useBlossomTheme} from '@react-native-blossom-ui/components'
 
-import {getYearsList} from './utils'
-import {YearListProps, YearsListRef} from './types'
+import {getYearsList} from '../utils'
+import {YearListProps, YearsListRef} from '../types'
 
 const WINDOW_SIZE = 12
 

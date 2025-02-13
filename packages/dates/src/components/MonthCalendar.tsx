@@ -8,11 +8,13 @@ import {
   View,
 } from '@react-native-blossom-ui/components'
 
-import {MonthCalendarProps, MonthDayItem, YearsListRef} from './types'
-import {getDateWithDMY, getFormattedDate} from './utils'
+import {MonthCalendarProps, MonthDayItem, YearsListRef} from '../types'
+import {getDateWithDMY, getFormattedDate} from '../utils'
 import MonthDaysList from './MonthDaysList'
 import MonthNamesList from './MonthNamesList'
 import YearList from './YearList'
+
+const DEFAULT_FORMAT = 'D MMM YYYY'
 
 /**
  * Display the calendar days of the month with current month-year text
@@ -20,11 +22,17 @@ import YearList from './YearList'
 function MonthCalendar(props: MonthCalendarProps) {
   const {colors, isDark} = useBlossomTheme()
 
-  const {yearListProps} = props
+  const {
+    date,
+    displayDateFormat = DEFAULT_FORMAT,
+    outputDateFormat,
+    yearListProps,
+    onDateChange,
+  } = props
 
-  const [selectedDate, setSelectedDate] = useState(new Date())
-  const [currentMonth, setCurrentMonth] = useState(selectedDate.getMonth())
-  const [currentYear, setCurrentYear] = useState(selectedDate.getFullYear())
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const [currentMonth, setCurrentMonth] = useState(selectedDate?.getMonth())
+  const [currentYear, setCurrentYear] = useState(selectedDate?.getFullYear())
   const [viewMode, setViewMode] = useState<'Days' | 'Month' | 'Year'>('Days')
 
   const yearsRef = useRef<YearsListRef>(null)
@@ -93,9 +101,20 @@ function MonthCalendar(props: MonthCalendarProps) {
     setCurrentYear(today.getFullYear())
   }, [viewMode])
 
-  const onDatePress = useCallback((item: MonthDayItem) => {
-    setSelectedDate(getDateWithDMY(item.day, item.month, item.year))
-  }, [])
+  const onDatePress = useCallback(
+    (item: MonthDayItem) => {
+      const newDate = getDateWithDMY(item.day, item.month, item.year)
+      setSelectedDate(newDate)
+      onDateChange?.(
+        newDate,
+        getFormattedDate(newDate, displayDateFormat),
+        outputDateFormat
+          ? newDate.toISOString()
+          : getFormattedDate(newDate, outputDateFormat),
+      )
+    },
+    [displayDateFormat, outputDateFormat, onDateChange],
+  )
 
   const onMonthPress = useCallback((month: number) => {
     setCurrentMonth(month)

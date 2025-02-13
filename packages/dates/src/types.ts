@@ -1,9 +1,17 @@
-import {BaseUIProps} from '@react-native-blossom-ui/components'
+import {BaseUIProps, TextInputProps} from '@react-native-blossom-ui/components'
 
 export interface MonthCalendarProps extends BaseUIProps {
   month?: number
   year?: number
   date?: string | Date
+  displayDateFormat?: string
+  outputDateFormat?: string
+
+  onDateChange?: (
+    date?: Date,
+    displayDate?: string,
+    outputDate?: string,
+  ) => void
 
   // monthListProps?: MonthNamesListProps
   yearListProps?: Pick<YearListProps, 'minYear' | 'maxYear'>
@@ -42,4 +50,13 @@ export interface YearsListRef {
 
   hasMinYear: () => boolean
   hasMaxYear: () => boolean
+}
+
+export type BaseDatePickerProps = Pick<
+  MonthCalendarProps,
+  'displayDateFormat' | 'outputDateFormat' | 'onDateChange'
+>
+
+export interface DatePickerProps extends TextInputProps, BaseDatePickerProps {
+  date?: string
 }

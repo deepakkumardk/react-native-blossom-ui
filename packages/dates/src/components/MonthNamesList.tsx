@@ -2,7 +2,7 @@ import React from 'react'
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {Text, useBlossomTheme} from '@react-native-blossom-ui/components'
-import {MonthNamesListProps} from './types'
+import {MonthNamesListProps} from '../types'
 
 const MONTHS = [
   'January',
