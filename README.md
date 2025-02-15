@@ -32,7 +32,7 @@ Blossom UI helps you to create an awesome UI on mobile and web platform. This li
 - **⚙️ Customizability** - You can customize all the components to match your UI needs
 - **🔣 Icons Support** - _react-native-vector-icons_ support out of the box with themes
 - **<img src="https://reactnative.dev/img/header_logo.svg" width="20" height="20" align="center" /> CLI & Expo Support** - Support both CLI & Expo apps
-- **📈 25+ components** - Support 25+ components & counting++
+- **📈 25+ components** - Support 30+ components & counting++
 
 ## Why use Blossom-UI?
 

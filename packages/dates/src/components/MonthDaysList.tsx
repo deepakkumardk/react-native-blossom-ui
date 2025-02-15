@@ -2,6 +2,7 @@ import React, {useCallback, useMemo} from 'react'
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {Text, useBlossomTheme, View} from '@react-native-blossom-ui/components'
+
 import {MonthDayItem, MonthDaysListProps} from '../types'
 import {getAppendedDaysListForMonth} from '../utils'
 
@@ -14,6 +15,7 @@ function MonthDaysList({
   selectedDate,
   currentMonth,
   currentYear,
+  disableDates,
   onItemPress,
 }: MonthDaysListProps) {
   const {colors, isDark} = useBlossomTheme()
@@ -35,17 +37,29 @@ function MonthDaysList({
     [selectedDate],
   )
 
+  const isDateDisabled = useCallback(
+    (item: MonthDayItem) => {
+      const doesContainDay = disableDates?.find((value) => {
+        return (
+          item.day === value?.day &&
+          item.month === value?.month &&
+          item.year === value?.year
+        )
+      })
+
+      return !!doesContainDay
+    },
+    [disableDates],
+  )
+
   const isToday = useCallback(
     (day: number) => {
       const today = new Date()
-      if (
+      return (
         day === today.getDate() &&
         currentMonth === today.getMonth() &&
         currentYear === today.getFullYear()
-      ) {
-        return true
-      }
-      return false
+      )
     },
     [currentMonth, currentYear],
   )
@@ -74,6 +88,7 @@ function MonthDaysList({
         <TouchableOpacity
           accessibilityRole="button"
           activeOpacity={0.5}
+          disabled={isDateDisabled(item)}
           style={[
             styles.day,
             isDaySelected(item) && {
@@ -92,6 +107,9 @@ function MonthDaysList({
               },
               isDaySelected(item) && {
                 color: isDark ? colors.text100 : colors.text900,
+              },
+              isDateDisabled(item) && {
+                color: colors.text600,
               },
             ]}>
             {item.day}

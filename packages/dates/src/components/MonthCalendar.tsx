@@ -9,12 +9,18 @@ import {
 } from '@react-native-blossom-ui/components'
 
 import {MonthCalendarProps, MonthDayItem, YearsListRef} from '../types'
-import {getDateWithDMY, getFormattedDate} from '../utils'
+import {
+  convertToDayjs,
+  getDateWithDMY,
+  getFormattedDate,
+  toDate,
+} from '../utils'
 import MonthDaysList from './MonthDaysList'
 import MonthNamesList from './MonthNamesList'
 import YearList from './YearList'
 
 const DEFAULT_FORMAT = 'D MMM YYYY'
+const DEFAULT_OUTPUT_FORMAT = 'DD-MM-YYYY'
 
 /**
  * Display the calendar days of the month with current month-year text
@@ -23,35 +29,41 @@ function MonthCalendar(props: MonthCalendarProps) {
   const {colors, isDark} = useBlossomTheme()
 
   const {
-    date,
+    defaultDate,
     displayDateFormat = DEFAULT_FORMAT,
-    outputDateFormat,
+    outputDateFormat = DEFAULT_OUTPUT_FORMAT,
+    disableDates,
     yearListProps,
     onDateChange,
   } = props
 
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
-  const [currentMonth, setCurrentMonth] = useState(selectedDate?.getMonth())
-  const [currentYear, setCurrentYear] = useState(selectedDate?.getFullYear())
+  const today = useRef(new Date()).current
+
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
+    defaultDate instanceof Date
+      ? defaultDate
+      : toDate(defaultDate, displayDateFormat),
+  )
+
+  const [currentMonth, setCurrentMonth] = useState(
+    (selectedDate || today)?.getMonth(),
+  )
+  const [currentYear, setCurrentYear] = useState(
+    (selectedDate || today)?.getFullYear(),
+  )
   const [viewMode, setViewMode] = useState<'Days' | 'Month' | 'Year'>('Days')
 
   const yearsRef = useRef<YearsListRef>(null)
 
   const onMonthHeaderPress = useCallback(() => {
     setViewMode((prev) => {
-      if (prev === 'Month') {
-        return 'Days'
-      }
-      return 'Month'
+      return prev === 'Month' ? 'Days' : 'Month'
     })
   }, [])
 
   const onYearHeaderPress = useCallback(() => {
     setViewMode((prev) => {
-      if (prev === 'Year') {
-        return 'Days'
-      }
-      return 'Year'
+      return prev === 'Year' ? 'Days' : 'Year'
     })
   }, [])
 
@@ -96,9 +108,9 @@ function MonthCalendar(props: MonthCalendarProps) {
   const onTodayPress = useCallback(() => {
     if (viewMode === 'Month') return
 
-    const today = new Date()
-    setCurrentMonth(today.getMonth())
-    setCurrentYear(today.getFullYear())
+    const todayDate = new Date()
+    setCurrentMonth(todayDate.getMonth())
+    setCurrentYear(todayDate.getFullYear())
   }, [viewMode])
 
   const onDatePress = useCallback(
@@ -108,9 +120,7 @@ function MonthCalendar(props: MonthCalendarProps) {
       onDateChange?.(
         newDate,
         getFormattedDate(newDate, displayDateFormat),
-        outputDateFormat
-          ? newDate.toISOString()
-          : getFormattedDate(newDate, outputDateFormat),
+        getFormattedDate(newDate, outputDateFormat),
       )
     },
     [displayDateFormat, outputDateFormat, onDateChange],
@@ -125,6 +135,18 @@ function MonthCalendar(props: MonthCalendarProps) {
     setCurrentYear(year)
     setViewMode('Days')
   }, [])
+
+  const transformedDisabledDates = useMemo(() => {
+    return disableDates?.map((value) => {
+      const dateValue = convertToDayjs(value, outputDateFormat)
+      const dayItem: MonthDayItem = {
+        day: dateValue.date(),
+        month: dateValue.month(),
+        year: dateValue.year(),
+      }
+      return dayItem
+    })
+  }, [disableDates, outputDateFormat])
 
   const formattedMonth = useMemo(() => {
     return getFormattedDate(
@@ -145,7 +167,7 @@ function MonthCalendar(props: MonthCalendarProps) {
           <Icon name="chevron-down" size={16} />
         </Text>
 
-        <View row style={{alignItems: 'center'}}>
+        <View row style={styles.rightIcons}>
           <Icon
             name="chevron-back"
             onPress={onPrevPress}
@@ -179,6 +201,7 @@ function MonthCalendar(props: MonthCalendarProps) {
           currentMonth={currentMonth}
           currentYear={currentYear}
           selectedDate={selectedDate}
+          disableDates={transformedDisabledDates}
           onItemPress={onDatePress}
         />
       )}
@@ -203,6 +226,9 @@ function MonthCalendar(props: MonthCalendarProps) {
 export default MonthCalendar
 
 const styles = StyleSheet.create({
+  rightIcons: {
+    alignItems: 'center',
+  },
   todayText: {
     paddingHorizontal: 4,
   },

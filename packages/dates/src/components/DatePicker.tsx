@@ -1,14 +1,18 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
+import {Pressable, StyleSheet} from 'react-native'
+
 import {
   Icon,
   Popover,
   TextInput,
   useBlossomTheme,
   useMergedProps,
+  View,
 } from '@react-native-blossom-ui/components'
-import {Pressable} from 'react-native'
+
 import {DatePickerProps} from '../types'
 import MonthCalendar from './MonthCalendar'
+import {convertToDayjs} from '../utils'
 
 /**
  * A DatePicker with month day calendar in a popup view
@@ -16,23 +20,48 @@ import MonthCalendar from './MonthCalendar'
 const DatePicker = (props: DatePickerProps) => {
   const {colors, isDark} = useBlossomTheme()
 
-  const {displayDateFormat, outputDateFormat, onDateChange, disabled, ...rest} =
-    useMergedProps('DatePicker', props, {
-      colors,
-      isDark,
-    })
+  const {
+    defaultDate,
+    disableDates,
+    displayDateFormat,
+    outputDateFormat,
+    clearable,
+    onDateChange,
+    disabled,
+    ...rest
+  } = useMergedProps('DatePicker', props, {
+    colors,
+    isDark,
+  })
 
   const [showPopover, setShowPopover] = useState(false)
+  const [dateValue, setDateValue] = useState<Date | string | undefined>(
+    defaultDate,
+  )
   const [formattedDate, setFormattedDate] = useState('')
 
   const onDateChangeCallback = useCallback(
     (date?: Date, displayDate?: string, outputDate?: string) => {
+      setDateValue(date)
       setFormattedDate(displayDate || '')
       setShowPopover(false)
       onDateChange?.(date, displayDate, outputDate)
     },
     [onDateChange],
   )
+
+  useEffect(() => {
+    if (defaultDate) {
+      const daysDate = convertToDayjs(defaultDate, outputDateFormat)
+      onDateChangeCallback(
+        defaultDate instanceof Date ? defaultDate : daysDate.toDate(),
+        daysDate.format(displayDateFormat),
+        daysDate.format(outputDateFormat),
+      )
+    }
+    // This effect should run only once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Popover
@@ -50,7 +79,28 @@ const DatePicker = (props: DatePickerProps) => {
             focusable={false}
             value={formattedDate}
             onPressIn={() => setShowPopover(true)}
-            right={<Icon name="calendar-outline" size={20} />}
+            right={
+              <View
+                row
+                style={[
+                  disabled && {
+                    backgroundColor: colors.background200,
+                  },
+                ]}>
+                {clearable && dateValue && (
+                  <Icon
+                    name="close"
+                    size={20}
+                    style={styles.closeIcon}
+                    color={colors.background700}
+                    onPress={() => {
+                      onDateChangeCallback?.(undefined)
+                    }}
+                  />
+                )}
+                <Icon name="calendar-outline" size={20} />
+              </View>
+            }
             inputStyle={[
               disabled && {
                 backgroundColor: colors.background200,
@@ -67,6 +117,8 @@ const DatePicker = (props: DatePickerProps) => {
         </Pressable>
       }>
       <MonthCalendar
+        defaultDate={dateValue}
+        disableDates={disableDates}
         displayDateFormat={displayDateFormat}
         outputDateFormat={outputDateFormat}
         onDateChange={onDateChangeCallback}
@@ -76,3 +128,9 @@ const DatePicker = (props: DatePickerProps) => {
 }
 
 export default DatePicker
+
+const styles = StyleSheet.create({
+  closeIcon: {
+    paddingHorizontal: 6,
+  },
+})

@@ -2,6 +2,7 @@ import React from 'react'
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {Text, useBlossomTheme} from '@react-native-blossom-ui/components'
+
 import {MonthNamesListProps} from '../types'
 
 const MONTHS = [
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
   day: {
     width: 100,
     height: 24,
-    margin: 4,
+    margin: 2,
     borderRadius: 10,
     justifyContent: 'center',
   },

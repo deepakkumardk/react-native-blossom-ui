@@ -16,11 +16,10 @@ const WINDOW_SIZE = 12
 /**
  * Show a list of years in a flat list
  */
-function YearList(
-  {currentYear, minYear, maxYear, onItemPress}: YearListProps,
-  ref: React.Ref<YearsListRef>,
-) {
+function YearList(props: YearListProps, ref: React.Ref<YearsListRef>) {
   const {colors} = useBlossomTheme()
+
+  const {currentYear, minYear, maxYear, onItemPress} = props
 
   const [firstYear, setFirstYear] = useState(currentYear)
   const [years, setYears] = useState<number[]>([])
@@ -80,7 +79,8 @@ const styles = StyleSheet.create({
   day: {
     width: 60,
     height: 40,
-    margin: 2,
+    marginVertical: 2,
+    marginHorizontal: 8,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
