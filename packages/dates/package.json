@@ -1,7 +1,7 @@
 {
-  "name": "@react-native-blossom-ui/showcase",
+  "name": "@react-native-blossom-ui/dates",
   "version": "0.6.0",
-  "description": "Showcase components for Blossom UI components",
+  "description": "Dates components of Blossom UI",
   "license": "MIT",
   "main": "./src/index",
   "types": "./dist/index.d.ts",
@@ -19,10 +19,10 @@
     "lint": "eslint src/ --fix"
   },
   "dependencies": {
-    "@react-native-blossom-ui/components": "*",
-    "@react-native-blossom-ui/dates": "*"
+    "dayjs": "1.11.13"
   },
   "devDependencies": {
+    "@react-native-blossom-ui/components": "*",
     "@react-native-blossom-ui/typescript-config": "*",
     "@types/chroma-js": "2.4.4",
     "@types/react": "~18.2.0",
@@ -33,6 +33,7 @@
     "tsup": "^8.0.1"
   },
   "peerDependencies": {
+    "@react-native-blossom-ui/components": "*",
     "react": "*",
     "react-native": "*",
     "react-native-vector-icons": "*"

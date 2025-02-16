@@ -1,5 +1,5 @@
 import React from 'react'
-import {Linking} from 'react-native'
+import {Linking, StyleSheet} from 'react-native'
 
 import {LinkProps} from '../types'
 import View from '../view/View'
@@ -52,6 +52,7 @@ const Link = (props: LinkProps) => {
           {
             color: colors.info500,
           },
+          styles.link,
           style,
         ]}>
         {title}
@@ -69,3 +70,9 @@ const Link = (props: LinkProps) => {
 }
 
 export default Link
+
+const styles = StyleSheet.create({
+  link: {
+    textDecorationLine: 'underline',
+  },
+})

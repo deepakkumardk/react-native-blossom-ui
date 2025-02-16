@@ -40,9 +40,9 @@ export function LinkCustom() {
   return (
     <View>
       <Link
-        leftText={<Text status="warning">Awesome</Text>}
+        leftText={<Text status="warning">Awesome </Text>}
         rightText={<Text status="success">Library</Text>}
-        title="Blossom UI"
+        title="Blossom UI "
         href="https://docs-react-native-blossom-ui.vercel.app/"
         style={{
           color: 'blue',

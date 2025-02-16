@@ -5,7 +5,7 @@ import {View, OtpInput} from '@react-native-blossom-ui/components'
 export function OtpInputUsage() {
   return (
     <View>
-      <OtpInput />
+      <OtpInput secureTextEntry onComplete={(otp) => alert(otp)} />
     </View>
   )
 }
@@ -23,6 +23,22 @@ export function OtpInputPlaceholder() {
   return (
     <View>
       <OtpInput placeholder="*" status="success" />
+    </View>
+  )
+}
+
+export function OtpInputWithCursor() {
+  return (
+    <View>
+      <OtpInput withCursor />
+    </View>
+  )
+}
+
+export function OtpInputAsPin() {
+  return (
+    <View>
+      <OtpInput withCursor secureTextEntry />
     </View>
   )
 }
