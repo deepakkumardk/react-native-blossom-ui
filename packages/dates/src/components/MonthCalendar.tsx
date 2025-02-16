@@ -18,9 +18,7 @@ import {
 import MonthDaysList from './MonthDaysList'
 import MonthNamesList from './MonthNamesList'
 import YearList from './YearList'
-
-const DEFAULT_FORMAT = 'D MMM YYYY'
-const DEFAULT_OUTPUT_FORMAT = 'DD-MM-YYYY'
+import {DEFAULT_DISPLAY_FORMAT, DEFAULT_OUTPUT_FORMAT} from './constants'
 
 /**
  * Display the calendar days of the month with current month-year text
@@ -29,8 +27,8 @@ function MonthCalendar(props: MonthCalendarProps) {
   const {colors, isDark} = useBlossomTheme()
 
   const {
-    defaultDate,
-    displayDateFormat = DEFAULT_FORMAT,
+    selectedDate: date,
+    displayDateFormat = DEFAULT_DISPLAY_FORMAT,
     outputDateFormat = DEFAULT_OUTPUT_FORMAT,
     disableDates,
     yearListProps,
@@ -40,9 +38,7 @@ function MonthCalendar(props: MonthCalendarProps) {
   const today = useRef(new Date()).current
 
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(
-    defaultDate instanceof Date
-      ? defaultDate
-      : toDate(defaultDate, displayDateFormat),
+    date instanceof Date ? date : toDate(date, displayDateFormat),
   )
 
   const [currentMonth, setCurrentMonth] = useState(

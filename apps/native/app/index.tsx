@@ -148,4 +148,9 @@ const dataList = [
     title: 'ProgressBar',
     navigateTo: './ProgressBarScreen',
   },
+  // Dates Library
+  {
+    title: 'DatePicker',
+    navigateTo: './DatePickerScreen',
+  },
 ]

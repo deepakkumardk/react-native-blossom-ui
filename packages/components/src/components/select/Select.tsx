@@ -1,12 +1,5 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
-import {
-  Pressable,
-  StyleSheet,
-  FlatList,
-  View as RNView,
-  LayoutRectangle,
-  useWindowDimensions,
-} from 'react-native'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
+import {Pressable, StyleSheet, FlatList, View as RNView} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
 import {View} from '../view'
@@ -17,9 +10,9 @@ import SelectItem from './SelectItem'
 import {SelectProps} from '../types'
 import {useMergedProps} from '../../common'
 import ActivityIndicator from '../loader/ActivityIndicator'
+import {useCalculatedPosition} from '../modal'
 
 const PICKER_HEIGHT = 180
-const HEIGHT_OFFSET = 120
 
 /**
  * Select Input component for single select
@@ -51,16 +44,14 @@ const Select = <T,>(props: SelectProps<T>) => {
   const anchorRef = useRef<RNView>(null)
   const flatListRef = useRef<FlatList>(null)
 
+  const [showPicker, setShowPicker] = useState(false)
   const [selectedValue, setSelectedValue] = useState(value)
 
-  const [pressableLayout, setPressableLayout] = useState<LayoutRectangle>({
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
-  })
-
-  const [showPicker, setShowPicker] = useState(false)
+  const {offset, pickerPosition} = useCalculatedPosition(
+    pickerHeight,
+    showPicker,
+    anchorRef,
+  )
 
   useEffect(() => {
     setSelectedValue(value)
@@ -85,17 +76,6 @@ const Select = <T,>(props: SelectProps<T>) => {
   const openPicker = useCallback(() => {
     !disabled && setShowPicker((prev) => !prev)
   }, [disabled])
-
-  const {height: deviceHeight} = useWindowDimensions()
-
-  const pickerPosition = useMemo(() => {
-    let autoPosition = 'bottom'
-    if (deviceHeight - pressableLayout.y < pickerHeight + HEIGHT_OFFSET) {
-      autoPosition = 'top'
-    }
-
-    return autoPosition
-  }, [deviceHeight, pickerHeight, pressableLayout])
 
   const RightView = useCallback(
     () => (
@@ -141,78 +121,77 @@ const Select = <T,>(props: SelectProps<T>) => {
   )
 
   return (
-    <View onLayout={(e) => setPressableLayout(e.nativeEvent.layout)}>
-      <Pressable
-        ref={anchorRef}
-        accessibilityRole="button"
-        onPress={openPicker}>
-        <SearchInput
-          accessibilityLabel="Select input field"
-          left={null}
-          right={<RightView />}
-          inputStyle={[
-            disabled && {
-              backgroundColor: colors.background200,
-            },
-          ]}
-          textStyle={[
-            !disabled && {
-              color: colors.text100,
-            },
-          ]}
-          label={label}
-          placeholder={placeholder}
-          value={getDisplayValue()}
-          disabled={disabled || !searchable}
-          onPressOut={openPicker}
-          status={status}
-          size={size}
-          {...inputProps}
-        />
-      </Pressable>
-
-      <Popover
-        targetRef={anchorRef}
-        visible={showPicker}
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        position={pickerPosition}
-        offset={pickerPosition === 'top' ? pressableLayout.height : 0}
-        fitTargetWidth
-        contentStyle={[
-          styles.popover,
-          {
-            maxHeight: pickerHeight,
-            backgroundColor: colors.background100,
-            borderRadius: themeOptions?.borderRadius,
-            borderColor: colors.background500,
-          },
-        ]}
-        onBackdropPress={() => setShowPicker(false)}>
-        <FlatList
-          ref={flatListRef}
-          data={options}
-          keyExtractor={(item) => item.label}
-          {...pickerProps}
-          renderItem={
-            renderItem ||
-            (({item, index}) => (
-              <SelectItem
-                size={size}
-                item={item}
-                isSelected={index === getSelectedIndex()}
-                onPress={() => {
-                  setSelectedValue(item.value)
-                  onValueChange?.(item.value, item, index)
-                  setShowPicker(false)
-                }}
-              />
-            ))
-          }
-          {...pickerProps}
-        />
-      </Popover>
-    </View>
+    <Popover
+      targetRef={anchorRef}
+      visible={showPicker}
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      position={pickerPosition}
+      offset={offset}
+      fitTargetWidth
+      contentStyle={[
+        styles.popover,
+        {
+          maxHeight: pickerHeight,
+          backgroundColor: colors.background100,
+          borderRadius: themeOptions?.borderRadius,
+          borderColor: colors.background500,
+        },
+      ]}
+      onBackdropPress={() => setShowPicker(false)}
+      Target={
+        <Pressable
+          ref={anchorRef}
+          accessibilityRole="button"
+          onPress={openPicker}>
+          <SearchInput
+            accessibilityLabel="Select input field"
+            left={null}
+            right={<RightView />}
+            inputStyle={[
+              disabled && {
+                backgroundColor: colors.background200,
+              },
+            ]}
+            textStyle={[
+              !disabled && {
+                color: colors.text100,
+              },
+            ]}
+            label={label}
+            placeholder={placeholder}
+            value={getDisplayValue()}
+            disabled={disabled || !searchable}
+            onPressOut={openPicker}
+            status={status}
+            size={size}
+            {...inputProps}
+          />
+        </Pressable>
+      }>
+      <FlatList
+        ref={flatListRef}
+        data={options}
+        keyExtractor={(item) => item.label}
+        {...pickerProps}
+        renderItem={
+          renderItem ||
+          (({item, index}) => (
+            <SelectItem
+              size={size}
+              item={item}
+              isSelected={index === getSelectedIndex()}
+              onPress={() => {
+                setSelectedValue(item.value)
+                onValueChange?.(item.value, item, index)
+                setShowPicker(false)
+              }}
+            />
+          ))
+        }
+        {...pickerProps}
+      />
+    </Popover>
   )
 }
 

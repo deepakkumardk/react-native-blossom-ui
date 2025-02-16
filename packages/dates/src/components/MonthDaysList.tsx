@@ -5,8 +5,7 @@ import {Text, useBlossomTheme, View} from '@react-native-blossom-ui/components'
 
 import {MonthDayItem, MonthDaysListProps} from '../types'
 import {getAppendedDaysListForMonth} from '../utils'
-
-const weekArray = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+import {WEEK_ARRAY} from './constants'
 
 /**
  * Show the days list in a current month and also append the adjacent months based on the props
@@ -71,7 +70,7 @@ function MonthDaysList({
       scrollEnabled={false}
       ListHeaderComponent={
         <View row>
-          {weekArray.map((name) => (
+          {WEEK_ARRAY.map((name) => (
             <View key={name} style={styles.day}>
               <Text
                 typography="c1"

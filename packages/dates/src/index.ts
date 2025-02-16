@@ -1,2 +1,2 @@
 export * from './components'
-export * as DayUtils from './utils'
+export * as DateUtils from './utils'

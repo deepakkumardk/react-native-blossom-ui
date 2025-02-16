@@ -25,3 +25,5 @@ export * from './OtpInputShowcase'
 export * from './AccordionShowcase'
 export * from './ShimmerViewShowcase'
 export * from './ProgressBarShowcase'
+
+export * from './DatePickerShowcase'

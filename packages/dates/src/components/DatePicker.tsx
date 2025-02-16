@@ -1,11 +1,12 @@
-import React, {useCallback, useEffect, useState} from 'react'
-import {Pressable, StyleSheet} from 'react-native'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
+import {View as RNView, Pressable, StyleSheet} from 'react-native'
 
 import {
   Icon,
   Popover,
   TextInput,
   useBlossomTheme,
+  useCalculatedPosition,
   useMergedProps,
   View,
 } from '@react-native-blossom-ui/components'
@@ -13,6 +14,7 @@ import {
 import {DatePickerProps} from '../types'
 import MonthCalendar from './MonthCalendar'
 import {convertToDayjs} from '../utils'
+import {DEFAULT_DISPLAY_FORMAT, DEFAULT_OUTPUT_FORMAT} from './constants'
 
 /**
  * A DatePicker with month day calendar in a popup view
@@ -23,8 +25,8 @@ const DatePicker = (props: DatePickerProps) => {
   const {
     defaultDate,
     disableDates,
-    displayDateFormat,
-    outputDateFormat,
+    displayDateFormat = DEFAULT_DISPLAY_FORMAT,
+    outputDateFormat = DEFAULT_OUTPUT_FORMAT,
     clearable,
     onDateChange,
     disabled,
@@ -39,6 +41,14 @@ const DatePicker = (props: DatePickerProps) => {
     defaultDate,
   )
   const [formattedDate, setFormattedDate] = useState('')
+
+  const targetViewRef = useRef<RNView>(null)
+
+  const {offset, pickerPosition, setPressableLayout} = useCalculatedPosition(
+    300,
+    showPopover,
+    targetViewRef,
+  )
 
   const onDateChangeCallback = useCallback(
     (date?: Date, displayDate?: string, outputDate?: string) => {
@@ -68,10 +78,16 @@ const DatePicker = (props: DatePickerProps) => {
       visible={showPopover}
       wrapContent
       onBackdropPress={() => setShowPopover(false)}
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      position={pickerPosition}
+      offset={offset}
       Target={
         <Pressable
+          ref={targetViewRef}
           accessibilityRole="button"
-          onPressIn={() => setShowPopover(true)}>
+          onPressIn={() => setShowPopover(true)}
+          onLayout={(e) => setPressableLayout(e.nativeEvent.layout)}>
           <TextInput
             accessibilityLabel="Text input field"
             placeholder="Select Date"
@@ -117,7 +133,7 @@ const DatePicker = (props: DatePickerProps) => {
         </Pressable>
       }>
       <MonthCalendar
-        defaultDate={dateValue}
+        selectedDate={dateValue}
         disableDates={disableDates}
         displayDateFormat={displayDateFormat}
         outputDateFormat={outputDateFormat}

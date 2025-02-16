@@ -4,21 +4,7 @@ import {FlatList, StyleSheet, TouchableOpacity} from 'react-native'
 import {Text, useBlossomTheme} from '@react-native-blossom-ui/components'
 
 import {MonthNamesListProps} from '../types'
-
-const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-]
+import {MONTHS_ARRAY} from './constants'
 
 /**
  * Show the list of month names in a flat list
@@ -28,7 +14,7 @@ function MonthNamesList({currentMonth, onItemPress}: MonthNamesListProps) {
 
   return (
     <FlatList
-      data={MONTHS}
+      data={MONTHS_ARRAY}
       numColumns={3}
       scrollEnabled={false}
       renderItem={({item, index}) => (

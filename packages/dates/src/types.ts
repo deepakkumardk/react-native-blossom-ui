@@ -120,7 +120,7 @@ export interface MonthCalendarProps extends BaseUIProps {
    * The default selected date.
    * Can be a string (formatted date) or a Date object.
    */
-  defaultDate?: string | Date
+  selectedDate?: string | Date
   /**
    * The format in which the date should be displayed inside the input value
    */
@@ -131,8 +131,8 @@ export interface MonthCalendarProps extends BaseUIProps {
    */
   outputDateFormat?: string
   /**
-   * An array of disabled dates.
-   * Can be a string outputDateFormat) or a Date object.
+   * An array of disabled dates of string (in outputDateFormat) or a Date object.
+   * Make sure to provide the outputDateFormat prop too if passing date as string
    */
   disableDates?: Array<string | Date>
   /**
@@ -158,17 +158,18 @@ export interface MonthCalendarProps extends BaseUIProps {
 export type BaseDatePickerProps = Omit<TextInputProps, 'value'> &
   Pick<
     MonthCalendarProps,
-    | 'displayDateFormat'
-    | 'outputDateFormat'
-    | 'disableDates'
-    | 'defaultDate'
-    | 'onDateChange'
+    'displayDateFormat' | 'outputDateFormat' | 'disableDates' | 'onDateChange'
   >
 
 /**
  * Props for the DatePicker component.
  */
 export interface DatePickerProps extends BaseDatePickerProps {
+  /**
+   * The default selected date.
+   * Can be a string (formatted date) or a Date object.
+   */
+  defaultDate?: string | Date
   /**
    * Whether the date picker allows clearing the selected date.
    */
