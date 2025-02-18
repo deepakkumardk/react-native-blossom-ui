@@ -1,11 +1,5 @@
 # @react-native-blossom-ui/components
 
-## 1.0.0
-
-### Minor Changes
-
-- dd7ccd4: Add withCursor, secureTextEntry prop to the OtpInput
-
 ## 0.6.0
 
 ### Minor Changes
