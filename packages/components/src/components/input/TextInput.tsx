@@ -42,7 +42,7 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
   const textInputSizeStyle = useMemo(() => textInputSizeStylesMap, [])
 
   return (
-    <View style={[containerStyle]}>
+    <View style={[styles.containerStyle, containerStyle]}>
       {label ? (
         <SizedText
           size={size}
@@ -137,6 +137,9 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
 export default forwardRef(TextInput)
 
 const styles = StyleSheet.create({
+  containerStyle: {
+    minWidth: 100,
+  },
   innerContainer: {
     marginVertical: 6,
     flexDirection: 'row',

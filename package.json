@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "ios": "yarn --cwd apps/native ios",
     "tsc": "tsc --skipLibCheck --noEmit",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",

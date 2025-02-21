@@ -65,6 +65,8 @@ export interface MonthNamesListProps {
   onItemPress?: (monthIndex: number) => void
 }
 
+export type MonthPickerProps = Partial<MonthNamesListProps>
+
 /**
  * Props for displaying a list of years.
  */
@@ -86,6 +88,25 @@ export interface YearListProps {
    * @param year The selected year.
    */
   onItemPress: (year: number) => void
+}
+
+export type YearPickerProps = Partial<YearListProps>
+
+export interface DateSelectPickerProps extends BaseUIProps {
+  /**
+   * Month Props to control the Month Picker
+   */
+  monthProps?: MonthPickerProps
+  /**
+   * Year Props to control the Year Picker
+   */
+  yearProps?: YearPickerProps
+
+  /**
+   * Callback fired when all there pickers are selected
+   * @param date objet with day,month,year
+   */
+  onDateComplete?: (date: Omit<MonthDayItem, 'isCurrentMonth'>) => void
 }
 
 /**
