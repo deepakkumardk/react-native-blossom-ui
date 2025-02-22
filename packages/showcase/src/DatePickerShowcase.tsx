@@ -1,24 +1,12 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import {View} from '@react-native-blossom-ui/components'
-import {DatePicker, MonthCalendar} from '@react-native-blossom-ui/dates'
+import {DatePicker} from '@react-native-blossom-ui/dates'
 
 export function DatePickerUsage() {
   return (
     <View>
       <DatePicker />
-    </View>
-  )
-}
-
-export function MonthCalendarUsage() {
-  const [date, setDate] = useState()
-  return (
-    <View>
-      <MonthCalendar
-        selectedDate={date}
-        onDateChange={(value) => setDate(date)}
-      />
     </View>
   )
 }

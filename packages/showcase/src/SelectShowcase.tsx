@@ -18,7 +18,6 @@ export function SelectUsage() {
       options={OPTIONS}
       value={selectedValue}
       status="primary"
-      searchable
       onValueChange={(value) => setSelectedValue(value)}
     />
   )

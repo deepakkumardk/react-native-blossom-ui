@@ -27,4 +27,5 @@ export * from './ShimmerViewShowcase'
 export * from './ProgressBarShowcase'
 
 export * from './DatePickerShowcase'
+export * from './CalendarShowcase'
 export * from './DateSelectPickerShowcase'

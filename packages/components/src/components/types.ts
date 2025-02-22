@@ -392,6 +392,10 @@ export interface TextInputProps
    */
   disabled?: boolean
   /**
+   * Mock the disable behavior not the styling for popover contained inputs
+   */
+  shouldMockDisableState?: boolean
+  /**
    * Render Icon/JSX on the left of the button
    */
   left?: ReactNode

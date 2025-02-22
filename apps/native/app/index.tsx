@@ -154,6 +154,10 @@ const dataList = [
     navigateTo: './DatePickerScreen',
   },
   {
+    title: 'Calendar',
+    navigateTo: './CalendarScreen',
+  },
+  {
     title: 'DateSelectPicker',
     navigateTo: './DateSelectPickerScreen',
   },

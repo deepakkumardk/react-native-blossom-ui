@@ -25,6 +25,7 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
     captionStyle,
     errorStyle,
     disabled,
+    shouldMockDisableState,
     mode = 'outlined',
     dense,
     left,
@@ -92,7 +93,8 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
           placeholderTextColor={colors.text400}
           {...rest}
           placeholder={placeholder}
-          editable={!disabled}
+          editable={!shouldMockDisableState || !disabled}
+          focusable={shouldMockDisableState || disabled}
           style={[
             styles.inputText,
             textInputSizeStyle[size].inputText,

@@ -12,7 +12,7 @@ import {
 } from '@react-native-blossom-ui/components'
 
 import {DatePickerProps} from '../types'
-import MonthCalendar from './MonthCalendar'
+import Calendar from './Calendar'
 import {convertToDayjs} from '../utils'
 import {DEFAULT_DISPLAY_FORMAT, DEFAULT_OUTPUT_FORMAT} from './constants'
 
@@ -91,8 +91,7 @@ const DatePicker = (props: DatePickerProps) => {
           <TextInput
             accessibilityLabel="Text input field"
             placeholder="Select Date"
-            editable={false}
-            focusable={false}
+            shouldMockDisableState
             value={formattedDate}
             onPressIn={() => setShowPopover(true)}
             right={
@@ -132,7 +131,7 @@ const DatePicker = (props: DatePickerProps) => {
           />
         </Pressable>
       }>
-      <MonthCalendar
+      <Calendar
         selectedDate={dateValue}
         disableDates={disableDates}
         displayDateFormat={displayDateFormat}

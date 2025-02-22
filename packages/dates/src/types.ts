@@ -134,9 +134,9 @@ export interface YearsListRef {
 }
 
 /**
- * Props for the MonthCalendar component.
+ * Props for the Calendar component.
  */
-export interface MonthCalendarProps extends BaseUIProps {
+export interface CalendarProps extends BaseUIProps {
   /**
    * The default selected date.
    * Can be a string (formatted date) or a Date object.
@@ -178,7 +178,7 @@ export interface MonthCalendarProps extends BaseUIProps {
  */
 export type BaseDatePickerProps = Omit<TextInputProps, 'value'> &
   Pick<
-    MonthCalendarProps,
+    CalendarProps,
     'displayDateFormat' | 'outputDateFormat' | 'disableDates' | 'onDateChange'
   >
 
