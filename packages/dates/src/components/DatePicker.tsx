@@ -86,14 +86,14 @@ const DatePicker = (props: DatePickerProps) => {
         <Pressable
           ref={targetViewRef}
           accessibilityRole="button"
-          onPressIn={() => setShowPopover(true)}
+          onPress={() => setShowPopover(true)}
           onLayout={(e) => setPressableLayout(e.nativeEvent.layout)}>
           <TextInput
-            accessibilityLabel="Text input field"
+            accessibilityLabel="Date input field"
             placeholder="Select Date"
             shouldMockDisableState
             value={formattedDate}
-            onPressIn={() => setShowPopover(true)}
+            onPressOut={() => setShowPopover(true)}
             right={
               <View
                 row
@@ -127,7 +127,6 @@ const DatePicker = (props: DatePickerProps) => {
               },
             ]}
             {...rest}
-            disabled
           />
         </Pressable>
       }>

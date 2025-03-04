@@ -177,7 +177,10 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
                 fitTargetWidth && {width: positionStyle.targetWidth},
                 contentStyle,
               ]}>
-              {children}
+              {/* Render children only once the content has been measured to fix flicker issue */}
+              {positionStyle.maxWidth || positionStyle.targetWidth
+                ? children
+                : null}
             </View>
           </Pressable>
         </Pressable>

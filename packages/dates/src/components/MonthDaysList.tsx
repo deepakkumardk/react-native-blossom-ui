@@ -51,17 +51,14 @@ function MonthDaysList({
     [disableDates],
   )
 
-  const isToday = useCallback(
-    (day: number) => {
-      const today = new Date()
-      return (
-        day === today.getDate() &&
-        currentMonth === today.getMonth() &&
-        currentYear === today.getFullYear()
-      )
-    },
-    [currentMonth, currentYear],
-  )
+  const isToday = useCallback((item: MonthDayItem) => {
+    const today = new Date()
+    return (
+      item.day === today.getDate() &&
+      item.month === today.getMonth() &&
+      item.year === today.getFullYear()
+    )
+  }, [])
 
   return (
     <FlatList
@@ -93,7 +90,7 @@ function MonthDaysList({
             isDaySelected(item) && {
               backgroundColor: colors.primary500,
             },
-            isToday(item.day) && {
+            isToday(item) && {
               borderWidth: 1,
               borderColor: colors.primary500,
             },

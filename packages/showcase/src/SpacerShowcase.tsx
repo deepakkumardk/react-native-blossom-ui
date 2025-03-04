@@ -21,3 +21,13 @@ export function SpacerVertical() {
     </View>
   )
 }
+
+export function SpacerOnBackground() {
+  return (
+    <View style={{backgroundColor: 'gray'}}>
+      <Text>Awesome UI</Text>
+      <Spacer height={20} />
+      <Text>Blossom UI</Text>
+    </View>
+  )
+}
