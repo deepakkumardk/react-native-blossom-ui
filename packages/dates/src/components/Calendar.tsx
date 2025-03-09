@@ -234,12 +234,4 @@ const styles = StyleSheet.create({
     maxWidth: 300,
     marginHorizontal: 8,
   },
-  day: {
-    width: 40,
-    height: 40,
-    margin: 2,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 })

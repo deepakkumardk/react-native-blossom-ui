@@ -39,9 +39,5 @@
     "@expo/webpack-config": "^19.0.0",
     "@types/react": "~18.2.0",
     "typescript": "^5.3.3"
-  },
-  "resolutions": {
-    "react-refresh": "~0.14.0",
-    "@react-native/assets-registry": "0.74.83"
   }
 }

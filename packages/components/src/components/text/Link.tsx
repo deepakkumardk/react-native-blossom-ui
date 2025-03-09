@@ -1,5 +1,5 @@
 import React from 'react'
-import {Linking, StyleSheet} from 'react-native'
+import {Linking, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {LinkProps} from '../types'
 import View from '../view/View'
@@ -45,18 +45,22 @@ const Link = (props: LinkProps) => {
       ) : (
         leftText
       )}
-      <Text
-        onPress={onTextPress}
-        {...rest}
-        style={[
-          {
-            color: colors.info500,
-          },
-          styles.link,
-          style,
-        ]}>
-        {title}
-      </Text>
+      <TouchableOpacity
+        accessibilityRole="link"
+        activeOpacity={0.5}
+        onPress={onTextPress}>
+        <Text
+          {...rest}
+          style={[
+            {
+              color: colors.info500,
+            },
+            styles.link,
+            style,
+          ]}>
+          {title}
+        </Text>
+      </TouchableOpacity>
       {typeof rightText === 'string' ? (
         <Text>
           {SPACE}

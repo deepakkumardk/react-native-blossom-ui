@@ -16,13 +16,13 @@
   <a href="https://www.npmjs.com/package/@react-native-blossom-ui/components">
     <img src="https://img.shields.io/npm/dm/@react-native-blossom-ui/components.svg?style=flat-square" alt="NPM downloads">
   </a>
-  <a href="https://github.com/Nozbe/WatermelonDB/blob/master/LICENSE">
+  <a href="/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"/>
   </a>
 </p>
 
 <div align="center">
-  <h5><a href="https://docs-react-native-blossom-ui.vercel.app/">Documentation</a></h5>
+  <h4><a href="https://docs-react-native-blossom-ui.vercel.app/">Documentation</a></h4>
 </div>
 
 Blossom UI helps you to create an awesome UI on mobile and web platform. This library is based on custom design system and it's totally configurable.
@@ -76,7 +76,7 @@ function MyApp() {
 
 ## Thanks
 
-- [mantine](https://mantine.dev)
+- [mantine](https://mantine.dev) for inspiration from it's awesome components
 
 ## License
 
