@@ -16,6 +16,7 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
   const {
     value,
     disabled,
+    onValueChange,
     color,
     style: switchStyle,
     status = 'accent',
@@ -57,7 +58,12 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
           size === 'large' && styles.sizeLarge,
           switchStyle,
         ]}
-        onValueChange={() => setFieldValue((prev) => !prev)}
+        onValueChange={() => {
+          setFieldValue((prev) => {
+            void onValueChange?.(!prev)
+            return !prev
+          })
+        }}
       />
     </BaseBooleanField>
   )

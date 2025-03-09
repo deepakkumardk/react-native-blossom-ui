@@ -91,7 +91,7 @@ export const Container = () => {
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: colors.primary600 || 'red',
+          backgroundColor: colors.primary600,
         },
         headerTintColor: colors.bgLight100,
         headerTitleStyle: {

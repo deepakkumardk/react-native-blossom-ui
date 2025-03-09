@@ -25,6 +25,7 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
     captionStyle,
     errorStyle,
     disabled,
+    shouldMockDisableState,
     mode = 'outlined',
     dense,
     left,
@@ -42,7 +43,7 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
   const textInputSizeStyle = useMemo(() => textInputSizeStylesMap, [])
 
   return (
-    <View style={[containerStyle]}>
+    <View style={[styles.containerStyle, containerStyle]}>
       {label ? (
         <SizedText
           size={size}
@@ -92,7 +93,8 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
           placeholderTextColor={colors.text400}
           {...rest}
           placeholder={placeholder}
-          editable={!disabled}
+          editable={!(disabled || shouldMockDisableState)}
+          focusable={!(disabled || shouldMockDisableState)}
           style={[
             styles.inputText,
             textInputSizeStyle[size].inputText,
@@ -137,9 +139,13 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
 export default forwardRef(TextInput)
 
 const styles = StyleSheet.create({
+  containerStyle: {
+    minWidth: 100,
+  },
   innerContainer: {
     marginVertical: 6,
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
   leftMargin: {

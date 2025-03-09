@@ -12,7 +12,8 @@
     "eject": "expo eject",
     "tsc": "tsc --skipLibCheck --noEmit",
     "lint": "eslint src/ --fix",
-    "clean": "rm -rf node_modules"
+    "clean": "rm -rf node_modules",
+    "pre-build": "node scripts/pre-build.js > app.json"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "7.18.9",
@@ -39,9 +40,5 @@
     "@expo/webpack-config": "^19.0.0",
     "@types/react": "~18.2.0",
     "typescript": "^5.3.3"
-  },
-  "resolutions": {
-    "react-refresh": "~0.14.0",
-    "@react-native/assets-registry": "0.74.83"
   }
 }

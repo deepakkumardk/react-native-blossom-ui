@@ -82,6 +82,20 @@ export const getDaysInMonth = (month: number, year: number) => {
   return totalDays
 }
 
+export const getDateWithDMYItem = ({
+  day,
+  month,
+  year,
+}: {
+  day: number
+  month: number
+  year: number
+}) => {
+  const date = new Date()
+  date.setFullYear(year, month, day)
+  return date
+}
+
 export const getDateWithDMY = (day: number, month: number, year: number) => {
   const date = new Date()
   date.setFullYear(year, month, day)
@@ -104,6 +118,7 @@ export const getFormattedDate = (date: Date, format = 'dd mmm yyyy') =>
   dayjs(date).format(format)
 
 // -------- Year Utils ---------
+
 /**
  * Returns the next yearsCount
  */
@@ -133,6 +148,30 @@ export const getYearsList = ({
       }
       return true
     })
+
+  return years
+}
+
+/**
+ * Returns the next yearsCount
+ */
+export const getYearsListForSelect = ({
+  minYear,
+  maxYear,
+}: {
+  minYear?: number
+  maxYear?: number
+}) => {
+  const currentYear = new Date().getFullYear()
+  const yearsAppended = 20
+  const firstYear = minYear || currentYear - yearsAppended
+  const lastYear = maxYear || currentYear + yearsAppended
+
+  const years = [firstYear]
+  // eslint-disable-next-line no-plusplus
+  for (let i = 1; i <= lastYear - firstYear; i++) {
+    years.push(firstYear + i)
+  }
 
   return years
 }

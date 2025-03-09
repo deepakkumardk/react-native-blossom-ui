@@ -8,7 +8,7 @@ import {
   View,
 } from '@react-native-blossom-ui/components'
 
-import {MonthCalendarProps, MonthDayItem, YearsListRef} from '../types'
+import {CalendarProps, MonthDayItem, YearsListRef} from '../types'
 import {
   convertToDayjs,
   getDateWithDMY,
@@ -23,7 +23,7 @@ import {DEFAULT_DISPLAY_FORMAT, DEFAULT_OUTPUT_FORMAT} from './constants'
 /**
  * Display the calendar days of the month with current month-year text
  */
-function MonthCalendar(props: MonthCalendarProps) {
+function Calendar(props: CalendarProps) {
   const {colors, isDark} = useBlossomTheme()
 
   const {
@@ -219,7 +219,7 @@ function MonthCalendar(props: MonthCalendarProps) {
   )
 }
 
-export default MonthCalendar
+export default Calendar
 
 const styles = StyleSheet.create({
   rightIcons: {
@@ -233,13 +233,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     maxWidth: 300,
     marginHorizontal: 8,
-  },
-  day: {
-    width: 40,
-    height: 40,
-    margin: 2,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 })

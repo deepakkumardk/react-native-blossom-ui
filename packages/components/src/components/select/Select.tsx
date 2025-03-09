@@ -162,6 +162,7 @@ const Select = <T,>(props: SelectProps<T>) => {
             placeholder={placeholder}
             value={getDisplayValue()}
             disabled={disabled || !searchable}
+            shouldMockDisableState
             onPressOut={openPicker}
             status={status}
             size={size}
