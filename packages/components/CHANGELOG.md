@@ -1,5 +1,16 @@
 # @react-native-blossom-ui/components
 
+## 0.8.0
+
+### Patch Changes
+
+- a9c9532: Fix popover re-render issue
+- b153b9a: Fix TextInput icon center alignment issue
+  Add touchable opacity to link
+- b153b9a: Fix Spacer issue in colored background
+  Fix Popover flicker issue on open
+  Fix Calendar today render issue twice in a month
+
 ## 0.7.0
 
 ### Minor Changes
