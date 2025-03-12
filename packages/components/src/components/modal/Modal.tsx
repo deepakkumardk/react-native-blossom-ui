@@ -24,7 +24,17 @@ const Modal = (props: ModalProps) => {
   } = useMergedProps('Modal', props, {colors, isDark})
 
   return (
-    <RNModal transparent visible={visible} {...rest}>
+    <RNModal
+      transparent
+      visible={visible}
+      supportedOrientations={[
+        'portrait',
+        'portrait-upside-down',
+        'landscape',
+        'landscape-left',
+        'landscape-right',
+      ]}
+      {...rest}>
       <Pressable
         accessibilityRole="alert"
         style={[

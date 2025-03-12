@@ -158,7 +158,17 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
     <View>
       <View ref={targetViewRef}>{Target}</View>
 
-      <Modal transparent visible={showContent} onRequestClose={onBackdropPress}>
+      <Modal
+        transparent
+        visible={showContent}
+        onRequestClose={onBackdropPress}
+        supportedOrientations={[
+          'portrait',
+          'portrait-upside-down',
+          'landscape',
+          'landscape-left',
+          'landscape-right',
+        ]}>
         <Pressable
           accessibilityRole="alert"
           style={[styles.backdrop]}
