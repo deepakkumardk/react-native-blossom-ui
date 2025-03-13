@@ -1,28 +1,34 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
+import {ScrollView, StyleSheet} from 'react-native'
 import {View} from '@react-native-blossom-ui/components'
 import {
   IconSizes,
   IconStatuses,
   IconUsage,
   IconFamily,
+  IconButton,
 } from '@react-native-blossom-ui/showcase'
 import {Heading} from '../components'
 
 export default function IconScreen() {
   return (
     <View style={styles.container}>
-      <Heading>Usage</Heading>
-      <IconUsage />
+      <ScrollView>
+        <Heading>Usage</Heading>
+        <IconUsage />
 
-      <Heading>Status</Heading>
-      <IconStatuses />
+        <Heading>Status</Heading>
+        <IconStatuses />
 
-      <Heading>Size</Heading>
-      <IconSizes />
+        <Heading>Size</Heading>
+        <IconSizes />
 
-      <Heading>Family</Heading>
-      <IconFamily />
+        <Heading>Family</Heading>
+        <IconFamily />
+
+        <Heading>As Button</Heading>
+        <IconButton />
+      </ScrollView>
     </View>
   )
 }

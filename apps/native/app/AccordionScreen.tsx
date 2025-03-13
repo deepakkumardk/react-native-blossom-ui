@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
+import {ScrollView, StyleSheet} from 'react-native'
 
 import {View} from '@react-native-blossom-ui/components'
 import {
@@ -12,11 +12,13 @@ import {Heading} from '../components'
 export default function AccordionScreen() {
   return (
     <View style={styles.container}>
-      <Heading>Usage</Heading>
-      <AccordionUsage />
+      <ScrollView>
+        <Heading>Usage</Heading>
+        <AccordionUsage />
 
-      <Heading>Custom</Heading>
-      <AccordionCustom />
+        <Heading>Custom</Heading>
+        <AccordionCustom />
+      </ScrollView>
     </View>
   )
 }

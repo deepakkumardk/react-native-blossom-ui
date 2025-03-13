@@ -75,12 +75,20 @@ export const Container = () => {
       Chip(props, theme) {
         return {
           withCheckIcon: true,
+          marginVertical: 2,
         }
       },
       ProgressBar(props, theme) {
         return {
           style: {
             marginVertical: 8,
+          },
+        }
+      },
+      Button(props, theme) {
+        return {
+          style: {
+            marginVertical: 2,
           },
         }
       },

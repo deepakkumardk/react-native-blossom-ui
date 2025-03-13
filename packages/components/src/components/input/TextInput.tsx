@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
 const textInputSizeStylesMap = {
   small: {
     outlined: {
-      padding: 8,
+      padding: 6,
     },
     inputText: {
       fontSize: 14,
@@ -176,7 +176,7 @@ const textInputSizeStylesMap = {
   },
   medium: {
     outlined: {
-      padding: 12,
+      padding: 9,
     },
     inputText: {
       fontSize: 16,
@@ -184,7 +184,7 @@ const textInputSizeStylesMap = {
   },
   large: {
     outlined: {
-      padding: 16,
+      padding: 12,
     },
     inputText: {
       fontSize: 17,

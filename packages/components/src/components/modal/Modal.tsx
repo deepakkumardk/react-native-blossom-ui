@@ -2,7 +2,7 @@ import React from 'react'
 import {Platform, Pressable, Modal as RNModal, StyleSheet} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
-import {useMergedProps} from '../../common'
+import {useMergedProps, useDeviceInfo} from '../../common'
 import {View} from '../view'
 import {getAlphaColor} from '../utils'
 import {ModalProps} from '../types'
@@ -23,17 +23,13 @@ const Modal = (props: ModalProps) => {
     ...rest
   } = useMergedProps('Modal', props, {colors, isDark})
 
+  const {isLandscape} = useDeviceInfo()
+
   return (
     <RNModal
       transparent
       visible={visible}
-      supportedOrientations={[
-        'portrait',
-        'portrait-upside-down',
-        'landscape',
-        'landscape-left',
-        'landscape-right',
-      ]}
+      supportedOrientations={['portrait', 'landscape']}
       {...rest}>
       <Pressable
         accessibilityRole="alert"
@@ -51,6 +47,7 @@ const Modal = (props: ModalProps) => {
             accessibilityRole="alert"
             style={[
               styles.content,
+              isLandscape && styles.landscape,
               {
                 borderRadius: options?.borderRadius,
               },
@@ -82,5 +79,8 @@ const styles = StyleSheet.create({
         minWidth: 300,
       },
     }),
+  },
+  landscape: {
+    marginHorizontal: '25%',
   },
 })

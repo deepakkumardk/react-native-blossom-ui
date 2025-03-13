@@ -7,7 +7,7 @@ import {
   MonthPickerUsage,
 } from '@react-native-blossom-ui/showcase'
 
-import {YearPicker} from '@react-native-blossom-ui/dates'
+import {MonthPicker, YearPicker} from '@react-native-blossom-ui/dates'
 import {Heading} from '../components'
 
 export default function DateSelectPickerScreen() {
@@ -25,7 +25,7 @@ export default function DateSelectPickerScreen() {
 
         <Heading>Month-Year Picker</Heading>
         <View row>
-          <MonthPickerUsage />
+          <MonthPicker />
           <YearPicker />
         </View>
       </ScrollView>

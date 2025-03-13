@@ -13,12 +13,11 @@ import {
   UIManager,
   findNodeHandle,
   View as RNView,
-  useWindowDimensions,
 } from 'react-native'
 import {useBlossomTheme} from '../../context'
 import {View} from '../view'
 import {PopoverProps, PopoverRef} from '../types'
-import {useMergedProps} from '../../common'
+import {useMergedProps, useDeviceInfo} from '../../common'
 
 const OFFSET_PADDING = 16
 
@@ -49,7 +48,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
   //   {colors, isDark},
   // )
 
-  const {width: deviceWidth} = useWindowDimensions()
+  const {width: deviceWidth, isPortrait, isLandscape} = useDeviceInfo()
 
   const [showContent, setShowContent] = useState(visible)
 
@@ -148,7 +147,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
     if (!showContent) return
 
     measureContent()
-  }, [measureContent, showContent])
+  }, [measureContent, showContent, isPortrait, isLandscape])
 
   // if (showContent) {
   //   measureContent()
@@ -162,13 +161,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
         transparent
         visible={showContent}
         onRequestClose={onBackdropPress}
-        supportedOrientations={[
-          'portrait',
-          'portrait-upside-down',
-          'landscape',
-          'landscape-left',
-          'landscape-right',
-        ]}>
+        supportedOrientations={['portrait', 'landscape']}>
         <Pressable
           accessibilityRole="alert"
           style={[styles.backdrop]}

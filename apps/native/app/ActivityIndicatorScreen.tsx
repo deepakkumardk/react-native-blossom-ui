@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
+import {ScrollView, StyleSheet} from 'react-native'
 import {View} from '@react-native-blossom-ui/components'
 import {
   ActivityIndicatorCustom,
@@ -12,17 +12,19 @@ import {Heading} from '../components'
 export default function ActivityIndicatorScreen() {
   return (
     <View style={styles.container}>
-      <Heading>Usage</Heading>
-      <ActivityIndicatorUsage />
+      <ScrollView>
+        <Heading>Usage</Heading>
+        <ActivityIndicatorUsage />
 
-      <Heading>Status</Heading>
-      <ActivityIndicatorStatuses />
+        <Heading>Status</Heading>
+        <ActivityIndicatorStatuses />
 
-      <Heading>Size</Heading>
-      <ActivityIndicatorSizes />
+        <Heading>Size</Heading>
+        <ActivityIndicatorSizes />
 
-      <Heading>Custom</Heading>
-      <ActivityIndicatorCustom />
+        <Heading>Custom</Heading>
+        <ActivityIndicatorCustom />
+      </ScrollView>
     </View>
   )
 }
