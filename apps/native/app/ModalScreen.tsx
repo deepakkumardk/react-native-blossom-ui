@@ -1,7 +1,7 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
 import {View} from '@react-native-blossom-ui/components'
-import {ModalUsage} from '@react-native-blossom-ui/showcase'
+import {ModalUsage, ModalWithScroll} from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
 
@@ -11,6 +11,9 @@ export default function ModalScreen() {
       <ScrollView>
         <Heading>Usage</Heading>
         <ModalUsage />
+
+        <Heading>With Scroll</Heading>
+        <ModalWithScroll />
       </ScrollView>
     </View>
   )

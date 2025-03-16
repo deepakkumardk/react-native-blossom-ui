@@ -1,4 +1,5 @@
 import React, {useCallback, useState} from 'react'
+import {StyleSheet} from 'react-native'
 import {
   Select,
   Spacer,
@@ -62,8 +63,11 @@ function DateSelectPicker(props: DateSelectPickerProps) {
         }}
         {...monthProps}
       />
-      <Spacer width={10} />
+      <Spacer width={8} />
       <Select
+        inputProps={{
+          containerStyle: styles.dateSelectContainer,
+        }}
         placeholder="Date"
         options={getDaysList()}
         onValueChange={(day) => {
@@ -73,7 +77,7 @@ function DateSelectPicker(props: DateSelectPickerProps) {
           }))
         }}
       />
-      <Spacer width={10} />
+      <Spacer width={8} />
       <YearPicker
         {...yearProps}
         onItemPress={(year) => {
@@ -88,3 +92,9 @@ function DateSelectPicker(props: DateSelectPickerProps) {
 }
 
 export default DateSelectPicker
+
+const styles = StyleSheet.create({
+  dateSelectContainer: {
+    maxWidth: 90,
+  },
+})

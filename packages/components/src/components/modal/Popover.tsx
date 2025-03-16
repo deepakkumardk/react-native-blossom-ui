@@ -7,12 +7,13 @@ import React, {
   useState,
 } from 'react'
 import {
-  Modal,
+  Modal as RNModal,
   Pressable,
   StyleSheet,
   UIManager,
   findNodeHandle,
   View as RNView,
+  Platform,
 } from 'react-native'
 import {useBlossomTheme} from '../../context'
 import {View} from '../view'
@@ -20,6 +21,8 @@ import {PopoverProps, PopoverRef} from '../types'
 import {useMergedProps, useDeviceInfo} from '../../common'
 
 const OFFSET_PADDING = 16
+const TOP_DEFAULT_OFFSET = Platform.OS === 'android' ? 24 : 0
+const BOTTOM_DEFAULT_OFFSET = Platform.OS === 'android' ? -20 : 0
 
 /**
  * Show a UI relative to the target view
@@ -116,11 +119,11 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
             },
             top: {
               left: pageX,
-              bottom: -pageY + offset,
+              bottom: -pageY + offset + TOP_DEFAULT_OFFSET,
             },
             bottom: {
               left: pageX,
-              top: pageY + height + offset,
+              top: pageY + height + offset + BOTTOM_DEFAULT_OFFSET,
             },
           }
 
@@ -157,7 +160,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
     <View>
       <View ref={targetViewRef}>{Target}</View>
 
-      <Modal
+      <RNModal
         transparent
         visible={showContent}
         onRequestClose={onBackdropPress}
@@ -187,7 +190,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
             </View>
           </Pressable>
         </Pressable>
-      </Modal>
+      </RNModal>
     </View>
   )
 }
@@ -200,6 +203,7 @@ const styles = StyleSheet.create({
   },
   content: {
     position: 'absolute',
+    margin: 0,
     padding: 8,
     borderRadius: 8,
     borderWidth: 1,

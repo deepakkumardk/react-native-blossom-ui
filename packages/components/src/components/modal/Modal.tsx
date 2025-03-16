@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     margin: 24,
     padding: 16,
     borderRadius: 8,
+    maxHeight: 400,
     ...Platform.select({
       web: {
         alignSelf: 'center',

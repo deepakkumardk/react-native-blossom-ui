@@ -708,16 +708,41 @@ export type ComponentPropsMap = {
 }
 
 export interface ModalProps extends RNModalProps {
-  onBackdropPress?: () => void
+  /**
+   * Style the backdrop of the modal
+   */
   backdropStyle?: StyleProp<ViewStyle>
+  /**
+   * content style of the Modal
+   */
   contentStyle?: StyleProp<ViewStyle>
+  /**
+   * Callback whenever user press on the backdrop or on the android back button press
+   */
+  onBackdropPress?: () => void
 }
 
 export interface ModalContentProps {
+  /**
+   * Tittle of the modal
+   */
   title?: string
+  /**
+   * Description text of the modal
+   */
   description?: string
-  children?: string
+  /**
+   * Render extra child component JSX
+   */
+  children?: ReactNode
+  /**
+   * Customize the buttons from the Button that will be shown in a row
+   */
   actionButtons?: ButtonProps[]
+  /**
+   * container style of the ModalContent
+   */
+  containerStyle?: StyleProp<ViewStyle>
 }
 
 export interface PopoverProps {

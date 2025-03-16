@@ -10,6 +10,7 @@ import {
 import {Stack} from 'expo-router'
 import {StatusBar} from 'expo-status-bar'
 
+import {TouchableOpacity} from 'react-native'
 import lightTheme from '../lightTheme.json'
 import darkTheme from '../darkTheme.json'
 import options from '../options.json'
@@ -24,17 +25,17 @@ export default function Layout() {
       options={options}>
       <Container />
       <StatusBar style={isDark ? 'light' : 'dark'} />
-      <Icon
-        name="contrast"
-        size={40}
+      <TouchableOpacity
+        accessibilityRole="button"
         style={{
           position: 'absolute',
           bottom: 0,
           end: 0,
           padding: 40,
         }}
-        onPress={() => setIsDark((prev) => !prev)}
-      />
+        onPress={() => setIsDark((prev) => !prev)}>
+        <Icon name="contrast" size={40} />
+      </TouchableOpacity>
     </BlossomThemeProvider>
   )
 }
