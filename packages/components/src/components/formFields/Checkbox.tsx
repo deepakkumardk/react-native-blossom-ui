@@ -62,6 +62,7 @@ const Checkbox = (props: CheckboxProps) => {
         accessibilityRole="button"
         style={[
           styles.checkbox,
+          size === 'small' && styles.checkboxSmall,
           !uncheckedIcon && {
             width: sizeMap[size],
             height: sizeMap[size],
@@ -100,10 +101,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
   },
+  checkboxSmall: {
+    borderRadius: 6,
+  },
 })
 
 const sizeMap: Record<BlossomSize, number> = {
-  small: 24,
-  medium: 30,
-  large: 36,
+  small: 20,
+  medium: 26,
+  large: 32,
 }

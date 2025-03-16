@@ -1,3 +1,4 @@
+import {StyleProp, ViewStyle} from 'react-native'
 import {BaseUIProps, TextInputProps} from '@react-native-blossom-ui/components'
 
 /**
@@ -63,6 +64,10 @@ export interface MonthNamesListProps {
    * @param monthIndex The index of the selected month (0-based).
    */
   onItemPress?: (monthIndex: number) => void
+  /**
+   * select input container style
+   */
+  containerStyle?: StyleProp<ViewStyle>
 }
 
 export type MonthPickerProps = Partial<MonthNamesListProps>

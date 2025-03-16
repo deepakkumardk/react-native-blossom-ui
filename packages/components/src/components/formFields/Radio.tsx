@@ -66,6 +66,6 @@ export default Radio
 
 const sizeMap: Record<BlossomSize, number> = {
   small: 20,
-  medium: 28,
-  large: 36,
+  medium: 26,
+  large: 32,
 }

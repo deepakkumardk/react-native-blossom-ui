@@ -1,11 +1,13 @@
 import React, {useCallback, useState} from 'react'
+import {StyleSheet} from 'react-native'
 import {
   Select,
+  Spacer,
   useBlossomTheme,
   useMergedProps,
   View,
 } from '@react-native-blossom-ui/components'
-import {StyleSheet} from 'react-native'
+
 import {DateSelectPickerProps, MonthDayItem} from '../types'
 
 import {getDaysListForMonth} from '../utils'
@@ -51,7 +53,7 @@ function DateSelectPicker(props: DateSelectPickerProps) {
   }, [date, onDateComplete])
 
   return (
-    <View row style={styles.container}>
+    <View row>
       <MonthPicker
         onItemPress={(month) => {
           setDate((prev) => ({
@@ -61,7 +63,11 @@ function DateSelectPicker(props: DateSelectPickerProps) {
         }}
         {...monthProps}
       />
+      <Spacer width={8} />
       <Select
+        inputProps={{
+          containerStyle: styles.dateSelectContainer,
+        }}
         placeholder="Date"
         options={getDaysList()}
         onValueChange={(day) => {
@@ -71,6 +77,7 @@ function DateSelectPicker(props: DateSelectPickerProps) {
           }))
         }}
       />
+      <Spacer width={8} />
       <YearPicker
         {...yearProps}
         onItemPress={(year) => {
@@ -87,7 +94,7 @@ function DateSelectPicker(props: DateSelectPickerProps) {
 export default DateSelectPicker
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'space-between',
+  dateSelectContainer: {
+    maxWidth: 90,
   },
 })

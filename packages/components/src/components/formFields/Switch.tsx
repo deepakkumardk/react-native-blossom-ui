@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 })
 
 const sizeMap: Record<BlossomSize, number> = {
-  small: 0.75,
-  medium: 1,
-  large: 1.25,
+  small: 0.6,
+  medium: 0.8,
+  large: 1,
 }

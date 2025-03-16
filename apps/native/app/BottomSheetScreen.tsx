@@ -2,28 +2,21 @@ import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
 import {View} from '@react-native-blossom-ui/components'
 import {
-  ActivityIndicatorCustom,
-  ActivityIndicatorSizes,
-  ActivityIndicatorStatuses,
-  ActivityIndicatorUsage,
+  BottomSheetUsage,
+  BottomSheetWithScroll,
 } from '@react-native-blossom-ui/showcase'
+
 import {Heading} from '../components'
 
-export default function ActivityIndicatorScreen() {
+export default function BottomSheetScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
-        <ActivityIndicatorUsage />
+        <BottomSheetUsage />
 
-        <Heading>Status</Heading>
-        <ActivityIndicatorStatuses />
-
-        <Heading>Size</Heading>
-        <ActivityIndicatorSizes />
-
-        <Heading>Custom</Heading>
-        <ActivityIndicatorCustom />
+        <Heading>With Scroll</Heading>
+        <BottomSheetWithScroll />
       </ScrollView>
     </View>
   )

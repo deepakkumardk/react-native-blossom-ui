@@ -7,20 +7,22 @@ import React, {
   useState,
 } from 'react'
 import {
-  Modal,
+  Modal as RNModal,
   Pressable,
   StyleSheet,
   UIManager,
   findNodeHandle,
   View as RNView,
-  useWindowDimensions,
+  Platform,
 } from 'react-native'
 import {useBlossomTheme} from '../../context'
 import {View} from '../view'
 import {PopoverProps, PopoverRef} from '../types'
-import {useMergedProps} from '../../common'
+import {useMergedProps, useDeviceInfo} from '../../common'
 
 const OFFSET_PADDING = 16
+const TOP_DEFAULT_OFFSET = Platform.OS === 'android' ? 24 : 0
+const BOTTOM_DEFAULT_OFFSET = Platform.OS === 'android' ? -20 : 0
 
 /**
  * Show a UI relative to the target view
@@ -49,7 +51,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
   //   {colors, isDark},
   // )
 
-  const {width: deviceWidth} = useWindowDimensions()
+  const {width: deviceWidth, isPortrait, isLandscape} = useDeviceInfo()
 
   const [showContent, setShowContent] = useState(visible)
 
@@ -117,11 +119,11 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
             },
             top: {
               left: pageX,
-              bottom: -pageY + offset,
+              bottom: -pageY + offset + TOP_DEFAULT_OFFSET,
             },
             bottom: {
               left: pageX,
-              top: pageY + height + offset,
+              top: pageY + height + offset + BOTTOM_DEFAULT_OFFSET,
             },
           }
 
@@ -148,7 +150,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
     if (!showContent) return
 
     measureContent()
-  }, [measureContent, showContent])
+  }, [measureContent, showContent, isPortrait, isLandscape])
 
   // if (showContent) {
   //   measureContent()
@@ -158,7 +160,11 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
     <View>
       <View ref={targetViewRef}>{Target}</View>
 
-      <Modal transparent visible={showContent} onRequestClose={onBackdropPress}>
+      <RNModal
+        transparent
+        visible={showContent}
+        onRequestClose={onBackdropPress}
+        supportedOrientations={['portrait', 'landscape']}>
         <Pressable
           accessibilityRole="alert"
           style={[styles.backdrop]}
@@ -184,7 +190,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
             </View>
           </Pressable>
         </Pressable>
-      </Modal>
+      </RNModal>
     </View>
   )
 }
@@ -197,6 +203,7 @@ const styles = StyleSheet.create({
   },
   content: {
     position: 'absolute',
+    margin: 0,
     padding: 8,
     borderRadius: 8,
     borderWidth: 1,

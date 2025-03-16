@@ -14,19 +14,18 @@ import {ModalContentProps} from '../types'
 const ModalContent = (props: ModalContentProps) => {
   const {colors, isDark} = useBlossomTheme()
 
-  const {title, description, children, actionButtons} = useMergedProps(
-    'ModalContent',
-    props,
-    {
+  const {title, description, children, actionButtons, containerStyle} =
+    useMergedProps('ModalContent', props, {
       colors,
       isDark,
-    },
-  )
+    })
 
   return (
-    <View>
+    <View style={[styles.container, containerStyle]}>
       <Text typography="h5">{title}</Text>
-      <Text style={styles.description}>{description}</Text>
+      {description ? (
+        <Text style={styles.description}>{description}</Text>
+      ) : null}
       {children}
       <View row style={styles.buttonRow}>
         {actionButtons?.map((buttonProps, index) => (
@@ -45,6 +44,9 @@ const ModalContent = (props: ModalContentProps) => {
 export default ModalContent
 
 const styles = StyleSheet.create({
+  container: {
+    overflow: 'scroll',
+  },
   button: {
     marginHorizontal: 8,
   },

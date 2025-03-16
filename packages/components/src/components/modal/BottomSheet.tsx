@@ -2,15 +2,15 @@ import React from 'react'
 import {Platform, Pressable, Modal as RNModal, StyleSheet} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
-import {useMergedProps, useDeviceInfo} from '../../common'
+import {useMergedProps} from '../../common'
 import {View} from '../view'
 import {getAlphaColor} from '../utils'
 import {ModalProps} from '../types'
 
 /**
- * Extension of RN Modal component with backdrop
+ * Extension of RN Modal component with backdrop at bottom position
  */
-const Modal = (props: ModalProps) => {
+const BottomSheet = (props: ModalProps) => {
   const {colors, isDark, options} = useBlossomTheme()
 
   const {
@@ -21,13 +21,12 @@ const Modal = (props: ModalProps) => {
     backdropStyle,
     contentStyle,
     ...rest
-  } = useMergedProps('Modal', props, {colors, isDark})
-
-  const {isLandscape} = useDeviceInfo()
+  } = useMergedProps('BottomSheet', props, {colors, isDark})
 
   return (
     <RNModal
       transparent
+      animationType="slide"
       visible={visible}
       supportedOrientations={['portrait', 'landscape']}
       {...rest}>
@@ -36,7 +35,7 @@ const Modal = (props: ModalProps) => {
         style={[
           styles.backdrop,
           {
-            backgroundColor: getAlphaColor(colors.bgDark900, 0.65),
+            backgroundColor: getAlphaColor(colors.bgDark900, 0.1),
           },
           backdropStyle,
         ]}
@@ -47,7 +46,6 @@ const Modal = (props: ModalProps) => {
             accessibilityRole="alert"
             style={[
               styles.content,
-              isLandscape && styles.landscape,
               {
                 borderRadius: options?.borderRadius,
               },
@@ -61,17 +59,17 @@ const Modal = (props: ModalProps) => {
   )
 }
 
-export default Modal
+export default BottomSheet
 
 const styles = StyleSheet.create({
   backdrop: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
   content: {
-    margin: 24,
     padding: 16,
-    borderRadius: 8,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
     maxHeight: 400,
     ...Platform.select({
       web: {
@@ -80,8 +78,5 @@ const styles = StyleSheet.create({
         minWidth: 300,
       },
     }),
-  },
-  landscape: {
-    marginHorizontal: '25%',
   },
 })

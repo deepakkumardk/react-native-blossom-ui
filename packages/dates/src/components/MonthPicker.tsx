@@ -15,10 +15,14 @@ import {MONTHS_ARRAY} from './constants'
 function MonthPicker(props: MonthPickerProps) {
   const {colors, isDark} = useBlossomTheme()
 
-  const {currentMonth, onItemPress} = useMergedProps('YearPicker', props, {
-    colors,
-    isDark,
-  })
+  const {currentMonth, onItemPress, containerStyle} = useMergedProps(
+    'MonthPicker',
+    props,
+    {
+      colors,
+      isDark,
+    },
+  )
 
   const [selectedMonth, setSelectedMonth] = useState('')
 
@@ -37,7 +41,7 @@ function MonthPicker(props: MonthPickerProps) {
         }
       }}
       inputProps={{
-        containerStyle: styles.container,
+        containerStyle: [styles.container, containerStyle],
       }}
     />
   )

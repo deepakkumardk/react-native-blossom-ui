@@ -42,3 +42,13 @@ export function IconFamily() {
     </View>
   )
 }
+
+export function IconButton() {
+  return (
+    <View row style={{justifyContent: 'space-evenly'}}>
+      <Icon name="add" size={24} onPress={() => alert('Icon Pressed')} />
+      <Icon name="add" size={48} onPress={() => alert('Icon Pressed')} />
+      <Icon name="add" size={100} onPress={() => alert('Icon Pressed')} />
+    </View>
+  )
+}
