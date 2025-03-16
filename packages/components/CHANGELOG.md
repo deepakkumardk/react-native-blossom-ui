@@ -1,5 +1,18 @@
 # @react-native-blossom-ui/components
 
+## 0.9.0
+
+### Minor Changes
+
+- c15291b: Add BottomSheet component
+  Add BottomSheet for android in Select options
+
+### Patch Changes
+
+- c15291b: Fix Modal & Popover orientation issue on open
+  Update sizes for boolean fields and TextInput
+  Fix overflow issue in ModalContent
+
 ## 0.8.0
 
 ### Patch Changes

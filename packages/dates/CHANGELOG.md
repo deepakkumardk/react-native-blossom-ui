@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/dates
 
+## 0.9.0
+
+### Patch Changes
+
+- c15291b: Fix DateSelectPicker width issue
+
 ## 0.8.0
 
 ### Minor Changes
