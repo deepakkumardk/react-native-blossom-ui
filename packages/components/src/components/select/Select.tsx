@@ -1,8 +1,14 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
-import {Pressable, StyleSheet, FlatList, View as RNView} from 'react-native'
+import {
+  Pressable,
+  StyleSheet,
+  FlatList,
+  View as RNView,
+  Platform,
+} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
-import {View} from '../view'
+import {Spacer, View} from '../view'
 import {Icon} from '../icon'
 import Popover from '../modal/Popover'
 import SearchInput from '../input/SearchInput'
@@ -10,7 +16,8 @@ import SelectItem from './SelectItem'
 import {SelectProps} from '../types'
 import {useMergedProps} from '../../common'
 import ActivityIndicator from '../loader/ActivityIndicator'
-import {useCalculatedPosition} from '../modal'
+import {BottomSheet, useCalculatedPosition} from '../modal'
+import {Text} from '../text'
 
 const PICKER_HEIGHT = 180
 
@@ -45,6 +52,7 @@ const Select = <T,>(props: SelectProps<T>) => {
   const flatListRef = useRef<FlatList>(null)
 
   const [showPicker, setShowPicker] = useState(false)
+  const [showBottomSheet, setShowBottomSheet] = useState(false)
   const [selectedValue, setSelectedValue] = useState(value)
 
   const {offset, pickerPosition} = useCalculatedPosition(
@@ -74,8 +82,19 @@ const Select = <T,>(props: SelectProps<T>) => {
   }, [displayValue, options, getSelectedIndex])
 
   const openPicker = useCallback(() => {
-    !disabled && setShowPicker((prev) => !prev)
+    if (disabled) return
+
+    if (Platform.OS === 'android') {
+      setShowBottomSheet(true)
+    } else {
+      setShowPicker(true)
+    }
   }, [disabled])
+
+  const closePicker = useCallback(() => {
+    setShowPicker(false)
+    setShowBottomSheet(false)
+  }, [])
 
   const RightView = useCallback(
     () => (
@@ -138,7 +157,7 @@ const Select = <T,>(props: SelectProps<T>) => {
           borderColor: colors.background500,
         },
       ]}
-      onBackdropPress={() => setShowPicker(false)}
+      onBackdropPress={closePicker}
       Target={
         <Pressable
           ref={anchorRef}
@@ -168,6 +187,31 @@ const Select = <T,>(props: SelectProps<T>) => {
             size={size}
             {...inputProps}
           />
+          <BottomSheet visible={showBottomSheet} onBackdropPress={closePicker}>
+            {placeholder ? <Text typography="h6">{placeholder}</Text> : null}
+            <Spacer height={4} />
+            <FlatList
+              ref={flatListRef}
+              data={options}
+              keyExtractor={(item) => item.label}
+              {...pickerProps}
+              renderItem={
+                renderItem ||
+                (({item, index}) => (
+                  <SelectItem
+                    size={size}
+                    item={item}
+                    isSelected={index === getSelectedIndex()}
+                    onPress={() => {
+                      setSelectedValue(item.value)
+                      onValueChange?.(item.value, item, index)
+                      closePicker()
+                    }}
+                  />
+                ))
+              }
+            />
+          </BottomSheet>
         </Pressable>
       }>
       <FlatList
@@ -185,12 +229,11 @@ const Select = <T,>(props: SelectProps<T>) => {
               onPress={() => {
                 setSelectedValue(item.value)
                 onValueChange?.(item.value, item, index)
-                setShowPicker(false)
+                closePicker()
               }}
             />
           ))
         }
-        {...pickerProps}
       />
     </Popover>
   )

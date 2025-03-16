@@ -133,6 +133,10 @@ const dataList = [
     navigateTo: './ModalScreen',
   },
   {
+    title: 'BottomSheet',
+    navigateTo: './BottomSheetScreen',
+  },
+  {
     title: 'Select',
     navigateTo: './SelectScreen',
   },

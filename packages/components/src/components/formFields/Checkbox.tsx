@@ -62,6 +62,7 @@ const Checkbox = (props: CheckboxProps) => {
         accessibilityRole="button"
         style={[
           styles.checkbox,
+          size === 'small' && styles.checkboxSmall,
           !uncheckedIcon && {
             width: sizeMap[size],
             height: sizeMap[size],
@@ -99,6 +100,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
+  },
+  checkboxSmall: {
+    borderRadius: 6,
   },
 })
 
