@@ -1,5 +1,9 @@
 import {StyleProp, ViewStyle} from 'react-native'
-import {BaseUIProps, TextInputProps} from '@react-native-blossom-ui/components'
+import {
+  BaseUIProps,
+  BlossomThemeColors,
+  TextInputProps,
+} from '@react-native-blossom-ui/components'
 
 /**
  * Represents a day within a month.
@@ -22,6 +26,22 @@ export interface MonthDayItem {
    * If false, the day might be from the previous or next month.
    */
   isCurrentMonth?: boolean
+}
+
+export interface DayItemProps {
+  /**
+   * Object for the given date in the month
+   */
+  item: MonthDayItem
+  /**
+   * is Date disabled
+   */
+  isDateDisabled: boolean
+  isDaySelected: boolean
+  isToday: boolean
+  onItemPress?: (item: MonthDayItem) => void
+  colors: BlossomThemeColors
+  isDark: boolean
 }
 
 /**

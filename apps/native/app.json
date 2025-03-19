@@ -15,6 +15,7 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
+    "assetPlugins": ["expo-asset"],
     "ios": {
       "supportsTablet": true
     },
@@ -25,11 +26,10 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "output": "server",
+      "bundler": "metro"
     },
-    "plugins": [
-      "expo-router",
-      "expo-screen-orientation"
-    ]
+    "plugins": ["expo-router", "expo-screen-orientation"]
   }
 }

@@ -79,8 +79,7 @@ const styles = StyleSheet.create({
   day: {
     width: 60,
     height: 40,
-    marginVertical: 2,
-    marginHorizontal: 8,
+    marginEnd: 8,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',

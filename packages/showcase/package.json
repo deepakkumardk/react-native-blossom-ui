@@ -16,7 +16,8 @@
     "dev": "tsup --watch",
     "clean": "rm -rf dist node_modules",
     "tsc": "tsc --skipLibCheck --noEmit",
-    "lint": "eslint src/ --fix"
+    "lint": "eslint src/ --fix",
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "@react-native-blossom-ui/components": "*",

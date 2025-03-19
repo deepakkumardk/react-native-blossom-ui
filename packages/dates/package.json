@@ -9,14 +9,19 @@
     "dist",
     "src"
   ],
-  "keywords": [],
+  "keywords": [
+    "react-native",
+    "calendar",
+    "dates"
+  ],
   "author": "Deepak Kumar <dpk950@gmail.com>",
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "clean": "rm -rf dist node_modules",
     "tsc": "tsc --skipLibCheck --noEmit",
-    "lint": "eslint src/ --fix"
+    "lint": "eslint src/ --fix",
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "dayjs": "1.11.13"
