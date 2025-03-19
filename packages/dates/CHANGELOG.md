@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/dates
 
+## 0.9.1
+
+### Patch Changes
+
+- 2da7f66: Fix calendar width issue for smaller iframe
+
 ## 0.9.0
 
 ### Patch Changes
