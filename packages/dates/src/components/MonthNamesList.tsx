@@ -17,6 +17,7 @@ function MonthNamesList({currentMonth, onItemPress}: MonthNamesListProps) {
       data={MONTHS_ARRAY}
       numColumns={3}
       scrollEnabled={false}
+      contentContainerStyle={styles.listContent}
       renderItem={({item, index}) => (
         <TouchableOpacity
           accessibilityRole="button"
@@ -40,10 +41,14 @@ function MonthNamesList({currentMonth, onItemPress}: MonthNamesListProps) {
 export default MonthNamesList
 
 const styles = StyleSheet.create({
+  listContent: {
+    marginStart: 4,
+  },
   day: {
     width: 100,
     height: 24,
-    margin: 2,
+    marginHorizontal: 4,
+    marginVertical: 4,
     borderRadius: 10,
     justifyContent: 'center',
   },

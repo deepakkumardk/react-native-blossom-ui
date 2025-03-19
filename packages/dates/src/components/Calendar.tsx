@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     justifyContent: 'space-between',
-    maxWidth: 300,
+    maxWidth: 280,
     marginHorizontal: 8,
   },
 })
