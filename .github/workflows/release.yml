@@ -42,7 +42,7 @@ jobs:
         uses: jamilomar/autopublish-changesets-action@v0.0.11
         with:
           commitMessage: 'build(release): v${{env.NEW_VERSION}}'
-          versionScript: yarn changeset version
+          versionScript: yarn changeset version && yarn build
           publishScript: yarn changeset publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
