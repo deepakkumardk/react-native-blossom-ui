@@ -1,5 +1,12 @@
 # @react-native-blossom-ui/components
 
+## 0.9.2
+
+### Patch Changes
+
+- c2d4cfc: Fix ts support from CD
+- 2d6f126: Fix ts support from CD
+
 ## 0.9.1
 
 ## 0.9.0
