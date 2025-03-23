@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/components
 
+## 0.9.3
+
+### Patch Changes
+
+- 7fd9e09: Fix chroma-js dependency resolution issue
+
 ## 0.9.2
 
 ### Patch Changes
