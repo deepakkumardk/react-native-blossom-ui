@@ -16,12 +16,10 @@
     "rebuild": "yarn clean && yarn && yarn build",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx}\" --ignore-path .gitignore",
     "test": "echo 'TODO'",
-    "version-packages": "yarn lefthook run pre-commit && changeset version && yarn build",
+    "version-packages": "yarn changeset version && yarn build",
     "publish-packages": "yarn lefthook run pre-commit && changeset version && yarn build && changeset publish"
   },
-  "dependencies": {
-    "chroma-js": "3.1.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@changesets/cli": "2.27.10",
     "@changesets/changelog-git": "0.2.0",
