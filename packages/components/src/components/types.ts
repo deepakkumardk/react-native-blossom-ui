@@ -58,6 +58,10 @@ export interface LinkProps extends TextProps {
    * Set the href url for link
    */
   href?: string
+  /**
+   * Callback for when the given link can't be opened
+   */
+  onLinkOpenError?: (error: unknown) => void
 }
 
 export interface ViewProps extends RNViewProps {
