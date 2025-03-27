@@ -7,6 +7,7 @@ import {
   ProgressBarStatuses,
   ProgressBarSizes,
   ProgressBarCustom,
+  ProgressBarDirection,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
@@ -20,6 +21,9 @@ export default function ProgressBarScreen() {
 
         <Heading>Indeterminate</Heading>
         <ProgressBarIndeterminate />
+
+        <Heading>Direction</Heading>
+        <ProgressBarDirection />
 
         <Heading>Statuses</Heading>
         <ProgressBarStatuses />

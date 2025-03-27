@@ -13,6 +13,15 @@ export function ProgressBarIndeterminate() {
   return <ProgressBar indeterminate />
 }
 
+export function ProgressBarDirection() {
+  return (
+    <View>
+      <ProgressBar indeterminate reverseDirection />
+      <ProgressBar reverseDirection value={60} />
+    </View>
+  )
+}
+
 export function ProgressBarSizes() {
   return (
     <View>

@@ -1006,6 +1006,10 @@ export interface ProgressBarProps extends BaseUIProps {
    */
   indeterminate?: boolean
   /**
+   * Reverse the direction of the progress bar
+   */
+  reverseDirection?: boolean
+  /**
    * Style of the container view
    */
   style?: StyleProp<ViewStyle>
