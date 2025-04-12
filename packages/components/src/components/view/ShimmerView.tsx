@@ -1,10 +1,11 @@
 import React, {useEffect, useMemo, useRef} from 'react'
-import {Animated, Easing, StyleSheet} from 'react-native'
+import {Animated, Easing, StyleSheet, useWindowDimensions} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
 import {ShimmerViewProps} from '../types'
 import {useMergedProps} from '../../common'
 import View from './View'
+import {getAlphaColor} from '../utils'
 
 /**
  * A Shimmer Animation view to use in place of skeleton as a placeholder until the api response comes in
@@ -19,27 +20,30 @@ const ShimmerView = (props: ShimmerViewProps) => {
     animated = true,
     circular,
     duration = 1000,
+    mode = 'fade',
     color = colors.background200,
     borderRadius = options?.borderRadius,
     ...rest
   } = useMergedProps('ShimmerView', props, {colors, isDark})
 
-  const animation = useRef(new Animated.Value(1)).current
+  const {width: deviceWidth} = useWindowDimensions()
 
-  const animationLoop = useMemo(
+  const animation = useRef(new Animated.Value(mode === 'fade' ? 1 : 0)).current
+
+  const fadeLoop = useMemo(
     () =>
       Animated.loop(
         Animated.sequence([
           Animated.timing(animation, {
             toValue: 0,
-            easing: Easing.linear,
             duration,
+            easing: Easing.linear,
             useNativeDriver: true,
           }),
           Animated.timing(animation, {
             toValue: 1,
-            easing: Easing.linear,
             duration,
+            easing: Easing.linear,
             useNativeDriver: true,
           }),
         ]),
@@ -47,14 +51,33 @@ const ShimmerView = (props: ShimmerViewProps) => {
     [animation, duration],
   )
 
+  const waveLoop = useMemo(
+    () =>
+      Animated.loop(
+        Animated.timing(animation, {
+          toValue: 1,
+          duration,
+          useNativeDriver: true,
+        }),
+      ),
+    [animation, duration],
+  )
+
   useEffect(() => {
     if (!visible) return
+
     if (animated) {
-      animationLoop.start()
+      if (mode === 'fade') {
+        waveLoop.reset()
+        fadeLoop.start()
+      } else {
+        fadeLoop.reset()
+        waveLoop.start()
+      }
     } else {
-      animationLoop.reset()
+      mode === 'fade' ? fadeLoop.reset() : waveLoop.reset()
     }
-  }, [animationLoop, animated, visible])
+  }, [fadeLoop, animated, visible, mode, waveLoop])
 
   if (!visible) {
     return <View {...rest} />
@@ -74,11 +97,9 @@ const ShimmerView = (props: ShimmerViewProps) => {
         circular && {
           width: height,
           height,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          borderRadius: parseInt(height, 10),
+          borderRadius: parseInt(String(height), 10),
         },
-        {
+        mode === 'fade' && {
           opacity: animation.interpolate({
             inputRange: [0, 1],
             outputRange: [0.4, 1],
@@ -90,7 +111,31 @@ const ShimmerView = (props: ShimmerViewProps) => {
         },
         rest.style,
       ]}>
-      {visible ? null : rest.children}
+      {visible ? (
+        mode === 'wave' ? (
+          <Animated.View
+            style={[
+              styles.pulseView,
+              {
+                width: deviceWidth * 0.1,
+                backgroundColor: getAlphaColor(colors.background100, 0.6),
+              },
+              {
+                transform: [
+                  {
+                    translateX: animation.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [-deviceWidth, deviceWidth],
+                    }),
+                  },
+                ],
+              },
+            ]}
+          />
+        ) : null
+      ) : (
+        rest.children
+      )}
     </Animated.View>
   )
 }
@@ -100,5 +145,16 @@ export default ShimmerView
 const styles = StyleSheet.create({
   container: {
     marginVertical: 8,
+    overflow: 'hidden',
+  },
+  pulseView: {
+    minWidth: 20,
+    height: '100%',
+    opacity: 0.5,
+
+    shadowColor: '#ffffff',
+    shadowOffset: {width: 50, height: 0},
+    shadowOpacity: 1,
+    shadowRadius: 20,
   },
 })

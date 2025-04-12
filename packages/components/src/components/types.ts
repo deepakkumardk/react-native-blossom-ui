@@ -504,6 +504,11 @@ export interface ShimmerViewProps extends DividerProps {
    * @default 1000
    */
   duration?: number
+  /**
+   * Set the mode of the animation
+   * @default fade
+   */
+  mode?: 'fade' | 'wave'
 }
 
 export interface CardProps extends ViewProps {

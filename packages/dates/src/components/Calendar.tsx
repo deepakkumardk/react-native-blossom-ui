@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useRef, useState} from 'react'
+import React, {memo, useCallback, useMemo, useRef, useState} from 'react'
 import {StyleSheet, TouchableOpacity} from 'react-native'
 
 import {
@@ -154,14 +154,24 @@ function Calendar(props: CalendarProps) {
   return (
     <View>
       <View row style={styles.header}>
-        <Text onPress={onMonthHeaderPress}>
-          {formattedMonth}
-          <Icon name="chevron-down" size={16} />
-        </Text>
-        <Text onPress={onYearHeaderPress}>
-          {currentYear}
-          <Icon name="chevron-down" size={16} />
-        </Text>
+        <TouchableOpacity
+          accessibilityRole="button"
+          activeOpacity={0.5}
+          onPress={onMonthHeaderPress}>
+          <Text>
+            {formattedMonth}
+            <Icon name="chevron-down" size={16} />
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          accessibilityRole="button"
+          activeOpacity={0.5}
+          onPress={onYearHeaderPress}>
+          <Text>
+            {currentYear}
+            <Icon name="chevron-down" size={16} />
+          </Text>
+        </TouchableOpacity>
 
         <View row style={styles.rightIcons}>
           <Icon
@@ -219,7 +229,7 @@ function Calendar(props: CalendarProps) {
   )
 }
 
-export default Calendar
+export default memo(Calendar)
 
 const styles = StyleSheet.create({
   rightIcons: {
