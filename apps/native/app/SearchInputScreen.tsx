@@ -7,6 +7,7 @@ import {
   SearchInputModes,
   SearchInputSizes,
   SearchInputDense,
+  AnimatedSearchInput,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
@@ -17,6 +18,9 @@ export default function SearchInputScreen() {
       <ScrollView>
         <Heading>Usage</Heading>
         <SearchInputUsage />
+
+        <Heading>Animated Placeholder</Heading>
+        <AnimatedSearchInput />
 
         <Heading>Modes</Heading>
         <SearchInputModes />

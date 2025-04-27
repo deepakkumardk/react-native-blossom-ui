@@ -355,6 +355,10 @@ export interface TextInputProps
    */
   placeholder?: string
   /**
+   * Render a custom Placeholder component for the text input
+   */
+  placeholderComponent?: ReactNode
+  /**
    * Caption text below the text input
    */
   caption?: string
@@ -409,10 +413,59 @@ export interface TextInputProps
   right?: ReactNode
 }
 
+/**
+ * Props for the AnimatedPlaceholder component.
+ */
+export interface AnimatedPlaceholderProps {
+  /**
+   * An array of placeholder strings to animate between.
+   */
+  placeholders: string[]
+  /**
+   * Duration in milliseconds each placeholder is displayed before transitioning.
+   * @default 500
+   */
+  duration?: number
+  /**
+   * Custom styles for the container view of the placeholder.
+   */
+  containerStyle?: StyleProp<ViewStyle>
+  /**
+   * Custom style for the placeholder text.
+   */
+  textStyle?: StyleProp<TextStyle>
+  /**
+   * Whether the placeholder is visible.
+   * Set it to false to hide the placeholder.
+   * @default true
+   */
+  visible?: boolean
+}
+
+/**
+ * Props for the SearchInput component.
+ */
 export interface SearchInputProps extends TextInputProps {
+  /**
+   * Whether to show a clear (X) icon to reset the input at the right.
+   * Set it to true to show the clear icon.
+   * @default false
+   */
   withClearIcon?: boolean
+  /**
+   * Callback when the search query changes.
+   * @param query - The updated query string.
+   */
   onQueryChange?: (query: string) => void
+  /**
+   * Delay in milliseconds to debounce the query change callback.
+   * @default 300
+   */
   debounceDelay?: number
+  /**
+   * Customize the animated placeholder behavior with a slide-up animation.
+   */
+  animatedPlaceholderProps?: AnimatedPlaceholderProps
 }
 
 export interface OtpInputProps extends Omit<TextInputProps, 'mode'> {

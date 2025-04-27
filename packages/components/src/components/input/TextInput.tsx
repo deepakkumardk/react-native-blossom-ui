@@ -18,6 +18,7 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
   const {
     label,
     placeholder,
+    placeholderComponent,
     caption,
     error,
     labelStyle,
@@ -88,11 +89,12 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
           inputStyle,
         ]}>
         {left}
+        {placeholderComponent}
         <RNTextInput
           ref={ref}
           placeholderTextColor={colors.text400}
           {...rest}
-          placeholder={placeholder}
+          placeholder={placeholderComponent ? '' : placeholder}
           editable={!(disabled || shouldMockDisableState)}
           focusable={!(disabled || shouldMockDisableState)}
           style={[
@@ -147,6 +149,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    overflow: 'hidden',
   },
   leftMargin: {
     marginHorizontal: 6,
@@ -165,7 +168,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const textInputSizeStylesMap = {
+export const textInputSizeStylesMap = {
   small: {
     outlined: {
       padding: 6,

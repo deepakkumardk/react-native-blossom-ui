@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {View, SearchInput} from '@react-native-blossom-ui/components'
+import {View, SearchInput, Icon} from '@react-native-blossom-ui/components'
 
 export function SearchInputUsage() {
   return (
@@ -9,6 +9,37 @@ export function SearchInputUsage() {
         label="Search user"
         placeholder="eg. Blossom"
         size="medium"
+      />
+    </View>
+  )
+}
+
+export function AnimatedSearchInput() {
+  const placeholders = [
+    `Search 'Awesome'`,
+    `Search 'Blossom'`,
+    `Search 'Rose'`,
+    `Search 'Daisy'`,
+    `Search 'Tulip'`,
+    `Search 'Orchid'`,
+  ]
+
+  return (
+    <View>
+      <SearchInput
+        label="Search Label"
+        size="medium"
+        animatedPlaceholderProps={{
+          placeholders,
+        }}
+        left={<Icon name="search" size={24} />}
+      />
+      <SearchInput
+        label="Search Placeholder"
+        mode="flat"
+        animatedPlaceholderProps={{
+          placeholders,
+        }}
       />
     </View>
   )
@@ -24,6 +55,25 @@ export function SearchInputSizes() {
         size="medium"
       />
       <SearchInput label="Search user" placeholder="eg. Blossom" size="large" />
+
+      <SearchInput
+        mode="flat"
+        label="Search user"
+        placeholder="eg. Blossom"
+        size="small"
+      />
+      <SearchInput
+        mode="flat"
+        label="Search user"
+        placeholder="eg. Blossom"
+        size="medium"
+      />
+      <SearchInput
+        mode="flat"
+        label="Search user"
+        placeholder="eg. Blossom"
+        size="large"
+      />
     </View>
   )
 }
