@@ -73,8 +73,8 @@ function AnimatedPlaceholder(props: AnimatedPlaceholderProps) {
     })
 
     return () => {
-      translateY.removeAllListeners()
       animationLoop.reset()
+      translateY.removeAllListeners()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

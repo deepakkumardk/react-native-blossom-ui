@@ -86,21 +86,21 @@ export interface AccordionProps {
   /**
    * Set it to true to open the accordion
    */
-  isCollapsed?: boolean
+  isOpen?: boolean
   /**
    * Title of the accordion
    */
   title?: string | ReactNode
   /**
-   * Title of the accordion
+   * description of the accordion below title
    */
-  subtitle?: string | ReactNode
+  description?: string | ReactNode
   /**
-   * Title of the accordion
+   * Content of the accordion shown when expanded
    */
-  description?: string
+  content?: string
   /**
-   * Render custom view inside the accordion instead of the description only
+   * Render custom view inside the accordion instead of the content string
    */
   children?: ReactNode
   /**
@@ -112,13 +112,26 @@ export interface AccordionProps {
    */
   right?: ReactNode
   /**
+   * Custom chevron icon to show
+   */
+  chevron?: (isOpen: boolean) => ReactNode
+  /**
    * Container style for the accordion
    */
   containerStyle?: StyleProp<ViewStyle>
   /**
+   * Accordion header style for title & description
+   */
+  headerStyle?: StyleProp<ViewStyle>
+  /**
    * On press callback on the title section
    */
   onPress?: () => void
+  /**
+   * Set the animation transition duration for the accordion
+   * @default 300
+   */
+  transitionDuration?: number
 }
 
 export type ButtonMode = 'filled' | 'tinted' | 'outlined' | 'plain'
