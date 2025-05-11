@@ -1,5 +1,20 @@
 # @react-native-blossom-ui/components
 
+## 0.10.0
+
+### Minor Changes
+
+- e493970: - Add onLinkOpenError prop in Link component
+  - Add reverseDirection prop in Progress to reverse the animation and bar
+  - Add wave mode animation to ShimmerView
+  - Add animated placeholder feature to SearchInput
+  - Add expand/collapse animation to Accordion
+  - Add custom chevron icon support to Accordion
+
+### Patch Changes
+
+- e493970: - Fix Android keyboard open issue in OtpInput
+
 ## 0.9.3
 
 ### Patch Changes
