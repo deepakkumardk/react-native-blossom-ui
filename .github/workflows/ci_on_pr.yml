@@ -23,5 +23,14 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - name: Run left hook pre-commit
-        run: yarn lefthook run pre-commit
+      - name: Run tsc
+        run: yarn tsc
+
+      - name: Run lint
+        run: yarn eslint .
+
+      - name: Run build
+        run: yarn build
+
+      - name: Run test
+        run: yarn test

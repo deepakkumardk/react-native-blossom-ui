@@ -13,8 +13,8 @@ export function ShimmerViewUsage() {
       <View row>
         <ShimmerView circular height={60} />
         <View style={{marginStart: 20, alignSelf: 'center'}}>
-          <ShimmerView width={200} />
-          <ShimmerView width={100} />
+          <ShimmerView width={200} height={16} />
+          <ShimmerView width={100} height={12} />
         </View>
       </View>
     </View>
@@ -31,6 +31,14 @@ export function ShimmerViewCircular() {
         color="gold"
         style={{marginHorizontal: 20}}
       />
+    </View>
+  )
+}
+
+export function ShimmerViewWave() {
+  return (
+    <View>
+      <ShimmerView height={40} mode="wave" />
     </View>
   )
 }

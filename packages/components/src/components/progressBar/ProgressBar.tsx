@@ -20,6 +20,7 @@ const ProgressBar = (props: ProgressBarProps) => {
     width,
     height,
     indeterminate,
+    reverseDirection,
     style,
     status = 'primary',
     size = 'medium',
@@ -62,6 +63,7 @@ const ProgressBar = (props: ProgressBarProps) => {
           height: height || sizeMap[size],
           borderRadius: height || sizeMap[size],
         },
+        reverseDirection && styles.reverse,
         style,
       ]}
       onLayout={(e) => {
@@ -74,7 +76,6 @@ const ProgressBar = (props: ProgressBarProps) => {
             backgroundColor:
               trackColor || colors[getStatusColorName(status, isDark)],
             width: indeterminate ? '40%' : `${value === 0 ? 0 : value}%`,
-
             height: height || sizeMap[size],
             borderRadius: height || sizeMap[size],
           },
@@ -84,7 +85,9 @@ const ProgressBar = (props: ProgressBarProps) => {
                   {
                     translateX: progressValue.interpolate({
                       inputRange: [0, 1],
-                      outputRange: [-progressBarWidth * 0.5, progressBarWidth],
+                      outputRange: reverseDirection
+                        ? [progressBarWidth, -progressBarWidth * 0.9]
+                        : [-progressBarWidth * 0.5, progressBarWidth],
                     }),
                   },
                   {
@@ -110,6 +113,9 @@ const styles = StyleSheet.create({
     height: 12,
     borderRadius: 12,
     overflow: 'hidden',
+  },
+  reverse: {
+    flexDirection: 'row-reverse',
   },
 })
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 
 import {Accordion, Icon, Text, View} from '@react-native-blossom-ui/components'
 
@@ -6,15 +6,20 @@ export function AccordionUsage() {
   return (
     <View>
       <Accordion
-        title="Hello world"
-        subtitle="Hello world!"
-        description="Lorem Ipsum"
+        title="Hello from Accordion"
+        description="Hello from Blossom UI"
+        content={'Lorem Ipsum '.repeat(20)}
       />
     </View>
   )
 }
 
 export function AccordionCustom() {
+  const ChevronView = useCallback(
+    (isOpen: boolean) => <Text typography="h3">{isOpen ? '🙃' : '🙂'}</Text>,
+    [],
+  )
+
   return (
     <View>
       <Accordion
@@ -23,12 +28,13 @@ export function AccordionCustom() {
             Hello
           </Text>
         }
-        subtitle={
-          <Text status="error" typography="c2">
+        description={
+          <Text status="accent" typography="c2">
             Click to know more
           </Text>
         }
-        left={<Icon name="home" />}>
+        left={<Icon name="home" />}
+        chevron={ChevronView}>
         <Text status="info">You are certainly not spammed!!</Text>
       </Accordion>
     </View>

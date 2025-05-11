@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import {Linking, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {LinkProps} from '../types'
@@ -20,20 +20,22 @@ const Link = (props: LinkProps) => {
     title = '',
     style,
     href = '',
+    onLinkOpenError,
     ...rest
   } = useMergedProps('Link', props, {
     colors,
     isDark,
   })
 
-  const onTextPress = async () => {
+  const onTextPress = useCallback(async () => {
     try {
       const canOpen = await Linking.canOpenURL(href)
       if (canOpen) await Linking.openURL(href)
     } catch (error) {
       // Error Handling
+      onLinkOpenError?.(error)
     }
-  }
+  }, [href, onLinkOpenError])
 
   return (
     <View row>

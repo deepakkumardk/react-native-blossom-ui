@@ -204,8 +204,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     position: 'absolute',
-    width: 1,
-    height: 1,
+    width: 100,
+    height: 40,
     opacity: 0,
   },
   boxRow: {
