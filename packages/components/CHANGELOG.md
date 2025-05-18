@@ -1,5 +1,12 @@
 # @react-native-blossom-ui/components
 
+## 0.10.1
+
+### Patch Changes
+
+- ee14696: Fix rendering issue because of deepmerge of jsx objects
+  Simplify the installation by using default light/dark theme
+
 ## 0.10.0
 
 ### Minor Changes
