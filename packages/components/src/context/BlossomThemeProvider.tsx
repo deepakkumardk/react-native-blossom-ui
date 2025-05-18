@@ -1,14 +1,18 @@
 import React, {createContext, useContext, useMemo} from 'react'
-import deepmerge from 'deepmerge'
+
 import {
   BlossomContext,
   BlossomThemeColors,
   BlossomThemeProviderProps,
+  BlossomUIOptions,
+  safeDeepMerge,
 } from '../common'
 import {typographyStyle} from '../components/text/typography'
+import defaultLightTheme from './defaultLightTheme.json'
+import defaultDarkTheme from './defaultDarkTheme.json'
 
 const defaultValue: BlossomContext = {
-  colors: {} as BlossomThemeColors,
+  colors: defaultLightTheme,
   isDark: false,
   options: {
     borderRadius: 12,
@@ -19,16 +23,22 @@ const defaultValue: BlossomContext = {
 const BlossomThemeContext = createContext<BlossomContext>(defaultValue)
 
 export const BlossomThemeProvider = ({
-  theme,
+  theme = defaultLightTheme,
   isDark,
   options,
   children,
 }: BlossomThemeProviderProps) => {
   const values = useMemo(
     () => ({
-      colors: theme,
+      colors: safeDeepMerge<BlossomThemeColors>(
+        isDark ? defaultDarkTheme : defaultLightTheme,
+        theme,
+      ),
       isDark,
-      options: deepmerge(defaultValue.options || {}, options || {}),
+      options: safeDeepMerge<BlossomUIOptions>(
+        defaultValue.options || {},
+        options || {},
+      ),
     }),
     [theme, isDark, options],
   )
