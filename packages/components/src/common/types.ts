@@ -65,7 +65,7 @@ export type BlossomThemeProviderProps = {
   /**
    * App theme colors json for light and dark mode
    */
-  theme: BlossomThemeColors
+  theme?: BlossomThemeColors
   /**
    * Whether the app is in dark mode or not
    */
