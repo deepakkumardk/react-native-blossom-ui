@@ -59,6 +59,7 @@ const Chip = (props: ChipProps) => {
               isChipSelected &&
               (checkIcon || (
                 <Icon
+                  family="Ionicons"
                   name="checkmark-sharp"
                   color={iconColor}
                   size={checkIconSize[size]}
@@ -71,6 +72,7 @@ const Chip = (props: ChipProps) => {
           <View row style={styles.row}>
             {clearable && (
               <Icon
+                family="Ionicons"
                 name="close"
                 size={checkIconSize[size]}
                 style={styles.closeIcon}

@@ -117,7 +117,11 @@ const Accordion = (props: AccordionProps) => {
         {right}
         {chevron?.(isExpanded) || (
           <Animated.View style={{transform: [{rotate: chevronRotation}]}}>
-            <Icon name="chevron-down" color={colors.text200} />
+            <Icon
+              family="Ionicons"
+              name="chevron-down"
+              color={colors.text200}
+            />
           </Animated.View>
         )}
       </Pressable>

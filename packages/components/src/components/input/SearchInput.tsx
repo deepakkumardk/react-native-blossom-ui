@@ -45,7 +45,13 @@ const SearchInput = (props: SearchInputProps, ref: React.Ref<RNTextInput>) => {
       onChangeText={setSearchQuery}
       right={
         searchQuery ? (
-          <Icon status={status} name="close" size={18} onPress={onClearPress} />
+          <Icon
+            family="Ionicons"
+            status={status}
+            name="close"
+            size={18}
+            onPress={onClearPress}
+          />
         ) : null
       }
       placeholderComponent={
@@ -79,7 +85,9 @@ const SearchInput = (props: SearchInputProps, ref: React.Ref<RNTextInput>) => {
           onLayout={({nativeEvent}) => {
             setLeftWidth(nativeEvent.layout.width + 6)
           }}>
-          {rest?.left || <Icon status={status} name="search" size={18} />}
+          {rest?.left || (
+            <Icon family="Ionicons" status={status} name="search" size={18} />
+          )}
         </View>
       }
     />

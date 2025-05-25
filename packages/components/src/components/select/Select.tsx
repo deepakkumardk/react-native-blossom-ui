@@ -108,6 +108,7 @@ const Select = <T,>(props: SelectProps<T>) => {
         {isLoading && <ActivityIndicator size="small" style={styles.loader} />}
         {clearable && getDisplayValue() && (
           <Icon
+            family="Ionicons"
             name="close"
             size={24}
             style={styles.closeIcon}
@@ -119,6 +120,7 @@ const Select = <T,>(props: SelectProps<T>) => {
           />
         )}
         <Icon
+          family="Ionicons"
           name="chevron-down"
           size={24}
           color={disabled ? colors.text500 : colors.text100}
