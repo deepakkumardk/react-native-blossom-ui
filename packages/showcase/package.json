@@ -1,6 +1,6 @@
 {
   "name": "@react-native-blossom-ui/showcase",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "Showcase components for Blossom UI components",
   "license": "MIT",
   "main": "./src/index",

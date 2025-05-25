@@ -1,5 +1,15 @@
 # @react-native-blossom-ui/components
 
+## 0.11.0
+
+### Minor Changes
+
+- 12d71a1: Add ExpandableText Component
+
+### Patch Changes
+
+- 12d71a1: Made shallow copy as default for useMergedProps
+
 ## 0.10.1
 
 ### Patch Changes
