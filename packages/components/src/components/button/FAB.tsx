@@ -21,14 +21,15 @@ const FAB = (props: FABProps) => {
 
   return (
     <BaseButton
-      {...rest}
       left={icon}
+      {...rest}
       style={[
         styles.absolute,
         {
           right: offsetX,
           bottom: offsetY,
         },
+        rest.style,
       ]}
     />
   )
