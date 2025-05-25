@@ -6,16 +6,22 @@ import {safeDeepMerge} from './deepMerge'
 
 let defaultProps: ComponentPropsObjectMap<ComponentPropsMap> = {}
 
+let isDeepMergeEnabled = false
+
 export const ComponentManager = {
   /**
    * Set & customize the default props conditionally
    * @param props named object mapping functions for each component
    */
-  setDefaultProps: (props: ComponentPropsObjectMap<ComponentPropsMap>) => {
+  setDefaultProps(props: ComponentPropsObjectMap<ComponentPropsMap>) {
     defaultProps = {
       ...defaultProps,
       ...props,
     }
+  },
+
+  enableDeepMerge(nextState: boolean) {
+    isDeepMergeEnabled = !!nextState
   },
 }
 
@@ -27,7 +33,15 @@ export const useMergedProps = <T>(
   return useMemo(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    return safeDeepMerge<T>(defaultProps[name]?.(props, theme), props)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
+    const initialProps = defaultProps?.[name]?.(props, theme)
+
+    if (isDeepMergeEnabled) {
+      return safeDeepMerge<T>(initialProps, props)
+    }
+    return {
+      ...initialProps,
+      ...props,
+    } as T
   }, [name, props, theme])
 }

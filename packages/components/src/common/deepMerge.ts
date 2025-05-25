@@ -8,10 +8,10 @@ function isPlainObject(item: unknown): item is Record<string, any> {
     item !== null &&
     typeof item === 'object' &&
     !Array.isArray(item) &&
-    // Advance handing
-    // Skip React elements which have type popery
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    !(typeof (item as any).type === 'function') &&
+    !(typeof (item as any)?.type === 'function') &&
     !(item instanceof Date) &&
     !(item instanceof RegExp) &&
     !(item instanceof Map) &&
