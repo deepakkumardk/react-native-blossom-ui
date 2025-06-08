@@ -6,6 +6,7 @@ import {
   ExpandableTextUsage,
   ExpandableTextLines,
   ExpandableTextLessLines,
+  ExpandableTextLabelCustom,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
@@ -22,6 +23,9 @@ export default function ExpandableTextScreen() {
 
         <Heading>With overflow texts</Heading>
         <ExpandableTextLines />
+
+        <Heading>Label Text</Heading>
+        <ExpandableTextLabelCustom />
       </ScrollView>
     </View>
   )

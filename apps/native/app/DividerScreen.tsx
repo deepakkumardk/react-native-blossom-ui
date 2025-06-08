@@ -4,6 +4,7 @@ import {View} from '@react-native-blossom-ui/components'
 import {
   DividerCustom,
   DividerLabel,
+  DividerSpacing,
   DividerUsage,
   DividerVertical,
 } from '@react-native-blossom-ui/showcase'
@@ -17,6 +18,9 @@ export default function DividerScreen() {
 
       <Heading>Label Positions</Heading>
       <DividerLabel />
+
+      <Heading>Spacing</Heading>
+      <DividerSpacing />
 
       <Heading>Vertical</Heading>
       <DividerVertical />
