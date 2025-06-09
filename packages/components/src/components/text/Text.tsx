@@ -13,7 +13,7 @@ import {useMergedProps} from '../../common'
 const Text = (props: TextProps, ref: React.Ref<RNText>) => {
   const {colors, isDark, options} = useBlossomTheme()
 
-  const {typography = 'b2', ...rest} = useMergedProps('Text', props, {
+  const {typography = 'b3', ...rest} = useMergedProps('Text', props, {
     colors,
     isDark,
   })

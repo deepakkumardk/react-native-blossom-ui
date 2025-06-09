@@ -88,11 +88,22 @@ export type BlossomUIOptions = {
    */
   borderRadius?: number
   /**
-   * Modify the default typography values using this
+   * Modify the font size/weight values using this
+   * h1-h6 are used for headings
+   * s1-s3 are used for subheadings
+   * b1-b3 are used for body text
+   * l1-l3 are used for labels
+   * c1-c3 are used for captions
+   * @default b2
    */
   typography?: TypographyValues
 }
 
+/**
+ * -----Typography Options-----
+ * These are the typography options that can be used in the Text component
+ * The values are used to define the font size and font weight.
+ */
 export type TypographyOptions =
   | 'h1'
   | 'h2'
@@ -103,13 +114,16 @@ export type TypographyOptions =
   // Other options
   | 's1'
   | 's2'
+  | 's3'
   | 'b1'
   | 'b2'
   | 'b3'
   | 'l1'
   | 'l2'
+  | 'l3'
   | 'c1'
   | 'c2'
+  | 'c3'
 
 /**
  * -----Base for almost all components-----

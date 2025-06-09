@@ -96,14 +96,16 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
       (
         x: number,
         y: number,
+        // Width and height of the target view
         width: number,
         height: number,
+        // PageX and PageY are the coordinates of the target view relative to the screen
         pageX: number,
         pageY: number,
       ) => {
         const offsetWidthMap: Record<typeof position, number> = {
-          top: deviceWidth,
-          bottom: deviceWidth,
+          top: deviceWidth - pageX,
+          bottom: deviceWidth - pageX,
           left: pageX - offset,
           right: deviceWidth - (pageX + width + offset),
         }

@@ -23,6 +23,45 @@ export function TooltipUsage() {
   )
 }
 
+export function TooltipAtEdge() {
+  const [showTooltip, setShowTooltip] = useState('')
+
+  return (
+    <View row style={{justifyContent: 'space-between'}}>
+      <Tooltip
+        title="Tooltip at Top"
+        visible={showTooltip === 'top'}
+        position="top"
+        Target={<Button onPress={() => setShowTooltip('top')}>Top</Button>}
+        onBackdropPress={() => setShowTooltip('')}
+      />
+      <Tooltip
+        title="Tooltip at Left"
+        visible={showTooltip === 'left'}
+        position="left"
+        Target={<Button onPress={() => setShowTooltip('left')}>Left</Button>}
+        onBackdropPress={() => setShowTooltip('')}
+      />
+      <Tooltip
+        title="Tooltip at Right"
+        visible={showTooltip === 'right'}
+        position="right"
+        Target={<Button onPress={() => setShowTooltip('right')}>Right</Button>}
+        onBackdropPress={() => setShowTooltip('')}
+      />
+      <Tooltip
+        title="Tooltip at Bottom"
+        visible={showTooltip === 'bottom'}
+        position="bottom"
+        Target={
+          <Button onPress={() => setShowTooltip('bottom')}>Bottom</Button>
+        }
+        onBackdropPress={() => setShowTooltip('')}
+      />
+    </View>
+  )
+}
+
 export function TooltipCustom() {
   const [showTooltip, setShowTooltip] = useState(false)
 

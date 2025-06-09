@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, useMemo} from 'react'
 import {Image, ImageStyle, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {AvatarProps} from '../types'
@@ -28,19 +28,25 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
     ...rest
   } = useMergedProps('Avatar', props, {colors, isDark})
 
-  const borderRadiusMap: Record<typeof mode, number> = {
-    circle: typeof size === 'number' ? size : sizeMap[size] / 2,
-    round: options?.borderRadius || 0,
-    square: 0,
-  }
+  const borderRadiusMap = useMemo(
+    (): Record<typeof mode, number> => ({
+      circle: typeof size === 'number' ? size : sizeMap[size] / 2,
+      round: options?.borderRadius || 0,
+      square: 0,
+    }),
+    [options?.borderRadius, size],
+  )
 
-  const imageStyle: ImageStyle = {
-    width: typeof size === 'number' ? size : sizeMap[size],
-    height: typeof size === 'number' ? size : sizeMap[size],
-    borderColor: colors[getBorderColorName(status, isDark)],
-    backgroundColor: colors[getStatusColorName(status, isDark, '200')],
-    borderRadius: borderRadiusMap[mode],
-  }
+  const imageStyle = useMemo(
+    (): ImageStyle => ({
+      width: typeof size === 'number' ? size : sizeMap[size],
+      height: typeof size === 'number' ? size : sizeMap[size],
+      borderColor: colors[getBorderColorName(status, isDark)],
+      backgroundColor: colors[getStatusColorName(status, isDark, '200')],
+      borderRadius: borderRadiusMap[mode],
+    }),
+    [borderRadiusMap, colors, isDark, mode, size, status],
+  )
 
   const Container = onPress ? TouchableOpacity : View
 
@@ -66,13 +72,11 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
         icon((imageStyle.width as number) - OFFSET)
       ) : initials ? (
         <Text
-          typography="h6"
           style={[
             {
               color: colors.bgLight100,
               fontSize: (imageStyle.width as number) / 2,
             },
-            styles.text,
             initialStyle,
           ]}>
           {initials}
@@ -95,9 +99,6 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  text: {
-    fontWeight: '600',
   },
 })
 

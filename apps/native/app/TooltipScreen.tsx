@@ -1,7 +1,11 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
 import {View} from '@react-native-blossom-ui/components'
-import {TooltipUsage, TooltipCustom} from '@react-native-blossom-ui/showcase'
+import {
+  TooltipUsage,
+  TooltipAtEdge,
+  TooltipCustom,
+} from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
 
@@ -11,6 +15,9 @@ export default function TooltipScreen() {
       <ScrollView>
         <Heading>Usage</Heading>
         <TooltipUsage />
+
+        <Heading>At Edge</Heading>
+        <TooltipAtEdge />
 
         <Heading>Custom</Heading>
         <TooltipCustom />

@@ -102,12 +102,12 @@ const Accordion = (props: AccordionProps) => {
         {left}
         <View style={[styles.titleColumn, !left && styles.titleLeft]}>
           {typeof title === 'string' ? (
-            <Text typography="b1">{title}</Text>
+            <Text typography="b2">{title}</Text>
           ) : (
             title
           )}
           {typeof description === 'string' ? (
-            <Text typography="l2" style={{color: colors.text400}}>
+            <Text typography="l3" style={{color: colors.text400}}>
               {description}
             </Text>
           ) : (

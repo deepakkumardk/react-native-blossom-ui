@@ -190,7 +190,7 @@ const Select = <T,>(props: SelectProps<T>) => {
             {...inputProps}
           />
           <BottomSheet visible={showBottomSheet} onBackdropPress={closePicker}>
-            {placeholder ? <Text typography="h6">{placeholder}</Text> : null}
+            {placeholder ? <Text typography="s1">{placeholder}</Text> : null}
             <Spacer height={4} />
             <FlatList
               ref={flatListRef}
