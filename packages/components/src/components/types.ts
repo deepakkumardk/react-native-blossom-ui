@@ -1049,7 +1049,7 @@ export interface SelectProps<ItemT>
   renderItem?: RNFlatListProps<ItemT>['renderItem']
 
   /**
-   * Input props
+   * Change the style of the input and it's container
    */
   inputProps?: Omit<TextInputProps, 'value' | 'defaultValue'>
 }

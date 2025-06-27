@@ -88,6 +88,10 @@ export type BlossomUIOptions = {
    */
   borderRadius?: number
   /**
+   * Global font family applied to all text elements
+   */
+  fontFamily?: string
+  /**
    * Modify the font size/weight values using this
    * h1-h6 are used for headings
    * s1-s3 are used for subheadings

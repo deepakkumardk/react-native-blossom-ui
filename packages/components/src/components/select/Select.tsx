@@ -98,13 +98,7 @@ const Select = <T,>(props: SelectProps<T>) => {
 
   const RightView = useCallback(
     () => (
-      <View
-        row
-        style={[
-          disabled && {
-            backgroundColor: colors.background200,
-          },
-        ]}>
+      <View row style={styles.rightViewContainer}>
         {isLoading && <ActivityIndicator size="small" style={styles.loader} />}
         {clearable && getDisplayValue() && (
           <Icon
@@ -129,7 +123,6 @@ const Select = <T,>(props: SelectProps<T>) => {
     ),
     [
       disabled,
-      colors.background200,
       colors.background700,
       colors.text500,
       colors.text100,
@@ -197,9 +190,20 @@ const Select = <T,>(props: SelectProps<T>) => {
               data={options}
               keyExtractor={(item) => item.label}
               {...pickerProps}
-              renderItem={
-                renderItem ||
-                (({item, index}) => (
+              renderItem={({item, index, separators}) =>
+                renderItem ? (
+                  <Pressable
+                    accessibilityRole="menuitem"
+                    onPress={() => {
+                      if (item.disabled) return
+
+                      setSelectedValue(item.value)
+                      onValueChange?.(item.value, item, index)
+                      closePicker()
+                    }}>
+                    {renderItem({item, index, separators})}
+                  </Pressable>
+                ) : (
                   <SelectItem
                     size={size}
                     item={item}
@@ -210,7 +214,7 @@ const Select = <T,>(props: SelectProps<T>) => {
                       closePicker()
                     }}
                   />
-                ))
+                )
               }
             />
           </BottomSheet>
@@ -221,9 +225,20 @@ const Select = <T,>(props: SelectProps<T>) => {
         data={options}
         keyExtractor={(item) => item.label}
         {...pickerProps}
-        renderItem={
-          renderItem ||
-          (({item, index}) => (
+        renderItem={({item, index, separators}) =>
+          renderItem ? (
+            <Pressable
+              accessibilityRole="menuitem"
+              onPress={() => {
+                if (item.disabled) return
+
+                setSelectedValue(item.value)
+                onValueChange?.(item.value, item, index)
+                closePicker()
+              }}>
+              {renderItem({item, index, separators})}
+            </Pressable>
+          ) : (
             <SelectItem
               size={size}
               item={item}
@@ -234,7 +249,7 @@ const Select = <T,>(props: SelectProps<T>) => {
                 closePicker()
               }}
             />
-          ))
+          )
         }
       />
     </Popover>
@@ -244,6 +259,9 @@ const Select = <T,>(props: SelectProps<T>) => {
 export default Select
 
 const styles = StyleSheet.create({
+  rightViewContainer: {
+    backgroundColor: 'transparent',
+  },
   closeIcon: {
     paddingHorizontal: 4,
   },

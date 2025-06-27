@@ -24,7 +24,10 @@ const Text = (props: TextProps, ref: React.Ref<RNText>) => {
       {...rest}
       style={[
         options?.typography?.[typography],
-        {color: colors[getStatusColorName(rest?.status, isDark)]},
+        {
+          color: colors[getStatusColorName(rest?.status, isDark)],
+          fontFamily: options?.fontFamily,
+        },
         rest?.style,
       ]}
     />

@@ -91,7 +91,7 @@ export function SwitchCustom() {
   const [isOn, setIsOn] = useState(true)
 
   return (
-    <View style={{justifyContent: 'space-evenly'}}>
+    <View>
       <Switch
         label="Agree to T&C"
         caption="Click here to see Privacy Policy"
@@ -107,9 +107,6 @@ export function SwitchCustom() {
         label="Custom color switch"
         status="info"
         color="green"
-        value={isOn}
-        size="medium"
-        onValueChange={setIsOn}
         containerStyle={styles.container}
       />
     </View>

@@ -76,7 +76,7 @@ export function TextInputError() {
         value={password}
         onChangeText={setPassword}
         error={
-          password.length > 5 ? '' : 'Please enter a password of min. length 8'
+          password.length < 8 ? '' : 'Please enter a password of max. length 8'
         }
       />
     </View>

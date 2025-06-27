@@ -1,5 +1,5 @@
-import React from 'react'
-import {StyleSheet} from 'react-native'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
+import {Animated, LayoutChangeEvent, StyleSheet} from 'react-native'
 
 import {getBorderColorName} from '../utils'
 import {useBlossomTheme} from '../../context'
@@ -29,6 +29,36 @@ const BaseBooleanField = (props: BaseBooleanFieldProps) => {
     children,
   } = props
 
+  const [errorContentHeight, setErrorContentHeight] = useState(0)
+  const animatedHeight = useRef(new Animated.Value(0)).current
+  const animatedOpacity = useRef(new Animated.Value(0)).current
+
+  const onLayout = useCallback((event: LayoutChangeEvent) => {
+    const {height} = event.nativeEvent.layout
+    if (height > 0) {
+      setErrorContentHeight(height)
+    }
+  }, [])
+
+  const toggleError = useCallback(() => {
+    Animated.parallel([
+      Animated.timing(animatedHeight, {
+        toValue: error ? errorContentHeight : 0,
+        duration: 300,
+        useNativeDriver: false,
+      }),
+      Animated.timing(animatedOpacity, {
+        toValue: error ? 1 : 0,
+        duration: 300,
+        useNativeDriver: false,
+      }),
+    ]).start()
+  }, [animatedHeight, animatedOpacity, error, errorContentHeight])
+
+  useEffect(() => {
+    toggleError()
+  }, [error, toggleError])
+
   return (
     <View
       style={[
@@ -41,10 +71,12 @@ const BaseBooleanField = (props: BaseBooleanFieldProps) => {
 
       <View
         style={[
+          styles.textFieldsContainer,
           {borderColor: colors[getBorderColorName(status, isDark)]},
           position === 'right' || !adjacent ? styles.alignEndRightPosition : {},
           position === 'right' && !adjacent && styles.alignLeftRightPosition,
           position === 'left' ? styles.startMargin : styles.endMargin,
+          // TODO: use different style
           containerStyle,
         ]}>
         {label ? (
@@ -62,15 +94,27 @@ const BaseBooleanField = (props: BaseBooleanFieldProps) => {
         ) : null}
 
         {caption ? (
-          <SizedText size={size} mode="caption" style={[captionStyle]}>
+          <SizedText size={size} mode="caption" style={captionStyle}>
             {caption}
           </SizedText>
         ) : null}
-        {error ? (
-          <SizedText size={size} status="error" style={[errorStyle]}>
+
+        <Animated.View
+          style={[
+            {
+              height: animatedHeight,
+              opacity: animatedOpacity,
+              flexDirection: 'row',
+            },
+          ]}>
+          <SizedText
+            onLayout={onLayout}
+            style={[styles.errorText, errorStyle]}
+            size={size}
+            status="error">
             {error}
           </SizedText>
-        ) : null}
+        </Animated.View>
       </View>
     </View>
   )
@@ -87,6 +131,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
+  textFieldsContainer: {
+    paddingHorizontal: 2,
+    flexShrink: 1, // this is important for text clipping for longer text of caption
+  },
   alignEndRightPosition: {
     alignItems: 'flex-end',
   },
@@ -98,11 +146,19 @@ const styles = StyleSheet.create({
   },
   label: {
     fontWeight: '500',
+    flexShrink: 1,
   },
   startMargin: {
     marginStart: 12,
   },
   endMargin: {
     marginEnd: 12,
+  },
+  errorText: {
+    position: 'absolute',
+    right: 0,
+    flexShrink: 1,
+    flex: 1,
+    flexGrow: 1,
   },
 })

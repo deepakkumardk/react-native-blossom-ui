@@ -1,4 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react'
+import {Pressable} from 'react-native'
 
 import Select from './Select'
 import {useMergedProps} from '../../common'
@@ -21,6 +22,7 @@ const MultiSelect = <T,>(props: MultiSelectProps<T>) => {
     label,
     placeholder,
     defaultValue,
+    renderItem,
     ...rest
   } = useMergedProps('MultiSelect', props, {colors, isDark})
 
@@ -101,23 +103,31 @@ const MultiSelect = <T,>(props: MultiSelectProps<T>) => {
       label={label}
       placeholder={placeholder}
       displayValue={getDisplayValue()}
-      renderItem={({item}) => (
-        <SelectItem
-          size={rest?.size}
-          item={item}
-          leftIcon={
-            <Checkbox
-              value={isItemSelected(item)}
-              onValueChange={() => handleValueChange(item)}
-              disabled={item.disabled}
-              size="small"
-            />
-          }
-          isSelected={isItemSelected(item)}
-          onPress={() => handleValueChange(item)}
-        />
-      )}
       {...rest}
+      renderItem={({item, index, separators}) =>
+        renderItem ? (
+          <Pressable
+            accessibilityRole="menuitem"
+            onPress={() => handleValueChange(item)}>
+            {renderItem({item, index, separators})}
+          </Pressable>
+        ) : (
+          <SelectItem
+            size={rest?.size}
+            item={item}
+            leftIcon={
+              <Checkbox
+                value={isItemSelected(item)}
+                onValueChange={() => handleValueChange(item)}
+                disabled={item.disabled}
+                size="small"
+              />
+            }
+            isSelected={isItemSelected(item)}
+            onPress={() => handleValueChange(item)}
+          />
+        )
+      }
       disabled={disabled}
       onValueChange={undefined}
       onClearPress={() => {

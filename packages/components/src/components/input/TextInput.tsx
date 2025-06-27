@@ -1,5 +1,18 @@
-import React, {forwardRef, useMemo, useState} from 'react'
-import {Platform, TextInput as RNTextInput, StyleSheet} from 'react-native'
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
+import {
+  Animated,
+  LayoutChangeEvent,
+  Platform,
+  TextInput as RNTextInput,
+  StyleSheet,
+} from 'react-native'
 
 import {TextInputProps} from '../types'
 
@@ -42,6 +55,36 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
   const [isFocused, setIsFocused] = useState(false)
 
   const textInputSizeStyle = useMemo(() => textInputSizeStylesMap, [])
+
+  const [errorContentHeight, setErrorContentHeight] = useState(0)
+  const animatedHeight = useRef(new Animated.Value(0)).current
+  const animatedOpacity = useRef(new Animated.Value(0)).current
+
+  const onLayout = useCallback((event: LayoutChangeEvent) => {
+    const {height} = event.nativeEvent.layout
+    if (height > 0) {
+      setErrorContentHeight(height)
+    }
+  }, [])
+
+  const toggleError = useCallback(() => {
+    Animated.parallel([
+      Animated.timing(animatedHeight, {
+        toValue: error ? errorContentHeight : 0,
+        duration: 300,
+        useNativeDriver: false,
+      }),
+      Animated.timing(animatedOpacity, {
+        toValue: error ? 1 : 0,
+        duration: 300,
+        useNativeDriver: false,
+      }),
+    ]).start()
+  }, [animatedHeight, animatedOpacity, error, errorContentHeight])
+
+  useEffect(() => {
+    toggleError()
+  }, [error, toggleError])
 
   return (
     <View style={[styles.containerStyle, containerStyle]}>
@@ -129,11 +172,17 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
           {caption}
         </SizedText>
       ) : null}
-      {error ? (
-        <SizedText size={size} status="error" style={[errorStyle]}>
+
+      <Animated.View
+        style={[{height: animatedHeight, opacity: animatedOpacity}]}>
+        <SizedText
+          style={[styles.errorText, errorStyle]}
+          onLayout={onLayout}
+          size={size}
+          status="error">
           {error}
         </SizedText>
-      ) : null}
+      </Animated.View>
     </View>
   )
 }
@@ -141,6 +190,9 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
 export default forwardRef(TextInput)
 
 const styles = StyleSheet.create({
+  errorText: {
+    position: 'absolute',
+  },
   containerStyle: {
     minWidth: 100,
   },
