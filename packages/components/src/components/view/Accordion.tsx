@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
   titleColumn: {
     flex: 1,
     marginHorizontal: 12,
+    backgroundColor: 'transparent',
   },
   titleLeft: {
     marginStart: 0,

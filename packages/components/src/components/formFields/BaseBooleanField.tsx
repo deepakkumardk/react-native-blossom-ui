@@ -104,12 +104,16 @@ const BaseBooleanField = (props: BaseBooleanFieldProps) => {
             {
               height: animatedHeight,
               opacity: animatedOpacity,
-              flexDirection: 'row',
             },
+            styles.row,
           ]}>
           <SizedText
             onLayout={onLayout}
-            style={[styles.errorText, errorStyle]}
+            style={[
+              styles.errorText,
+              !adjacent && styles.alignRight,
+              errorStyle,
+            ]}
             size={size}
             status="error">
             {error}
@@ -149,16 +153,22 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   startMargin: {
-    marginStart: 12,
+    marginStart: 8,
   },
   endMargin: {
-    marginEnd: 12,
+    marginEnd: 8,
+  },
+  row: {
+    flexDirection: 'row',
   },
   errorText: {
     position: 'absolute',
+    // right: 0,
+    // flexShrink: 1,
+    // flex: 1,
+    // flexGrow: 1,
+  },
+  alignRight: {
     right: 0,
-    flexShrink: 1,
-    flex: 1,
-    flexGrow: 1,
   },
 })
