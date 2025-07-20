@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 import {
   TextTypographyAll,
   TextUsage,
@@ -11,7 +11,7 @@ import {Heading} from '../components'
 
 export default function TextScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>All</Heading>
         <TextTypographyAll />
@@ -25,7 +25,7 @@ export default function TextScreen() {
         <Heading>Custom</Heading>
         <TextCustom />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

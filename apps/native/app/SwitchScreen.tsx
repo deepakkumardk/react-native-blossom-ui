@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   SwitchCustom,
@@ -15,7 +15,7 @@ import {Heading} from '../components'
 
 export default function SwitchScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <SwitchUsage />
@@ -35,7 +35,7 @@ export default function SwitchScreen() {
         <Heading>Custom</Heading>
         <SwitchCustom />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

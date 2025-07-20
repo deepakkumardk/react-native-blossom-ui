@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 import {
   AvatarUsage,
   AvatarModes,
@@ -12,7 +12,7 @@ import {Heading} from '../components'
 
 export default function AvatarScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <AvatarUsage />
@@ -29,7 +29,7 @@ export default function AvatarScreen() {
         <Heading>Modes & Size</Heading>
         <AvatarModesSizes />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

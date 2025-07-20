@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   TextInputUsage,
@@ -16,7 +16,7 @@ import {Heading} from '../components'
 
 export default function TextInputScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <TextInputUsage />
@@ -39,7 +39,7 @@ export default function TextInputScreen() {
         <Heading>Statuses</Heading>
         <TextInputStatuses />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

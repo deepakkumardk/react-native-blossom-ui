@@ -3,6 +3,7 @@ import {StyleSheet, TouchableOpacity} from 'react-native'
 
 import {
   Icon,
+  Surface,
   Text,
   useBlossomTheme,
   View,
@@ -152,7 +153,7 @@ function Calendar(props: CalendarProps) {
   }, [currentMonth, currentYear])
 
   return (
-    <View>
+    <Surface>
       <View row style={styles.header}>
         <TouchableOpacity
           accessibilityRole="button"
@@ -225,7 +226,7 @@ function Calendar(props: CalendarProps) {
           onItemPress={onYearPress}
         />
       )}
-    </View>
+    </Surface>
   )
 }
 

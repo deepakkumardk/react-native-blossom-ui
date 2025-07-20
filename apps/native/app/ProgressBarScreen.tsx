@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 import {
   ProgressBarUsage,
   ProgressBarIndeterminate,
@@ -14,7 +14,7 @@ import {Heading} from '../components'
 
 export default function ProgressBarScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <ProgressBarUsage />
@@ -34,7 +34,7 @@ export default function ProgressBarScreen() {
         <Heading>Custom</Heading>
         <ProgressBarCustom />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

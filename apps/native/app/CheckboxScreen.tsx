@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   CheckboxUsage,
@@ -17,7 +17,7 @@ import {Heading} from '../components'
 
 export default function CheckboxScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <CheckboxUsage />
@@ -43,7 +43,7 @@ export default function CheckboxScreen() {
         <Heading>Custom</Heading>
         <CheckboxCustom />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

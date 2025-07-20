@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   SegmentedButtonUsage,
@@ -17,7 +17,7 @@ import {Heading} from '../components'
 
 export default function SegmentedButtonScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <SegmentedButtonUsage />
@@ -43,7 +43,7 @@ export default function SegmentedButtonScreen() {
         <Heading>Custom</Heading>
         <SegmentedButtonCustom />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
 
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 import {
   SelectUsage,
   SelectDefaultValue,
@@ -17,7 +17,7 @@ import {Heading} from '../components'
 
 export default function SelectScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <SelectUsage />
@@ -45,7 +45,7 @@ export default function SelectScreen() {
       </ScrollView>
       <Heading>Auto Top Position</Heading>
       <SelectUsage />
-    </View>
+    </Surface>
   )
 }
 

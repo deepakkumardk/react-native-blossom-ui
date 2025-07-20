@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet} from 'react-native'
 
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 import {
   SpacerOnBackground,
   SpacerUsage,
@@ -12,7 +12,7 @@ import {Heading} from '../components'
 
 export default function SpacerScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <Heading>Usage</Heading>
       <SpacerUsage />
 
@@ -21,7 +21,7 @@ export default function SpacerScreen() {
 
       <Heading>On Background</Heading>
       <SpacerOnBackground />
-    </View>
+    </Surface>
   )
 }
 

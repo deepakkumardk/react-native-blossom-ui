@@ -1,7 +1,7 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
 
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 import {
   MultiSelectUsage,
   MultiSelectClearable,
@@ -16,7 +16,7 @@ import {Heading} from '../components'
 
 export default function MultiSelectScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <MultiSelectUsage />
@@ -39,7 +39,7 @@ export default function MultiSelectScreen() {
         <Heading>Object List Options</Heading>
         <MultiSelectObjectOptions />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

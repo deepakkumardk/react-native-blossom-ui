@@ -6,11 +6,11 @@ import {useMergedProps} from '../../common'
 import {ViewProps} from '../types'
 
 /**
- * A layer which will inherit the color of the parent with bg color of transparent
+ * A layer which will have the background100 color
  *
- * NOTE: use Surface component for pick the background color automatically
+ * NOTE: use View component once you have wrapped your screen with Surface to have the consistent background
  */
-const View = (props: ViewProps, ref: React.Ref<RNView>) => {
+const Surface = (props: ViewProps, ref: React.Ref<RNView>) => {
   const {colors, isDark} = useBlossomTheme()
 
   const {row, ...rest} = useMergedProps('View', props, {colors, isDark})
@@ -19,18 +19,19 @@ const View = (props: ViewProps, ref: React.Ref<RNView>) => {
     <RNView
       ref={ref}
       {...rest}
-      style={[row && styles.row, styles.transparent, rest.style]}
+      style={[
+        {backgroundColor: colors.background100},
+        row && styles.row,
+        rest.style,
+      ]}
     />
   )
 }
 
-export default forwardRef(View)
+export default forwardRef(Surface)
 
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-  },
-  transparent: {
-    // backgroundColor: 'transparent',
   },
 })

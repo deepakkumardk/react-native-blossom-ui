@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   SearchInputUsage,
@@ -14,7 +14,7 @@ import {Heading} from '../components'
 
 export default function SearchInputScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <SearchInputUsage />
@@ -31,7 +31,7 @@ export default function SearchInputScreen() {
         <Heading>Sizes</Heading>
         <SearchInputSizes />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 
