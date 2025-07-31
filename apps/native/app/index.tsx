@@ -175,4 +175,8 @@ const dataList = [
     title: 'DateSelectPicker',
     navigateTo: './DateSelectPickerScreen',
   },
+  {
+    title: 'Theme Select',
+    navigateTo: './ThemeSelectionScreen',
+  },
 ]
