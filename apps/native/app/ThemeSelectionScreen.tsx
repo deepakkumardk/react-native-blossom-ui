@@ -11,7 +11,7 @@ import {
 import {themes, useAppTheme} from '../context/ThemeSelectionContext'
 
 /**
- * This screen allows you to select and see how different themes look in the app
+ * This screen allows you to select and see how different themes look in the app .
  */
 export default function ThemeSelectionScreen() {
   const {themeSelectionType, setThemeSelectionType, isDark} = useAppTheme()
