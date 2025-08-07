@@ -7,5 +7,6 @@ module.exports = {
       ['packages', 'components', 'dates', 'showcase', 'apps', 'release'],
     ],
     'scope-case': [2, 'always', 'kebab-case'],
+    'scope-empty': [2, 'never'],
   },
 }
