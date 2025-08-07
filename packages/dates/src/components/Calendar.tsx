@@ -34,6 +34,7 @@ function Calendar(props: CalendarProps) {
     disableDates,
     yearListProps,
     onDateChange,
+    containerStyle,
   } = props
 
   const today = useRef(new Date()).current
@@ -153,7 +154,7 @@ function Calendar(props: CalendarProps) {
   }, [currentMonth, currentYear])
 
   return (
-    <Surface>
+    <Surface style={containerStyle}>
       <View row style={styles.header}>
         <TouchableOpacity
           accessibilityRole="button"

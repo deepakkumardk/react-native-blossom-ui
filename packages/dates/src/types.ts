@@ -196,6 +196,12 @@ export interface CalendarProps extends BaseUIProps {
    * Props for configuring the year list (min and max year).
    */
   yearListProps?: Pick<YearListProps, 'minYear' | 'maxYear'>
+
+  /**
+   * The outer most container style for the calendar.
+   * This can be used to set padding, margin, etc.
+   */
+  containerStyle?: StyleProp<ViewStyle>
 }
 
 /**

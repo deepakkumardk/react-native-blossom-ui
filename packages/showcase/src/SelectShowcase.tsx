@@ -78,6 +78,21 @@ export function SelectCustomStyle() {
   )
 }
 
+export function SelectCustomPickerStyle() {
+  return (
+    <Select
+      options={OPTIONS}
+      label="Custom Select Label"
+      placeholder="Custom Select Label"
+      pickerProps={{
+        style: {
+          backgroundColor: 'yellow',
+        },
+      }}
+    />
+  )
+}
+
 export function SelectDisabled() {
   const [selectedValue, setSelectedValue] = useState<number | undefined>(-1)
 

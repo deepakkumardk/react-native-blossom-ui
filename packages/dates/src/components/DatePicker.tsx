@@ -82,6 +82,10 @@ const DatePicker = (props: DatePickerProps) => {
       // @ts-ignore
       position={pickerPosition}
       offset={offset}
+      contentStyle={{
+        padding: 0,
+        overflow: 'hidden',
+      }}
       Target={
         <Pressable
           ref={targetViewRef}
@@ -136,6 +140,7 @@ const DatePicker = (props: DatePickerProps) => {
         displayDateFormat={displayDateFormat}
         outputDateFormat={outputDateFormat}
         onDateChange={onDateChangeCallback}
+        containerStyle={styles.calendarContainer}
       />
     </Popover>
   )
@@ -146,5 +151,8 @@ export default DatePicker
 const styles = StyleSheet.create({
   closeIcon: {
     paddingHorizontal: 6,
+  },
+  calendarContainer: {
+    padding: 6,
   },
 })

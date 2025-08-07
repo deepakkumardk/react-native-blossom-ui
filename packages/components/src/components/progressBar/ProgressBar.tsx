@@ -20,6 +20,7 @@ const ProgressBar = (props: ProgressBarProps) => {
     width,
     height,
     indeterminate,
+    // TODO: inverted
     reverseDirection,
     style,
     status = 'primary',

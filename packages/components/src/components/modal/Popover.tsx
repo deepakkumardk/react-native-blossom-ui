@@ -16,7 +16,7 @@ import {
   Platform,
 } from 'react-native'
 import {useBlossomTheme} from '../../context'
-import {View} from '../view'
+import {Surface, View} from '../view'
 import {PopoverProps, PopoverRef} from '../types'
 import {useMergedProps, useDeviceInfo} from '../../common'
 
@@ -173,7 +173,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
           onPress={onBackdropPress}>
           {/* NOTE: This is wrapped to skip the touch event inside the content view */}
           <Pressable accessibilityRole="alert">
-            <View
+            <Surface
               style={[
                 styles.content,
                 styles.shadow,
@@ -189,7 +189,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
               {positionStyle.maxWidth || positionStyle.targetWidth
                 ? children
                 : null}
-            </View>
+            </Surface>
           </Pressable>
         </Pressable>
       </RNModal>
