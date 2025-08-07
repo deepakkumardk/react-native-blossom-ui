@@ -71,7 +71,7 @@ function MonthDaysList({
           {WEEK_ARRAY.map((name) => (
             <View key={name} style={styles.day}>
               <Text
-                typography="c1"
+                typography="c2"
                 style={{
                   color: colors.text300,
                 }}>

@@ -40,8 +40,9 @@ const Checkbox = (props: CheckboxProps) => {
     if (disabled) return isDark ? colors.bgDark400 : colors.bgLight400
 
     if (fieldValue) return color || colors[getStatusColorName(status, isDark)]
-
-    return isDark ? colors.bgDark800 : colors.bgLight200
+    // TODO verify this again
+    // return isDark ? colors.bgDark800 : colors.bgLight200
+    return 'transparent'
   }, [disabled, colors, fieldValue, color, status, isDark])
 
   const getIconName = useCallback(() => {

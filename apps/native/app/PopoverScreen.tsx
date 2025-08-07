@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 import {
   PopoverUsage,
   PopoverPosition,
@@ -12,7 +12,7 @@ import {Heading} from '../components'
 
 export default function PopoverScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <PopoverUsage />
@@ -29,7 +29,7 @@ export default function PopoverScreen() {
         <Heading>Ref Usage</Heading>
         <PopoverTargetRefUsage />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

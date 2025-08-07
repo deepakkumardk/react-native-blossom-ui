@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {MultiSelect} from '@react-native-blossom-ui/components'
+import {Checkbox, MultiSelect} from '@react-native-blossom-ui/components'
 
 const OPTIONS = Array(25)
   .fill(0)
@@ -20,6 +20,54 @@ export function MultiSelectDefaultValue() {
 
 export function MultiSelectClearable() {
   return <MultiSelect options={OPTIONS} clearable />
+}
+
+export function MultiSelectCustomStyle() {
+  return (
+    <MultiSelect
+      options={OPTIONS}
+      label="Custom Select Label"
+      inputProps={{
+        inputStyle: {
+          backgroundColor: 'cyan',
+          borderColor: 'blue',
+          borderWidth: 2,
+        },
+      }}
+    />
+  )
+}
+
+export function MultiSelectCustomPickerStyle() {
+  const [selectedOptions, setSelectedOptions] = useState<number[]>([])
+
+  return (
+    <MultiSelect
+      options={OPTIONS}
+      label="Custom Select Label"
+      placeholder="Custom Select Label"
+      pickerProps={{
+        style: {
+          backgroundColor: 'yellow',
+        },
+      }}
+      values={selectedOptions}
+      renderItem={({item}) => (
+        <Checkbox
+          label={item.label}
+          adjacent={false}
+          position="right"
+          disabled={item.disabled}
+          style={{
+            marginVertical: 4,
+          }}
+          value={selectedOptions.includes(item.value)}
+          // onValueChange={()=> {}}
+        />
+      )}
+      onValuesChange={(values) => setSelectedOptions(values)}
+    />
+  )
 }
 
 export function MultiSelectDisabled() {

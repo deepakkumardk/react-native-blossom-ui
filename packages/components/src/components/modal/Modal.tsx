@@ -3,7 +3,7 @@ import {Platform, Pressable, Modal as RNModal, StyleSheet} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
 import {useMergedProps, useDeviceInfo} from '../../common'
-import {View} from '../view'
+import {Surface} from '../view'
 import {getAlphaColor} from '../utils'
 import {ModalProps} from '../types'
 
@@ -43,7 +43,7 @@ const Modal = (props: ModalProps) => {
         onPress={onBackdropPress}>
         {/* NOTE: This is wrapped to skip the touch event inside the content view */}
         <Pressable accessibilityRole="alert">
-          <View
+          <Surface
             accessibilityRole="alert"
             style={[
               styles.content,
@@ -54,7 +54,7 @@ const Modal = (props: ModalProps) => {
               contentStyle,
             ]}>
             {children}
-          </View>
+          </Surface>
         </Pressable>
       </Pressable>
     </RNModal>

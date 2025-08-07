@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   ChipUsage,
@@ -22,7 +22,7 @@ import {Heading} from '../components'
 
 export default function ChipScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <ChipUsage />
@@ -63,7 +63,7 @@ export default function ChipScreen() {
         <Heading>Custom</Heading>
         <ChipCustom />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

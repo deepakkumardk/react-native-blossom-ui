@@ -20,17 +20,17 @@ export default SizedText
 const sizeMap = {
   small: {
     label: 'c1',
-    caption: 'c2',
-    body: 'l2',
+    caption: 'c3',
+    body: 'l3',
   },
   medium: {
-    label: 'l2',
+    label: 'l3',
     caption: 'c1',
-    body: 'b2',
+    body: 'b3',
   },
   large: {
     label: 'b3',
     caption: 'l2',
-    body: 's2',
+    body: 's3',
   },
 }

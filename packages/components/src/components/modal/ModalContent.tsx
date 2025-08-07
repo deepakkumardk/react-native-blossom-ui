@@ -22,7 +22,7 @@ const ModalContent = (props: ModalContentProps) => {
 
   return (
     <View style={[styles.container, containerStyle]}>
-      <Text typography="h5">{title}</Text>
+      <Text typography="h6">{title}</Text>
       {description ? (
         <Text style={styles.description}>{description}</Text>
       ) : null}

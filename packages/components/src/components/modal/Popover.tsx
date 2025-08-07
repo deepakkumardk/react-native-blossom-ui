@@ -16,7 +16,7 @@ import {
   Platform,
 } from 'react-native'
 import {useBlossomTheme} from '../../context'
-import {View} from '../view'
+import {Surface, View} from '../view'
 import {PopoverProps, PopoverRef} from '../types'
 import {useMergedProps, useDeviceInfo} from '../../common'
 
@@ -96,14 +96,16 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
       (
         x: number,
         y: number,
+        // Width and height of the target view
         width: number,
         height: number,
+        // PageX and PageY are the coordinates of the target view relative to the screen
         pageX: number,
         pageY: number,
       ) => {
         const offsetWidthMap: Record<typeof position, number> = {
-          top: deviceWidth,
-          bottom: deviceWidth,
+          top: deviceWidth - pageX,
+          bottom: deviceWidth - pageX,
           left: pageX - offset,
           right: deviceWidth - (pageX + width + offset),
         }
@@ -171,7 +173,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
           onPress={onBackdropPress}>
           {/* NOTE: This is wrapped to skip the touch event inside the content view */}
           <Pressable accessibilityRole="alert">
-            <View
+            <Surface
               style={[
                 styles.content,
                 styles.shadow,
@@ -187,7 +189,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
               {positionStyle.maxWidth || positionStyle.targetWidth
                 ? children
                 : null}
-            </View>
+            </Surface>
           </Pressable>
         </Pressable>
       </RNModal>

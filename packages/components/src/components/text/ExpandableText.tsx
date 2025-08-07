@@ -6,7 +6,7 @@ import {
   TextLayoutEventData,
 } from 'react-native'
 
-import {TextProps} from '../types'
+import {ExpandableTextProps} from '../types'
 
 import {useMergedProps} from '../../common'
 import {useBlossomTheme} from '../../context'
@@ -16,10 +16,17 @@ import Text from './Text'
 /**
  * Expandable text component with Read more/less button
  */
-function ExpandableText(props: TextProps) {
+function ExpandableText(props: ExpandableTextProps) {
   const {colors, isDark} = useBlossomTheme()
 
-  const {numberOfLines = 3, ...rest} = useMergedProps('ExpandableText', props, {
+  const {
+    numberOfLines = 3,
+    showLabel = 'Read more',
+    hideLabel = 'Read less',
+    showLabelStyle,
+    hideLabelStyle,
+    ...rest
+  } = useMergedProps('ExpandableText', props, {
     colors,
     isDark,
   })
@@ -28,9 +35,9 @@ function ExpandableText(props: TextProps) {
   const [isTextClipped, setIsTextClipped] = useState(false)
   const [hasLayoutCompleted, setHasLayoutCompleted] = useState(false)
 
-  const toggleExpanded = () => {
+  const onTogglePress = useCallback(() => {
     setIsExpanded((prev) => !prev)
-  }
+  }, [])
 
   const handleTextLayout = useCallback(
     (e: NativeSyntheticEvent<TextLayoutEventData>) => {
@@ -52,11 +59,10 @@ function ExpandableText(props: TextProps) {
   }, [rest?.children])
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text
         onTextLayout={!hasLayoutCompleted ? handleTextLayout : undefined}
         numberOfLines={isExpanded ? undefined : numberOfLines}
-        ellipsizeMode="tail"
         {...rest}
       />
       {isTextClipped && (
@@ -64,9 +70,12 @@ function ExpandableText(props: TextProps) {
           accessibilityRole="button"
           activeOpacity={0.4}
           style={styles.readMore}
-          onPress={toggleExpanded}>
-          <Text status="primary" typography="b3">
-            {isExpanded ? 'Read Less' : 'Read More'}
+          onPress={onTogglePress}>
+          <Text
+            status="info"
+            typography="b2"
+            style={isExpanded ? hideLabelStyle : showLabelStyle}>
+            {isExpanded ? hideLabel : showLabel}
           </Text>
         </TouchableOpacity>
       )}
@@ -77,7 +86,11 @@ function ExpandableText(props: TextProps) {
 export default ExpandableText
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'transparent',
+  },
   readMore: {
-    marginTop: 4,
+    marginTop: 2,
+    alignSelf: 'baseline',
   },
 })

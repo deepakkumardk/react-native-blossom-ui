@@ -1,11 +1,17 @@
 import React from 'react'
 import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native'
 import {router} from 'expo-router'
-import {Chip, Divider, Text, View} from '@react-native-blossom-ui/components'
+import {
+  Chip,
+  Divider,
+  Surface,
+  Text,
+  View,
+} from '@react-native-blossom-ui/components'
 
 export default function Page() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View row style={styles.row}>
           <Chip title={`${dataList.length}+`} size="small" viewOnly />
@@ -25,7 +31,7 @@ export default function Page() {
             </TouchableOpacity>
           ))}
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

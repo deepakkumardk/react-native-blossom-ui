@@ -1,7 +1,7 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
 
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 import {
   DatePickerUsage,
   DatePickerClearable,
@@ -14,7 +14,7 @@ import {Heading} from '../components'
 
 export default function DatePickerScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <DatePickerUsage />
@@ -34,7 +34,7 @@ export default function DatePickerScreen() {
 
       <Heading>Auto Top Position</Heading>
       <DatePickerDisableDates />
-    </View>
+    </Surface>
   )
 }
 

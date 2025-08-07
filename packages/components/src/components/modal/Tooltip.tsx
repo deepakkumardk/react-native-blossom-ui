@@ -31,6 +31,7 @@ const Tooltip = (props: TooltipProps) => {
         backgroundColor: colors.background900,
       }}
       wrapContent
+      // offset={rest.position === 'top' ? 24 : 0}
       onBackdropPress={() => setShowPopover(false)}
       {...rest}>
       <Text style={[{color: colors.text900}, titleStyle]}>{title}</Text>

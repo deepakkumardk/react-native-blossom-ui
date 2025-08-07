@@ -16,7 +16,8 @@ const Divider = (props: DividerProps) => {
   const {
     width,
     height = 1,
-    color = colors.background600,
+    color = colors.background500,
+    spacing = 0,
     label,
     labelPosition = 'center',
     ...rest
@@ -29,11 +30,12 @@ const Divider = (props: DividerProps) => {
           width,
           height,
           backgroundColor: color,
+          marginVertical: spacing,
         },
         styles.line,
         rest?.style,
       ]),
-    [width, height, color, rest?.style],
+    [width, height, color, spacing, rest?.style],
   )
 
   const renderLine = useCallback(
@@ -73,6 +75,10 @@ const Divider = (props: DividerProps) => {
           width,
           height,
           backgroundColor: color,
+          marginVertical:
+            !width || Number(width) > Number(height) ? spacing : 0,
+          marginHorizontal:
+            width && Number(height) > Number(width) ? spacing : 0,
         },
         rest?.style,
       ]}

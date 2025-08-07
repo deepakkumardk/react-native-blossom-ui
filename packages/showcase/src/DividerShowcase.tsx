@@ -16,9 +16,18 @@ export function DividerLabel() {
       <Divider label="Left" labelPosition="left" />
       <Divider label="Center" labelPosition="center" />
       <Divider label="Right" labelPosition="right" />
-      <Divider>
+      <Divider spacing={20}>
         <Text status="error">Danger Area</Text>
       </Divider>
+    </View>
+  )
+}
+
+export function DividerSpacing() {
+  return (
+    <View>
+      <Divider spacing={10} />
+      <Divider spacing={30} />
     </View>
   )
 }
@@ -26,7 +35,7 @@ export function DividerLabel() {
 export function DividerVertical() {
   return (
     <View>
-      <Divider width={1} height={50} />
+      <Divider width={1} height={50} spacing={20} />
     </View>
   )
 }
@@ -34,7 +43,7 @@ export function DividerVertical() {
 export function DividerCustom() {
   return (
     <View>
-      <Divider width={200} height={10} />
+      <Divider width={200} height={10} spacing={20} />
     </View>
   )
 }

@@ -1,18 +1,19 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
 
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 import {
   ExpandableTextUsage,
   ExpandableTextLines,
   ExpandableTextLessLines,
+  ExpandableTextLabelCustom,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
 
 export default function ExpandableTextScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <ExpandableTextUsage />
@@ -22,8 +23,11 @@ export default function ExpandableTextScreen() {
 
         <Heading>With overflow texts</Heading>
         <ExpandableTextLines />
+
+        <Heading>Label Text</Heading>
+        <ExpandableTextLabelCustom />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

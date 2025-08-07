@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   ButtonUsage,
@@ -19,7 +19,7 @@ import {Heading} from '../components'
 
 export default function ButtonScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <ButtonUsage />
@@ -51,7 +51,7 @@ export default function ButtonScreen() {
         <Heading>Custom</Heading>
         <ButtonCustom />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

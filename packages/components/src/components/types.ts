@@ -26,8 +26,14 @@ import {
 
 export interface TextProps extends RNTextProps, OmitSizeProps {
   /**
-   * Typography option to control the size of the text
-   * @default b2
+   * Modify the font size/weight values using this
+   * - h1-h6 are used for headings
+   * - s1-s3 are used for subheadings
+   * - b1-b3 are used for body text
+   * - l1-l3 are used for labels
+   * - c1-c3 are used for captions
+   *
+   * @default b3
    */
   typography?: TypographyOptions
 }
@@ -62,6 +68,28 @@ export interface LinkProps extends TextProps {
    * Callback for when the given link can't be opened
    */
   onLinkOpenError?: (error: unknown) => void
+}
+
+export interface ExpandableTextProps extends TextProps {
+  /**
+   * Open/show label of the text component
+   * @default "Read more"
+   */
+  showLabel?: string
+  /**
+   * Close/hide label of the text component
+   * @default "Read less"
+   */
+  hideLabel?: string
+
+  /**
+   * Show label text style
+   */
+  showLabelStyle?: StyleProp<TextStyle>
+  /**
+   * Hide label text style
+   */
+  hideLabelStyle?: StyleProp<TextStyle>
 }
 
 export interface ViewProps extends RNViewProps {
@@ -527,9 +555,14 @@ export interface DividerProps extends ViewProps {
   width?: DimensionValue
   /**
    * Control height of the divider
-   * @default 0.6
+   * @default 1
    */
   height?: DimensionValue
+  /**
+   * Spacing around the line
+   * @default 0
+   */
+  spacing?: DimensionValue
   /**
    * Color of the divider
    * @default background900
@@ -1016,7 +1049,7 @@ export interface SelectProps<ItemT>
   renderItem?: RNFlatListProps<ItemT>['renderItem']
 
   /**
-   * Input props
+   * Change the style of the input and it's container
    */
   inputProps?: Omit<TextInputProps, 'value' | 'defaultValue'>
 }

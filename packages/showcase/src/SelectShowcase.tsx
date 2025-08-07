@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Select} from '@react-native-blossom-ui/components'
+import {Select, Text} from '@react-native-blossom-ui/components'
 
 const OPTIONS = Array(25)
   .fill(0)
@@ -15,6 +15,8 @@ export function SelectUsage() {
 
   return (
     <Select
+      label="Select Label"
+      placeholder="Select An Option"
       options={OPTIONS}
       value={selectedValue}
       status="primary"
@@ -42,6 +44,53 @@ export function SelectClearable() {
 
 export function SelectLoading() {
   return <Select options={OPTIONS} isLoading />
+}
+
+export function SelectCustomItem() {
+  return (
+    <Select
+      options={OPTIONS}
+      renderItem={({item, index}) => (
+        <Text
+          typography="h6"
+          status={index % 2 === 0 ? 'primary' : 'accent'}
+          style={{padding: 8}}>
+          {item.label}
+        </Text>
+      )}
+    />
+  )
+}
+
+export function SelectCustomStyle() {
+  return (
+    <Select
+      options={OPTIONS}
+      label="Custom Select Label"
+      inputProps={{
+        inputStyle: {
+          backgroundColor: 'cyan',
+          borderColor: 'blue',
+          borderWidth: 2,
+        },
+      }}
+    />
+  )
+}
+
+export function SelectCustomPickerStyle() {
+  return (
+    <Select
+      options={OPTIONS}
+      label="Custom Select Label"
+      placeholder="Custom Select Label"
+      pickerProps={{
+        style: {
+          backgroundColor: 'yellow',
+        },
+      }}
+    />
+  )
 }
 
 export function SelectDisabled() {

@@ -85,7 +85,9 @@ const SearchInput = (props: SearchInputProps, ref: React.Ref<RNTextInput>) => {
           onLayout={({nativeEvent}) => {
             setLeftWidth(nativeEvent.layout.width + 6)
           }}>
-          {rest?.left || (
+          {rest?.left !== undefined ? (
+            rest?.left
+          ) : (
             <Icon family="Ionicons" status={status} name="search" size={18} />
           )}
         </View>

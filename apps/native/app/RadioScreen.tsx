@@ -1,6 +1,6 @@
 import React from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {View} from '@react-native-blossom-ui/components'
+import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   RadioCustom,
@@ -15,7 +15,7 @@ import {Heading} from '../components'
 
 export default function RadioScreen() {
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <ScrollView>
         <Heading>Usage</Heading>
         <RadioUsage />
@@ -35,7 +35,7 @@ export default function RadioScreen() {
         <Heading>Custom</Heading>
         <RadioCustom />
       </ScrollView>
-    </View>
+    </Surface>
   )
 }
 

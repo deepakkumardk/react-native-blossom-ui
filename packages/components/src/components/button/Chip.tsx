@@ -1,13 +1,14 @@
 import React, {useEffect, useMemo, useState} from 'react'
 import {StyleSheet} from 'react-native'
 
-import {useBlossomTheme} from '../../context'
-import {ChipProps} from '../types'
 import {useMergedProps} from '../../common'
+import {useBlossomTheme} from '../../context'
 import {Icon} from '../icon'
+import {ChipProps} from '../types'
+import {getTextColorName} from '../utils'
+
 import BaseButton from './BaseButton'
 import {View} from '../view'
-import {getTextColorName} from '../utils'
 
 /**
  * Chip component with view and editable mode with status prop
@@ -101,7 +102,7 @@ export default Chip
 const styles = StyleSheet.create({
   row: {
     backgroundColor: 'transparent',
-    alignSelf: 'baseline',
+    // alignSelf: 'baseline',
     alignItems: 'center',
   },
   closeIcon: {

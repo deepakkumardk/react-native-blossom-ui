@@ -5,7 +5,7 @@ import {StatusBar} from 'expo-status-bar'
 import {
   Button,
   BlossomThemeProvider,
-  View,
+  Surface,
   Text,
   useBlossomTheme,
 } from '@react-native-blossom-ui/components'
@@ -17,7 +17,7 @@ export function Native({onPress}: {onPress: () => void}) {
   const {colors, isDark} = useBlossomTheme()
 
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <Switch value={isDark} onValueChange={() => onPress()} />
       <Text typography="h1">Native</Text>
       <Text style={[styles.header, {backgroundColor: colors.background500}]}>
@@ -40,7 +40,7 @@ export function Native({onPress}: {onPress: () => void}) {
         <Text>With Children</Text>
       </Button>
       <StatusBar style={!isDark ? 'dark' : 'light'} />
-    </View>
+    </Surface>
   )
 }
 
