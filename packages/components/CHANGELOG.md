@@ -1,5 +1,22 @@
 # @react-native-blossom-ui/components
 
+## 0.12.0
+
+### Minor Changes
+
+- badc2db: Add error field animation to the input/boolean fields
+  Add onPress handler to Select & MultiSelect for custom render item
+- 6742f23: Add Surface component
+  Update View component to be transparent & respect parent bg color
+- 002d74a: Add label & labelStyles prop to the ExpandableText component
+  Add spacing prop to Divider
+  Update text typography to have 3 levels for all
+  Add font family support in theme provider options
+
+### Patch Changes
+
+- 002d74a: Fix tooltip edge overflow issue
+
 ## 0.11.0
 
 ### Minor Changes
