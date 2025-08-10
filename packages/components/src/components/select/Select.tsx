@@ -182,7 +182,10 @@ const Select = <T,>(props: SelectProps<T>) => {
             size={size}
             {...inputProps}
           />
-          <BottomSheet visible={showBottomSheet} onBackdropPress={closePicker}>
+          <BottomSheet
+            visible={showBottomSheet}
+            onBackdropPress={closePicker}
+            contentStyle={pickerProps?.style}>
             {placeholder ? <Text typography="s1">{placeholder}</Text> : null}
             <Spacer height={4} />
             <FlatList

@@ -6,6 +6,8 @@ import {
   MultiSelectUsage,
   MultiSelectClearable,
   MultiSelectControlled,
+  MultiSelectCustomStyle,
+  MultiSelectCustomPickerStyle,
   MultiSelectDisabled,
   MultiSelectMaxSelect,
   MultiSelectObjectOptions,
@@ -26,6 +28,12 @@ export default function MultiSelectScreen() {
 
         <Heading>Clearable</Heading>
         <MultiSelectClearable />
+
+        <Heading>Custom Style</Heading>
+        <MultiSelectCustomStyle />
+
+        <Heading>Custom Picker Style</Heading>
+        <MultiSelectCustomPickerStyle />
 
         <Heading>Disabled</Heading>
         <MultiSelectDisabled />

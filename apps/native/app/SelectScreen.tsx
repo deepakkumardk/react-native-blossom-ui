@@ -9,6 +9,7 @@ import {
   SelectLoading,
   SelectCustomItem,
   SelectCustomStyle,
+  SelectCustomPickerStyle,
   SelectDisabled,
   SelectObjectOptions,
 } from '@react-native-blossom-ui/showcase'
@@ -36,6 +37,9 @@ export default function SelectScreen() {
 
         <Heading>Custom Style</Heading>
         <SelectCustomStyle />
+
+        <Heading>Custom Picker Style</Heading>
+        <SelectCustomPickerStyle />
 
         <Heading>Disabled</Heading>
         <SelectDisabled />
