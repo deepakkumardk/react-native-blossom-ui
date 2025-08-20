@@ -532,6 +532,8 @@ export interface OtpInputProps extends Omit<TextInputProps, 'mode'> {
   withCursor?: boolean
   /**
    * Set the alphanumeric keyboard
+   * By default it will use numeric keyboard
+   * @default false
    */
   withAlphanumericKeyboard?: boolean
   /**

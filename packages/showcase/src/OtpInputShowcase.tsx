@@ -54,11 +54,18 @@ export function OtpInputSizes() {
 }
 
 export function OtpInputCustom() {
+  const [isCompleted, setIsCompleted] = React.useState(false)
+
   return (
     <View>
       <OtpInput
         maxLength={6}
         withAlphanumericKeyboard
+        label="Custom OTP Input"
+        labelStyle={{color: 'cyan'}}
+        caption="Enter your OTP"
+        captionStyle={{color: 'green'}}
+        error={isCompleted ? 'OTP is required' : ''}
         boxStyle={(isFocused) => ({
           borderRadius: 40,
           backgroundColor: isFocused ? 'blue' : 'gold',
@@ -66,6 +73,9 @@ export function OtpInputCustom() {
         textStyle={{
           color: 'black',
           fontWeight: 'bold',
+        }}
+        onChangeText={(otp) => {
+          setIsCompleted(otp.length !== 6)
         }}
       />
     </View>
