@@ -219,7 +219,7 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
                             ? colors.text100
                             : colors.text500,
                         },
-                        rest?.textStyle,
+                        rest?.inputTextStyle,
                       ],
                     ]}>
                     {otp.charAt(index) || fieldLabel || ''}

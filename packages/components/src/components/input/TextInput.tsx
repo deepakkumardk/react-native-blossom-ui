@@ -35,7 +35,6 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
     caption,
     error,
     labelStyle,
-    placeholderStyle,
     captionStyle,
     errorStyle,
     disabled,
@@ -45,8 +44,8 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
     left,
     right,
     containerStyle,
-    inputStyle,
-    textStyle,
+    inputContainerStyle,
+    inputTextStyle,
     status,
     size = 'medium',
     ...rest
@@ -129,7 +128,7 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
                   )
                 ],
           },
-          inputStyle,
+          inputContainerStyle,
         ]}>
         {left}
         {placeholderComponent}
@@ -147,13 +146,13 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
               color: disabled ? colors.text500 : colors.text100,
             },
             left ? styles.leftMargin : {},
-            textStyle,
             Platform.OS === 'web' && {
               // Note: this style won't work in the stylesheet
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               outline: 'none',
             },
+            inputTextStyle,
           ]}
           onFocus={(e) => {
             setIsFocused(true)

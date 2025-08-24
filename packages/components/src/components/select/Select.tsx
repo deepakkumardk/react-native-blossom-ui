@@ -162,12 +162,12 @@ const Select = <T,>(props: SelectProps<T>) => {
             accessibilityLabel="Select input field"
             left={null}
             right={<RightView />}
-            inputStyle={[
+            inputContainerStyle={[
               disabled && {
                 backgroundColor: colors.background200,
               },
             ]}
-            textStyle={[
+            inputTextStyle={[
               !disabled && {
                 color: colors.text100,
               },

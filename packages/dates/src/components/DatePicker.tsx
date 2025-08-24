@@ -109,6 +109,7 @@ const DatePicker = (props: DatePickerProps) => {
                 {clearable && dateValue && (
                   <Icon
                     name="close"
+                    family="Ionicons"
                     size={20}
                     style={styles.closeIcon}
                     color={colors.background700}
@@ -117,15 +118,15 @@ const DatePicker = (props: DatePickerProps) => {
                     }}
                   />
                 )}
-                <Icon name="calendar-outline" size={20} />
+                <Icon name="calendar-outline" family="Ionicons" size={20} />
               </View>
             }
-            inputStyle={[
+            inputContainerStyle={[
               disabled && {
                 backgroundColor: colors.background200,
               },
             ]}
-            textStyle={[
+            inputTextStyle={[
               !disabled && {
                 color: colors.text100,
               },

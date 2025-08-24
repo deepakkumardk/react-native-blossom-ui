@@ -68,7 +68,7 @@ export function SelectCustomStyle() {
       options={OPTIONS}
       label="Custom Select Label"
       inputProps={{
-        inputStyle: {
+        inputContainerStyle: {
           backgroundColor: 'cyan',
           borderColor: 'blue',
           borderWidth: 2,

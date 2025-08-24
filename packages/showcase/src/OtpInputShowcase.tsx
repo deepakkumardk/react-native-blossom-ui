@@ -70,7 +70,7 @@ export function OtpInputCustom() {
           borderRadius: 40,
           backgroundColor: isFocused ? 'blue' : 'gold',
         })}
-        textStyle={{
+        inputTextStyle={{
           color: 'black',
           fontWeight: 'bold',
         }}

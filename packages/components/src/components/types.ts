@@ -413,10 +413,6 @@ export interface TextInputProps
    */
   labelStyle?: StyleProp<TextStyle>
   /**
-   * Placeholder text style
-   */
-  placeholderStyle?: StyleProp<TextStyle>
-  /**
    * Caption text style
    */
   captionStyle?: StyleProp<TextStyle>
@@ -425,17 +421,17 @@ export interface TextInputProps
    */
   errorStyle?: StyleProp<TextStyle>
   /**
-   * Container view style
+   * Container view style including label, caption & error
    */
   containerStyle?: StyleProp<ViewStyle>
   /**
-   * Input box style
+   * Input container style including left, right section, custom placeholder and input text
    */
-  inputStyle?: StyleProp<ViewStyle>
+  inputContainerStyle?: StyleProp<ViewStyle>
   /**
    * Input text style equivalent to react-native style for TextInput
    */
-  textStyle?: StyleProp<TextStyle>
+  inputTextStyle?: StyleProp<TextStyle>
   /**
    * Set to true to disable the button
    */
