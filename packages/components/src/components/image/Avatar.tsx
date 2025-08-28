@@ -1,14 +1,14 @@
-import React, {forwardRef, useMemo} from 'react'
+import React, {forwardRef, useMemo, useState} from 'react'
 import {Image, ImageStyle, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {AvatarProps} from '../types'
 
-import {getBorderColorName, getStatusColorName} from '../utils'
+import {BlossomSize, useMergedProps} from '../../common'
 import {useBlossomTheme} from '../../context'
-import {Text} from '../text'
-import {useMergedProps, BlossomSize} from '../../common'
-import {View} from '../view'
 import {Icon} from '../icon'
+import {Text} from '../text'
+import {getBorderColorName, getStatusColorName} from '../utils'
+import {View} from '../view'
 
 /**
  * Avatar component to show profile images, icon & initials
@@ -22,11 +22,15 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
     url,
     initials,
     initialStyle,
+    fallbackSource,
+    fallbackIcon,
     status = 'primary',
     size = 'medium',
     onPress,
     ...rest
   } = useMergedProps('Avatar', props, {colors, isDark})
+
+  const [hasLoadingFailed, setHasLoadingFailed] = useState(false)
 
   const borderRadiusMap = useMemo(
     (): Record<typeof mode, number> => ({
@@ -52,21 +56,25 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
 
   return (
     <Container
-      activeOpacity={0.75}
+      activeOpacity={0.6}
       {...rest}
       style={[imageStyle, styles.container, rest?.style]}
       onPress={onPress}>
-      {rest?.source || url ? (
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+      {fallbackIcon && hasLoadingFailed ? (
+        fallbackIcon((imageStyle.width as number) - OFFSET)
+      ) : rest?.source || url ? (
         <Image
           ref={ref}
           accessibilityIgnoresInvertColors
-          source={{
-            uri: url,
-          }}
+          source={
+            hasLoadingFailed && fallbackSource ? fallbackSource : {uri: url}
+          }
           {...rest}
-          style={[imageStyle]}
+          onError={(error) => {
+            setHasLoadingFailed(true)
+            rest?.onError?.(error)
+          }}
+          style={[imageStyle, rest?.style]}
         />
       ) : icon ? (
         icon((imageStyle.width as number) - OFFSET)

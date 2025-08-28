@@ -7,6 +7,9 @@ import {
   AvatarStatusesSmall,
   AvatarSizes,
   AvatarModesSizes,
+  AvatarFallbackIcon,
+  AvatarFallbackSource,
+  AvatarCustom,
 } from '@react-native-blossom-ui/showcase'
 import {Heading} from '../components'
 
@@ -28,6 +31,15 @@ export default function AvatarScreen() {
 
         <Heading>Modes & Size</Heading>
         <AvatarModesSizes />
+
+        <Heading>Fallback Icon</Heading>
+        <AvatarFallbackIcon />
+
+        <Heading>Fallback Source</Heading>
+        <AvatarFallbackSource />
+
+        <Heading>Custom</Heading>
+        <AvatarCustom />
       </ScrollView>
     </Surface>
   )

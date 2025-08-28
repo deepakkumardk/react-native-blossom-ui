@@ -14,6 +14,7 @@ import {
   ImageProps,
   ColorValue,
   FlatListProps,
+  ImageSourcePropType,
 } from 'react-native'
 
 import {
@@ -643,6 +644,18 @@ export interface AvatarProps extends Partial<ImageProps>, OmitSizeProps {
    * You can use it to set the custom icon size
    */
   icon?: (size: number) => ReactNode
+  /**
+   * Set a custom fallback icon for Avatar
+   * @param size Size of the Avatar rendered based on the size prop passed to it
+   * You can use it to set the custom icon size
+   */
+  fallbackIcon?: (size: number) => ReactNode
+
+  /**
+   * Fallback source for the Avatar
+   */
+  fallbackSource?: ImageSourcePropType
+
   /**
    * On press callback
    */
