@@ -3,13 +3,14 @@ import {TextInput as RNTextInput} from 'react-native'
 
 import {SearchInputProps} from '../types'
 
-import TextInput, {textInputSizeStylesMap} from './TextInput'
+import TextInput from './TextInput'
 import {useDebouncedValue} from './useDebouncedValue'
 import {Icon} from '../icon'
 import {useMergedProps} from '../../common'
 import {useBlossomTheme} from '../../context'
 import AnimatedPlaceholder from './AnimatedPlaceholder'
 import {View} from '../view'
+import {textInputSizeStylesMap} from './styles'
 
 /**
  * Uncontrolled SearchInput with debouncing & animated placeholder support
@@ -64,8 +65,8 @@ const SearchInput = (props: SearchInputProps, ref: React.Ref<RNTextInput>) => {
                 paddingLeft:
                   leftWidth +
                   (!rest?.mode || rest?.mode === 'outlined'
-                    ? textInputSizeStylesMap[rest?.size || 'medium'].outlined
-                        .padding
+                    ? textInputSizeStylesMap[rest?.size || 'medium'].inputText
+                        .paddingVertical
                     : 0),
               },
               animatedPlaceholderProps?.containerStyle,

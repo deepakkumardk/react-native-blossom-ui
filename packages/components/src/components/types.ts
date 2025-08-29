@@ -51,16 +51,22 @@ export interface SizedTextProps extends TextProps, BaseUIProps {
 export interface LinkProps extends TextProps {
   /**
    * Set the left side of the text
+   * If string will be passed a space delimiter will be added automatically at the end
    */
   leftText?: string | ReactNode
   /**
-   * Set the left side of the text
+   * Set the right side of the text
+   * If string will be passed a space delimiter will be added automatically at the start
    */
   rightText?: string | ReactNode
   /**
    * Set the link label to show
    */
   title?: string
+  /**
+   * Set the link label style
+   */
+  style?: StyleProp<TextStyle>
   /**
    * Set the href url for link
    */
