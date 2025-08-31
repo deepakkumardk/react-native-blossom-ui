@@ -59,11 +59,11 @@ const BaseButton = (props: BaseButtonProps) => {
             : colors[getStatusColorName(status, isDark, '500')],
           borderRadius: options?.borderRadius,
         },
-        disabled && disabledStyle,
         mode === 'outlined' ? styles.outlinedButton : {},
         styles.buttonContainer,
         sizeStyle[size],
         style,
+        disabled && disabledStyle,
       ]) as ViewStyle,
     [
       status,

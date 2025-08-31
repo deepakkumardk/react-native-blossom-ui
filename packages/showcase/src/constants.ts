@@ -1,4 +1,5 @@
 import {
+  AvatarProps,
   BlossomSize,
   BlossomStatus,
   ButtonMode,
@@ -14,13 +15,16 @@ export const TYPOGRAPHY_LIST: TypographyOptions[] = [
   'h6',
   's1',
   's2',
+  's3',
   'b1',
   'b2',
   'b3',
   'l1',
   'l2',
+  'l3',
   'c1',
   'c2',
+  'c3',
 ]
 
 export const STATUS_LIST: BlossomStatus[] = [
@@ -40,3 +44,5 @@ export const BUTTON_MODES: ButtonMode[] = [
   'outlined',
   'plain',
 ]
+
+export const AVATAR_MODES: AvatarProps['mode'][] = ['circle', 'round', 'square']

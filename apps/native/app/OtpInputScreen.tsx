@@ -15,7 +15,7 @@ import {Heading} from '../components'
 export default function OtpInputScreen() {
   return (
     <Surface style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{paddingBottom: 64}}>
         <Heading>Usage</Heading>
         <OtpInputUsage />
 

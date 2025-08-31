@@ -10,6 +10,8 @@ import {
   TextInputDisabled,
   TextInputError,
   TextInputDense,
+  TextInputCustom,
+  TextInputIcons,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading} from '../components'
@@ -36,8 +38,14 @@ export default function TextInputScreen() {
         <Heading>Error</Heading>
         <TextInputError />
 
+        <Heading>Icons</Heading>
+        <TextInputIcons />
+
         <Heading>Statuses</Heading>
         <TextInputStatuses />
+
+        <Heading>Custom</Heading>
+        <TextInputCustom />
       </ScrollView>
     </Surface>
   )

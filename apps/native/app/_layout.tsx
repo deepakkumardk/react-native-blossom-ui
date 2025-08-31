@@ -44,18 +44,11 @@ export const Container = () => {
   const {colors} = useBlossomTheme()
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     ComponentManager.setDefaultProps({
-      Switch: (props: SwitchProps, theme) => ({
-        size: 'medium',
-        status: 'accent',
-      }),
-
       Avatar: (props: AvatarProps, theme) => {
         if (props.size === 'small') {
           return {
             style: {
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
               backgroundColor: theme.colors.success900,
             },
           }

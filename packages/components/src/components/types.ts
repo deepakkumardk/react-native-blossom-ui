@@ -14,6 +14,7 @@ import {
   ImageProps,
   ColorValue,
   FlatListProps,
+  ImageSourcePropType,
 } from 'react-native'
 
 import {
@@ -50,10 +51,12 @@ export interface SizedTextProps extends TextProps, BaseUIProps {
 export interface LinkProps extends TextProps {
   /**
    * Set the left side of the text
+   * If string will be passed a space delimiter will be added automatically at the end
    */
   leftText?: string | ReactNode
   /**
-   * Set the left side of the text
+   * Set the right side of the text
+   * If string will be passed a space delimiter will be added automatically at the start
    */
   rightText?: string | ReactNode
   /**
@@ -61,9 +64,17 @@ export interface LinkProps extends TextProps {
    */
   title?: string
   /**
+   * Set the link label style
+   */
+  style?: StyleProp<TextStyle>
+  /**
    * Set the href url for link
    */
   href?: string
+  /**
+   * Container style for the link
+   */
+  containerStyle?: StyleProp<ViewStyle>
   /**
    * Callback for when the given link can't be opened
    */
@@ -413,10 +424,6 @@ export interface TextInputProps
    */
   labelStyle?: StyleProp<TextStyle>
   /**
-   * Placeholder text style
-   */
-  placeholderStyle?: StyleProp<TextStyle>
-  /**
    * Caption text style
    */
   captionStyle?: StyleProp<TextStyle>
@@ -425,17 +432,17 @@ export interface TextInputProps
    */
   errorStyle?: StyleProp<TextStyle>
   /**
-   * Container view style
+   * Container view style including label, caption & error
    */
   containerStyle?: StyleProp<ViewStyle>
   /**
-   * Input box style
+   * Input container style including left, right section, custom placeholder and input text
    */
-  inputStyle?: StyleProp<ViewStyle>
+  inputContainerStyle?: StyleProp<ViewStyle>
   /**
    * Input text style equivalent to react-native style for TextInput
    */
-  textStyle?: StyleProp<TextStyle>
+  inputTextStyle?: StyleProp<TextStyle>
   /**
    * Set to true to disable the button
    */
@@ -532,6 +539,8 @@ export interface OtpInputProps extends Omit<TextInputProps, 'mode'> {
   withCursor?: boolean
   /**
    * Set the alphanumeric keyboard
+   * By default it will use numeric keyboard
+   * @default false
    */
   withAlphanumericKeyboard?: boolean
   /**
@@ -646,6 +655,18 @@ export interface AvatarProps extends Partial<ImageProps>, OmitSizeProps {
    */
   icon?: (size: number) => ReactNode
   /**
+   * Set a custom fallback icon for Avatar
+   * @param size Size of the Avatar rendered based on the size prop passed to it
+   * You can use it to set the custom icon size
+   */
+  fallbackIcon?: (size: number) => ReactNode
+
+  /**
+   * Fallback source for the Avatar
+   */
+  fallbackSource?: ImageSourcePropType
+
+  /**
    * On press callback
    */
   onPress?: () => void
@@ -705,6 +726,11 @@ export interface BaseBooleanFieldProps extends BaseUIProps, Children {
    * @default true
    */
   adjacent?: boolean
+  /**
+   * Default value for the field
+   * @default false
+   */
+  defaultValue?: boolean
   /**
    * Set to true for disabled field
    */

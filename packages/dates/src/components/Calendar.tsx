@@ -162,7 +162,7 @@ function Calendar(props: CalendarProps) {
           onPress={onMonthHeaderPress}>
           <Text>
             {formattedMonth}
-            <Icon name="chevron-down" size={16} />
+            <Icon name="chevron-down" family="Ionicons" size={16} />
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -171,13 +171,14 @@ function Calendar(props: CalendarProps) {
           onPress={onYearHeaderPress}>
           <Text>
             {currentYear}
-            <Icon name="chevron-down" size={16} />
+            <Icon name="chevron-down" family="Ionicons" size={16} />
           </Text>
         </TouchableOpacity>
 
         <View row style={styles.rightIcons}>
           <Icon
             name="chevron-back"
+            family="Ionicons"
             onPress={onPrevPress}
             disabled={yearsRef.current?.hasMinYear()}
           />
@@ -198,6 +199,7 @@ function Calendar(props: CalendarProps) {
           </TouchableOpacity>
           <Icon
             name="chevron-forward"
+            family="Ionicons"
             onPress={onNextPress}
             disabled={yearsRef.current?.hasMaxYear()}
           />

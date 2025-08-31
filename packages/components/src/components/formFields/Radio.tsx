@@ -16,6 +16,7 @@ const Radio = (props: RadioProps) => {
   const {
     value,
     onValueChange,
+    defaultValue,
     disabled,
     style,
     color,
@@ -24,11 +25,14 @@ const Radio = (props: RadioProps) => {
     ...rest
   } = useMergedProps('Radio', props, {colors, isDark})
 
-  const [fieldValue, setFieldValue] = useState(value)
+  const isControlled = value !== undefined
+  const [fieldValue, setFieldValue] = useState(defaultValue)
 
   useEffect(() => {
-    setFieldValue(value)
-  }, [value])
+    if (isControlled) {
+      setFieldValue(value)
+    }
+  }, [value, isControlled])
 
   const getBgColor = useCallback(() => {
     if (disabled) return colors.bgDark100

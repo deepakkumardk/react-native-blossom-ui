@@ -10,13 +10,13 @@ import React, {
 import {
   Animated,
   Easing,
+  LayoutChangeEvent,
   TextInput as RNTextInput,
   StyleSheet,
   TouchableWithoutFeedback,
 } from 'react-native'
 
-import {View} from '../view'
-import TextInput from './TextInput'
+import {Spacer, View} from '../view'
 import {OtpInputProps, OtpInputRef} from '../types'
 import {BlossomSize, useMergedProps} from '../../common'
 import {useBlossomTheme} from '../../context'
@@ -38,6 +38,14 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
     onComplete,
     status = 'primary',
     size = 'medium',
+    disabled,
+    label,
+    labelStyle,
+    caption,
+    captionStyle,
+    error,
+    errorStyle,
+    onChangeText,
     ...rest
   } = useMergedProps('OtpInput', props, {colors, isDark})
 
@@ -47,24 +55,50 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
   const inputRef = useRef<RNTextInput | null>(null)
   const cursorOpacity = useRef(new Animated.Value(0)).current
 
+  const [errorContentHeight, setErrorContentHeight] = useState(0)
+  const animatedHeight = useRef(new Animated.Value(0)).current
+  const animatedOpacity = useRef(new Animated.Value(0)).current
+
+  const onLayout = useCallback((event: LayoutChangeEvent) => {
+    const {height} = event.nativeEvent.layout
+    if (height > 0) {
+      setErrorContentHeight(height)
+    }
+  }, [])
+
+  const toggleError = useCallback(() => {
+    Animated.parallel([
+      Animated.timing(animatedHeight, {
+        toValue: error ? errorContentHeight : 0,
+        duration: 300,
+        useNativeDriver: false,
+      }),
+      Animated.timing(animatedOpacity, {
+        toValue: error ? 1 : 0,
+        duration: 300,
+        useNativeDriver: false,
+      }),
+    ]).start()
+  }, [animatedHeight, animatedOpacity, error, errorContentHeight])
+
+  useEffect(() => {
+    toggleError()
+  }, [error, toggleError])
+
   const onInputChange = useCallback(
     (text: string) => {
-      setOtp(text)
-      if (text.length === maxLength) {
-        onComplete?.(text)
-      }
-    },
-    [maxLength, onComplete],
-  )
+      let cleanText = text.replace(/[^0-9]/g, '')
 
-  const getOtpInputText = useCallback(
-    (value?: string, label?: string) => {
-      if (value) {
-        return rest?.secureTextEntry ? '*' : value
+      if (withAlphanumericKeyboard) {
+        cleanText = text.replace(/[^a-zA-Z0-9]/g, '')
       }
-      return label || ''
+      onChangeText?.(cleanText)
+      setOtp(cleanText)
+      if (cleanText.length === maxLength) {
+        onComplete?.(cleanText)
+      }
     },
-    [rest?.secureTextEntry],
+    [maxLength, withAlphanumericKeyboard, onComplete, onChangeText],
   )
 
   useImperativeHandle(ref, () => {
@@ -102,21 +136,38 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
     }
   }, [cursorLoop, isFocused, maxLength, otp.length, withCursor])
 
+  useEffect(() => {
+    setOtp(rest?.value || '')
+  }, [rest?.value])
+
   return (
     <TouchableWithoutFeedback
       accessibilityRole="button"
       onPress={() => inputRef.current?.focus()}>
       <View style={styles.container}>
-        <TextInput
+        {label ? (
+          <SizedText
+            size={size}
+            status={error ? 'error' : undefined}
+            style={[
+              !error && {
+                color: disabled ? colors.text400 : colors.text100,
+              },
+              labelStyle,
+            ]}>
+            {label}
+          </SizedText>
+        ) : null}
+        <RNTextInput
           ref={inputRef}
-          accessibilityLabel="Text input field"
-          containerStyle={styles.inputContainer}
+          accessibilityLabel="OTP input field"
+          style={styles.inputContainer}
           value={otp}
-          onChangeText={onInputChange}
           maxLength={maxLength}
           keyboardType={withAlphanumericKeyboard ? 'default' : 'numeric'}
           textContentType="oneTimeCode"
           autoComplete="one-time-code"
+          {...rest}
           onFocus={(e) => {
             setIsFocused(true)
             rest?.onFocus?.(e)
@@ -125,12 +176,12 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
             setIsFocused(false)
             rest?.onBlur?.(e)
           }}
-          {...rest}
+          onChangeText={onInputChange}
         />
         <View row style={[styles.boxRow]}>
           {Array(maxLength)
             .fill(rest?.placeholder || '')
-            .map((label: string, index) => (
+            .map((fieldLabel: string, index) => (
               <View
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
@@ -168,10 +219,10 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
                             ? colors.text100
                             : colors.text500,
                         },
-                        rest?.textStyle,
+                        rest?.inputTextStyle,
                       ],
                     ]}>
-                    {otp.charAt(index) || label || ''}
+                    {otp.charAt(index) || fieldLabel || ''}
                   </SizedText>
                 )}
                 {otp.length === index && isFocused && !otp.charAt(index) && (
@@ -188,6 +239,33 @@ const OtpInput = (props: OtpInputProps, ref?: React.Ref<OtpInputRef>) => {
               </View>
             ))}
         </View>
+
+        <Spacer height={2} />
+
+        {caption ? (
+          <SizedText size={size} mode="caption" style={[captionStyle]}>
+            {caption}
+          </SizedText>
+        ) : null}
+
+        <Spacer height={2} />
+
+        <Animated.View
+          style={[
+            {
+              height: animatedHeight,
+              opacity: animatedOpacity,
+              alignItems: 'center',
+            },
+          ]}>
+          <SizedText
+            style={[styles.errorText, errorStyle]}
+            onLayout={onLayout}
+            size={size}
+            status="error">
+            {error}
+          </SizedText>
+        </Animated.View>
       </View>
     </TouchableWithoutFeedback>
   )
@@ -201,12 +279,16 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     alignSelf: 'center',
+    alignItems: 'center',
   },
   inputContainer: {
     position: 'absolute',
     width: 100,
     height: 40,
     opacity: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // alignSelf: 'center',
   },
   boxRow: {
     alignItems: 'center',
@@ -230,6 +312,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: '50%',
     width: 1.25,
+  },
+  errorText: {
+    position: 'absolute',
   },
 })
 

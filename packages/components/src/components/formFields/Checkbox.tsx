@@ -20,6 +20,7 @@ const Checkbox = (props: CheckboxProps) => {
     value,
     onValueChange,
     indeterminate,
+    defaultValue,
     disabled,
     color,
     style,
@@ -30,11 +31,14 @@ const Checkbox = (props: CheckboxProps) => {
     ...rest
   } = useMergedProps('Checkbox', props, {colors, isDark})
 
-  const [fieldValue, setFieldValue] = useState(value)
+  const isControlled = value !== undefined
+  const [fieldValue, setFieldValue] = useState(defaultValue)
 
   useEffect(() => {
-    setFieldValue(value)
-  }, [value])
+    if (isControlled) {
+      setFieldValue(value)
+    }
+  }, [value, isControlled])
 
   const getBgColor = useCallback(() => {
     if (disabled) return isDark ? colors.bgDark400 : colors.bgLight400

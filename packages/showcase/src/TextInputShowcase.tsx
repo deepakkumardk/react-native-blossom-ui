@@ -1,7 +1,7 @@
 /* eslint-disable react-native-a11y/has-valid-accessibility-descriptors */
 import React, {useState} from 'react'
 
-import {View, TextInput} from '@react-native-blossom-ui/components'
+import {View, TextInput, Icon} from '@react-native-blossom-ui/components'
 
 export function TextInputUsage() {
   return (
@@ -76,8 +76,48 @@ export function TextInputError() {
         value={password}
         onChangeText={setPassword}
         error={
-          password.length < 8 ? '' : 'Please enter a password of max. length 8'
+          password.length < 8 ? 'Please enter a password of min. length 8' : ''
         }
+      />
+    </View>
+  )
+}
+
+export function TextInputIcons() {
+  const [showPassword, setShowPassword] = useState(false)
+
+  return (
+    <View>
+      <TextInput
+        label="Password"
+        placeholder="Enter Password"
+        secureTextEntry={!showPassword}
+        left={<Icon name="lock-closed" />}
+        right={
+          <Icon
+            name={showPassword ? 'eye' : 'eye-off'}
+            onPress={() => setShowPassword(!showPassword)}
+          />
+        }
+      />
+    </View>
+  )
+}
+
+export function TextInputCustom() {
+  return (
+    <View>
+      <TextInput
+        label="Custom Text Input"
+        placeholder="Custom input"
+        left={<Icon name="email" family="MaterialIcons" />}
+        inputContainerStyle={{backgroundColor: 'cyan'}}
+      />
+      <TextInput
+        label="Custom Text Input"
+        placeholder="Custom input"
+        mode="flat"
+        inputContainerStyle={{backgroundColor: 'cyan'}}
       />
     </View>
   )

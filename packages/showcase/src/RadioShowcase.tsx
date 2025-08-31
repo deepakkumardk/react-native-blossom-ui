@@ -17,6 +17,14 @@ export function RadioUsage() {
   )
 }
 
+export function RadioDefaultValue() {
+  return (
+    <View>
+      <Radio defaultValue />
+    </View>
+  )
+}
+
 export function RadioPositions() {
   return (
     <View>

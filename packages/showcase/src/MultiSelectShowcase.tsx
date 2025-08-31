@@ -28,7 +28,7 @@ export function MultiSelectCustomStyle() {
       options={OPTIONS}
       label="Custom Select Label"
       inputProps={{
-        inputStyle: {
+        inputContainerStyle: {
           backgroundColor: 'cyan',
           borderColor: 'blue',
           borderWidth: 2,
@@ -62,7 +62,6 @@ export function MultiSelectCustomPickerStyle() {
             marginVertical: 4,
           }}
           value={selectedOptions.includes(item.value)}
-          // onValueChange={()=> {}}
         />
       )}
       onValuesChange={(values) => setSelectedOptions(values)}

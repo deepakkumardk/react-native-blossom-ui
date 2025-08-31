@@ -21,6 +21,7 @@ import {getBorderColorName} from '../utils'
 import SizedText from '../text/SizedText'
 import {View} from '../view'
 import {useMergedProps} from '../../common'
+import {textInputSizeStylesMap} from './styles'
 
 /**
  * TextInput along with label,placeholder,caption & error support
@@ -35,7 +36,6 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
     caption,
     error,
     labelStyle,
-    placeholderStyle,
     captionStyle,
     errorStyle,
     disabled,
@@ -45,8 +45,8 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
     left,
     right,
     containerStyle,
-    inputStyle,
-    textStyle,
+    inputContainerStyle,
+    inputTextStyle,
     status,
     size = 'medium',
     ...rest
@@ -59,6 +59,74 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
   const [errorContentHeight, setErrorContentHeight] = useState(0)
   const animatedHeight = useRef(new Animated.Value(0)).current
   const animatedOpacity = useRef(new Animated.Value(0)).current
+
+  const memoizedInputContainerStyle = useMemo(() => {
+    return StyleSheet.flatten([
+      styles.innerContainer,
+      left ? styles.leftPadding : {},
+      right ? styles.rightPadding : {},
+      mode === 'outlined'
+        ? [
+            styles.outlined,
+            {
+              borderRadius: options?.borderRadius,
+            },
+          ]
+        : styles.flat,
+      {
+        backgroundColor: dense ? colors.backgroundTransparent300 : undefined,
+        borderColor: disabled
+          ? colors.background500
+          : colors[
+              getBorderColorName(
+                error ? 'error' : status || (isFocused ? 'primary' : undefined),
+                isDark,
+              )
+            ],
+      },
+      inputContainerStyle,
+    ])
+  }, [
+    colors,
+    dense,
+    disabled,
+    error,
+    inputContainerStyle,
+    isDark,
+    isFocused,
+    left,
+    mode,
+    options?.borderRadius,
+    right,
+    status,
+  ])
+
+  const memoizedInputTextStyle = useMemo(() => {
+    return StyleSheet.flatten([
+      mode === 'outlined' ? styles.outlinedInputText : styles.flatInputText,
+      textInputSizeStyle[size].inputText,
+      {
+        color: disabled ? colors.text500 : colors.text100,
+      },
+      Platform.OS === 'web'
+        ? {
+            // Note: this style won't work in the stylesheet
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            outline: 'none',
+          }
+        : {},
+      inputTextStyle,
+    ])
+  }, [
+    colors.text100,
+    colors.text500,
+    disabled,
+    inputTextStyle,
+    mode,
+    size,
+    textInputSizeStyle,
+  ])
 
   const onLayout = useCallback((event: LayoutChangeEvent) => {
     const {height} = event.nativeEvent.layout
@@ -102,35 +170,7 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
         </SizedText>
       ) : null}
 
-      <View
-        style={[
-          styles.innerContainer,
-          mode === 'outlined'
-            ? [
-                styles.outlined,
-                textInputSizeStyle[size].outlined,
-                {
-                  borderRadius: options?.borderRadius,
-                },
-              ]
-            : styles.flat,
-          {
-            backgroundColor: dense
-              ? colors.backgroundTransparent300
-              : undefined,
-            borderColor: disabled
-              ? colors.background500
-              : colors[
-                  getBorderColorName(
-                    error
-                      ? 'error'
-                      : status || (isFocused ? 'primary' : undefined),
-                    isDark,
-                  )
-                ],
-          },
-          inputStyle,
-        ]}>
+      <View style={memoizedInputContainerStyle}>
         {left}
         {placeholderComponent}
         <RNTextInput
@@ -140,21 +180,9 @@ const TextInput = (props: TextInputProps, ref: React.Ref<RNTextInput>) => {
           placeholder={placeholderComponent ? '' : placeholder}
           editable={!(disabled || shouldMockDisableState)}
           focusable={!(disabled || shouldMockDisableState)}
-          style={[
-            styles.inputText,
-            textInputSizeStyle[size].inputText,
-            {
-              color: disabled ? colors.text500 : colors.text100,
-            },
-            left ? styles.leftMargin : {},
-            textStyle,
-            Platform.OS === 'web' && {
-              // Note: this style won't work in the stylesheet
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              outline: 'none',
-            },
-          ]}
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+          style={memoizedInputTextStyle}
           onFocus={(e) => {
             setIsFocused(true)
             rest?.onFocus?.(e)
@@ -203,46 +231,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     overflow: 'hidden',
   },
-  leftMargin: {
-    marginHorizontal: 6,
+  leftPadding: {
+    paddingLeft: 8,
   },
-  inputText: {
+  rightPadding: {
+    paddingRight: 8,
+  },
+  outlinedInputText: {
     flex: 1,
-    marginHorizontal: 2,
+    paddingHorizontal: 10,
+  },
+  flatInputText: {
+    flex: 1,
+    paddingHorizontal: 4,
   },
   outlined: {
     borderWidth: 1,
   },
   flat: {
-    paddingTop: 4,
-    paddingBottom: 6,
     borderBottomWidth: 1,
   },
 })
-
-export const textInputSizeStylesMap = {
-  small: {
-    outlined: {
-      padding: 6,
-    },
-    inputText: {
-      fontSize: 14,
-    },
-  },
-  medium: {
-    outlined: {
-      padding: 9,
-    },
-    inputText: {
-      fontSize: 16,
-    },
-  },
-  large: {
-    outlined: {
-      padding: 12,
-    },
-    inputText: {
-      fontSize: 17,
-    },
-  },
-}

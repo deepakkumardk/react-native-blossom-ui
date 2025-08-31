@@ -5,6 +5,7 @@ import {Surface} from '@react-native-blossom-ui/components'
 import {
   CheckboxUsage,
   CheckboxCustomIcon,
+  CheckboxDefaultValue,
   CheckboxDisabled,
   CheckboxIndeterminate,
   CheckboxPositions,
@@ -24,6 +25,9 @@ export default function CheckboxScreen() {
 
         <Heading>Custom Icon</Heading>
         <CheckboxCustomIcon />
+
+        <Heading>Default Value</Heading>
+        <CheckboxDefaultValue />
 
         <Heading>Positions</Heading>
         <CheckboxPositions />

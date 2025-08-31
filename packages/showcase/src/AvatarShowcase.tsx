@@ -1,7 +1,7 @@
 import React from 'react'
-import {Avatar, AvatarProps, View} from '@react-native-blossom-ui/components'
+import {Avatar, Icon, View} from '@react-native-blossom-ui/components'
 
-import {SIZE_LIST} from './constants'
+import {SIZE_LIST, AVATAR_MODES} from './constants'
 
 export function AvatarUsage() {
   return (
@@ -60,7 +60,7 @@ export function AvatarStatusesSmall() {
 export function AvatarModesSizes() {
   return (
     <View style={{justifyContent: 'space-evenly'}}>
-      {MODES.map((mode) => (
+      {AVATAR_MODES.map((mode) => (
         <View
           key={mode}
           style={{
@@ -78,4 +78,37 @@ export function AvatarModesSizes() {
   )
 }
 
-const MODES: AvatarProps['mode'][] = ['circle', 'round', 'square']
+export function AvatarFallbackIcon() {
+  return (
+    <View>
+      <Avatar
+        url="https://www.example.com/images/123.jpg"
+        // eslint-disable-next-line react/no-unstable-nested-components
+        fallbackIcon={(size) => <Icon name="add" size={size} />}
+      />
+    </View>
+  )
+}
+
+export function AvatarFallbackSource() {
+  return (
+    <View>
+      <Avatar
+        url="https://www.example.com/images/123.jpg"
+        fallbackSource={{uri: 'https://picsum.photos/200/300?random=1'}}
+      />
+    </View>
+  )
+}
+
+export function AvatarCustom() {
+  return (
+    <View>
+      <Avatar
+        url="https://picsum.photos/200/300?random=1"
+        defaultSource={{uri: 'https://picsum.photos/200/300?random=1'}}
+        style={{alignSelf: 'center', borderWidth: 2, borderColor: 'yellow'}}
+      />
+    </View>
+  )
+}
