@@ -15,8 +15,9 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
 
   const {
     value,
-    disabled,
     onValueChange,
+    defaultValue,
+    disabled,
     color,
     style: switchStyle,
     status = 'accent',
@@ -24,11 +25,14 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
     ...rest
   } = useMergedProps('Switch', props, {colors, isDark})
 
-  const [fieldValue, setFieldValue] = useState(value)
+  const isControlled = value !== undefined
+  const [fieldValue, setFieldValue] = useState(defaultValue)
 
   useEffect(() => {
-    setFieldValue(value)
-  }, [value])
+    if (isControlled) {
+      setFieldValue(value)
+    }
+  }, [value, isControlled])
 
   return (
     <BaseBooleanField status={status} size={size} disabled={disabled} {...rest}>

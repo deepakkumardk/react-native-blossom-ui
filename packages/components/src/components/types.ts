@@ -72,6 +72,10 @@ export interface LinkProps extends TextProps {
    */
   href?: string
   /**
+   * Container style for the link
+   */
+  containerStyle?: StyleProp<ViewStyle>
+  /**
    * Callback for when the given link can't be opened
    */
   onLinkOpenError?: (error: unknown) => void
@@ -722,6 +726,11 @@ export interface BaseBooleanFieldProps extends BaseUIProps, Children {
    * @default true
    */
   adjacent?: boolean
+  /**
+   * Default value for the field
+   * @default false
+   */
+  defaultValue?: boolean
   /**
    * Set to true for disabled field
    */

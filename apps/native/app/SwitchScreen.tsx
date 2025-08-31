@@ -4,6 +4,7 @@ import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   SwitchCustom,
+  SwitchDefaultValue,
   SwitchDisabled,
   SwitchPositions,
   SwitchSizes,
@@ -19,6 +20,9 @@ export default function SwitchScreen() {
       <ScrollView>
         <Heading>Usage</Heading>
         <SwitchUsage />
+
+        <Heading>Default Value</Heading>
+        <SwitchDefaultValue />
 
         <Heading>Positions</Heading>
         <SwitchPositions />

@@ -11,6 +11,14 @@ export function SwitchUsage() {
   )
 }
 
+export function SwitchDefaultValue() {
+  return (
+    <View>
+      <Switch defaultValue />
+    </View>
+  )
+}
+
 export function SwitchPositions() {
   return (
     <View>

@@ -29,6 +29,14 @@ export function CheckboxCustomIcon() {
   )
 }
 
+export function CheckboxDefaultValue() {
+  return (
+    <View>
+      <Checkbox defaultValue />
+    </View>
+  )
+}
+
 export function CheckboxPositions() {
   return (
     <View>

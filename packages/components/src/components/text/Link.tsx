@@ -19,6 +19,7 @@ const Link = (props: LinkProps) => {
     rightText,
     title = '',
     style,
+    containerStyle,
     href = '',
     onLinkOpenError,
     ...rest
@@ -38,7 +39,7 @@ const Link = (props: LinkProps) => {
   }, [href, onLinkOpenError])
 
   return (
-    <View row>
+    <View row style={containerStyle}>
       {typeof leftText === 'string' ? (
         <Text>
           {leftText}

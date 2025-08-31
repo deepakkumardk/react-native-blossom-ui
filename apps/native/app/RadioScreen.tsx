@@ -4,6 +4,7 @@ import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   RadioCustom,
+  RadioDefaultValue,
   RadioDisabled,
   RadioPositions,
   RadioSizes,
@@ -22,6 +23,9 @@ export default function RadioScreen() {
 
         <Heading>Positions</Heading>
         <RadioPositions />
+
+        <Heading>Default Value</Heading>
+        <RadioDefaultValue />
 
         <Heading>Sizes</Heading>
         <RadioSizes />
