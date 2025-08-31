@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/dates
 
+## 0.13.0
+
+### Patch Changes
+
+- 7fe61b0: Fix default icons family issue
+
 ## 0.12.0
 
 ## 0.11.0

@@ -1,5 +1,20 @@
 # @react-native-blossom-ui/components
 
+## 0.13.0
+
+### Minor Changes
+
+- 7fe61b0: **OtpInput**: Add label,caption,error props
+  **Avatar**: Add fallbackIcon, fallbackSource props
+  **Link**: Add container style prop
+- 7ebebaa: Add defaultValue support to boolean fields
+
+### Patch Changes
+
+- 7fe61b0: **TextInput**: fix inconsistent height issue on android/ios, now both platform will have consistent height
+  **TextInput**: rename props names to make it more significant & readable
+  **Button**: fix disable style not working issue
+
 ## 0.12.0
 
 ### Minor Changes
