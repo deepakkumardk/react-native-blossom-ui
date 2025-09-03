@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/components
 
+## 0.13.1
+
+### Patch Changes
+
+- e4a4838: Fix Popover web crash issue as findNodeHandle was removed from web
+
 ## 0.13.0
 
 ### Minor Changes
