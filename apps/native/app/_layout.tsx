@@ -5,12 +5,13 @@ import {
   Icon,
   useBlossomTheme,
   AvatarProps,
-  SwitchProps,
 } from '@react-native-blossom-ui/components'
 import {Stack} from 'expo-router'
 import {StatusBar} from 'expo-status-bar'
 
 import {TouchableOpacity} from 'react-native'
+import * as Font from 'expo-font'
+import {Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
 import lightTheme from '../lightTheme.json'
 import darkTheme from '../darkTheme.json'
 import options from '../options.json'
@@ -42,6 +43,10 @@ export default function Layout() {
 
 export const Container = () => {
   const {colors} = useBlossomTheme()
+
+  React.useEffect(() => {
+    void Font.loadAsync({...Ionicons.font, ...MaterialCommunityIcons.font})
+  }, [])
 
   useEffect(() => {
     ComponentManager.setDefaultProps({
