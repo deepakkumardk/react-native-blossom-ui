@@ -78,70 +78,122 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
   )
 
   const measureContent = useCallback(() => {
-    const node = findNodeHandle(
-      // Find the first children inside the target ref
-      // eslint-disable-next-line
-      // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access, no-underscore-dangle
-      targetViewRef?.current?._children?.[0] ||
+    const updatePositionStyle = ({
+      width,
+      height,
+      pageX,
+      pageY,
+    }: {
+      // Width and height of the target view
+      width: number
+      height: number
+      // PageX and PageY are the coordinates of the target view relative to the screen
+      pageX: number
+      pageY: number
+    }) => {
+      const offsetWidthMap: Record<typeof position, number> = {
+        top: deviceWidth - pageX,
+        bottom: deviceWidth - pageX,
+        left: pageX - offset,
+        right: deviceWidth - (pageX + width + offset),
+      }
+      const positionStyleMap: Record<typeof position, typeof positionStyle> = {
+        left: {
+          right: deviceWidth - pageX + offset,
+          top: pageY,
+        },
+        right: {
+          left: pageX + width + offset,
+          top: pageY,
+        },
+        top: {
+          left: pageX,
+          bottom: -pageY + offset + TOP_DEFAULT_OFFSET,
+        },
+        bottom: {
+          left: pageX,
+          top: pageY + height + offset + BOTTOM_DEFAULT_OFFSET,
+        },
+      }
+
+      setPositionStyle({
+        ...positionStyleMap[position],
+        ...(!fitTargetWidth &&
+          !wrapContent &&
+          (position === 'top' || position === 'bottom') && {
+            left: OFFSET_PADDING,
+            right: OFFSET_PADDING,
+          }),
+        maxWidth: offsetWidthMap[position],
+        targetWidth: width,
+      })
+    }
+
+    if (Platform.OS === 'web') {
+      // For web, use getBoundingClientRect on the ref element
+      let targetElement: HTMLElement | null = null
+      if (
+        targetViewRef.current &&
+        typeof (targetViewRef.current as unknown as HTMLElement)
+          .getBoundingClientRect === 'function'
+      ) {
+        targetElement = targetViewRef.current as unknown as HTMLElement
+      } else if (
+        targetRef &&
+        typeof targetRef === 'object' &&
+        targetRef !== null &&
+        'current' in targetRef &&
+        targetRef.current &&
+        typeof (targetRef.current as unknown as HTMLElement)
+          .getBoundingClientRect === 'function'
+      ) {
+        targetElement = targetRef.current as unknown as HTMLElement
+      }
+
+      if (!targetElement) return
+
+      const {
+        width,
+        height,
+        left: pageX,
+        top: pageY,
+      } = targetElement.getBoundingClientRect()
+
+      updatePositionStyle({width, height, pageX, pageY})
+    } else {
+      // Native platforms
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const nativeRef: React.Component | null =
+        // Find the first children inside the target ref
+        // eslint-disable-next-line
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access, no-underscore-dangle
+        targetViewRef?.current?._children?.[0] ||
         targetViewRef?.current ||
         // eslint-disable-next-line
         // @ts-ignore
-        targetRef?.current,
-    )
-    if (!node) return
+        targetRef?.current
+      const node = nativeRef ? findNodeHandle(nativeRef) : null
 
-    UIManager.measure(
-      node,
-      (
-        x: number,
-        y: number,
-        // Width and height of the target view
-        width: number,
-        height: number,
-        // PageX and PageY are the coordinates of the target view relative to the screen
-        pageX: number,
-        pageY: number,
-      ) => {
-        const offsetWidthMap: Record<typeof position, number> = {
-          top: deviceWidth - pageX,
-          bottom: deviceWidth - pageX,
-          left: pageX - offset,
-          right: deviceWidth - (pageX + width + offset),
-        }
-        const positionStyleMap: Record<typeof position, typeof positionStyle> =
-          {
-            left: {
-              right: deviceWidth - pageX + offset,
-              top: pageY,
-            },
-            right: {
-              left: pageX + width + offset,
-              top: pageY,
-            },
-            top: {
-              left: pageX,
-              bottom: -pageY + offset + TOP_DEFAULT_OFFSET,
-            },
-            bottom: {
-              left: pageX,
-              top: pageY + height + offset + BOTTOM_DEFAULT_OFFSET,
-            },
-          }
+      if (!node) return
 
-        setPositionStyle({
-          ...positionStyleMap[position],
-          ...(!fitTargetWidth &&
-            !wrapContent &&
-            (position === 'top' || position === 'bottom') && {
-              left: OFFSET_PADDING,
-              right: OFFSET_PADDING,
-            }),
-          maxWidth: offsetWidthMap[position],
-          targetWidth: width,
-        })
-      },
-    )
+      // TODO: update measurement logic with ref
+      UIManager.measure(
+        node,
+        (
+          x: number,
+          y: number,
+          // Width and height of the target view
+          width: number,
+          height: number,
+          // PageX and PageY are the coordinates of the target view relative to the screen
+          pageX: number,
+          pageY: number,
+        ) => {
+          updatePositionStyle({width, height, pageX, pageY})
+        },
+      )
+    }
   }, [deviceWidth, fitTargetWidth, offset, position, targetRef, wrapContent])
 
   useEffect(() => {
