@@ -1,4 +1,5 @@
 import React from 'react'
+import {Image} from 'react-native'
 import {Avatar, Icon, View} from '@react-native-blossom-ui/components'
 
 import {SIZE_LIST, AVATAR_MODES} from './constants'
@@ -74,6 +75,17 @@ export function AvatarModesSizes() {
           ))}
         </View>
       ))}
+    </View>
+  )
+}
+
+export function AvatarImgComponent() {
+  return (
+    <View>
+      <Avatar
+        imgComponent={Image}
+        url="https://picsum.photos/seed/picsum/200/300"
+      />
     </View>
   )
 }

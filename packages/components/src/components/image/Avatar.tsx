@@ -23,6 +23,7 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
     initials,
     initialStyle,
     fallbackSource,
+    imgComponent,
     fallbackIcon,
     status = 'primary',
     size = 'medium',
@@ -53,6 +54,7 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
   )
 
   const Container = onPress ? TouchableOpacity : View
+  const ImageComponent = imgComponent || Image
 
   return (
     <Container
@@ -63,7 +65,9 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
       {fallbackIcon && hasLoadingFailed ? (
         fallbackIcon((imageStyle.width as number) - OFFSET)
       ) : rest?.source || url ? (
-        <Image
+        <ImageComponent
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           ref={ref}
           accessibilityIgnoresInvertColors
           source={

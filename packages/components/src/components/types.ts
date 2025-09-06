@@ -667,6 +667,12 @@ export interface AvatarProps extends Partial<ImageProps>, OmitSizeProps {
   fallbackSource?: ImageSourcePropType
 
   /**
+   * Custom image component for Avatar
+   * @returns Custom image component
+   */
+  imgComponent?: React.ComponentType<ImageProps>
+
+  /**
    * On press callback
    */
   onPress?: () => void

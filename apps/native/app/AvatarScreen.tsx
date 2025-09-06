@@ -7,6 +7,7 @@ import {
   AvatarStatusesSmall,
   AvatarSizes,
   AvatarModesSizes,
+  AvatarImgComponent,
   AvatarFallbackIcon,
   AvatarFallbackSource,
   AvatarCustom,
@@ -31,6 +32,9 @@ export default function AvatarScreen() {
 
         <Heading>Modes & Size</Heading>
         <AvatarModesSizes />
+
+        <Heading>Image Component</Heading>
+        <AvatarImgComponent />
 
         <Heading>Fallback Icon</Heading>
         <AvatarFallbackIcon />
