@@ -33,7 +33,7 @@ export default function DatePickerScreen() {
       </ScrollView>
 
       <Heading>Auto Top Position</Heading>
-      <DatePickerDisableDates />
+      <DatePickerUsage />
     </Surface>
   )
 }

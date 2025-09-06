@@ -58,9 +58,21 @@ export function DatePickerDisableDates() {
   return (
     <View>
       <DatePicker
-        clearable
+        label="Disabling Specific Dates"
+        placeholder="Disabling Specific Dates"
         disableDates={[yesterday, new Date(), tomorrow, '10-02-2025']}
         outputDateFormat="DD-MM-YYYY"
+      />
+
+      <DatePicker
+        label="Disabling Future Dates"
+        placeholder="Disabling Future Dates"
+        disableFutureDates
+      />
+      <DatePicker
+        label="Disabling Past Dates"
+        placeholder="Disabling Past Dates"
+        disablePastDates
       />
     </View>
   )

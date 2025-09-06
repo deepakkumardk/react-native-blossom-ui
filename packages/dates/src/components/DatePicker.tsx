@@ -25,6 +25,8 @@ const DatePicker = (props: DatePickerProps) => {
   const {
     defaultDate,
     disableDates,
+    disableFutureDates,
+    disablePastDates,
     displayDateFormat = DEFAULT_DISPLAY_FORMAT,
     outputDateFormat = DEFAULT_OUTPUT_FORMAT,
     clearable,
@@ -90,6 +92,8 @@ const DatePicker = (props: DatePickerProps) => {
         <Pressable
           ref={targetViewRef}
           accessibilityRole="button"
+          style={{zIndex: 10}}
+          // TODO: NOTE: this will trigger the popover on the whole label,input,error container
           onPress={() => setShowPopover(true)}
           onLayout={(e) => setPressableLayout(e.nativeEvent.layout)}>
           <TextInput
@@ -97,7 +101,8 @@ const DatePicker = (props: DatePickerProps) => {
             placeholder="Select Date"
             shouldMockDisableState
             value={formattedDate}
-            onPressOut={() => setShowPopover(true)}
+            pointerEvents="none"
+            // onPressOut={() => setShowPopover(true)}
             right={
               <View
                 row
@@ -138,6 +143,8 @@ const DatePicker = (props: DatePickerProps) => {
       <Calendar
         selectedDate={dateValue}
         disableDates={disableDates}
+        disableFutureDates={disableFutureDates}
+        disablePastDates={disablePastDates}
         displayDateFormat={displayDateFormat}
         outputDateFormat={outputDateFormat}
         onDateChange={onDateChangeCallback}

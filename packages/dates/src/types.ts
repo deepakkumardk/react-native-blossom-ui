@@ -64,6 +64,16 @@ export interface MonthDaysListProps {
    * An array of disabled dates in the MonthDayItem format
    */
   disableDates?: Array<MonthDayItem>
+
+  /**
+   * Disable future dates
+   */
+  disableFutureDates?: boolean
+  /**
+   * Disable past dates
+   */
+  disablePastDates?: boolean
+
   /**
    * Callback for when a day is pressed.
    * @param item The selected day item.
@@ -181,6 +191,16 @@ export interface CalendarProps extends BaseUIProps {
    * Make sure to provide the outputDateFormat prop too if passing date as string
    */
   disableDates?: Array<string | Date>
+
+  /**
+   * Disable future dates
+   */
+  disableFutureDates?: boolean
+  /**
+   * Disable past dates
+   */
+  disablePastDates?: boolean
+
   /**
    * Callback triggered when a date is selected.
    * @param date The selected date as a Date object.
@@ -210,7 +230,12 @@ export interface CalendarProps extends BaseUIProps {
 export type BaseDatePickerProps = Omit<TextInputProps, 'value'> &
   Pick<
     CalendarProps,
-    'displayDateFormat' | 'outputDateFormat' | 'disableDates' | 'onDateChange'
+    | 'displayDateFormat'
+    | 'outputDateFormat'
+    | 'disableDates'
+    | 'disableFutureDates'
+    | 'disablePastDates'
+    | 'onDateChange'
   >
 
 /**
