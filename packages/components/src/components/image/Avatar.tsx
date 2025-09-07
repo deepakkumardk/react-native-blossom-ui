@@ -3,12 +3,13 @@ import {Image, ImageStyle, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {AvatarProps} from '../types'
 
-import {BlossomSize, useMergedProps} from '../../common'
+import {useMergedProps} from '../../common'
 import {useBlossomTheme} from '../../context'
 import {Icon} from '../icon'
 import {Text} from '../text'
 import {getBorderColorName, getStatusColorName} from '../utils'
 import {View} from '../view'
+import {OFFSET, SIZE_MAP} from './sizesValues'
 
 /**
  * Avatar component to show profile images, icon & initials
@@ -22,6 +23,7 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
     url,
     initials,
     initialStyle,
+    containerStyle,
     fallbackSource,
     imgComponent,
     fallbackIcon,
@@ -35,7 +37,7 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
 
   const borderRadiusMap = useMemo(
     (): Record<typeof mode, number> => ({
-      circle: typeof size === 'number' ? size : sizeMap[size] / 2,
+      circle: typeof size === 'number' ? size : SIZE_MAP[size] / 2,
       round: options?.borderRadius || 0,
       square: 0,
     }),
@@ -44,8 +46,8 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
 
   const imageStyle = useMemo(
     (): ImageStyle => ({
-      width: typeof size === 'number' ? size : sizeMap[size],
-      height: typeof size === 'number' ? size : sizeMap[size],
+      width: typeof size === 'number' ? size : SIZE_MAP[size],
+      height: typeof size === 'number' ? size : SIZE_MAP[size],
       borderColor: colors[getBorderColorName(status, isDark)],
       backgroundColor: colors[getStatusColorName(status, isDark, '200')],
       borderRadius: borderRadiusMap[mode],
@@ -60,7 +62,7 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
     <Container
       activeOpacity={0.6}
       {...rest}
-      style={[imageStyle, styles.container, rest?.style]}
+      style={[imageStyle, styles.container, containerStyle]}
       onPress={onPress}>
       {fallbackIcon && hasLoadingFailed ? (
         fallbackIcon((imageStyle.width as number) - OFFSET)
@@ -113,11 +115,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 })
-
-const sizeMap: Record<BlossomSize, number> = {
-  small: 40,
-  medium: 64,
-  large: 96,
-}
-
-const OFFSET = 8

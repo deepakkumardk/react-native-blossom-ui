@@ -127,6 +127,10 @@ const dataList = [
     navigateTo: './AvatarScreen',
   },
   {
+    title: 'AvatarGroup',
+    navigateTo: './AvatarGroupScreen',
+  },
+  {
     title: 'Icon',
     navigateTo: './IconScreen',
   },

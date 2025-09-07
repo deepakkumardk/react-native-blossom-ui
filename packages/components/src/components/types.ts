@@ -649,6 +649,10 @@ export interface AvatarProps extends Partial<ImageProps>, OmitSizeProps {
    */
   initialStyle?: StyleProp<TextStyle>
   /**
+   * Container style for the Avatar component
+   */
+  containerStyle?: StyleProp<ViewStyle>
+  /**
    * Set a custom icon for Avatar
    * @param size Size of the Avatar rendered based on the size prop passed to it
    * You can use it to set the custom icon size
@@ -676,6 +680,45 @@ export interface AvatarProps extends Partial<ImageProps>, OmitSizeProps {
    * On press callback
    */
   onPress?: () => void
+}
+
+export interface AvatarGroupProps
+  extends Omit<AvatarProps, 'source' | 'url' | 'initials'>,
+    OmitSizeProps {
+  /**
+   * List of avatar items to show in the group
+   */
+  avatars: AvatarGroupItem[]
+  /**
+   * Maximum avatars to show in the group
+   * @default 3
+   */
+  max?: number
+  /**
+   * Spacing between the avatars
+   * @default -10
+   */
+  spacing?: number
+  /**
+   * Control the zIndex of the Avatar item
+   */
+  bringToFront?: boolean
+  /**
+   * Render custom view for the extra count
+   * @param extraCount number of extra avatars that are not shown
+   * @returns ReactNode to show
+   * By default it will show a +n count avatar
+   * where n is the number of extra avatars not shown
+   */
+  renderCount?: (extraCount: number) => ReactNode
+}
+
+export interface AvatarGroupItem
+  extends Pick<AvatarProps, 'initials' | 'url' | 'source'> {
+  /**
+   * Control the zIndex of the each Avatar item to create custom stacking order
+   */
+  zIndex?: number
 }
 
 export type IconFamily =
@@ -816,35 +859,37 @@ export interface CheckboxProps extends BaseBooleanFieldProps {
  * Mapping of props to their component name
  */
 export type ComponentPropsMap = {
+  Accordion: AccordionProps
   ActivityIndicator: ActivityIndicatorProps
-  Text: TextProps
-
-  Button: ButtonProps
-  Chip: ChipProps
-  SegmentedButton: SegmentedButtonProps
-
-  View: ViewProps
-  Divider: DividerProps
-
-  ShimmerView: ShimmerViewProps
-  ProgressBar: ProgressBarProps
-
-  Icon: IconProps
   Avatar: AvatarProps
-
-  TextInput: TextInputProps
-  SearchInput: SearchInputProps
-
+  AvatarGroup: AvatarGroupProps
+  BottomSheet: ModalProps
+  Button: ButtonProps
+  Card: CardProps
   Checkbox: CheckboxProps
-  Switch: SwitchProps
-  Radio: RadioProps
-
+  Chip: ChipProps
+  Divider: DividerProps
+  ExpandableText: ExpandableTextProps
+  FAB: FABProps
+  Icon: IconProps
+  Link: LinkProps
   Modal: ModalProps
-  Popover: PopoverProps
-  Tooltip: TooltipProps
-  SelectItem: SelectItemProps<unknown>
-  Select: SelectProps<unknown>
   MultiSelect: SelectProps<unknown>
+  OtpInput: OtpInputProps
+  Popover: PopoverProps
+  ProgressBar: ProgressBarProps
+  Radio: RadioProps
+  SearchInput: SearchInputProps
+  SegmentedButton: SegmentedButtonProps
+  Select: SelectProps<unknown>
+  SelectItem: SelectItemProps<unknown>
+  ShimmerView: ShimmerViewProps
+  View: ViewProps
+  Spacer: SpacerProps
+  Switch: SwitchProps
+  Text: TextProps
+  TextInput: TextInputProps
+  Tooltip: TooltipProps
 }
 
 export interface ModalProps extends RNModalProps {
