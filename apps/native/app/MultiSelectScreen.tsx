@@ -1,7 +1,5 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
 
-import {Surface} from '@react-native-blossom-ui/components'
 import {
   MultiSelectUsage,
   MultiSelectClearable,
@@ -14,46 +12,37 @@ import {
   MultiSelectDefaultValue,
 } from '@react-native-blossom-ui/showcase'
 
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function MultiSelectScreen() {
   return (
-    <Surface style={styles.container}>
-      <ScrollView>
-        <Heading>Usage</Heading>
-        <MultiSelectUsage />
+    <AppScrollView>
+      <Heading>Usage</Heading>
+      <MultiSelectUsage />
 
-        <Heading>Default Value</Heading>
-        <MultiSelectDefaultValue />
+      <Heading>Default Value</Heading>
+      <MultiSelectDefaultValue />
 
-        <Heading>Clearable</Heading>
-        <MultiSelectClearable />
+      <Heading>Clearable</Heading>
+      <MultiSelectClearable />
 
-        <Heading>Custom Style</Heading>
-        <MultiSelectCustomStyle />
+      <Heading>Custom Style</Heading>
+      <MultiSelectCustomStyle />
 
-        <Heading>Custom Picker Style</Heading>
-        <MultiSelectCustomPickerStyle />
+      <Heading>Custom Picker Style</Heading>
+      <MultiSelectCustomPickerStyle />
 
-        <Heading>Disabled</Heading>
-        <MultiSelectDisabled />
+      <Heading>Disabled</Heading>
+      <MultiSelectDisabled />
 
-        <Heading>Max Select</Heading>
-        <MultiSelectMaxSelect />
+      <Heading>Max Select</Heading>
+      <MultiSelectMaxSelect />
 
-        <Heading>Controlled</Heading>
-        <MultiSelectControlled />
+      <Heading>Controlled</Heading>
+      <MultiSelectControlled />
 
-        <Heading>Object List Options</Heading>
-        <MultiSelectObjectOptions />
-      </ScrollView>
-    </Surface>
+      <Heading>Object List Options</Heading>
+      <MultiSelectObjectOptions />
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-})

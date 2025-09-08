@@ -1,6 +1,4 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
-import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   RadioCustom,
@@ -12,41 +10,31 @@ import {
   RadioUsage,
 } from '@react-native-blossom-ui/showcase'
 
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function RadioScreen() {
   return (
-    <Surface style={styles.container}>
-      <ScrollView>
-        <Heading>Usage</Heading>
-        <RadioUsage />
+    <AppScrollView>
+      <Heading>Usage</Heading>
+      <RadioUsage />
 
-        <Heading>Positions</Heading>
-        <RadioPositions />
+      <Heading>Positions</Heading>
+      <RadioPositions />
 
-        <Heading>Default Value</Heading>
-        <RadioDefaultValue />
+      <Heading>Default Value</Heading>
+      <RadioDefaultValue />
 
-        <Heading>Sizes</Heading>
-        <RadioSizes />
+      <Heading>Sizes</Heading>
+      <RadioSizes />
 
-        <Heading>Statuses</Heading>
-        <RadioStatuses />
+      <Heading>Statuses</Heading>
+      <RadioStatuses />
 
-        <Heading>Disabled</Heading>
-        <RadioDisabled />
+      <Heading>Disabled</Heading>
+      <RadioDisabled />
 
-        <Heading>Custom</Heading>
-        <RadioCustom />
-      </ScrollView>
-    </Surface>
+      <Heading>Custom</Heading>
+      <RadioCustom />
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    paddingBottom: 64,
-  },
-})

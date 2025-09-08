@@ -1,6 +1,4 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
-import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   SwitchCustom,
@@ -12,41 +10,31 @@ import {
   SwitchUsage,
 } from '@react-native-blossom-ui/showcase'
 
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function SwitchScreen() {
   return (
-    <Surface style={styles.container}>
-      <ScrollView>
-        <Heading>Usage</Heading>
-        <SwitchUsage />
+    <AppScrollView>
+      <Heading>Usage</Heading>
+      <SwitchUsage />
 
-        <Heading>Default Value</Heading>
-        <SwitchDefaultValue />
+      <Heading>Default Value</Heading>
+      <SwitchDefaultValue />
 
-        <Heading>Positions</Heading>
-        <SwitchPositions />
+      <Heading>Positions</Heading>
+      <SwitchPositions />
 
-        <Heading>Sizes</Heading>
-        <SwitchSizes />
+      <Heading>Sizes</Heading>
+      <SwitchSizes />
 
-        <Heading>Statuses</Heading>
-        <SwitchStatuses />
+      <Heading>Statuses</Heading>
+      <SwitchStatuses />
 
-        <Heading>Disabled</Heading>
-        <SwitchDisabled />
+      <Heading>Disabled</Heading>
+      <SwitchDisabled />
 
-        <Heading>Custom</Heading>
-        <SwitchCustom />
-      </ScrollView>
-    </Surface>
+      <Heading>Custom</Heading>
+      <SwitchCustom />
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    paddingBottom: 64,
-  },
-})

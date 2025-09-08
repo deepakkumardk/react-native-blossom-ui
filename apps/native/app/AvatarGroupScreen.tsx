@@ -1,6 +1,4 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
-import {Surface} from '@react-native-blossom-ui/components'
 import {
   AvatarGroupUsage,
   AvatarGroupSizes,
@@ -10,40 +8,31 @@ import {
   AvatarGroupSpacing,
   AvatarGroupStatuses,
 } from '@react-native-blossom-ui/showcase'
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function AvatarGroupScreen() {
   return (
-    <Surface style={styles.container}>
-      <ScrollView>
-        <Heading>Usage</Heading>
-        <AvatarGroupUsage />
+    <AppScrollView>
+      <Heading>Usage</Heading>
+      <AvatarGroupUsage />
 
-        <Heading>Size</Heading>
-        <AvatarGroupSizes />
+      <Heading>Size</Heading>
+      <AvatarGroupSizes />
 
-        <Heading>Bring to Front</Heading>
-        <AvatarGroupBringToFront />
+      <Heading>Bring to Front</Heading>
+      <AvatarGroupBringToFront />
 
-        <Heading>Spacing</Heading>
-        <AvatarGroupSpacing />
+      <Heading>Spacing</Heading>
+      <AvatarGroupSpacing />
 
-        <Heading>Custom Z-Index</Heading>
-        <AvatarGroupCustomZIndex />
+      <Heading>Custom Z-Index</Heading>
+      <AvatarGroupCustomZIndex />
 
-        <Heading>Status</Heading>
-        <AvatarGroupStatuses />
+      <Heading>Status</Heading>
+      <AvatarGroupStatuses />
 
-        <Heading>Custom</Heading>
-        <AvatarGroupCustom />
-      </ScrollView>
-    </Surface>
+      <Heading>Custom</Heading>
+      <AvatarGroupCustom />
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-})

@@ -1,18 +1,16 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
 
-import {Surface} from '@react-native-blossom-ui/components'
 import {
   SpacerOnBackground,
   SpacerUsage,
   SpacerVertical,
 } from '@react-native-blossom-ui/showcase'
 
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function SpacerScreen() {
   return (
-    <Surface style={styles.container}>
+    <AppScrollView>
       <Heading>Usage</Heading>
       <SpacerUsage />
 
@@ -21,13 +19,6 @@ export default function SpacerScreen() {
 
       <Heading>On Background</Heading>
       <SpacerOnBackground />
-    </Surface>
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-})

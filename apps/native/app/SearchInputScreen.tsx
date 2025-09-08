@@ -1,6 +1,4 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
-import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   SearchInputUsage,
@@ -10,35 +8,25 @@ import {
   AnimatedSearchInput,
 } from '@react-native-blossom-ui/showcase'
 
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function SearchInputScreen() {
   return (
-    <Surface style={styles.container}>
-      <ScrollView>
-        <Heading>Usage</Heading>
-        <SearchInputUsage />
+    <AppScrollView>
+      <Heading>Usage</Heading>
+      <SearchInputUsage />
 
-        <Heading>Animated Placeholder</Heading>
-        <AnimatedSearchInput />
+      <Heading>Animated Placeholder</Heading>
+      <AnimatedSearchInput />
 
-        <Heading>Modes</Heading>
-        <SearchInputModes />
+      <Heading>Modes</Heading>
+      <SearchInputModes />
 
-        <Heading>Dense</Heading>
-        <SearchInputDense />
+      <Heading>Dense</Heading>
+      <SearchInputDense />
 
-        <Heading>Sizes</Heading>
-        <SearchInputSizes />
-      </ScrollView>
-    </Surface>
+      <Heading>Sizes</Heading>
+      <SearchInputSizes />
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    paddingBottom: 64,
-  },
-})

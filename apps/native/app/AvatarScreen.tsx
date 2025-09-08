@@ -1,6 +1,4 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
-import {Surface} from '@react-native-blossom-ui/components'
 import {
   AvatarUsage,
   AvatarModes,
@@ -12,46 +10,37 @@ import {
   AvatarFallbackSource,
   AvatarCustom,
 } from '@react-native-blossom-ui/showcase'
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function AvatarScreen() {
   return (
-    <Surface style={styles.container}>
-      <ScrollView>
-        <Heading>Usage</Heading>
-        <AvatarUsage />
+    <AppScrollView>
+      <Heading>Usage</Heading>
+      <AvatarUsage />
 
-        <Heading>Status</Heading>
-        <AvatarStatusesSmall />
+      <Heading>Status</Heading>
+      <AvatarStatusesSmall />
 
-        <Heading>Modes</Heading>
-        <AvatarModes />
+      <Heading>Modes</Heading>
+      <AvatarModes />
 
-        <Heading>Size</Heading>
-        <AvatarSizes />
+      <Heading>Size</Heading>
+      <AvatarSizes />
 
-        <Heading>Modes & Size</Heading>
-        <AvatarModesSizes />
+      <Heading>Modes & Size</Heading>
+      <AvatarModesSizes />
 
-        <Heading>Image Component</Heading>
-        <AvatarImgComponent />
+      <Heading>Image Component</Heading>
+      <AvatarImgComponent />
 
-        <Heading>Fallback Icon</Heading>
-        <AvatarFallbackIcon />
+      <Heading>Fallback Icon</Heading>
+      <AvatarFallbackIcon />
 
-        <Heading>Fallback Source</Heading>
-        <AvatarFallbackSource />
+      <Heading>Fallback Source</Heading>
+      <AvatarFallbackSource />
 
-        <Heading>Custom</Heading>
-        <AvatarCustom />
-      </ScrollView>
-    </Surface>
+      <Heading>Custom</Heading>
+      <AvatarCustom />
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-})

@@ -1,6 +1,4 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
-import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   ChipUsage,
@@ -18,59 +16,49 @@ import {
   ChipCustom,
 } from '@react-native-blossom-ui/showcase'
 
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function ChipScreen() {
   return (
-    <Surface style={styles.container}>
-      <ScrollView>
-        <Heading>Usage</Heading>
-        <ChipUsage />
+    <AppScrollView>
+      <Heading>Usage</Heading>
+      <ChipUsage />
 
-        <Heading>View Only</Heading>
-        <ChipViewOnly />
+      <Heading>View Only</Heading>
+      <ChipViewOnly />
 
-        <Heading>Clearable</Heading>
-        <ChipClearable />
+      <Heading>Clearable</Heading>
+      <ChipClearable />
 
-        <Heading>Hide Check Icon</Heading>
-        <ChipWithoutCheckIcon />
+      <Heading>Hide Check Icon</Heading>
+      <ChipWithoutCheckIcon />
 
-        <Heading>Custom Check Icon</Heading>
-        <ChipCheckIcon />
+      <Heading>Custom Check Icon</Heading>
+      <ChipCheckIcon />
 
-        <Heading>As Badge</Heading>
-        <ChipAsBadge />
+      <Heading>As Badge</Heading>
+      <ChipAsBadge />
 
-        <Heading>Statuses</Heading>
-        <ChipStatusesMobile />
+      <Heading>Statuses</Heading>
+      <ChipStatusesMobile />
 
-        <Heading>Sizes</Heading>
-        <ChipSizes />
+      <Heading>Sizes</Heading>
+      <ChipSizes />
 
-        <Heading>Modes</Heading>
-        <ChipModes />
+      <Heading>Modes</Heading>
+      <ChipModes />
 
-        <Heading>Disabled</Heading>
-        <ChipDisabled />
+      <Heading>Disabled</Heading>
+      <ChipDisabled />
 
-        <Heading>Modes & Sizes</Heading>
-        <ChipModesSizesMobile />
+      <Heading>Modes & Sizes</Heading>
+      <ChipModesSizesMobile />
 
-        <Heading>Modes & Status</Heading>
-        <ChipAllStatuses />
+      <Heading>Modes & Status</Heading>
+      <ChipAllStatuses />
 
-        <Heading>Custom</Heading>
-        <ChipCustom />
-      </ScrollView>
-    </Surface>
+      <Heading>Custom</Heading>
+      <ChipCustom />
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    paddingBottom: 64,
-  },
-})

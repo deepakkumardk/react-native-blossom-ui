@@ -1,21 +1,13 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
-import {Surface} from '@react-native-blossom-ui/components'
+
 import {CardUsage} from '@react-native-blossom-ui/showcase'
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function CardScreen() {
   return (
-    <Surface style={styles.container}>
+    <AppScrollView>
       <Heading>Usage</Heading>
       <CardUsage />
-    </Surface>
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-})
