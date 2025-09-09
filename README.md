@@ -1,6 +1,4 @@
-<h1 align="center">
-  React-Native Blossom UI
-</h1>
+<h1 align="center">🌸 Blossom UI</h1>
 
 <h4 align="center">
   Build Awesome Blossom UI
@@ -21,45 +19,34 @@
   </a>
 </p>
 
-<div align="center">
-  <h4><a href="https://docs-react-native-blossom-ui.vercel.app/">Documentation</a></h4>
-</div>
+<p align="center">
+  <a href="https://docs-react-native-blossom-ui.vercel.app/">📚 Documentation</a> |
+  <a href="https://react-native-blossom-ui-showcase-app.vercel.app">🌟 Live Demo</a>
+</p>
 
-Blossom UI helps you to create an awesome UI on mobile and web platform. This library is based on custom design system and it's totally configurable.
+---
 
-- **📦️ Base components** - This contains all the basic components that react-native provides
-- **🎨 Theme Support** - Out of the box Theme support with dark theme mode
-- **⚙️ Customizability** - You can customize all the components to match your UI needs
-- **🔣 Icons Support** - _react-native-vector-icons_ support out of the box with themes
-- **<img src="https://reactnative.dev/img/header_logo.svg" width="20" height="20" align="center" /> CLI & Expo Support** - Support both CLI & Expo apps
-- **📈 25+ components** - Support 30+ components & counting++
+## ✨ Features
 
-## Why use Blossom-UI?
+- 📦 **32+ Ready-to-use Components** — Buttons, Inputs, Cards, Modals, and more
+- 🎨 **Themeable & Dark Mode** — Out-of-the-box theme support, easy customization
+- ⚡ **Fast & Lightweight** — No unnecessary dependencies, optimized for performance
+- 🛠️ **Fully Customizable** — Override styles, icons, and behaviors to match your brand
+- 🔣 **Icon Support** — Seamless integration with react-native-vector-icons
+- 🚀 **Expo & CLI Support** — Works with both Expo and React Native CLI
+- 🌍 **Cross-Platform** — Consistent experience on Android, iOS, and Web
 
-Blossom-UI is the new guy in the react-native open source community.
+## 🚀 Getting Started
 
-- It was made keeping the vast amount of **mobile components** requirement.
-- Most of the library do not provide a full set of components instead they just ask to install the 3rd party library, here you will get the most of it in **one pack**.
-- You get the **full customizability** with all the components so that you can make you app faster matching your **UI designs**.
-- You also get the same experience on **all platforms** including android, iOS & web.
-
-## Installation
+Install Blossom UI and its peer dependency:
 
 ```bash
-yarn add @react-native-blossom-ui/components
+yarn add @react-native-blossom-ui/components react-native-vector-icons
 ```
 
-Next, install the required peer dependency of the library
+> For `react-native-vector-icons`, follow [these extra steps](https://github.com/oblador/react-native-vector-icons) if needed.
 
-```bash
-yarn add react-native-vector-icons
-```
-
-Follow the extra [installation steps](https://github.com/oblador/react-native-vector-icons) for the above library.
-
-## Usage
-
-Let's see a quick example of how to use a Input and a button
+## 🏗️ Usage Example
 
 ```tsx
 import {Button, TextInput, View} from '@react-native-blossom-ui/components'
@@ -74,10 +61,23 @@ function MyApp() {
 }
 ```
 
-## Thanks
+Explore more components and usage in the [Documentation](https://docs-react-native-blossom-ui.vercel.app/).
 
-- [mantine](https://mantine.dev) for inspiration from it's awesome components
+## 💡 Why Blossom UI?
 
-## License
+- **All-in-one**: No more hunting for multiple UI libraries
+- **Developer-first**: Easy to use, well-documented, and actively maintained
+- **Customizable**: Make your app stand out with your own design system
+- **Open source**: Join our community and contribute!
+
+## 🤝 Contributing
+
+We welcome contributions! Please check out our [contribution guide](CONTRIBUTION.md) and help us make Blossom UI even better.
+
+## 🙏 Thanks
+
+- [mantine](https://mantine.dev) for inspiration from its awesome components
+
+## 📄 License
 
 [MIT License](LICENSE)
