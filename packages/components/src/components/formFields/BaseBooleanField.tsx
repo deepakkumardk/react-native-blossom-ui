@@ -23,6 +23,7 @@ const BaseBooleanField = (props: BaseBooleanFieldProps) => {
     containerStyle,
     labelStyle,
     captionStyle,
+    textFieldsContainerStyle,
     errorStyle,
     status = 'accent',
     size = 'medium',
@@ -76,8 +77,7 @@ const BaseBooleanField = (props: BaseBooleanFieldProps) => {
           position === 'right' || !adjacent ? styles.alignEndRightPosition : {},
           position === 'right' && !adjacent && styles.alignLeftRightPosition,
           position === 'left' ? styles.startMargin : styles.endMargin,
-          // TODO: use different style
-          containerStyle,
+          textFieldsContainerStyle,
         ]}>
         {label ? (
           <SizedText

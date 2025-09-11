@@ -1,25 +1,13 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
-
-import {Surface} from '@react-native-blossom-ui/components'
 import {CalendarUsage} from '@react-native-blossom-ui/showcase'
 
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function DatePickerScreen() {
   return (
-    <Surface style={styles.container}>
-      <ScrollView>
-        <Heading>Usage</Heading>
-        <CalendarUsage />
-      </ScrollView>
-    </Surface>
+    <AppScrollView>
+      <Heading>Usage</Heading>
+      <CalendarUsage />
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-})

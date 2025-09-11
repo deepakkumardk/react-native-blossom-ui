@@ -1,6 +1,5 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
-import {Surface} from '@react-native-blossom-ui/components'
+
 import {
   IconSizes,
   IconStatuses,
@@ -8,34 +7,25 @@ import {
   IconFamily,
   IconButton,
 } from '@react-native-blossom-ui/showcase'
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function IconScreen() {
   return (
-    <Surface style={styles.container}>
-      <ScrollView>
-        <Heading>Usage</Heading>
-        <IconUsage />
+    <AppScrollView>
+      <Heading>Usage</Heading>
+      <IconUsage />
 
-        <Heading>Status</Heading>
-        <IconStatuses />
+      <Heading>Status</Heading>
+      <IconStatuses />
 
-        <Heading>Size</Heading>
-        <IconSizes />
+      <Heading>Size</Heading>
+      <IconSizes />
 
-        <Heading>Family</Heading>
-        <IconFamily />
+      <Heading>Family</Heading>
+      <IconFamily />
 
-        <Heading>As Button</Heading>
-        <IconButton />
-      </ScrollView>
-    </Surface>
+      <Heading>As Button</Heading>
+      <IconButton />
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-})

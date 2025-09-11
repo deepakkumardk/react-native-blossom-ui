@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native'
 
 import {Surface} from '@react-native-blossom-ui/components'
 import {
@@ -10,12 +10,12 @@ import {
   DatePickerDisableDates,
 } from '@react-native-blossom-ui/showcase'
 
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function DatePickerScreen() {
   return (
     <Surface style={styles.container}>
-      <ScrollView>
+      <AppScrollView contentContainerStyle={styles.scrollView}>
         <Heading>Usage</Heading>
         <DatePickerUsage />
 
@@ -30,10 +30,10 @@ export default function DatePickerScreen() {
 
         <Heading>Disable Dates</Heading>
         <DatePickerDisableDates />
-      </ScrollView>
+      </AppScrollView>
 
       <Heading>Auto Top Position</Heading>
-      <DatePickerDisableDates />
+      <DatePickerUsage />
     </Surface>
   )
 }
@@ -41,6 +41,10 @@ export default function DatePickerScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+  },
+  scrollView: {
+    padding: 0,
   },
 })

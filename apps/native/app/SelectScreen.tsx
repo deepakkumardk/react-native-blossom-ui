@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native'
 
 import {Surface} from '@react-native-blossom-ui/components'
 import {
@@ -14,12 +14,12 @@ import {
   SelectObjectOptions,
 } from '@react-native-blossom-ui/showcase'
 
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function SelectScreen() {
   return (
     <Surface style={styles.container}>
-      <ScrollView>
+      <AppScrollView contentContainerStyle={styles.scrollView}>
         <Heading>Usage</Heading>
         <SelectUsage />
 
@@ -46,7 +46,8 @@ export default function SelectScreen() {
 
         <Heading>Object List Options</Heading>
         <SelectObjectOptions />
-      </ScrollView>
+      </AppScrollView>
+
       <Heading>Auto Top Position</Heading>
       <SelectUsage />
     </Surface>
@@ -56,6 +57,10 @@ export default function SelectScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+  },
+  scrollView: {
+    padding: 0,
   },
 })

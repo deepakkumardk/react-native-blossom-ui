@@ -1,6 +1,5 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
-import {Surface} from '@react-native-blossom-ui/components'
+
 import {
   OtpInputUsage,
   OtpInputModes,
@@ -10,40 +9,31 @@ import {
   OtpInputSizes,
   OtpInputCustom,
 } from '@react-native-blossom-ui/showcase'
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function OtpInputScreen() {
   return (
-    <Surface style={styles.container}>
-      <ScrollView contentContainerStyle={{paddingBottom: 64}}>
-        <Heading>Usage</Heading>
-        <OtpInputUsage />
+    <AppScrollView>
+      <Heading>Usage</Heading>
+      <OtpInputUsage />
 
-        <Heading>Modes</Heading>
-        <OtpInputModes />
+      <Heading>Modes</Heading>
+      <OtpInputModes />
 
-        <Heading>Placeholder</Heading>
-        <OtpInputPlaceholder />
+      <Heading>Placeholder</Heading>
+      <OtpInputPlaceholder />
 
-        <Heading>With Cursor</Heading>
-        <OtpInputWithCursor />
+      <Heading>With Cursor</Heading>
+      <OtpInputWithCursor />
 
-        <Heading>As PIN</Heading>
-        <OtpInputAsPin />
+      <Heading>As PIN</Heading>
+      <OtpInputAsPin />
 
-        <Heading>Size</Heading>
-        <OtpInputSizes />
+      <Heading>Size</Heading>
+      <OtpInputSizes />
 
-        <Heading>Custom</Heading>
-        <OtpInputCustom />
-      </ScrollView>
-    </Surface>
+      <Heading>Custom</Heading>
+      <OtpInputCustom />
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-})

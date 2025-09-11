@@ -1,6 +1,4 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
-import {Surface} from '@react-native-blossom-ui/components'
 
 import {
   SegmentedButtonUsage,
@@ -13,44 +11,34 @@ import {
   SegmentedButtonCustom,
 } from '@react-native-blossom-ui/showcase'
 
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function SegmentedButtonScreen() {
   return (
-    <Surface style={styles.container}>
-      <ScrollView>
-        <Heading>Usage</Heading>
-        <SegmentedButtonUsage />
+    <AppScrollView>
+      <Heading>Usage</Heading>
+      <SegmentedButtonUsage />
 
-        <Heading>Multi Select</Heading>
-        <SegmentedButtonMultiSelect />
+      <Heading>Multi Select</Heading>
+      <SegmentedButtonMultiSelect />
 
-        <Heading>With Icon</Heading>
-        <SegmentedButtonIcons />
+      <Heading>With Icon</Heading>
+      <SegmentedButtonIcons />
 
-        <Heading>Modes</Heading>
-        <SegmentedButtonModes />
+      <Heading>Modes</Heading>
+      <SegmentedButtonModes />
 
-        <Heading>Sizes</Heading>
-        <SegmentedButtonSizes />
+      <Heading>Sizes</Heading>
+      <SegmentedButtonSizes />
 
-        <Heading>Statuses</Heading>
-        <SegmentedButtonStatuses />
+      <Heading>Statuses</Heading>
+      <SegmentedButtonStatuses />
 
-        <Heading>Disabled</Heading>
-        <SegmentedButtonDisabled />
+      <Heading>Disabled</Heading>
+      <SegmentedButtonDisabled />
 
-        <Heading>Custom</Heading>
-        <SegmentedButtonCustom />
-      </ScrollView>
-    </Surface>
+      <Heading>Custom</Heading>
+      <SegmentedButtonCustom />
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    paddingBottom: 64,
-  },
-})

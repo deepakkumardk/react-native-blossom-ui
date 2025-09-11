@@ -61,7 +61,6 @@ export const Container = () => {
         return {
           size: 'medium',
           status: 'primary',
-          mode: 'round',
         }
       },
       SegmentedButton(props, theme) {

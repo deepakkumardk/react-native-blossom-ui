@@ -16,6 +16,8 @@ function MonthDaysList({
   currentMonth,
   currentYear,
   disableDates,
+  disableFutureDates,
+  disablePastDates,
   onItemPress,
 }: MonthDaysListProps) {
   const {colors, isDark} = useBlossomTheme()
@@ -39,6 +41,36 @@ function MonthDaysList({
 
   const isDateDisabled = useCallback(
     (item: MonthDayItem) => {
+      const today = new Date()
+
+      if (disableFutureDates) {
+        const isFutureDate =
+          item.year > today.getFullYear() ||
+          (item.year === today.getFullYear() &&
+            item.month > today.getMonth()) ||
+          (item.year === today.getFullYear() &&
+            item.month === today.getMonth() &&
+            item.day > today.getDate())
+
+        if (isFutureDate) {
+          return true
+        }
+      }
+
+      if (disablePastDates) {
+        const isPastDate =
+          item.year < today.getFullYear() ||
+          (item.year === today.getFullYear() &&
+            item.month < today.getMonth()) ||
+          (item.year === today.getFullYear() &&
+            item.month === today.getMonth() &&
+            item.day < today.getDate())
+
+        if (isPastDate) {
+          return true
+        }
+      }
+
       const doesContainDay = disableDates?.find((value) => {
         return (
           item.day === value?.day &&
@@ -49,7 +81,7 @@ function MonthDaysList({
 
       return !!doesContainDay
     },
-    [disableDates],
+    [disableDates, disableFutureDates, disablePastDates],
   )
 
   const isToday = useCallback((item: MonthDayItem) => {

@@ -1,6 +1,5 @@
 import React from 'react'
-import {StyleSheet} from 'react-native'
-import {Surface} from '@react-native-blossom-ui/components'
+
 import {
   DividerCustom,
   DividerLabel,
@@ -8,11 +7,11 @@ import {
   DividerUsage,
   DividerVertical,
 } from '@react-native-blossom-ui/showcase'
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function DividerScreen() {
   return (
-    <Surface style={styles.container}>
+    <AppScrollView>
       <Heading>Usage</Heading>
       <DividerUsage />
 
@@ -27,13 +26,6 @@ export default function DividerScreen() {
 
       <Heading>Custom</Heading>
       <DividerCustom />
-    </Surface>
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-})

@@ -133,6 +133,18 @@ export function CheckboxDisabled() {
   )
 }
 
+export function CheckboxTextFieldsContainerStyle() {
+  return (
+    <View>
+      <Checkbox
+        label="Text Fields Checkbox"
+        caption="Custom style for text fields container"
+        textFieldsContainerStyle={{backgroundColor: 'lightgrey'}}
+      />
+    </View>
+  )
+}
+
 export function CheckboxCustom() {
   const [isOn, setIsOn] = useState(true)
 

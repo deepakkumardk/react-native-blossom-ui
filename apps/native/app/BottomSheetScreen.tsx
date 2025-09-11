@@ -1,30 +1,20 @@
 import React from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
-import {Surface} from '@react-native-blossom-ui/components'
+
 import {
   BottomSheetUsage,
   BottomSheetWithScroll,
 } from '@react-native-blossom-ui/showcase'
 
-import {Heading} from '../components'
+import {Heading, AppScrollView} from '../components'
 
 export default function BottomSheetScreen() {
   return (
-    <Surface style={styles.container}>
-      <ScrollView>
-        <Heading>Usage</Heading>
-        <BottomSheetUsage />
+    <AppScrollView>
+      <Heading>Usage</Heading>
+      <BottomSheetUsage />
 
-        <Heading>With Scroll</Heading>
-        <BottomSheetWithScroll />
-      </ScrollView>
-    </Surface>
+      <Heading>With Scroll</Heading>
+      <BottomSheetWithScroll />
+    </AppScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-})

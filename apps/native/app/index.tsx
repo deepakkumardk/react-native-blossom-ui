@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native'
+import {StyleSheet, TouchableOpacity} from 'react-native'
 import {router} from 'expo-router'
 import {
   Chip,
@@ -8,11 +8,12 @@ import {
   Text,
   View,
 } from '@react-native-blossom-ui/components'
+import {AppScrollView} from '../components'
 
 export default function Page() {
   return (
     <Surface style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <AppScrollView>
         <View row style={styles.row}>
           <Chip title={`${dataList.length}+`} size="small" viewOnly />
           <Text>Components</Text>
@@ -22,6 +23,7 @@ export default function Page() {
           .sort((a, b) => a.title.localeCompare(b.title))
           .map((item) => (
             <TouchableOpacity
+              activeOpacity={0.7}
               accessibilityRole="button"
               key={item.title}
               style={styles.item}
@@ -30,7 +32,7 @@ export default function Page() {
               <Divider style={{marginVertical: 8}} />
             </TouchableOpacity>
           ))}
-      </ScrollView>
+      </AppScrollView>
     </Surface>
   )
 }
@@ -38,7 +40,6 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
   },
   item: {
     paddingVertical: 2,
@@ -125,6 +126,10 @@ const dataList = [
   {
     title: 'Avatar',
     navigateTo: './AvatarScreen',
+  },
+  {
+    title: 'AvatarGroup',
+    navigateTo: './AvatarGroupScreen',
   },
   {
     title: 'Icon',

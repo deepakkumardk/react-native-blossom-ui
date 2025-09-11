@@ -32,6 +32,8 @@ function Calendar(props: CalendarProps) {
     displayDateFormat = DEFAULT_DISPLAY_FORMAT,
     outputDateFormat = DEFAULT_OUTPUT_FORMAT,
     disableDates,
+    disableFutureDates,
+    disablePastDates,
     yearListProps,
     onDateChange,
     containerStyle,
@@ -213,6 +215,8 @@ function Calendar(props: CalendarProps) {
           selectedDate={selectedDate}
           disableDates={transformedDisabledDates}
           onItemPress={onDatePress}
+          disableFutureDates={disableFutureDates}
+          disablePastDates={disablePastDates}
         />
       )}
       {viewMode === 'Month' && (

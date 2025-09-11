@@ -110,7 +110,7 @@ export function TextInputCustom() {
       <TextInput
         label="Custom Text Input"
         placeholder="Custom input"
-        left={<Icon name="email" family="MaterialIcons" />}
+        left={<Icon name="email" family="MaterialCommunityIcons" />}
         inputContainerStyle={{backgroundColor: 'cyan'}}
       />
       <TextInput
