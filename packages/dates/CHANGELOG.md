@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/dates
 
+## 0.14.0
+
+### Minor Changes
+
+- f000939: Add disableFutureDates & disablePastDates prop to all dates component
+
 ## 0.13.1
 
 ## 0.13.0

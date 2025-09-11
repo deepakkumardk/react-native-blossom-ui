@@ -1,5 +1,13 @@
 # @react-native-blossom-ui/components
 
+## 0.14.0
+
+### Minor Changes
+
+- f000939: Add imgComponent prop to Avatar
+  Add AvatarGroup component
+- 16f920f: Add textFieldsContainerStyle prop to BaseBooleanField for Radio,Switch & Checkbox
+
 ## 0.13.1
 
 ### Patch Changes
