@@ -11,7 +11,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "tsc": "tsc --skipLibCheck --noEmit",
-    "lint": "eslint src/ --fix",
+    "lint": "eslint . --fix",
     "clean": "rm -rf node_modules",
     "pre-build": "node scripts/pre-build.js > app.json"
   },

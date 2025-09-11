@@ -10,6 +10,7 @@ import {
   CheckboxSizes,
   CheckboxStatuses,
   CheckboxCustom,
+  CheckboxTextFieldsContainerStyle,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading, AppScrollView} from '../components'
@@ -40,6 +41,9 @@ export default function CheckboxScreen() {
 
       <Heading>Indeterminate</Heading>
       <CheckboxIndeterminate />
+
+      <Heading>Text Fields Container Style</Heading>
+      <CheckboxTextFieldsContainerStyle />
 
       <Heading>Custom</Heading>
       <CheckboxCustom />

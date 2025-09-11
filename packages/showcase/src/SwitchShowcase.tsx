@@ -95,6 +95,18 @@ export function SwitchDisabled() {
   )
 }
 
+export function SwitchTextFieldsContainerStyle() {
+  return (
+    <View>
+      <Switch
+        label="Text Fields Switch"
+        caption="Custom style for text fields container"
+        textFieldsContainerStyle={{backgroundColor: 'lightgrey'}}
+      />
+    </View>
+  )
+}
+
 export function SwitchCustom() {
   const [isOn, setIsOn] = useState(true)
 

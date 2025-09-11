@@ -7,6 +7,7 @@ import {
   RadioPositions,
   RadioSizes,
   RadioStatuses,
+  RadioTextFieldsContainerStyle,
   RadioUsage,
 } from '@react-native-blossom-ui/showcase'
 
@@ -32,6 +33,9 @@ export default function RadioScreen() {
 
       <Heading>Disabled</Heading>
       <RadioDisabled />
+
+      <Heading>Text Fields Container Style</Heading>
+      <RadioTextFieldsContainerStyle />
 
       <Heading>Custom</Heading>
       <RadioCustom />

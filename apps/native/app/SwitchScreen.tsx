@@ -7,6 +7,7 @@ import {
   SwitchPositions,
   SwitchSizes,
   SwitchStatuses,
+  SwitchTextFieldsContainerStyle,
   SwitchUsage,
 } from '@react-native-blossom-ui/showcase'
 
@@ -32,6 +33,9 @@ export default function SwitchScreen() {
 
       <Heading>Disabled</Heading>
       <SwitchDisabled />
+
+      <Heading>Text Fields Container Style</Heading>
+      <SwitchTextFieldsContainerStyle />
 
       <Heading>Custom</Heading>
       <SwitchCustom />

@@ -806,6 +806,12 @@ export interface BaseBooleanFieldProps extends BaseUIProps, Children {
    * Container view style
    */
   containerStyle?: StyleProp<ViewStyle>
+
+  /**
+   * Text field Container view style
+   * Container for label, caption & error i.e. the right/left section opposite to the boolean field
+   */
+  textFieldsContainerStyle?: StyleProp<ViewStyle>
   /**
    * Label text style
    */

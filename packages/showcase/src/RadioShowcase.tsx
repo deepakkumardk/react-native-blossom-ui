@@ -101,6 +101,18 @@ export function RadioDisabled() {
   )
 }
 
+export function RadioTextFieldsContainerStyle() {
+  return (
+    <View>
+      <Radio
+        label="Text Fields Radio"
+        caption="Custom style for text fields container"
+        textFieldsContainerStyle={{backgroundColor: 'lightgrey'}}
+      />
+    </View>
+  )
+}
+
 export function RadioCustom() {
   const [isOn, setIsOn] = useState(false)
 

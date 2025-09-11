@@ -177,7 +177,8 @@ const Select = <T,>(props: SelectProps<T>) => {
             value={getDisplayValue()}
             disabled={disabled || !searchable}
             shouldMockDisableState
-            onPressOut={openPicker}
+            // onPressOut={openPicker}
+            pointerEvents="none"
             status={status}
             size={size}
             {...inputProps}
