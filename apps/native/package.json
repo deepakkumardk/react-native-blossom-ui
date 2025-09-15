@@ -25,7 +25,7 @@
     "expo-constants": "~14.4.2",
     "expo-font": "~11.4.0",
     "expo-image": "~1.3.5",
-    "expo-linking": "~5.0.2",
+    "expo-linking": "~8.0.8",
     "expo-router": "^2.0.0",
     "expo-screen-orientation": "~6.0.6",
     "expo-status-bar": "~1.6.0",
