@@ -66,16 +66,22 @@ const Avatar = (props: AvatarProps, ref: React.Ref<Image>) => {
       onPress={onPress}>
       {fallbackIcon && hasLoadingFailed ? (
         fallbackIcon((imageStyle.width as number) - OFFSET)
-      ) : rest?.source || url ? (
+      ) : rest?.source ||
+        url ||
+        rest?.defaultSource ||
+        rest?.loadingIndicatorSource ||
+        fallbackSource ? (
         <ImageComponent
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
+          // @ts-ignore
           ref={ref}
           accessibilityIgnoresInvertColors
-          source={
-            hasLoadingFailed && fallbackSource ? fallbackSource : {uri: url}
-          }
           {...rest}
+          source={
+            hasLoadingFailed && fallbackSource
+              ? fallbackSource
+              : {uri: url, ...(rest.source as object)}
+          }
           onError={(error) => {
             setHasLoadingFailed(true)
             rest?.onError?.(error)

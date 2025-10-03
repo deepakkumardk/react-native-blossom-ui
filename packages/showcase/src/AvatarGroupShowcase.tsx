@@ -14,6 +14,15 @@ export function AvatarGroupUsage() {
   )
 }
 
+export function AvatarGroupMaxCount() {
+  return (
+    <View>
+      <AvatarGroup avatars={AVATAR_GROUP_DATA} />
+      <AvatarGroup max={2} avatars={AVATAR_GROUP_DATA.slice(0, 2)} />
+    </View>
+  )
+}
+
 export function AvatarGroupSizes() {
   return (
     <View style={{justifyContent: 'space-evenly'}}>
@@ -81,6 +90,7 @@ export function AvatarGroupCustom() {
       <AvatarGroup
         avatars={AVATAR_GROUP_DATA}
         onPress={() => alert('Avatar Pressed')}
+        size={40}
         style={{alignSelf: 'center', borderWidth: 2, borderColor: 'yellow'}}
         renderCount={(count) => (
           <View

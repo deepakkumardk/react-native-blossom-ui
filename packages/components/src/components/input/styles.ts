@@ -3,19 +3,19 @@ import {Platform} from 'react-native'
 export const textInputSizeStylesMap = {
   small: {
     inputText: {
-      paddingVertical: Platform.OS === 'android' ? 1 : 7,
+      paddingVertical: Platform.OS === 'android' ? 3 : 7,
       fontSize: 14,
     },
   },
   medium: {
     inputText: {
-      paddingVertical: Platform.OS === 'android' ? 4 : 10,
+      paddingVertical: Platform.OS === 'android' ? 6 : 10,
       fontSize: 16,
     },
   },
   large: {
     inputText: {
-      paddingVertical: Platform.OS === 'android' ? 6 : 12,
+      paddingVertical: Platform.OS === 'android' ? 9 : 13,
       fontSize: 17,
     },
   },

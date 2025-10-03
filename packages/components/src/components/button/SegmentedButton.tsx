@@ -75,12 +75,12 @@ const SegmentedButton = (props: SegmentedButtonProps) => {
                 }
               : {},
             index === 0 && {
-              borderTopLeftRadius: borderRadius || options?.borderRadius,
-              borderBottomLeftRadius: borderRadius || options?.borderRadius,
+              borderTopLeftRadius: borderRadius ?? options?.borderRadius,
+              borderBottomLeftRadius: borderRadius ?? options?.borderRadius,
             },
             index === data.length - 1 && {
-              borderTopRightRadius: borderRadius || options?.borderRadius,
-              borderBottomRightRadius: borderRadius || options?.borderRadius,
+              borderTopRightRadius: borderRadius ?? options?.borderRadius,
+              borderBottomRightRadius: borderRadius ?? options?.borderRadius,
             },
             index !== data.length - 1 &&
               withVerticalDivider && {
