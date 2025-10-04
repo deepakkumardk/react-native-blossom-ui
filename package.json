@@ -12,7 +12,7 @@
     "ios": "yarn --cwd apps/native ios",
     "tsc": "tsc --skipLibCheck --noEmit",
     "lint": "turbo run lint",
-    "clean": "turbo run clean && rm -rf node_modules",
+    "clean": "turbo run clean && rm -rf node_modules && rm -rf packages/*/node_modules && rm -rf apps/*/node_modules",
     "rebuild": "yarn clean && yarn && yarn build",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx}\" --ignore-path .gitignore",
     "test": "echo 'TODO'",
@@ -26,8 +26,6 @@
     "@commitlint/config-conventional": "19.5.0",
     "@thoughtbot/eslint-config": "1.0.2",
     "@types/chroma-js": "2.4.4",
-    "@types/react": "~18.2.0",
-    "@types/react-native": "0.73.0",
     "@types/react-native-vector-icons": "6.4.18",
     "commitlint": "19.5.0",
     "eslint": "^8.56.0",
@@ -35,15 +33,14 @@
     "lefthook": "1.7.18",
     "prettier": "^3.1.1",
     "react": "~18.2.0",
-    "react-native": "0.72.10",
+    "react-native": "0.74.5",
     "react-native-vector-icons": "10.2.0",
+    "tsup": "8.5.0",
     "turbo": "^2.1.3",
     "typescript": "^5.3.3"
   },
   "resolutions": {
-    "expo/uuid": "3.4.0",
-    "@types/react": "~18.2.0",
-    "@types/react-native": "0.73.0"
+    "expo/uuid": "3.4.0"
   },
   "engines": {
     "node": ">=18"

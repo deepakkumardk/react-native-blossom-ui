@@ -11,10 +11,7 @@
       ],
       "@react-native-blossom-ui/showcase/*": [
         "./packages/showcase/src/*"
-      ],
-      "react": [
-        "./node_modules/@types/react"
-      ],
+      ]
     },
   },
   "exclude": [

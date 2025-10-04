@@ -5,11 +5,11 @@ module.exports = function (api) {
   return {
     presets: [
       'babel-preset-expo',
-      '@babel/preset-flow',
-      'module:metro-react-native-babel-preset',
+      // '@babel/preset-flow',
+      // 'module:metro-react-native-babel-preset',
     ],
     plugins: [
-      'expo-router/babel',
+      // 'expo-router/babel',
       // '@babel/plugin-proposal-export-namespace-from',
       // 'react-native-reanimated/plugin',
     ],
