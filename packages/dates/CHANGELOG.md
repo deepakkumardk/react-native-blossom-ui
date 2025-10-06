@@ -1,5 +1,15 @@
 # @react-native-blossom-ui/dates
 
+## 0.15.0
+
+### Minor Changes
+
+- e6866ec: Add minDate, maxDate prop for all Date related components
+
+### Patch Changes
+
+- e6866ec: Fix disabled DatePicker issue
+
 ## 0.14.0
 
 ### Minor Changes

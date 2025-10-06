@@ -1,5 +1,14 @@
 # @react-native-blossom-ui/components
 
+## 0.15.0
+
+### Patch Changes
+
+- e6866ec: Fix SegmentedButton borderRadius issue for zero value
+  Fix ProgressBar height & borderRadius for zero value
+  Fix Avatar rest props for loading images
+  Fix AvatarGroup extraCount prop not rendered:
+
 ## 0.14.0
 
 ### Minor Changes
