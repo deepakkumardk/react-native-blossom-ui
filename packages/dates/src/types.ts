@@ -47,7 +47,7 @@ export interface DayItemProps {
 /**
  * Props for displaying a list of days in a month.
  */
-export interface MonthDaysListProps {
+export interface MonthDaysListProps extends BaseDateProps {
   /**
    * The currently selected date.
    */
@@ -64,15 +64,6 @@ export interface MonthDaysListProps {
    * An array of disabled dates in the MonthDayItem format
    */
   disableDates?: Array<MonthDayItem>
-
-  /**
-   * Disable future dates
-   */
-  disableFutureDates?: boolean
-  /**
-   * Disable past dates
-   */
-  disablePastDates?: boolean
 
   /**
    * Callback for when a day is pressed.
@@ -168,29 +159,17 @@ export interface YearsListRef {
   hasMaxYear: () => boolean
 }
 
-/**
- * Props for the Calendar component.
- */
-export interface CalendarProps extends BaseUIProps {
+export interface BaseDateProps {
   /**
-   * The default selected date.
-   * Can be a string (formatted date) or a Date object.
+   * minimum selectable date inclusive.
+   * Can be a string (in `outputDateFormat`) or a Date object.
    */
-  selectedDate?: string | Date
+  minDate?: string | Date
   /**
-   * The format in which the date should be displayed inside the input value
+   * maximum selectable date inclusive.
+   * Can be a string (in `outputDateFormat`) or a Date object.
    */
-  displayDateFormat?: string
-  /**
-   * The format in which the selected date should give output
-   * And this format should be used whenever you are passing any date to this component
-   */
-  outputDateFormat?: string
-  /**
-   * An array of disabled dates of string (in outputDateFormat) or a Date object.
-   * Make sure to provide the outputDateFormat prop too if passing date as string
-   */
-  disableDates?: Array<string | Date>
+  maxDate?: string | Date
 
   /**
    * Disable future dates
@@ -200,6 +179,38 @@ export interface CalendarProps extends BaseUIProps {
    * Disable past dates
    */
   disablePastDates?: boolean
+
+  /**
+   * The format in which the date should be displayed inside the input value
+   * Checkout the dayjs docs for all available formats - https://day.js.org/docs/en/display/format
+   * @default 'D MMM YYYY'
+   */
+  displayDateFormat?: string
+  /**
+   * The format in which the selected date should give output
+   * And this format should be used whenever you are passing any date to this component
+   *
+   * Checkout the dayjs docs for all available formats - https://day.js.org/docs/en/display/format
+   * @default 'DD-MM-YYYY'
+   */
+  outputDateFormat?: string
+}
+
+/**
+ * Props for the Calendar component.
+ */
+export interface CalendarProps extends BaseUIProps, BaseDateProps {
+  /**
+   * The default selected date.
+   * Can be a string (formatted date) or a Date object.
+   */
+  selectedDate?: string | Date
+
+  /**
+   * An array of disabled dates of string (in outputDateFormat) or a Date object.
+   * Make sure to provide the outputDateFormat prop too if passing date as string
+   */
+  disableDates?: Array<string | Date>
 
   /**
    * Callback triggered when a date is selected.
@@ -241,7 +252,7 @@ export type BaseDatePickerProps = Omit<TextInputProps, 'value'> &
 /**
  * Props for the DatePicker component.
  */
-export interface DatePickerProps extends BaseDatePickerProps {
+export interface DatePickerProps extends BaseDatePickerProps, BaseDateProps {
   /**
    * The default selected date.
    * Can be a string (formatted date) or a Date object.

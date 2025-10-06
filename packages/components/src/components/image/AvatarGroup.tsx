@@ -66,27 +66,28 @@ function AvatarGroup(props: AvatarGroupProps) {
         )
       })}
 
-      {(extraCount > 0 && renderCount?.(extraCount)) || (
-        <Avatar
-          {...rest}
-          size={
-            (typeof rest?.size === 'number'
-              ? Number(rest?.size)
-              : SIZE_MAP[rest?.size || 'medium']) - OFFSET
-          }
-          containerStyle={{
-            marginLeft: sizeSpacing,
-            zIndex: bringToFront
-              ? displayAvatars.length + 100
-              : -displayAvatars.length - 100,
-          }}
-          initials={`+${extraCount}`}
-          style={{
-            borderWidth: 2,
-            borderColor: colors.text100,
-          }}
-        />
-      )}
+      {extraCount > 0 &&
+        (renderCount?.(extraCount) || (
+          <Avatar
+            {...rest}
+            size={
+              (typeof rest?.size === 'number'
+                ? Number(rest?.size)
+                : SIZE_MAP[rest?.size || 'medium']) - OFFSET
+            }
+            containerStyle={{
+              marginLeft: sizeSpacing,
+              zIndex: bringToFront
+                ? displayAvatars.length + 100
+                : -displayAvatars.length - 100,
+            }}
+            initials={`+${extraCount}`}
+            style={{
+              borderWidth: 2,
+              borderColor: colors.text100,
+            }}
+          />
+        ))}
     </Container>
   )
 }

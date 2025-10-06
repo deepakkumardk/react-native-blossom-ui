@@ -1,6 +1,8 @@
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 
+import {MonthDayItem} from '../types'
+
 dayjs.extend(customParseFormat)
 
 /**
@@ -82,15 +84,7 @@ export const getDaysInMonth = (month: number, year: number) => {
   return totalDays
 }
 
-export const getDateWithDMYItem = ({
-  day,
-  month,
-  year,
-}: {
-  day: number
-  month: number
-  year: number
-}) => {
+export const getDateWithDMYItem = ({day, month, year}: MonthDayItem) => {
   const date = new Date()
   date.setFullYear(year, month, day)
   return date
@@ -102,7 +96,7 @@ export const getDateWithDMY = (day: number, month: number, year: number) => {
   return date
 }
 
-export const getDayjsWithDMY = (day: number, month: number, year: number) => {
+export const getDayjsWithDMY = ({day, month, year}: MonthDayItem) => {
   const date = new Date()
   date.setFullYear(year, month, day)
   return dayjs(date)
@@ -116,6 +110,36 @@ export const toDate = (date?: string, format?: string) =>
 
 export const getFormattedDate = (date: Date, format = 'dd mmm yyyy') =>
   dayjs(date).format(format)
+
+export const isBefore = ({
+  dmy,
+  minDate,
+  outputDateFormat,
+}: {
+  dmy: MonthDayItem
+  minDate?: Date | string
+  outputDateFormat?: string
+}) => {
+  if (!minDate) return false
+  const minDayjs = convertToDayjs(minDate, outputDateFormat)
+
+  return getDayjsWithDMY(dmy).isBefore(minDayjs, 'date')
+}
+
+export const isAfter = ({
+  dmy,
+  maxDate,
+  outputDateFormat,
+}: {
+  dmy: MonthDayItem
+  maxDate?: Date | string
+  outputDateFormat?: string
+}) => {
+  if (!maxDate) return false
+  const maxDayjs = convertToDayjs(maxDate, outputDateFormat)
+
+  return getDayjsWithDMY(dmy).isAfter(maxDayjs, 'date')
+}
 
 // -------- Year Utils ---------
 

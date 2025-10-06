@@ -31,6 +31,8 @@ function Calendar(props: CalendarProps) {
     selectedDate: date,
     displayDateFormat = DEFAULT_DISPLAY_FORMAT,
     outputDateFormat = DEFAULT_OUTPUT_FORMAT,
+    minDate,
+    maxDate,
     disableDates,
     disableFutureDates,
     disablePastDates,
@@ -190,6 +192,7 @@ function Calendar(props: CalendarProps) {
             disabled={viewMode !== 'Days'}
             onPress={onTodayPress}>
             <Text
+              status="primary"
               style={[
                 styles.todayText,
                 viewMode !== 'Days' && {
@@ -213,10 +216,14 @@ function Calendar(props: CalendarProps) {
           currentMonth={currentMonth}
           currentYear={currentYear}
           selectedDate={selectedDate}
-          disableDates={transformedDisabledDates}
           onItemPress={onDatePress}
-          disableFutureDates={disableFutureDates}
           disablePastDates={disablePastDates}
+          disableFutureDates={disableFutureDates}
+          disableDates={transformedDisabledDates}
+          displayDateFormat={displayDateFormat}
+          outputDateFormat={outputDateFormat}
+          minDate={minDate}
+          maxDate={maxDate}
         />
       )}
       {viewMode === 'Month' && (

@@ -40,6 +40,56 @@ export function DatePickerDefaultValue() {
   )
 }
 
+export function DatePickerMinDate() {
+  return (
+    <View>
+      <DatePicker label="Passing as Date Object" minDate={new Date()} />
+      <DatePicker
+        label="Passing as formatted string"
+        minDate="20-02-2025"
+        outputDateFormat="DD-MM-YYYY"
+      />
+    </View>
+  )
+}
+
+export function DatePickerMaxDate() {
+  const today = new Date()
+  const nextMonth = new Date()
+  nextMonth.setMonth(today.getMonth() + 1)
+
+  return (
+    <View>
+      <DatePicker label="Passing as Date Object" maxDate={new Date()} />
+      <DatePicker label="Upto Next month" maxDate={nextMonth} />
+      <DatePicker
+        label="Passing as formatted string"
+        maxDate="20-02-2028"
+        outputDateFormat="DD-MM-YYYY"
+      />
+    </View>
+  )
+}
+
+export function DatePickerMinMaxDate() {
+  const today = new Date()
+  const prevMonth = new Date()
+  prevMonth.setMonth(today.getMonth() - 1)
+
+  const nextMonth = new Date()
+  nextMonth.setMonth(today.getMonth() + 1)
+
+  return (
+    <View>
+      <DatePicker
+        label="Min Max Date"
+        minDate={prevMonth}
+        maxDate={nextMonth}
+      />
+    </View>
+  )
+}
+
 export function DatePickerDisableDates() {
   const yesterday = new Date()
   yesterday.setFullYear(

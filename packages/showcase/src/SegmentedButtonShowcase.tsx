@@ -6,7 +6,11 @@ import {
   ControlButtonProps,
 } from '@react-native-blossom-ui/components'
 
-const buttons = [{title: 'Primary'}, {title: 'Secondary'}, {title: 'Tertiary'}]
+const buttons: ControlButtonProps[] = [
+  {title: 'Primary'},
+  {title: 'Secondary'},
+  {title: 'Tertiary'},
+]
 
 const iconButtons: ControlButtonProps[] = [
   {title: 'Primary', left: <Icon name="add" />},

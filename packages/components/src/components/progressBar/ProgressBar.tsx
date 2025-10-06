@@ -61,8 +61,8 @@ const ProgressBar = (props: ProgressBarProps) => {
         {
           backgroundColor: color,
           width,
-          height: height || sizeMap[size],
-          borderRadius: height || sizeMap[size],
+          height: height ?? sizeMap[size],
+          borderRadius: height ?? sizeMap[size],
         },
         reverseDirection && styles.reverse,
         style,

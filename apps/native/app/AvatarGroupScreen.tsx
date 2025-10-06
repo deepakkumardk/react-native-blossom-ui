@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   AvatarGroupUsage,
+  AvatarGroupMaxCount,
   AvatarGroupSizes,
   AvatarGroupCustom,
   AvatarGroupBringToFront,
@@ -15,6 +16,9 @@ export default function AvatarGroupScreen() {
     <AppScrollView>
       <Heading>Usage</Heading>
       <AvatarGroupUsage />
+
+      <Heading>Max Count</Heading>
+      <AvatarGroupMaxCount />
 
       <Heading>Size</Heading>
       <AvatarGroupSizes />

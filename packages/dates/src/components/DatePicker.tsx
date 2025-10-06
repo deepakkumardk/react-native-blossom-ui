@@ -25,6 +25,8 @@ const DatePicker = (props: DatePickerProps) => {
   const {
     defaultDate,
     disableDates,
+    minDate,
+    maxDate,
     disableFutureDates,
     disablePastDates,
     displayDateFormat = DEFAULT_DISPLAY_FORMAT,
@@ -62,6 +64,12 @@ const DatePicker = (props: DatePickerProps) => {
     [onDateChange],
   )
 
+  const showPicker = useCallback(() => {
+    if (disabled) return
+
+    setShowPopover(true)
+  }, [disabled])
+
   useEffect(() => {
     if (defaultDate) {
       const daysDate = convertToDayjs(defaultDate, outputDateFormat)
@@ -94,7 +102,7 @@ const DatePicker = (props: DatePickerProps) => {
           accessibilityRole="button"
           style={{zIndex: 10}}
           // TODO: NOTE: this will trigger the popover on the whole label,input,error container
-          onPress={() => setShowPopover(true)}
+          onPress={showPicker}
           onLayout={(e) => setPressableLayout(e.nativeEvent.layout)}>
           <TextInput
             accessibilityLabel="Date input field"
@@ -126,17 +134,19 @@ const DatePicker = (props: DatePickerProps) => {
                 <Icon name="calendar-outline" family="Ionicons" size={20} />
               </View>
             }
+            {...rest}
             inputContainerStyle={[
               disabled && {
                 backgroundColor: colors.background200,
               },
+              rest?.inputContainerStyle,
             ]}
             inputTextStyle={[
               !disabled && {
                 color: colors.text100,
               },
+              rest?.inputTextStyle,
             ]}
-            {...rest}
           />
         </Pressable>
       }>
@@ -149,6 +159,8 @@ const DatePicker = (props: DatePickerProps) => {
         outputDateFormat={outputDateFormat}
         onDateChange={onDateChangeCallback}
         containerStyle={styles.calendarContainer}
+        minDate={minDate}
+        maxDate={maxDate}
       />
     </Popover>
   )
