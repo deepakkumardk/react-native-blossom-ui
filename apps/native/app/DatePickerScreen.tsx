@@ -7,6 +7,9 @@ import {
   DatePickerClearable,
   DatePickerDisplayFormat,
   DatePickerDefaultValue,
+  DatePickerMaxDate,
+  DatePickerMinDate,
+  DatePickerMinMaxDate,
   DatePickerDisableDates,
 } from '@react-native-blossom-ui/showcase'
 
@@ -27,6 +30,15 @@ export default function DatePickerScreen() {
 
         <Heading>Default Value</Heading>
         <DatePickerDefaultValue />
+
+        <Heading>Min Date</Heading>
+        <DatePickerMinDate />
+
+        <Heading>Max Date</Heading>
+        <DatePickerMaxDate />
+
+        <Heading>Min & Max Date</Heading>
+        <DatePickerMinMaxDate />
 
         <Heading>Disable Dates</Heading>
         <DatePickerDisableDates />

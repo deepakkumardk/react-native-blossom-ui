@@ -4,7 +4,7 @@ import {FlatList, StyleSheet} from 'react-native'
 import {Text, useBlossomTheme, View} from '@react-native-blossom-ui/components'
 
 import {MonthDayItem, MonthDaysListProps} from '../types'
-import {getAppendedDaysListForMonth} from '../utils'
+import {getAppendedDaysListForMonth, isAfter, isBefore} from '../utils'
 import {WEEK_ARRAY} from './constants'
 import DayItem from './DayItem'
 
@@ -15,6 +15,9 @@ function MonthDaysList({
   selectedDate,
   currentMonth,
   currentYear,
+  minDate,
+  maxDate,
+  outputDateFormat,
   disableDates,
   disableFutureDates,
   disablePastDates,
@@ -71,6 +74,24 @@ function MonthDaysList({
         }
       }
 
+      if (minDate) {
+        const isBeforeMinDate = isBefore({
+          dmy: item,
+          minDate,
+          outputDateFormat,
+        })
+        if (isBeforeMinDate) return true
+      }
+
+      if (maxDate) {
+        const isAfterMaxDate = isAfter({
+          dmy: item,
+          maxDate,
+          outputDateFormat,
+        })
+        if (isAfterMaxDate) return true
+      }
+
       const doesContainDay = disableDates?.find((value) => {
         return (
           item.day === value?.day &&
@@ -81,7 +102,14 @@ function MonthDaysList({
 
       return !!doesContainDay
     },
-    [disableDates, disableFutureDates, disablePastDates],
+    [
+      disableDates,
+      disableFutureDates,
+      disablePastDates,
+      maxDate,
+      minDate,
+      outputDateFormat,
+    ],
   )
 
   const isToday = useCallback((item: MonthDayItem) => {
