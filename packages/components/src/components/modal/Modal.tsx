@@ -3,7 +3,7 @@ import {Platform, Pressable, Modal as RNModal, StyleSheet} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
 import {useMergedProps, useDeviceInfo} from '../../common'
-import {Surface} from '../view'
+import {Surface, View} from '../view'
 import {getAlphaColor} from '../utils'
 import {ModalProps} from '../types'
 
@@ -40,23 +40,23 @@ const Modal = (props: ModalProps) => {
           },
           backdropStyle,
         ]}
-        onPress={onBackdropPress}>
-        {/* NOTE: This is wrapped to skip the touch event inside the content view */}
-        <Pressable accessibilityRole="alert">
-          <Surface
-            accessibilityRole="alert"
-            style={[
-              styles.content,
-              isLandscape && styles.landscape,
-              {
-                borderRadius: options?.borderRadius,
-              },
-              contentStyle,
-            ]}>
-            {children}
-          </Surface>
-        </Pressable>
-      </Pressable>
+        onPress={onBackdropPress}
+      />
+      <View style={styles.contentContainer}>
+        <Surface
+          accessibilityRole="alert"
+          style={[
+            styles.content,
+            // styles.contentContainer,
+            isLandscape && styles.landscape,
+            {
+              borderRadius: options?.borderRadius,
+            },
+            contentStyle,
+          ]}>
+          {children}
+        </Surface>
+      </View>
     </RNModal>
   )
 }
@@ -65,18 +65,21 @@ export default Modal
 
 const styles = StyleSheet.create({
   backdrop: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  contentContainer: {
     flex: 1,
     justifyContent: 'center',
   },
   content: {
-    margin: 24,
     padding: 16,
-    borderRadius: 8,
-    maxHeight: 400,
+    marginHorizontal: 24,
+    marginVertical: 48,
+
     ...Platform.select({
       web: {
         alignSelf: 'center',
-        maxWidth: 500,
+        maxWidth: 600,
         minWidth: 300,
       },
     }),

@@ -85,10 +85,11 @@ const Select = <T,>(props: SelectProps<T>) => {
     if (disabled) return
 
     if (Platform.OS === 'android') {
-      setShowBottomSheet(true)
+      // setShowBottomSheet(true)
     } else {
       setShowPicker(true)
     }
+    setShowPicker(true)
   }, [disabled])
 
   const closePicker = useCallback(() => {
