@@ -139,7 +139,7 @@ export function CheckboxTextFieldsContainerStyle() {
       <Checkbox
         label="Text Fields Checkbox"
         caption="Custom style for text fields container"
-        textFieldsContainerStyle={{backgroundColor: 'lightgrey'}}
+        textFieldsContainerStyle={{backgroundColor: 'grey'}}
       />
     </View>
   )

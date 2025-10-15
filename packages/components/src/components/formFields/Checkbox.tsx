@@ -61,6 +61,15 @@ const Checkbox = (props: CheckboxProps) => {
     return colors.bgLight100
   }, [colors, disabled])
 
+  const onPress = useCallback(() => {
+    if (disabled) return
+
+    void onValueChange?.(indeterminate ? true : !value)
+    if (!isControlled) {
+      setFieldValue?.(indeterminate ? true : !fieldValue)
+    }
+  }, [disabled, fieldValue, indeterminate, isControlled, onValueChange, value])
+
   return (
     <BaseBooleanField status={status} size={size} disabled={disabled} {...rest}>
       <Pressable
@@ -77,11 +86,7 @@ const Checkbox = (props: CheckboxProps) => {
           },
           style,
         ]}
-        onPress={() => {
-          if (disabled) return
-          setFieldValue?.(indeterminate ? true : !fieldValue)
-          void onValueChange?.(indeterminate ? true : !fieldValue)
-        }}>
+        onPress={onPress}>
         {fieldValue || indeterminate
           ? checkedIcon || (
               <Icon
