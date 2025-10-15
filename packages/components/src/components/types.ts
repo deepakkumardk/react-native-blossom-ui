@@ -416,7 +416,7 @@ export interface TextInputProps
   caption?: string
   /**
    * TODO: TextInput will always render this and take the space to fix the flicker issue in show/hide error
-   * @description Error text in error status below caption text
+   * Error text in error status below caption text
    */
   error?: string
   /**
@@ -549,7 +549,7 @@ export interface OtpInputProps extends Omit<TextInputProps, 'mode'> {
   onComplete?: (otp: string) => void
 }
 
-export type OtpInputRef = {
+export interface OtpInputRef {
   /**
    * Clear the otp input text
    */
@@ -864,7 +864,7 @@ export interface CheckboxProps extends BaseBooleanFieldProps {
 /**
  * Mapping of props to their component name
  */
-export type ComponentPropsMap = {
+export interface ComponentPropsMap {
   Accordion: AccordionProps
   ActivityIndicator: ActivityIndicatorProps
   Avatar: AvatarProps
@@ -890,8 +890,8 @@ export type ComponentPropsMap = {
   Select: SelectProps<unknown>
   SelectItem: SelectItemProps<unknown>
   ShimmerView: ShimmerViewProps
-  View: ViewProps
   Spacer: SpacerProps
+  View: ViewProps
   Switch: SwitchProps
   Text: TextProps
   TextInput: TextInputProps
@@ -1087,6 +1087,14 @@ export interface SelectProps<ItemT>
    * Set custom display value
    */
   displayValue?: string
+
+  /**
+   * Modal presentation style
+   * Use 'inline' for a dropdown style select
+   * Use 'bottom-sheet' for a bottom sheet style select
+   * @default inline
+   */
+  mode?: 'inline' | 'bottom-sheet'
 
   /**
    * Set it true to show the loader

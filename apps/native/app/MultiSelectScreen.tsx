@@ -3,13 +3,14 @@ import React from 'react'
 import {
   MultiSelectUsage,
   MultiSelectClearable,
+  MultiSelectDefaultValue,
+  MultiSelectMode,
   MultiSelectControlled,
   MultiSelectCustomStyle,
   MultiSelectCustomPickerStyle,
   MultiSelectDisabled,
   MultiSelectMaxSelect,
   MultiSelectObjectOptions,
-  MultiSelectDefaultValue,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading, AppScrollView} from '../components'
@@ -25,6 +26,9 @@ export default function MultiSelectScreen() {
 
       <Heading>Clearable</Heading>
       <MultiSelectClearable />
+
+      <Heading>Modes</Heading>
+      <MultiSelectMode />
 
       <Heading>Custom Style</Heading>
       <MultiSelectCustomStyle />

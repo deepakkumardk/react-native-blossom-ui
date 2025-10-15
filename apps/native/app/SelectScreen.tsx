@@ -7,6 +7,7 @@ import {
   SelectDefaultValue,
   SelectClearable,
   SelectLoading,
+  SelectMode,
   SelectCustomItem,
   SelectCustomStyle,
   SelectCustomPickerStyle,
@@ -31,6 +32,9 @@ export default function SelectScreen() {
 
         <Heading>Loading</Heading>
         <SelectLoading />
+
+        <Heading>Mode</Heading>
+        <SelectMode />
 
         <Heading>Custom Item</Heading>
         <SelectCustomItem />

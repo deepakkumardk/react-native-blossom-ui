@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Checkbox, MultiSelect} from '@react-native-blossom-ui/components'
+import {Checkbox, MultiSelect, View} from '@react-native-blossom-ui/components'
 
 const OPTIONS = Array(25)
   .fill(0)
@@ -20,6 +20,25 @@ export function MultiSelectDefaultValue() {
 
 export function MultiSelectClearable() {
   return <MultiSelect options={OPTIONS} clearable />
+}
+
+export function MultiSelectMode() {
+  return (
+    <View>
+      <MultiSelect
+        label="Inline Mode"
+        placeholder="Select An Option"
+        mode="inline"
+        options={OPTIONS}
+      />
+      <MultiSelect
+        label="bottom-sheet Mode"
+        placeholder="Select An Option"
+        mode="bottom-sheet"
+        options={OPTIONS}
+      />
+    </View>
+  )
 }
 
 export function MultiSelectCustomStyle() {
@@ -75,11 +94,22 @@ export function MultiSelectDisabled() {
 
 export function MultiSelectMaxSelect() {
   return (
-    <MultiSelect
-      options={OPTIONS}
-      maxSelectCount={2}
-      label="Select upto 2 options"
-    />
+    <View>
+      <MultiSelect
+        label="Inline Mode"
+        placeholder="Select upto 2 options"
+        mode="inline"
+        maxSelectCount={2}
+        options={OPTIONS}
+      />
+      <MultiSelect
+        label="bottom-sheet Mode"
+        placeholder="Select upto 2 options"
+        mode="bottom-sheet"
+        maxSelectCount={2}
+        options={OPTIONS}
+      />
+    </View>
   )
 }
 

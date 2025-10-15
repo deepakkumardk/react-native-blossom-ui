@@ -49,19 +49,28 @@ export type BlossomThemeColors = {
 }
 
 export interface BlossomContext {
+  /**
+   * App theme colors json for light and dark mode
+   */
   colors: BlossomThemeColors
+  /**
+   * Whether the app is in dark mode or not
+   */
   isDark?: boolean
+  /**
+   * Extra options to control the other aspects of the library like typography, border radius etc.
+   */
   options?: BlossomUIOptions
 }
 
-export type Children = {
+export interface Children {
   /**
    * Children
    */
   children?: ReactNode
 }
 
-export type BlossomThemeProviderProps = {
+export interface BlossomThemeProviderProps extends Children {
   /**
    * App theme colors json for light and dark mode
    */
@@ -74,7 +83,7 @@ export type BlossomThemeProviderProps = {
    * Extra options to control the other aspects of the library
    */
   options?: BlossomUIOptions
-} & Children
+}
 
 export type TypographyValues = {
   [K in `${TypographyOptions}`]?:
@@ -82,7 +91,7 @@ export type TypographyValues = {
     | object
 }
 
-export type BlossomUIOptions = {
+export interface BlossomUIOptions {
   /**
    * Control the border radius for all components like input, button etc.
    */
@@ -150,11 +159,7 @@ export type OmitSizeProps = Omit<BaseUIProps, 'size'>
  */
 
 // export type ThemeValues = Pick<BlossomContext, 'colors' | 'isDark'>
-export type ThemeValues = {
-  colors: BlossomThemeColors
-  isDark?: boolean
-  // options?: BlossomUIOptions
-}
+export type ThemeValues = Omit<BlossomContext, 'options'>
 
 export type ComponentPropsObjectMap<T> = {
   [K in keyof T]?: (props: T[K], theme: ThemeValues) => Partial<T[K]>
