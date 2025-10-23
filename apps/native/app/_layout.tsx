@@ -6,11 +6,12 @@ import {
   useBlossomTheme,
   AvatarProps,
 } from '@react-native-blossom-ui/components'
-import {SplashScreen, Stack} from 'expo-router'
+import {Stack} from 'expo-router'
 import {StatusBar} from 'expo-status-bar'
 
+import * as Font from 'expo-font'
 import {TouchableOpacity} from 'react-native'
-import {useFonts} from 'expo-font'
+
 import lightTheme from '../lightTheme.json'
 import darkTheme from '../darkTheme.json'
 import options from '../options.json'
@@ -43,18 +44,14 @@ export default function Layout() {
 export const Container = () => {
   const {colors} = useBlossomTheme()
 
-  SplashScreen.preventAutoHideAsync()
-
-  const [fontsLoaded] = useFonts({
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, global-require
-    Ionicons: require('../assets/fonts/Ionicons.ttf'),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, global-require
-    MaterialCommunityIcons: require('../assets/fonts/MaterialCommunityIcons.ttf'),
-  })
-
   useEffect(() => {
-    if (fontsLoaded) SplashScreen.hideAsync()
-  }, [fontsLoaded])
+    void Font.loadAsync({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, global-require
+      Ionicons: require('../assets/fonts/Ionicons.ttf'),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, global-require
+      MaterialCommunityIcons: require('../assets/fonts/MaterialCommunityIcons.ttf'),
+    })
+  }, [])
 
   useEffect(() => {
     ComponentManager.setDefaultProps({
@@ -100,8 +97,6 @@ export const Container = () => {
       },
     })
   }, [])
-
-  if (!fontsLoaded) return null
 
   return (
     <Stack
