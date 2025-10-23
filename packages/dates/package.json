@@ -1,6 +1,6 @@
 {
   "name": "@react-native-blossom-ui/dates",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "Dates components of Blossom UI",
   "license": "MIT",
   "main": "./src/index",

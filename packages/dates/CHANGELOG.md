@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/dates
 
+## 0.16.0
+
+### Patch Changes
+
+- 0facf5c: Fix Date SelectPicker flex issue for mobile
+
 ## 0.15.0
 
 ### Minor Changes

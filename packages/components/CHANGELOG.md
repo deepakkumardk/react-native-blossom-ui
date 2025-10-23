@@ -1,5 +1,19 @@
 # @react-native-blossom-ui/components
 
+## 0.16.0
+
+### Minor Changes
+
+- 36fee2d: Add mode (inline,bottom-sheet) prop to Select component
+
+### Patch Changes
+
+- 36fee2d: Fix clearable prop for uncontrolled Select value
+  Fix Android scroll issue in Select with modal component
+  Fix controlled Checkbox/Switch value change issue
+- 0facf5c: Fix MultiSelect unselection issue
+  Fix ExpandableText show/hide button visibilty issue in few cases, updated it's algo
+
 ## 0.15.0
 
 ### Patch Changes
