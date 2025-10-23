@@ -29,7 +29,7 @@
     "@types/react": "~18.2.0",
     "@types/react-native": "0.73.0",
     "@types/react-native-vector-icons": "6.4.18",
-    "commitlint": "19.5.0",
+    "commitlint": "20.1.0",
     "eslint": "^8.56.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "lefthook": "1.7.18",
