@@ -26,6 +26,7 @@ export default function DateSelectPickerScreen() {
         <Heading>Month-Year Picker</Heading>
         <View row>
           <MonthPicker />
+          <Spacer width={10} />
           <YearPicker />
         </View>
       </AppScrollView>

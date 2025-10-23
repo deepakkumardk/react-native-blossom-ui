@@ -1,3 +1,8 @@
+---
+name: General Issue
+about: Create a general issue, feature request, or question for Blossom UI
+---
+
 <!--
 Thank you for taking the time to report an issue or request a feature for Blossom UI!
 Please fill out the relevant sections below to help us understand and address your request.

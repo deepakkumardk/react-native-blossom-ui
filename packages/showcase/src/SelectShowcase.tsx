@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Select, Text} from '@react-native-blossom-ui/components'
+import {Select, Text, View} from '@react-native-blossom-ui/components'
 
 const OPTIONS = Array(25)
   .fill(0)
@@ -19,7 +19,6 @@ export function SelectUsage() {
       placeholder="Select An Option"
       options={OPTIONS}
       value={selectedValue}
-      status="primary"
       onValueChange={(value) => setSelectedValue(value)}
     />
   )
@@ -44,6 +43,25 @@ export function SelectClearable() {
 
 export function SelectLoading() {
   return <Select options={OPTIONS} isLoading />
+}
+
+export function SelectMode() {
+  return (
+    <View>
+      <Select
+        label="Inline Mode"
+        placeholder="Select An Option"
+        options={OPTIONS}
+        mode="inline"
+      />
+      <Select
+        label="bottom-sheet Mode"
+        placeholder="Select An Option"
+        options={OPTIONS}
+        mode="bottom-sheet"
+      />
+    </View>
+  )
 }
 
 export function SelectCustomItem() {
@@ -134,6 +152,7 @@ export function SelectObjectOptions() {
     <Select
       options={FRUIT_LIST}
       value={selectedValue}
+      clearable
       onValueChange={(value, item) => {
         setSelectedValue(value)
         alert(`Selected Value\n${JSON.stringify(item)}`)

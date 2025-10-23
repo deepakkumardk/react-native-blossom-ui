@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react'
-import {StyleSheet} from 'react-native'
+import {Platform, StyleSheet} from 'react-native'
 import {
   Select,
   Spacer,
@@ -95,6 +95,10 @@ export default DateSelectPicker
 
 const styles = StyleSheet.create({
   dateSelectContainer: {
-    maxWidth: 90,
+    ...Platform.select({
+      web: {
+        minWidth: 84,
+      },
+    }),
   },
 })

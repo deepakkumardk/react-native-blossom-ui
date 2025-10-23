@@ -76,11 +76,16 @@ const MultiSelect = <T,>(props: MultiSelectProps<T>) => {
       } else {
         // Remove the item if found
         nextItems = selectedItems.filter(
-          (item) => JSON.stringify(item) !== JSON.stringify(selectedItem),
+          (item) =>
+            item.label !== selectedItem.label &&
+            item.value !== selectedItem.value,
         )
-        nextValues = selectedValues.filter(
-          (item) => JSON.stringify(item) !== JSON.stringify(selectedItem),
-        )
+        nextValues = nextItems
+          .filter(
+            (item) =>
+              JSON.stringify(item.value) !== JSON.stringify(selectedItem.value),
+          )
+          .map((item) => item.value)
       }
       onValuesChange?.(nextValues, selectedItems)
       setSelectedItems(nextItems)

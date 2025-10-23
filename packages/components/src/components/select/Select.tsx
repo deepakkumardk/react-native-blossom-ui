@@ -1,11 +1,5 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
-import {
-  Pressable,
-  StyleSheet,
-  FlatList,
-  View as RNView,
-  Platform,
-} from 'react-native'
+import {Pressable, StyleSheet, FlatList, View as RNView} from 'react-native'
 
 import {useBlossomTheme} from '../../context'
 import {Spacer, View} from '../view'
@@ -31,6 +25,7 @@ const Select = <T,>(props: SelectProps<T>) => {
     options = [],
     value,
     displayValue,
+    mode = 'inline',
     onValueChange,
     onClearPress,
     searchable,
@@ -84,12 +79,12 @@ const Select = <T,>(props: SelectProps<T>) => {
   const openPicker = useCallback(() => {
     if (disabled) return
 
-    if (Platform.OS === 'android') {
-      setShowBottomSheet(true)
-    } else {
+    if (mode === 'inline') {
       setShowPicker(true)
+    } else if (mode === 'bottom-sheet') {
+      setShowBottomSheet(true)
     }
-  }, [disabled])
+  }, [disabled, mode])
 
   const closePicker = useCallback(() => {
     setShowPicker(false)
@@ -110,6 +105,7 @@ const Select = <T,>(props: SelectProps<T>) => {
             onPress={() => {
               onClearPress?.()
               onValueChange?.(undefined)
+              setSelectedValue(undefined)
             }}
           />
         )}
@@ -122,15 +118,61 @@ const Select = <T,>(props: SelectProps<T>) => {
       </View>
     ),
     [
-      disabled,
-      colors.background700,
-      colors.text500,
-      colors.text100,
       isLoading,
       clearable,
       getDisplayValue,
+      colors.background700,
+      colors.text500,
+      colors.text100,
+      disabled,
       onClearPress,
       onValueChange,
+    ],
+  )
+
+  const renderFlatList = useCallback(
+    () => (
+      <FlatList
+        ref={flatListRef}
+        data={options}
+        keyExtractor={(item) => item.label}
+        {...pickerProps}
+        renderItem={({item, index, separators}) =>
+          renderItem ? (
+            <Pressable
+              accessibilityRole="menuitem"
+              onPress={() => {
+                if (item.disabled) return
+
+                setSelectedValue(item.value)
+                onValueChange?.(item.value, item, index)
+                closePicker()
+              }}>
+              {renderItem({item, index, separators})}
+            </Pressable>
+          ) : (
+            <SelectItem
+              size={size}
+              item={item}
+              isSelected={index === getSelectedIndex()}
+              onPress={() => {
+                setSelectedValue(item.value)
+                onValueChange?.(item.value, item, index)
+                closePicker()
+              }}
+            />
+          )
+        }
+      />
+    ),
+    [
+      closePicker,
+      getSelectedIndex,
+      onValueChange,
+      options,
+      pickerProps,
+      renderItem,
+      size,
     ],
   )
 
@@ -183,79 +225,19 @@ const Select = <T,>(props: SelectProps<T>) => {
             size={size}
             {...inputProps}
           />
-          <BottomSheet
-            visible={showBottomSheet}
-            onBackdropPress={closePicker}
-            contentStyle={pickerProps?.style}>
-            {placeholder ? <Text typography="s1">{placeholder}</Text> : null}
-            <Spacer height={4} />
-            <FlatList
-              ref={flatListRef}
-              data={options}
-              keyExtractor={(item) => item.label}
-              {...pickerProps}
-              renderItem={({item, index, separators}) =>
-                renderItem ? (
-                  <Pressable
-                    accessibilityRole="menuitem"
-                    onPress={() => {
-                      if (item.disabled) return
-
-                      setSelectedValue(item.value)
-                      onValueChange?.(item.value, item, index)
-                      closePicker()
-                    }}>
-                    {renderItem({item, index, separators})}
-                  </Pressable>
-                ) : (
-                  <SelectItem
-                    size={size}
-                    item={item}
-                    isSelected={index === getSelectedIndex()}
-                    onPress={() => {
-                      setSelectedValue(item.value)
-                      onValueChange?.(item.value, item, index)
-                      closePicker()
-                    }}
-                  />
-                )
-              }
-            />
-          </BottomSheet>
+          {mode === 'bottom-sheet' && (
+            <BottomSheet
+              visible={showBottomSheet}
+              onBackdropPress={closePicker}
+              contentStyle={pickerProps?.style}>
+              {placeholder ? <Text typography="s1">{placeholder}</Text> : null}
+              <Spacer height={4} />
+              {renderFlatList()}
+            </BottomSheet>
+          )}
         </Pressable>
       }>
-      <FlatList
-        ref={flatListRef}
-        data={options}
-        keyExtractor={(item) => item.label}
-        {...pickerProps}
-        renderItem={({item, index, separators}) =>
-          renderItem ? (
-            <Pressable
-              accessibilityRole="menuitem"
-              onPress={() => {
-                if (item.disabled) return
-
-                setSelectedValue(item.value)
-                onValueChange?.(item.value, item, index)
-                closePicker()
-              }}>
-              {renderItem({item, index, separators})}
-            </Pressable>
-          ) : (
-            <SelectItem
-              size={size}
-              item={item}
-              isSelected={index === getSelectedIndex()}
-              onPress={() => {
-                setSelectedValue(item.value)
-                onValueChange?.(item.value, item, index)
-                closePicker()
-              }}
-            />
-          )
-        }
-      />
+      {renderFlatList()}
     </Popover>
   )
 }

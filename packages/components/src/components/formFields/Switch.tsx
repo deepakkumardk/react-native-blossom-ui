@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useState} from 'react'
+import React, {forwardRef, useCallback, useEffect, useState} from 'react'
 import {Platform, Switch as RNSwitch, StyleSheet} from 'react-native'
 
 import {getBorderColorName} from '../utils'
@@ -34,6 +34,13 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
     }
   }, [value, isControlled])
 
+  const onPress = useCallback(() => {
+    void onValueChange?.(!value)
+    if (!isControlled) {
+      setFieldValue?.((prev) => !prev)
+    }
+  }, [isControlled, onValueChange, value])
+
   return (
     <BaseBooleanField status={status} size={size} disabled={disabled} {...rest}>
       <RNSwitch
@@ -62,12 +69,7 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
           size === 'large' && styles.sizeLarge,
           switchStyle,
         ]}
-        onValueChange={() => {
-          setFieldValue((prev) => {
-            void onValueChange?.(!prev)
-            return !prev
-          })
-        }}
+        onValueChange={onPress}
       />
     </BaseBooleanField>
   )

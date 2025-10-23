@@ -21,8 +21,8 @@ import {PopoverProps, PopoverRef} from '../types'
 import {useMergedProps, useDeviceInfo} from '../../common'
 
 const OFFSET_PADDING = 16
-const TOP_DEFAULT_OFFSET = Platform.OS === 'android' ? 24 : 0
-const BOTTOM_DEFAULT_OFFSET = Platform.OS === 'android' ? -20 : 0
+const TOP_DEFAULT_OFFSET = Platform.OS === 'android' ? 36 : 0
+const BOTTOM_DEFAULT_OFFSET = Platform.OS === 'android' ? -30 : 0
 
 /**
  * Show a UI relative to the target view
@@ -221,29 +221,29 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
         supportedOrientations={['portrait', 'landscape']}>
         <Pressable
           accessibilityRole="alert"
-          style={[styles.backdrop]}
-          onPress={onBackdropPress}>
-          {/* NOTE: This is wrapped to skip the touch event inside the content view */}
-          <Pressable accessibilityRole="alert">
-            <Surface
-              style={[
-                styles.content,
-                styles.shadow,
-                positionStyle,
-                {
-                  borderColor: colors.background300,
-                  shadowColor: colors.background200,
-                },
-                fitTargetWidth && {width: positionStyle.targetWidth},
-                contentStyle,
-              ]}>
-              {/* Render children only once the content has been measured to fix flicker issue */}
-              {positionStyle.maxWidth || positionStyle.targetWidth
-                ? children
-                : null}
-            </Surface>
-          </Pressable>
-        </Pressable>
+          style={styles.backdrop}
+          onPress={onBackdropPress}
+        />
+        {/* NOTE: This is wrapped to skip the touch event inside the content view */}
+        <View>
+          <Surface
+            style={[
+              styles.content,
+              styles.shadow,
+              positionStyle,
+              {
+                borderColor: colors.background300,
+                shadowColor: colors.background200,
+              },
+              fitTargetWidth && {width: positionStyle.targetWidth},
+              contentStyle,
+            ]}>
+            {/* Render children only once the content has been measured to fix flicker issue */}
+            {positionStyle.maxWidth || positionStyle.targetWidth
+              ? children
+              : null}
+          </Surface>
+        </View>
       </RNModal>
     </View>
   )
@@ -253,7 +253,7 @@ export default forwardRef(Popover)
 
 const styles = StyleSheet.create({
   backdrop: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
   },
   content: {
     position: 'absolute',
