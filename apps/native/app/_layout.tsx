@@ -6,12 +6,11 @@ import {
   useBlossomTheme,
   AvatarProps,
 } from '@react-native-blossom-ui/components'
-import {Stack} from 'expo-router'
+import {SplashScreen, Stack} from 'expo-router'
 import {StatusBar} from 'expo-status-bar'
 
 import {TouchableOpacity} from 'react-native'
-import * as Font from 'expo-font'
-import {Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
+import {useFonts} from 'expo-font'
 import lightTheme from '../lightTheme.json'
 import darkTheme from '../darkTheme.json'
 import options from '../options.json'
@@ -44,9 +43,18 @@ export default function Layout() {
 export const Container = () => {
   const {colors} = useBlossomTheme()
 
-  React.useEffect(() => {
-    void Font.loadAsync({...Ionicons.font, ...MaterialCommunityIcons.font})
-  }, [])
+  SplashScreen.preventAutoHideAsync()
+
+  const [fontsLoaded] = useFonts({
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, global-require
+    Ionicons: require('../assets/fonts/Ionicons.ttf'),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, global-require
+    MaterialCommunityIcons: require('../assets/fonts/MaterialCommunityIcons.ttf'),
+  })
+
+  useEffect(() => {
+    if (fontsLoaded) SplashScreen.hideAsync()
+  }, [fontsLoaded])
 
   useEffect(() => {
     ComponentManager.setDefaultProps({
@@ -92,6 +100,8 @@ export const Container = () => {
       },
     })
   }, [])
+
+  if (!fontsLoaded) return null
 
   return (
     <Stack
