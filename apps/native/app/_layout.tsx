@@ -32,7 +32,7 @@ export default function Layout() {
           position: 'absolute',
           bottom: 0,
           end: 0,
-          padding: 40,
+          margin: 40,
         }}
         onPress={() => setIsDark((prev) => !prev)}>
         <Icon name="contrast" size={40} />

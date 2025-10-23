@@ -14,7 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": ["assets/fonts/*", "**/*"],
     "assetPlugins": ["expo-asset"],
     "ios": {
       "supportsTablet": true

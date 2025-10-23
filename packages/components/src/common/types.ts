@@ -143,10 +143,14 @@ export type TypographyOptions =
  */
 export interface BaseUIProps {
   /**
+   * Status of the component to apply color variants
+   * 'primary' | 'accent' | 'success' | 'info' | 'warning' | 'error'
    * @default primary
    */
   status?: BlossomStatus
   /**
+   * Size of the component
+   * 'small' | 'medium' | 'large'
    * @default medium
    */
   size?: BlossomSize

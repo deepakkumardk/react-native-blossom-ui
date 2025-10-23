@@ -42,12 +42,25 @@ function ExpandableText(props: ExpandableTextProps) {
   const handleTextLayout = useCallback(
     (e: NativeSyntheticEvent<TextLayoutEventData>) => {
       const {lines} = e.nativeEvent
-      const lastLineWidth = lines[lines.length - 1].width
-      const maxWidthAvailable = Math.min(...lines.map((line) => line.width))
+      console.log('ExpandableText -> lines', lines)
+
+      let minCharsInLine = Infinity
+      let maxCharsInLine = -Infinity
+
+      lines.forEach((line) => {
+        const len = line.text?.length ?? 0
+        if (len < minCharsInLine) minCharsInLine = len
+        if (len > maxCharsInLine) maxCharsInLine = len
+      })
+
+      const diffCharsInLine = maxCharsInLine - minCharsInLine
+      const lastLineChars = lines[lines.length - 1].text.length
 
       const isClipped =
         lines.length > numberOfLines ||
-        (lines.length === numberOfLines && lastLineWidth > maxWidthAvailable)
+        (lines.length === numberOfLines &&
+          lastLineChars + diffCharsInLine >= minCharsInLine)
+
       setIsTextClipped(isClipped)
       setHasLayoutCompleted(true)
     },
@@ -68,7 +81,7 @@ function ExpandableText(props: ExpandableTextProps) {
       {isTextClipped && (
         <TouchableOpacity
           accessibilityRole="button"
-          activeOpacity={0.4}
+          activeOpacity={0.6}
           style={styles.readMore}
           onPress={onTogglePress}>
           <Text

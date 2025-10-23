@@ -11,8 +11,8 @@ export function FABOffset() {
     <FAB
       size="large"
       icon={<Icon name="add" size={32} color="white" />}
-      offsetX={48}
-      offsetY={120}
+      offsetX={150}
+      offsetY={40}
     />
   )
 }
