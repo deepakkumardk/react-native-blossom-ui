@@ -13,7 +13,7 @@
     "tsc": "tsc --skipLibCheck --noEmit",
     "lint": "eslint . --fix",
     "clean": "rm -rf node_modules",
-    "build": "npx expo export --platform web && node scripts/fix-font-paths.js",
+    "build": "npx expo export --platform web",
     "pre-build": "node scripts/pre-build.js > app.json"
   },
   "dependencies": {

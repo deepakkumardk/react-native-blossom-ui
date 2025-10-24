@@ -45,12 +45,12 @@ export const Container = () => {
   const {colors} = useBlossomTheme()
 
   useEffect(() => {
-    void Font.loadAsync({
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, global-require
-      Ionicons: require('../assets/fonts/Ionicons.ttf'),
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, global-require
-      MaterialCommunityIcons: require('../assets/fonts/MaterialCommunityIcons.ttf'),
-    })
+    // void Font.loadAsync({
+    //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, global-require
+    //   Ionicons: require('../assets/fonts/Ionicons.ttf'),
+    //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, global-require
+    //   MaterialCommunityIcons: require('../assets/fonts/MaterialCommunityIcons.ttf'),
+    // })
   }, [])
 
   useEffect(() => {
