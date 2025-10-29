@@ -9,9 +9,9 @@ import {
 import {Stack} from 'expo-router'
 import {StatusBar} from 'expo-status-bar'
 
-import {TouchableOpacity} from 'react-native'
 import * as Font from 'expo-font'
-import {Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
+import {TouchableOpacity} from 'react-native'
+
 import lightTheme from '../lightTheme.json'
 import darkTheme from '../darkTheme.json'
 import options from '../options.json'
@@ -44,8 +44,13 @@ export default function Layout() {
 export const Container = () => {
   const {colors} = useBlossomTheme()
 
-  React.useEffect(() => {
-    void Font.loadAsync({...Ionicons.font, ...MaterialCommunityIcons.font})
+  useEffect(() => {
+    // void Font.loadAsync({
+    //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, global-require
+    //   Ionicons: require('../assets/fonts/Ionicons.ttf'),
+    //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, global-require
+    //   MaterialCommunityIcons: require('../assets/fonts/MaterialCommunityIcons.ttf'),
+    // })
   }, [])
 
   useEffect(() => {
