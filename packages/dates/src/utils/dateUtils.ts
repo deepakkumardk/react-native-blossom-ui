@@ -42,25 +42,34 @@ export const getAppendedDaysListForMonth = (month: number, year: number) => {
     month === 11 ? year + 1 : year,
   )
 
-  const appendedDays = [
+  const appendedDays: MonthDayItem[] = [
     ...lastMonthDays
       .slice(-startDayOfMonth, startDayOfMonth === 0 ? 0 : undefined)
-      .map((value) => ({
+      .map((value, index, array) => ({
         day: value,
         month: lastMonthDate.getMonth(),
         year: lastMonthDate.getFullYear(),
+        weekDay: (startDayOfMonth - array.length + index) % 7,
         isCurrentMonth: false,
       })),
-    ...currentMonthDays.map((value) => ({
+    ...currentMonthDays.map((value, index) => ({
       day: value,
       month: date.getMonth(),
       year: date.getFullYear(),
+      weekDay:
+        startDayOfMonth + index < 7
+          ? startDayOfMonth + index
+          : (startDayOfMonth + index) % 7,
       isCurrentMonth: true,
     })),
-    ...nextMonthDays.slice(0, 6 - endDayOfMonth).map((value) => ({
+    ...nextMonthDays.slice(0, 6 - endDayOfMonth).map((value, index) => ({
       day: value,
       month: nextMonthDate.getMonth(),
       year: nextMonthDate.getFullYear(),
+      weekDay:
+        endDayOfMonth + 1 + index < 7
+          ? endDayOfMonth + 1 + index
+          : (endDayOfMonth + 1 + index) % 7,
       isCurrentMonth: false,
     })),
   ]

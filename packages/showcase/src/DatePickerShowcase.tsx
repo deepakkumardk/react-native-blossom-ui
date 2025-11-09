@@ -90,6 +90,14 @@ export function DatePickerMinMaxDate() {
   )
 }
 
+export function DatePickerDisabledDaysOfWeek() {
+  return (
+    <View>
+      <DatePicker label="Disabled Days of Week" disabledDaysOfWeek={[0, 6]} />
+    </View>
+  )
+}
+
 export function DatePickerDisableDates() {
   const yesterday = new Date()
   yesterday.setFullYear(

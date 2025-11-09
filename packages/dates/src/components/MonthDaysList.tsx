@@ -19,6 +19,7 @@ function MonthDaysList({
   maxDate,
   outputDateFormat,
   disableDates,
+  disabledDaysOfWeek,
   disableFutureDates,
   disablePastDates,
   onItemPress,
@@ -92,6 +93,12 @@ function MonthDaysList({
         if (isAfterMaxDate) return true
       }
 
+      if (disabledDaysOfWeek?.length) {
+        const isDisabledDay =
+          item.weekDay?.toString() && disabledDaysOfWeek.includes(item.weekDay)
+        if (isDisabledDay) return true
+      }
+
       const doesContainDay = disableDates?.find((value) => {
         return (
           item.day === value?.day &&
@@ -106,6 +113,7 @@ function MonthDaysList({
       disableDates,
       disableFutureDates,
       disablePastDates,
+      disabledDaysOfWeek,
       maxDate,
       minDate,
       outputDateFormat,

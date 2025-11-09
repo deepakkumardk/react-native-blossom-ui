@@ -36,6 +36,7 @@ function Calendar(props: CalendarProps) {
     disableDates,
     disableFutureDates,
     disablePastDates,
+    disabledDaysOfWeek,
     yearListProps,
     onDateChange,
     containerStyle,
@@ -145,6 +146,7 @@ function Calendar(props: CalendarProps) {
         day: dateValue.date(),
         month: dateValue.month(),
         year: dateValue.year(),
+        weekDay: dateValue.day(),
       }
       return dayItem
     })
@@ -220,6 +222,7 @@ function Calendar(props: CalendarProps) {
           disablePastDates={disablePastDates}
           disableFutureDates={disableFutureDates}
           disableDates={transformedDisabledDates}
+          disabledDaysOfWeek={disabledDaysOfWeek}
           displayDateFormat={displayDateFormat}
           outputDateFormat={outputDateFormat}
           minDate={minDate}

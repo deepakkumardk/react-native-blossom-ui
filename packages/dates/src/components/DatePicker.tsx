@@ -24,11 +24,12 @@ const DatePicker = (props: DatePickerProps) => {
 
   const {
     defaultDate,
-    disableDates,
     minDate,
     maxDate,
     disableFutureDates,
     disablePastDates,
+    disabledDaysOfWeek,
+    disableDates,
     displayDateFormat = DEFAULT_DISPLAY_FORMAT,
     outputDateFormat = DEFAULT_OUTPUT_FORMAT,
     clearable,
@@ -152,9 +153,10 @@ const DatePicker = (props: DatePickerProps) => {
       }>
       <Calendar
         selectedDate={dateValue}
-        disableDates={disableDates}
         disableFutureDates={disableFutureDates}
         disablePastDates={disablePastDates}
+        disableDates={disableDates}
+        disabledDaysOfWeek={disabledDaysOfWeek}
         displayDateFormat={displayDateFormat}
         outputDateFormat={outputDateFormat}
         onDateChange={onDateChangeCallback}

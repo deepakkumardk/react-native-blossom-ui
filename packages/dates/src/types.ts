@@ -22,6 +22,10 @@ export interface MonthDayItem {
    */
   year: number
   /**
+   * The day of the week (0 = Sunday, 6 = Saturday).
+   */
+  weekDay?: number
+  /**
    * Indicates whether the day belongs to the current displayed month.
    * If false, the day might be from the previous or next month.
    */
@@ -179,6 +183,12 @@ export interface BaseDateProps {
    * Disable past dates
    */
   disablePastDates?: boolean
+
+  /**
+   * disable the given days of the week,
+   * from 0 (Sunday) to 6 (Saturday).
+   */
+  disabledDaysOfWeek?: Array<number>
 
   /**
    * The format in which the date should be displayed inside the input value
