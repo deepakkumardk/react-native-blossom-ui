@@ -135,3 +135,25 @@ export function DatePickerDisableDates() {
     </View>
   )
 }
+
+export function DatePickerDatePickerModes() {
+  return (
+    <View>
+      <DatePicker
+        label="Single Date Selection"
+        datePickerMode="single"
+        clearable
+      />
+      <DatePicker
+        label="Multiple Date Selection"
+        datePickerMode="multiple"
+        clearable
+      />
+      <DatePicker
+        label="Range Date Selection"
+        datePickerMode="range"
+        clearable
+      />
+    </View>
+  )
+}

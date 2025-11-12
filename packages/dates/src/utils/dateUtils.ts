@@ -122,32 +122,44 @@ export const getFormattedDate = (date: Date, format = 'dd mmm yyyy') =>
 
 export const isBefore = ({
   dmy,
-  minDate,
+  referenceDate,
   outputDateFormat,
 }: {
   dmy: MonthDayItem
-  minDate?: Date | string
+  referenceDate?: Date | string
   outputDateFormat?: string
 }) => {
-  if (!minDate) return false
-  const minDayjs = convertToDayjs(minDate, outputDateFormat)
+  if (!referenceDate) return false
+  const minDayjs = convertToDayjs(referenceDate, outputDateFormat)
 
   return getDayjsWithDMY(dmy).isBefore(minDayjs, 'date')
 }
 
 export const isAfter = ({
   dmy,
-  maxDate,
+  // TODO: update name
+  referenceDate,
   outputDateFormat,
 }: {
   dmy: MonthDayItem
-  maxDate?: Date | string
+  referenceDate?: Date | string
   outputDateFormat?: string
 }) => {
-  if (!maxDate) return false
-  const maxDayjs = convertToDayjs(maxDate, outputDateFormat)
+  if (!referenceDate) return false
+
+  const maxDayjs = convertToDayjs(referenceDate, outputDateFormat)
 
   return getDayjsWithDMY(dmy).isAfter(maxDayjs, 'date')
+}
+
+export const isSameDate = (date1?: Date, date2?: MonthDayItem) => {
+  return (
+    date1 &&
+    date2 &&
+    date1.getDate() === date2.day &&
+    date1.getMonth() === date2.month &&
+    date1.getFullYear() === date2.year
+  )
 }
 
 // -------- Year Utils ---------

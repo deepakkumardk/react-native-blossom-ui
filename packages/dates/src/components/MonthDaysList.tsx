@@ -4,7 +4,12 @@ import {FlatList, StyleSheet} from 'react-native'
 import {Text, useBlossomTheme, View} from '@react-native-blossom-ui/components'
 
 import {MonthDayItem, MonthDaysListProps} from '../types'
-import {getAppendedDaysListForMonth, isAfter, isBefore} from '../utils'
+import {
+  getAppendedDaysListForMonth,
+  isAfter,
+  isBefore,
+  isSameDate,
+} from '../utils'
 import {WEEK_ARRAY} from './constants'
 import DayItem from './DayItem'
 
@@ -13,6 +18,9 @@ import DayItem from './DayItem'
  */
 function MonthDaysList({
   selectedDate,
+  selectedDates,
+  selectedEndDate,
+  datePickerMode,
   currentMonth,
   currentYear,
   minDate,
@@ -32,15 +40,38 @@ function MonthDaysList({
 
   const isDaySelected = useCallback(
     (item: MonthDayItem) => {
-      if (
-        item.day === selectedDate?.getDate() &&
-        item.month === selectedDate?.getMonth() &&
-        item.year === selectedDate?.getFullYear()
-      )
-        return true
+      if (isSameDate(selectedDate, item)) return true
+
+      if (selectedDates?.length) {
+        for (let i = 0; i < selectedDates.length; i += 1) {
+          if (isSameDate(selectedDates[i], item)) {
+            return true
+          }
+        }
+      }
+
       return false
     },
-    [selectedDate],
+    [selectedDate, selectedDates],
+  )
+
+  const isBetweenRange = useCallback(
+    (item: MonthDayItem) => {
+      if (selectedDate && selectedEndDate) {
+        const isBetween =
+          isAfter({dmy: item, referenceDate: selectedDate, outputDateFormat}) &&
+          isBefore({
+            dmy: item,
+            referenceDate: selectedEndDate,
+            outputDateFormat,
+          })
+
+        return isBetween
+      }
+
+      return false
+    },
+    [outputDateFormat, selectedDate, selectedEndDate],
   )
 
   const isDateDisabled = useCallback(
@@ -78,7 +109,7 @@ function MonthDaysList({
       if (minDate) {
         const isBeforeMinDate = isBefore({
           dmy: item,
-          minDate,
+          referenceDate: minDate,
           outputDateFormat,
         })
         if (isBeforeMinDate) return true
@@ -87,7 +118,7 @@ function MonthDaysList({
       if (maxDate) {
         const isAfterMaxDate = isAfter({
           dmy: item,
-          maxDate,
+          referenceDate: maxDate,
           outputDateFormat,
         })
         if (isAfterMaxDate) return true
@@ -122,11 +153,7 @@ function MonthDaysList({
 
   const isToday = useCallback((item: MonthDayItem) => {
     const today = new Date()
-    return (
-      item.day === today.getDate() &&
-      item.month === today.getMonth() &&
-      item.year === today.getFullYear()
-    )
+    return isSameDate(today, item)
   }, [])
 
   return (
@@ -151,13 +178,42 @@ function MonthDaysList({
       }
       renderItem={({item}) => (
         <DayItem
-          colors={colors}
-          isDark={!!isDark}
-          isDaySelected={isDaySelected(item)}
-          isDateDisabled={isDateDisabled(item)}
-          isToday={isToday(item)}
           item={item}
+          isDateDisabled={isDateDisabled(item)}
           onItemPress={onItemPress}
+          containerStyle={[
+            isToday(item) && {
+              ...styles.today,
+              borderColor: colors.primary500,
+            },
+            isDaySelected(item) && {
+              backgroundColor: colors.primary500,
+            },
+            isBetweenRange(item) && {
+              borderRadius: 0,
+              backgroundColor: colors.background400,
+            },
+            datePickerMode === 'range' &&
+              isDaySelected(item) && {
+                ...styles.startRangeDate,
+                backgroundColor: colors.primary500,
+              },
+            isSameDate(selectedEndDate, item) && {
+              ...styles.endRangeDate,
+              backgroundColor: colors.primary500,
+            },
+          ]}
+          textStyle={[
+            !item.isCurrentMonth && {
+              color: colors.text400,
+            },
+            isDaySelected(item) && {
+              color: isDark ? colors.text100 : colors.text900,
+            },
+            isDateDisabled(item) && {
+              color: colors.text600,
+            },
+          ]}
         />
       )}
     />
@@ -174,5 +230,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  today: {
+    borderWidth: 1,
+  },
+  startRangeDate: {
+    borderRadius: 0,
+    borderTopLeftRadius: 16,
+    borderBottomLeftRadius: 16,
+  },
+  endRangeDate: {
+    borderRadius: 0,
+    borderTopRightRadius: 16,
+    borderBottomRightRadius: 16,
   },
 })

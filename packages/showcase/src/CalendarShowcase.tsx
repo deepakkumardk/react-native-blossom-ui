@@ -10,7 +10,11 @@ export function CalendarUsage() {
     <View>
       <Calendar
         selectedDate={date}
-        onDateChange={(value?: Date) => setDate(value)}
+        onDateChange={(data) => {
+          if (data.mode === 'single') {
+            setDate(data.date as Date)
+          }
+        }}
       />
     </View>
   )

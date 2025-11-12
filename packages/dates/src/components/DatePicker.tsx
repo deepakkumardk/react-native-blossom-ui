@@ -11,7 +11,7 @@ import {
   View,
 } from '@react-native-blossom-ui/components'
 
-import {DatePickerProps} from '../types'
+import {DatePickerProps, CalendarDateChange} from '../types'
 import Calendar from './Calendar'
 import {convertToDayjs} from '../utils'
 import {DEFAULT_DISPLAY_FORMAT, DEFAULT_OUTPUT_FORMAT} from './constants'
@@ -26,6 +26,7 @@ const DatePicker = (props: DatePickerProps) => {
     defaultDate,
     minDate,
     maxDate,
+    datePickerMode,
     disableFutureDates,
     disablePastDates,
     disabledDaysOfWeek,
@@ -35,6 +36,7 @@ const DatePicker = (props: DatePickerProps) => {
     clearable,
     onDateChange,
     disabled,
+    dateDisplayDelimiter = datePickerMode === 'range' ? ' to ' : ' ... ',
     ...rest
   } = useMergedProps('DatePicker', props, {
     colors,
@@ -47,6 +49,12 @@ const DatePicker = (props: DatePickerProps) => {
   )
   const [formattedDate, setFormattedDate] = useState('')
 
+  const [selectedEndDate, setSelectedEndDate] = useState<Date | undefined>(
+    undefined,
+  )
+
+  const [multipleSelectedDates, setMultipleSelectedDates] = useState<Date[]>([])
+
   const targetViewRef = useRef<RNView>(null)
 
   const {offset, pickerPosition, setPressableLayout} = useCalculatedPosition(
@@ -55,14 +63,76 @@ const DatePicker = (props: DatePickerProps) => {
     targetViewRef,
   )
 
+  const onClearDate = useCallback(() => {
+    setDateValue(undefined)
+    setSelectedEndDate(undefined)
+    setFormattedDate('')
+    setMultipleSelectedDates([])
+    setShowPopover(false)
+
+    if (datePickerMode === 'single') {
+      onDateChange?.({
+        mode: 'single',
+        date: undefined,
+        displayDate: '',
+        outputDate: '',
+      })
+    } else if (datePickerMode === 'multiple') {
+      onDateChange?.({
+        mode: 'multiple',
+        dates: [],
+        displayDate: [],
+        outputDate: [],
+      })
+    } else if (datePickerMode === 'range') {
+      onDateChange?.({
+        mode: 'range',
+        startDate: undefined,
+        endDate: undefined,
+        displayStartDate: '',
+        displayEndDate: '',
+        outputStartDate: '',
+        outputEndDate: '',
+      })
+    }
+  }, [datePickerMode, onDateChange])
+
   const onDateChangeCallback = useCallback(
-    (date?: Date, displayDate?: string, outputDate?: string) => {
-      setDateValue(date)
-      setFormattedDate(displayDate || '')
-      setShowPopover(false)
-      onDateChange?.(date, displayDate, outputDate)
+    (changedData: CalendarDateChange) => {
+      if (changedData.mode === 'single') {
+        setDateValue(changedData.date)
+        setFormattedDate(changedData.displayDate)
+        setShowPopover(false)
+      } else if (changedData.mode === 'multiple') {
+        const firstDate = changedData.dates[0]
+        // Use delimiter between first and last selected items
+        const firstDisplay = changedData.displayDate[0] || ''
+        const lastDisplay =
+          changedData.displayDate[changedData.displayDate.length - 1] || ''
+        const display =
+          firstDisplay && lastDisplay && changedData.dates.length > 1
+            ? `${firstDisplay}${dateDisplayDelimiter}${lastDisplay}`
+            : firstDisplay || lastDisplay || ''
+        // TODO: recheck it later
+        setDateValue(firstDate)
+        setFormattedDate(display)
+        setMultipleSelectedDates(changedData.dates)
+      } else if (changedData.mode === 'range') {
+        const startDisplay = changedData.displayStartDate || ''
+        const endDisplay = changedData.displayEndDate || ''
+        // Use delimiter between start and end date
+        const display =
+          startDisplay && endDisplay
+            ? `${startDisplay}${dateDisplayDelimiter}${endDisplay}`
+            : startDisplay || endDisplay || ''
+        setDateValue(changedData.startDate)
+        setFormattedDate(display)
+        setSelectedEndDate(changedData.endDate)
+      }
+
+      onDateChange?.(changedData)
     },
-    [onDateChange],
+    [dateDisplayDelimiter, onDateChange],
   )
 
   const showPicker = useCallback(() => {
@@ -74,11 +144,12 @@ const DatePicker = (props: DatePickerProps) => {
   useEffect(() => {
     if (defaultDate) {
       const daysDate = convertToDayjs(defaultDate, outputDateFormat)
-      onDateChangeCallback(
-        defaultDate instanceof Date ? defaultDate : daysDate.toDate(),
-        daysDate.format(displayDateFormat),
-        daysDate.format(outputDateFormat),
-      )
+      onDateChangeCallback({
+        mode: 'single',
+        date: defaultDate instanceof Date ? defaultDate : daysDate.toDate(),
+        displayDate: daysDate.format(displayDateFormat),
+        outputDate: daysDate.format(outputDateFormat),
+      })
     }
     // This effect should run only once on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,7 +173,7 @@ const DatePicker = (props: DatePickerProps) => {
           ref={targetViewRef}
           accessibilityRole="button"
           style={{zIndex: 10}}
-          // TODO: NOTE: this will trigger the popover on the whole label,input,error container
+          // TODO: NOTE: fix this - this will trigger the popover on the whole label,input,error container
           onPress={showPicker}
           onLayout={(e) => setPressableLayout(e.nativeEvent.layout)}>
           <TextInput
@@ -127,9 +198,7 @@ const DatePicker = (props: DatePickerProps) => {
                     size={20}
                     style={styles.closeIcon}
                     color={colors.background700}
-                    onPress={() => {
-                      onDateChangeCallback?.(undefined)
-                    }}
+                    onPress={onClearDate}
                   />
                 )}
                 <Icon name="calendar-outline" family="Ionicons" size={20} />
@@ -152,7 +221,10 @@ const DatePicker = (props: DatePickerProps) => {
         </Pressable>
       }>
       <Calendar
+        datePickerMode={datePickerMode}
         selectedDate={dateValue}
+        selectedEndDate={selectedEndDate}
+        selectedDates={multipleSelectedDates}
         disableFutureDates={disableFutureDates}
         disablePastDates={disablePastDates}
         disableDates={disableDates}
