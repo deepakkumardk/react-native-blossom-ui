@@ -42,25 +42,34 @@ export const getAppendedDaysListForMonth = (month: number, year: number) => {
     month === 11 ? year + 1 : year,
   )
 
-  const appendedDays = [
+  const appendedDays: MonthDayItem[] = [
     ...lastMonthDays
       .slice(-startDayOfMonth, startDayOfMonth === 0 ? 0 : undefined)
-      .map((value) => ({
+      .map((value, index, array) => ({
         day: value,
         month: lastMonthDate.getMonth(),
         year: lastMonthDate.getFullYear(),
+        weekDay: (startDayOfMonth - array.length + index) % 7,
         isCurrentMonth: false,
       })),
-    ...currentMonthDays.map((value) => ({
+    ...currentMonthDays.map((value, index) => ({
       day: value,
       month: date.getMonth(),
       year: date.getFullYear(),
+      weekDay:
+        startDayOfMonth + index < 7
+          ? startDayOfMonth + index
+          : (startDayOfMonth + index) % 7,
       isCurrentMonth: true,
     })),
-    ...nextMonthDays.slice(0, 6 - endDayOfMonth).map((value) => ({
+    ...nextMonthDays.slice(0, 6 - endDayOfMonth).map((value, index) => ({
       day: value,
       month: nextMonthDate.getMonth(),
       year: nextMonthDate.getFullYear(),
+      weekDay:
+        endDayOfMonth + 1 + index < 7
+          ? endDayOfMonth + 1 + index
+          : (endDayOfMonth + 1 + index) % 7,
       isCurrentMonth: false,
     })),
   ]
@@ -113,32 +122,44 @@ export const getFormattedDate = (date: Date, format = 'dd mmm yyyy') =>
 
 export const isBefore = ({
   dmy,
-  minDate,
+  referenceDate,
   outputDateFormat,
 }: {
   dmy: MonthDayItem
-  minDate?: Date | string
+  referenceDate?: Date | string
   outputDateFormat?: string
 }) => {
-  if (!minDate) return false
-  const minDayjs = convertToDayjs(minDate, outputDateFormat)
+  if (!referenceDate) return false
+  const minDayjs = convertToDayjs(referenceDate, outputDateFormat)
 
   return getDayjsWithDMY(dmy).isBefore(minDayjs, 'date')
 }
 
 export const isAfter = ({
   dmy,
-  maxDate,
+  // TODO: update name
+  referenceDate,
   outputDateFormat,
 }: {
   dmy: MonthDayItem
-  maxDate?: Date | string
+  referenceDate?: Date | string
   outputDateFormat?: string
 }) => {
-  if (!maxDate) return false
-  const maxDayjs = convertToDayjs(maxDate, outputDateFormat)
+  if (!referenceDate) return false
+
+  const maxDayjs = convertToDayjs(referenceDate, outputDateFormat)
 
   return getDayjsWithDMY(dmy).isAfter(maxDayjs, 'date')
+}
+
+export const isSameDate = (date1?: Date, date2?: MonthDayItem) => {
+  return (
+    date1 &&
+    date2 &&
+    date1.getDate() === date2.day &&
+    date1.getMonth() === date2.month &&
+    date1.getFullYear() === date2.year
+  )
 }
 
 // -------- Year Utils ---------

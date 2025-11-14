@@ -14,6 +14,8 @@ import {
   convertToDayjs,
   getDateWithDMY,
   getFormattedDate,
+  isAfter,
+  isSameDate,
   toDate,
 } from '../utils'
 import MonthDaysList from './MonthDaysList'
@@ -29,15 +31,20 @@ function Calendar(props: CalendarProps) {
 
   const {
     selectedDate: date,
+    selectedEndDate: propSelectedEndDate,
+    selectedDates = [],
     displayDateFormat = DEFAULT_DISPLAY_FORMAT,
     outputDateFormat = DEFAULT_OUTPUT_FORMAT,
+    datePickerMode = 'single',
     minDate,
     maxDate,
     disableDates,
     disableFutureDates,
     disablePastDates,
+    disabledDaysOfWeek,
     yearListProps,
     onDateChange,
+    showAdjacentMonthDays = true,
     containerStyle,
   } = props
 
@@ -47,11 +54,25 @@ function Calendar(props: CalendarProps) {
     date instanceof Date ? date : toDate(date, displayDateFormat),
   )
 
+  const [selectedEndDate, setSelectedEndDate] = useState<Date | undefined>(
+    propSelectedEndDate instanceof Date
+      ? propSelectedEndDate
+      : toDate(propSelectedEndDate, displayDateFormat),
+  )
+
+  const [multipleSelectedDates, setMultipleSelectedDates] = useState<Date[]>(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    selectedDates
+      .map((d) => (d instanceof Date ? d : toDate(d, displayDateFormat)))
+      .filter(Boolean),
+  )
+
   const [currentMonth, setCurrentMonth] = useState(
-    (selectedDate || today)?.getMonth(),
+    (selectedDate?.getDate() ? selectedDate : today)?.getMonth(),
   )
   const [currentYear, setCurrentYear] = useState(
-    (selectedDate || today)?.getFullYear(),
+    (selectedDate?.getDate() ? selectedDate : today)?.getFullYear(),
   )
   const [viewMode, setViewMode] = useState<'Days' | 'Month' | 'Year'>('Days')
 
@@ -118,14 +139,103 @@ function Calendar(props: CalendarProps) {
   const onDatePress = useCallback(
     (item: MonthDayItem) => {
       const newDate = getDateWithDMY(item.day, item.month, item.year)
-      setSelectedDate(newDate)
-      onDateChange?.(
-        newDate,
-        getFormattedDate(newDate, displayDateFormat),
-        getFormattedDate(newDate, outputDateFormat),
-      )
+      const display = getFormattedDate(newDate, displayDateFormat)
+      const output = getFormattedDate(newDate, outputDateFormat)
+
+      if (datePickerMode === 'single') {
+        setSelectedDate(newDate)
+        setSelectedEndDate(undefined)
+        setMultipleSelectedDates([])
+        onDateChange?.({
+          mode: 'single',
+          date: newDate,
+          displayDate: display,
+          outputDate: output,
+        })
+      } else if (datePickerMode === 'multiple') {
+        setSelectedDate(undefined)
+        const isAlreadySelected = multipleSelectedDates.some((selected) =>
+          isSameDate(selected, item),
+        )
+        let updatedDates: Date[] = []
+        if (isAlreadySelected) {
+          updatedDates = multipleSelectedDates.filter(
+            (selected) => !isSameDate(selected, item),
+          )
+        } else {
+          updatedDates = [...multipleSelectedDates, newDate]
+        }
+        setMultipleSelectedDates(updatedDates)
+        onDateChange?.({
+          mode: 'multiple',
+          dates: updatedDates,
+          displayDate: updatedDates.map((d) =>
+            getFormattedDate(d, displayDateFormat),
+          ),
+          outputDate: updatedDates.map((d) =>
+            getFormattedDate(d, outputDateFormat),
+          ),
+        })
+      } else if (datePickerMode === 'range') {
+        if (selectedDate && selectedEndDate) {
+          setSelectedDate(newDate)
+          setSelectedEndDate(undefined)
+          onDateChange?.({
+            mode: 'range',
+            startDate: newDate,
+            endDate: undefined,
+            displayStartDate: display,
+            outputStartDate: output,
+          })
+        } else if (selectedDate && !selectedEndDate) {
+          if (
+            isAfter({dmy: item, referenceDate: selectedDate, outputDateFormat})
+          ) {
+            setSelectedEndDate(newDate)
+            onDateChange?.({
+              mode: 'range',
+              startDate: selectedDate,
+              endDate: newDate,
+              displayStartDate: getFormattedDate(
+                selectedDate,
+                displayDateFormat,
+              ),
+              outputStartDate: getFormattedDate(selectedDate, outputDateFormat),
+              displayEndDate: display,
+              outputEndDate: output,
+            })
+          } else {
+            setSelectedDate(newDate)
+            setSelectedEndDate(undefined)
+            onDateChange?.({
+              mode: 'range',
+              startDate: newDate,
+              endDate: undefined,
+              displayStartDate: display,
+              outputStartDate: output,
+            })
+          }
+        } else {
+          setSelectedDate(newDate)
+          onDateChange?.({
+            mode: 'range',
+            startDate: newDate,
+            endDate: undefined,
+            displayStartDate: display,
+            outputStartDate: output,
+          })
+        }
+      }
     },
-    [displayDateFormat, outputDateFormat, onDateChange],
+    [
+      datePickerMode,
+      onDateChange,
+      displayDateFormat,
+      outputDateFormat,
+      selectedDate,
+      selectedEndDate,
+      multipleSelectedDates,
+    ],
   )
 
   const onMonthPress = useCallback((month: number) => {
@@ -145,6 +255,7 @@ function Calendar(props: CalendarProps) {
         day: dateValue.date(),
         month: dateValue.month(),
         year: dateValue.year(),
+        weekDay: dateValue.day(),
       }
       return dayItem
     })
@@ -213,15 +324,20 @@ function Calendar(props: CalendarProps) {
 
       {viewMode === 'Days' && (
         <MonthDaysList
+          datePickerMode={datePickerMode}
+          selectedDate={selectedDate}
+          selectedEndDate={selectedEndDate}
+          selectedDates={multipleSelectedDates}
           currentMonth={currentMonth}
           currentYear={currentYear}
-          selectedDate={selectedDate}
           onItemPress={onDatePress}
           disablePastDates={disablePastDates}
           disableFutureDates={disableFutureDates}
           disableDates={transformedDisabledDates}
+          disabledDaysOfWeek={disabledDaysOfWeek}
           displayDateFormat={displayDateFormat}
           outputDateFormat={outputDateFormat}
+          showAdjacentMonthDays={showAdjacentMonthDays}
           minDate={minDate}
           maxDate={maxDate}
         />
