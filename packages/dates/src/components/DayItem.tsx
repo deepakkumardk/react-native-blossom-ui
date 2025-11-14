@@ -8,16 +8,27 @@ import {DayItemProps} from '../types'
  * Render the given day of the month with today,selected & disabled styling
  */
 function DayItem(props: DayItemProps) {
-  const {item, isDateDisabled, onItemPress, containerStyle, textStyle} = props
+  const {
+    item,
+    isDateDisabled,
+    showAdjacentMonthDays,
+    onItemPress,
+    containerStyle,
+    textStyle,
+  } = props
 
   return (
     <TouchableOpacity
       accessibilityRole="button"
       activeOpacity={0.5}
-      disabled={isDateDisabled}
+      disabled={
+        isDateDisabled || (!showAdjacentMonthDays && !item.isCurrentMonth)
+      }
       style={[styles.day, containerStyle]}
       onPress={() => onItemPress?.(item)}>
-      <Text style={textStyle}>{item.day}</Text>
+      {item.isCurrentMonth || showAdjacentMonthDays ? (
+        <Text style={textStyle}>{item.day}</Text>
+      ) : null}
     </TouchableOpacity>
   )
 }

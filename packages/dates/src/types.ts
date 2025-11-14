@@ -1,9 +1,5 @@
 import {StyleProp, TextStyle, ViewStyle} from 'react-native'
-import {
-  BaseUIProps,
-  BlossomThemeColors,
-  TextInputProps,
-} from '@react-native-blossom-ui/components'
+import {BaseUIProps, TextInputProps} from '@react-native-blossom-ui/components'
 
 /**
  * Represents a day within a month.
@@ -32,7 +28,8 @@ export interface MonthDayItem {
   isCurrentMonth?: boolean
 }
 
-export interface DayItemProps {
+export interface DayItemProps
+  extends Pick<BaseDateProps, 'showAdjacentMonthDays'> {
   /**
    * Object for the given date in the month
    */
@@ -41,18 +38,10 @@ export interface DayItemProps {
    * is Date disabled
    */
   isDateDisabled: boolean
+
   /**
-   * is Day selected
-   */
-  // isDaySelected: boolean
-  /**
-   * is Today
-   */
-  // isToday: boolean
-  /**
-   *
+   * Callback when day item is pressed
    * @param item day item in dmy format
-   * @returns
    */
   onItemPress?: (item: MonthDayItem) => void
 
@@ -64,15 +53,6 @@ export interface DayItemProps {
    * Text style for the day item
    */
   textStyle?: StyleProp<TextStyle>
-
-  /**
-   * Blossom theme colors
-   */
-  // colors: BlossomThemeColors
-  /**
-   * is dark mode
-   */
-  // isDark: boolean
 }
 
 /**
@@ -212,6 +192,13 @@ export interface BaseDateProps {
   datePickerMode?: DatePickerMode
 
   /**
+   * Whether to show days from adjacent months to fill the weeks.
+   * If true, days from the previous and next months will be displayed to fill the calendar grid.
+   * @default true
+   */
+  showAdjacentMonthDays?: boolean
+
+  /**
    * minimum selectable date inclusive.
    * Can be a string (in `outputDateFormat`) or a Date object.
    */
@@ -239,6 +226,7 @@ export interface BaseDateProps {
 
   /**
    * The format in which the date should be displayed inside the input value
+   *
    * Checkout the dayjs docs for all available formats - https://day.js.org/docs/en/display/format
    * @default 'D MMM YYYY'
    */
@@ -290,13 +278,13 @@ export interface CalendarProps extends BaseUIProps, BaseDateProps {
   selectedDate?: string | Date
 
   /**
-   * The default selected dates for multiple date selection mode.
+   * The default selected dates for `"multiple"` date selection mode.
    * Can be an array of strings (formatted dates) or Date objects.
    */
   selectedDates?: Array<string | Date>
 
   /**
-   * The default selected end date for range date selection mode.
+   * The default selected end date for `"range"` date selection mode.
    * Can be a string (formatted date) or a Date object.
    */
   selectedEndDate?: string | Date
@@ -352,9 +340,10 @@ export interface DatePickerProps extends BaseDatePickerProps, BaseDateProps {
   clearable?: boolean
 
   /**
-   * Separator string for display
+   * Separator string to display for the multiple and range modes.
    *
-   * @default ' to '
+   * @default
+   * ' to ' for "range" mode and ' ... ' for "multiple" mode
    */
   dateDisplayDelimiter?: string
 }

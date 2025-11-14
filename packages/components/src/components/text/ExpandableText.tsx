@@ -42,7 +42,6 @@ function ExpandableText(props: ExpandableTextProps) {
   const handleTextLayout = useCallback(
     (e: NativeSyntheticEvent<TextLayoutEventData>) => {
       const {lines} = e.nativeEvent
-      console.log('ExpandableText -> lines', lines)
 
       let minCharsInLine = Infinity
       let maxCharsInLine = -Infinity

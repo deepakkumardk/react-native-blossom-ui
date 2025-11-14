@@ -40,6 +40,18 @@ export function DatePickerDefaultValue() {
   )
 }
 
+export function DatePickerAdjacentMonthDays() {
+  return (
+    <View>
+      <DatePicker label="Adjacent Month Days" showAdjacentMonthDays />
+      <DatePicker
+        label="Hidden Adjacent Month Days"
+        showAdjacentMonthDays={false}
+      />
+    </View>
+  )
+}
+
 export function DatePickerMinDate() {
   return (
     <View>

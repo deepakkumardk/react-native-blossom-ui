@@ -36,6 +36,7 @@ const DatePicker = (props: DatePickerProps) => {
     clearable,
     onDateChange,
     disabled,
+    showAdjacentMonthDays = true,
     dateDisplayDelimiter = datePickerMode === 'range' ? ' to ' : ' ... ',
     ...rest
   } = useMergedProps('DatePicker', props, {
@@ -233,6 +234,7 @@ const DatePicker = (props: DatePickerProps) => {
         outputDateFormat={outputDateFormat}
         onDateChange={onDateChangeCallback}
         containerStyle={styles.calendarContainer}
+        showAdjacentMonthDays={showAdjacentMonthDays}
         minDate={minDate}
         maxDate={maxDate}
       />

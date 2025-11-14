@@ -1,5 +1,11 @@
 import React, {useCallback, useMemo} from 'react'
-import {FlatList, StyleSheet} from 'react-native'
+import {
+  FlatList,
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  ViewStyle,
+} from 'react-native'
 
 import {Text, useBlossomTheme, View} from '@react-native-blossom-ui/components'
 
@@ -12,6 +18,7 @@ import {
 } from '../utils'
 import {WEEK_ARRAY} from './constants'
 import DayItem from './DayItem'
+import {getIsDateDisabled} from './helper'
 
 /**
  * Show the days list in a current month and also append the adjacent months based on the props
@@ -30,6 +37,7 @@ function MonthDaysList({
   disabledDaysOfWeek,
   disableFutureDates,
   disablePastDates,
+  showAdjacentMonthDays = true,
   onItemPress,
 }: MonthDaysListProps) {
   const {colors, isDark} = useBlossomTheme()
@@ -76,69 +84,16 @@ function MonthDaysList({
 
   const isDateDisabled = useCallback(
     (item: MonthDayItem) => {
-      const today = new Date()
-
-      if (disableFutureDates) {
-        const isFutureDate =
-          item.year > today.getFullYear() ||
-          (item.year === today.getFullYear() &&
-            item.month > today.getMonth()) ||
-          (item.year === today.getFullYear() &&
-            item.month === today.getMonth() &&
-            item.day > today.getDate())
-
-        if (isFutureDate) {
-          return true
-        }
-      }
-
-      if (disablePastDates) {
-        const isPastDate =
-          item.year < today.getFullYear() ||
-          (item.year === today.getFullYear() &&
-            item.month < today.getMonth()) ||
-          (item.year === today.getFullYear() &&
-            item.month === today.getMonth() &&
-            item.day < today.getDate())
-
-        if (isPastDate) {
-          return true
-        }
-      }
-
-      if (minDate) {
-        const isBeforeMinDate = isBefore({
-          dmy: item,
-          referenceDate: minDate,
-          outputDateFormat,
-        })
-        if (isBeforeMinDate) return true
-      }
-
-      if (maxDate) {
-        const isAfterMaxDate = isAfter({
-          dmy: item,
-          referenceDate: maxDate,
-          outputDateFormat,
-        })
-        if (isAfterMaxDate) return true
-      }
-
-      if (disabledDaysOfWeek?.length) {
-        const isDisabledDay =
-          item.weekDay?.toString() && disabledDaysOfWeek.includes(item.weekDay)
-        if (isDisabledDay) return true
-      }
-
-      const doesContainDay = disableDates?.find((value) => {
-        return (
-          item.day === value?.day &&
-          item.month === value?.month &&
-          item.year === value?.year
-        )
+      return getIsDateDisabled({
+        item,
+        disableFutureDates,
+        disablePastDates,
+        minDate,
+        maxDate,
+        disabledDaysOfWeek,
+        disableDates,
+        outputDateFormat,
       })
-
-      return !!doesContainDay
     },
     [
       disableDates,
@@ -155,6 +110,65 @@ function MonthDaysList({
     const today = new Date()
     return isSameDate(today, item)
   }, [])
+
+  const dayItemContainerStyle = useCallback(
+    (item: MonthDayItem) =>
+      [
+        isToday(item) && {
+          ...styles.today,
+          borderColor: colors.primary500,
+        },
+        isDaySelected(item) && {
+          backgroundColor: colors.primary500,
+        },
+        isBetweenRange(item) && {
+          borderRadius: 0,
+          backgroundColor: colors.background400,
+        },
+        datePickerMode === 'range' &&
+          isDaySelected(item) && {
+            ...styles.startRangeDate,
+            backgroundColor: colors.primary500,
+          },
+        isSameDate(selectedEndDate, item) && {
+          ...styles.endRangeDate,
+          backgroundColor: colors.primary500,
+        },
+      ] satisfies StyleProp<ViewStyle>,
+    [
+      colors.background400,
+      colors.primary500,
+      datePickerMode,
+      isBetweenRange,
+      isDaySelected,
+      isToday,
+      selectedEndDate,
+    ],
+  )
+
+  const dayItemTextStyle = useCallback(
+    (item: MonthDayItem) =>
+      [
+        !item.isCurrentMonth && {
+          color: colors.text400,
+        },
+        isDaySelected(item) && {
+          color: isDark ? colors.text100 : colors.text900,
+        },
+        isDateDisabled(item) && {
+          color: colors.text600,
+        },
+      ] satisfies StyleProp<TextStyle>,
+    [
+      colors.text100,
+      colors.text400,
+      colors.text600,
+      colors.text900,
+      isDark,
+      isDaySelected,
+      isDateDisabled,
+    ],
+  )
 
   return (
     <FlatList
@@ -180,40 +194,10 @@ function MonthDaysList({
         <DayItem
           item={item}
           isDateDisabled={isDateDisabled(item)}
+          showAdjacentMonthDays={showAdjacentMonthDays}
           onItemPress={onItemPress}
-          containerStyle={[
-            isToday(item) && {
-              ...styles.today,
-              borderColor: colors.primary500,
-            },
-            isDaySelected(item) && {
-              backgroundColor: colors.primary500,
-            },
-            isBetweenRange(item) && {
-              borderRadius: 0,
-              backgroundColor: colors.background400,
-            },
-            datePickerMode === 'range' &&
-              isDaySelected(item) && {
-                ...styles.startRangeDate,
-                backgroundColor: colors.primary500,
-              },
-            isSameDate(selectedEndDate, item) && {
-              ...styles.endRangeDate,
-              backgroundColor: colors.primary500,
-            },
-          ]}
-          textStyle={[
-            !item.isCurrentMonth && {
-              color: colors.text400,
-            },
-            isDaySelected(item) && {
-              color: isDark ? colors.text100 : colors.text900,
-            },
-            isDateDisabled(item) && {
-              color: colors.text600,
-            },
-          ]}
+          containerStyle={dayItemContainerStyle(item)}
+          textStyle={dayItemTextStyle(item)}
         />
       )}
     />

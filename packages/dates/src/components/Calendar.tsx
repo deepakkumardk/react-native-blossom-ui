@@ -44,6 +44,7 @@ function Calendar(props: CalendarProps) {
     disabledDaysOfWeek,
     yearListProps,
     onDateChange,
+    showAdjacentMonthDays = true,
     containerStyle,
   } = props
 
@@ -336,6 +337,7 @@ function Calendar(props: CalendarProps) {
           disabledDaysOfWeek={disabledDaysOfWeek}
           displayDateFormat={displayDateFormat}
           outputDateFormat={outputDateFormat}
+          showAdjacentMonthDays={showAdjacentMonthDays}
           minDate={minDate}
           maxDate={maxDate}
         />
