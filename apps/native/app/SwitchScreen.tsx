@@ -4,6 +4,7 @@ import {
   SwitchCustom,
   SwitchDefaultValue,
   SwitchDisabled,
+  SwitchError,
   SwitchPositions,
   SwitchSizes,
   SwitchStatuses,
@@ -36,6 +37,9 @@ export default function SwitchScreen() {
 
       <Heading>Text Fields Container Style</Heading>
       <SwitchTextFieldsContainerStyle />
+
+      <Heading>Error</Heading>
+      <SwitchError />
 
       <Heading>Custom</Heading>
       <SwitchCustom />
