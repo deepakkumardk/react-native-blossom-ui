@@ -19,6 +19,16 @@ export function SwitchDefaultValue() {
   )
 }
 
+export function SwitchControlled() {
+  const [isOn, setIsOn] = useState(false)
+
+  return (
+    <View>
+      <Switch value={isOn} onValueChange={setIsOn} />
+    </View>
+  )
+}
+
 export function SwitchPositions() {
   return (
     <View>
@@ -176,18 +186,12 @@ export function SwitchCustom() {
       <Switch
         label="Agree to T&C"
         caption="Click here to see Privacy Policy"
-        status="info"
+        color="green"
         size="large"
         adjacent={false}
         value={isOn}
         onValueChange={setIsOn}
         error={isOn ? '' : 'Please Agree to T&C to continue'}
-        containerStyle={styles.container}
-      />
-      <Switch
-        label="Custom color switch"
-        status="info"
-        color="green"
         containerStyle={styles.container}
       />
     </View>
