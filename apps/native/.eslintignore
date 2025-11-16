@@ -1,0 +1,11 @@
+node_modules/
+coverage/
+dist/
+lib/
+web-build/
+web-report/
+
+.expo/
+.yarn/
+.vscode/
+.eslintrc.js

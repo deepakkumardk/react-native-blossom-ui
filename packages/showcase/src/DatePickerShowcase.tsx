@@ -40,6 +40,18 @@ export function DatePickerDefaultValue() {
   )
 }
 
+export function DatePickerAdjacentMonthDays() {
+  return (
+    <View>
+      <DatePicker label="Adjacent Month Days" showAdjacentMonthDays />
+      <DatePicker
+        label="Hidden Adjacent Month Days"
+        showAdjacentMonthDays={false}
+      />
+    </View>
+  )
+}
+
 export function DatePickerMinDate() {
   return (
     <View>
@@ -90,6 +102,14 @@ export function DatePickerMinMaxDate() {
   )
 }
 
+export function DatePickerDisabledDaysOfWeek() {
+  return (
+    <View>
+      <DatePicker label="Disabled Days of Week" disabledDaysOfWeek={[0, 6]} />
+    </View>
+  )
+}
+
 export function DatePickerDisableDates() {
   const yesterday = new Date()
   yesterday.setFullYear(
@@ -123,6 +143,28 @@ export function DatePickerDisableDates() {
         label="Disabling Past Dates"
         placeholder="Disabling Past Dates"
         disablePastDates
+      />
+    </View>
+  )
+}
+
+export function DatePickerDatePickerModes() {
+  return (
+    <View>
+      <DatePicker
+        label="Single Date Selection"
+        datePickerMode="single"
+        clearable
+      />
+      <DatePicker
+        label="Multiple Date Selection"
+        datePickerMode="multiple"
+        clearable
+      />
+      <DatePicker
+        label="Range Date Selection"
+        datePickerMode="range"
+        clearable
       />
     </View>
   )

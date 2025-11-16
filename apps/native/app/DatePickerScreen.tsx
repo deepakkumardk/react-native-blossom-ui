@@ -11,6 +11,9 @@ import {
   DatePickerMinDate,
   DatePickerMinMaxDate,
   DatePickerDisableDates,
+  DatePickerDisabledDaysOfWeek,
+  DatePickerDatePickerModes,
+  DatePickerAdjacentMonthDays,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading, AppScrollView} from '../components'
@@ -31,6 +34,9 @@ export default function DatePickerScreen() {
         <Heading>Default Value</Heading>
         <DatePickerDefaultValue />
 
+        <Heading>Adjacent Month Days</Heading>
+        <DatePickerAdjacentMonthDays />
+
         <Heading>Min Date</Heading>
         <DatePickerMinDate />
 
@@ -40,8 +46,14 @@ export default function DatePickerScreen() {
         <Heading>Min & Max Date</Heading>
         <DatePickerMinMaxDate />
 
+        <Heading>Disabled Days of Week</Heading>
+        <DatePickerDisabledDaysOfWeek />
+
         <Heading>Disable Dates</Heading>
         <DatePickerDisableDates />
+
+        <Heading>Date Picker Modes</Heading>
+        <DatePickerDatePickerModes />
       </AppScrollView>
 
       <Heading>Auto Top Position</Heading>

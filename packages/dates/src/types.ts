@@ -1,9 +1,5 @@
-import {StyleProp, ViewStyle} from 'react-native'
-import {
-  BaseUIProps,
-  BlossomThemeColors,
-  TextInputProps,
-} from '@react-native-blossom-ui/components'
+import {StyleProp, TextStyle, ViewStyle} from 'react-native'
+import {BaseUIProps, TextInputProps} from '@react-native-blossom-ui/components'
 
 /**
  * Represents a day within a month.
@@ -22,13 +18,18 @@ export interface MonthDayItem {
    */
   year: number
   /**
+   * The day of the week (0 = Sunday, 6 = Saturday).
+   */
+  weekDay?: number
+  /**
    * Indicates whether the day belongs to the current displayed month.
    * If false, the day might be from the previous or next month.
    */
   isCurrentMonth?: boolean
 }
 
-export interface DayItemProps {
+export interface DayItemProps
+  extends Pick<BaseDateProps, 'showAdjacentMonthDays'> {
   /**
    * Object for the given date in the month
    */
@@ -37,11 +38,21 @@ export interface DayItemProps {
    * is Date disabled
    */
   isDateDisabled: boolean
-  isDaySelected: boolean
-  isToday: boolean
+
+  /**
+   * Callback when day item is pressed
+   * @param item day item in dmy format
+   */
   onItemPress?: (item: MonthDayItem) => void
-  colors: BlossomThemeColors
-  isDark: boolean
+
+  /**
+   * Container style for the day item
+   */
+  containerStyle?: StyleProp<ViewStyle>
+  /**
+   * Text style for the day item
+   */
+  textStyle?: StyleProp<TextStyle>
 }
 
 /**
@@ -49,9 +60,17 @@ export interface DayItemProps {
  */
 export interface MonthDaysListProps extends BaseDateProps {
   /**
-   * The currently selected date.
+   * The currently selected date for single date selection mode.
    */
   selectedDate?: Date
+  /**
+   * The currently selected dates for multiple date selection mode.
+   */
+  selectedDates?: Date[]
+  /**
+   * The currently selected end date for range date selection mode.
+   */
+  selectedEndDate?: Date
   /**
    * The month currently being displayed (0-based index).
    */
@@ -159,7 +178,26 @@ export interface YearsListRef {
   hasMaxYear: () => boolean
 }
 
+export type DatePickerMode = 'single' | 'multiple' | 'range'
+
 export interface BaseDateProps {
+  /**
+   * Selection mode for the date picker.
+   * single - single date selection
+   * multiple - multiple date selection
+   * range - range date selection
+   *
+   * @default single
+   */
+  datePickerMode?: DatePickerMode
+
+  /**
+   * Whether to show days from adjacent months to fill the weeks.
+   * If true, days from the previous and next months will be displayed to fill the calendar grid.
+   * @default true
+   */
+  showAdjacentMonthDays?: boolean
+
   /**
    * minimum selectable date inclusive.
    * Can be a string (in `outputDateFormat`) or a Date object.
@@ -181,7 +219,14 @@ export interface BaseDateProps {
   disablePastDates?: boolean
 
   /**
+   * disable the given days of the week,
+   * from 0 (Sunday) to 6 (Saturday).
+   */
+  disabledDaysOfWeek?: Array<number>
+
+  /**
    * The format in which the date should be displayed inside the input value
+   *
    * Checkout the dayjs docs for all available formats - https://day.js.org/docs/en/display/format
    * @default 'D MMM YYYY'
    */
@@ -197,6 +242,32 @@ export interface BaseDateProps {
 }
 
 /**
+ * Typed payload for Calendar onDateChange
+ */
+export type CalendarDateChange =
+  | {
+      mode: 'single'
+      date?: Date
+      displayDate: string
+      outputDate: string
+    }
+  | {
+      mode: 'multiple'
+      dates: Date[]
+      displayDate: string[]
+      outputDate: string[]
+    }
+  | {
+      mode: 'range'
+      startDate?: Date
+      endDate?: Date
+      displayStartDate?: string
+      displayEndDate?: string
+      outputStartDate?: string
+      outputEndDate?: string
+    }
+
+/**
  * Props for the Calendar component.
  */
 export interface CalendarProps extends BaseUIProps, BaseDateProps {
@@ -207,22 +278,27 @@ export interface CalendarProps extends BaseUIProps, BaseDateProps {
   selectedDate?: string | Date
 
   /**
+   * The default selected dates for `"multiple"` date selection mode.
+   * Can be an array of strings (formatted dates) or Date objects.
+   */
+  selectedDates?: Array<string | Date>
+
+  /**
+   * The default selected end date for `"range"` date selection mode.
+   * Can be a string (formatted date) or a Date object.
+   */
+  selectedEndDate?: string | Date
+
+  /**
    * An array of disabled dates of string (in outputDateFormat) or a Date object.
    * Make sure to provide the outputDateFormat prop too if passing date as string
    */
   disableDates?: Array<string | Date>
 
   /**
-   * Callback triggered when a date is selected.
-   * @param date The selected date as a Date object.
-   * @param displayDate The selected date formatted for display.
-   * @param outputDate The selected date formatted for output.
+   * Callback triggered when a date is selected. Receives a mode-aware, type-safe payload.
    */
-  onDateChange?: (
-    date?: Date,
-    displayDate?: string,
-    outputDate?: string,
-  ) => void
+  onDateChange?: (data: CalendarDateChange) => void
   /**
    * Props for configuring the year list (min and max year).
    */
@@ -262,4 +338,12 @@ export interface DatePickerProps extends BaseDatePickerProps, BaseDateProps {
    * Whether the date picker allows clearing the selected date.
    */
   clearable?: boolean
+
+  /**
+   * Separator string to display for the multiple and range modes.
+   *
+   * @default
+   * ' to ' for "range" mode and ' ... ' for "multiple" mode
+   */
+  dateDisplayDelimiter?: string
 }
