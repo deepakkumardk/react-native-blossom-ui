@@ -1,5 +1,13 @@
 # @react-native-blossom-ui/dates
 
+## 0.17.0
+
+### Minor Changes
+
+- b34e939: Add `disabledDaysOfWeek` prop to Calendar/DatePicker component
+  Add `datePickerMode` prop single/multiple/range to Calendar/DatePicker component
+  Add `showAdjacentMonthDays` prop to Calendar/DatePicker component
+
 ## 0.16.0
 
 ### Patch Changes
