@@ -1,5 +1,14 @@
 # @react-native-blossom-ui/components
 
+## 0.17.1
+
+### Patch Changes
+
+- 15cc585: Fix boolean field errorText alignment for position & adjacent combination
+  Fix onValueChange wrong value passing issue for boolean fields
+  Fix ts typing for ColorValue
+- 15cc585: Fix SegmentedButton defaultValue issue by adding support for it
+
 ## 0.17.0
 
 ## 0.16.0
