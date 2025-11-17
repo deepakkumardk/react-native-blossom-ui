@@ -35,11 +35,11 @@ const Switch = (props: SwitchProps, ref: React.Ref<RNSwitch>) => {
   }, [value, isControlled])
 
   const onPress = useCallback(() => {
-    void onValueChange?.(!value)
+    void onValueChange?.(!fieldValue)
     if (!isControlled) {
       setFieldValue?.((prev) => !prev)
     }
-  }, [isControlled, onValueChange, value])
+  }, [isControlled, onValueChange, fieldValue])
 
   return (
     <BaseBooleanField status={status} size={size} disabled={disabled} {...rest}>

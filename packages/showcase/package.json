@@ -19,11 +19,9 @@
     "lint": "eslint src/ --fix",
     "prepublish": "yarn build"
   },
-  "dependencies": {
-    "@react-native-blossom-ui/components": "*",
-    "@react-native-blossom-ui/dates": "*"
-  },
   "devDependencies": {
+    "@react-native-blossom-ui/components": "*",
+    "@react-native-blossom-ui/dates": "*",
     "@react-native-blossom-ui/typescript-config": "*",
     "@types/chroma-js": "2.4.4",
     "@types/react": "~18.2.0",
@@ -34,6 +32,8 @@
     "tsup": "^8.0.1"
   },
   "peerDependencies": {
+    "@react-native-blossom-ui/components": "*",
+    "@react-native-blossom-ui/dates": "*",
     "react": "*",
     "react-native": "*",
     "react-native-vector-icons": "*"

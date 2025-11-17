@@ -19,27 +19,41 @@ export function SwitchDefaultValue() {
   )
 }
 
+export function SwitchControlled() {
+  const [isOn, setIsOn] = useState(false)
+
+  return (
+    <View>
+      <Switch value={isOn} onValueChange={setIsOn} />
+    </View>
+  )
+}
+
 export function SwitchPositions() {
   return (
     <View>
       <Switch
-        label="Left Adjacent Position"
-        containerStyle={styles.container}
-      />
-      <Switch
-        label="Right Adjacent Position"
-        position="right"
-        containerStyle={styles.container}
-      />
-      <Switch
         label="Left Position"
+        caption="Left Position caption"
         adjacent={false}
         containerStyle={styles.container}
       />
       <Switch
         label="Right Position"
+        caption="Right Position caption"
         position="right"
         adjacent={false}
+        containerStyle={styles.container}
+      />
+      <Switch
+        label="Left Adjacent Position"
+        caption="Left Adjacent Position caption"
+        containerStyle={styles.container}
+      />
+      <Switch
+        label="Right Adjacent Position"
+        caption="Right Adjacent Position caption"
+        position="right"
         containerStyle={styles.container}
       />
     </View>
@@ -107,8 +121,8 @@ export function SwitchTextFieldsContainerStyle() {
   )
 }
 
-export function SwitchCustom() {
-  const [isOn, setIsOn] = useState(true)
+export function SwitchError() {
+  const [isOn, setIsOn] = useState(false)
 
   return (
     <View>
@@ -116,6 +130,7 @@ export function SwitchCustom() {
         label="Agree to T&C"
         caption="Click here to see Privacy Policy"
         status="info"
+        position="left"
         size="large"
         adjacent={false}
         value={isOn}
@@ -124,9 +139,59 @@ export function SwitchCustom() {
         containerStyle={styles.container}
       />
       <Switch
-        label="Custom color switch"
+        label="Agree to T&C"
+        caption="Click here to see Privacy Policy"
         status="info"
+        position="right"
+        size="large"
+        adjacent={false}
+        value={isOn}
+        onValueChange={setIsOn}
+        error={isOn ? '' : 'Please Agree to T&C to continue'}
+        containerStyle={styles.container}
+      />
+      <Switch
+        label="Agree to T&C"
+        caption="Click here to see Privacy Policy"
+        status="info"
+        position="left"
+        size="large"
+        adjacent
+        value={isOn}
+        onValueChange={setIsOn}
+        error={isOn ? '' : 'Please Agree to T&C to continue'}
+        containerStyle={styles.container}
+      />
+      <Switch
+        label="Agree to T&C"
+        caption="Click here to see Privacy Policy"
+        status="info"
+        position="right"
+        size="large"
+        adjacent
+        value={isOn}
+        onValueChange={setIsOn}
+        error={isOn ? '' : 'Please Agree to T&C to continue'}
+        containerStyle={styles.container}
+      />
+    </View>
+  )
+}
+
+export function SwitchCustom() {
+  const [isOn, setIsOn] = useState(true)
+
+  return (
+    <View>
+      <Switch
+        label="Agree to T&C"
+        caption="Click here to see Privacy Policy"
         color="green"
+        size="large"
+        adjacent={false}
+        value={isOn}
+        onValueChange={setIsOn}
+        error={isOn ? '' : 'Please Agree to T&C to continue'}
         containerStyle={styles.container}
       />
     </View>

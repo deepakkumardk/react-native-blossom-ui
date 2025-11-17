@@ -3,7 +3,9 @@ import React from 'react'
 import {
   SwitchCustom,
   SwitchDefaultValue,
+  SwitchControlled,
   SwitchDisabled,
+  SwitchError,
   SwitchPositions,
   SwitchSizes,
   SwitchStatuses,
@@ -22,6 +24,9 @@ export default function SwitchScreen() {
       <Heading>Default Value</Heading>
       <SwitchDefaultValue />
 
+      <Heading>Controlled</Heading>
+      <SwitchControlled />
+
       <Heading>Positions</Heading>
       <SwitchPositions />
 
@@ -36,6 +41,9 @@ export default function SwitchScreen() {
 
       <Heading>Text Fields Container Style</Heading>
       <SwitchTextFieldsContainerStyle />
+
+      <Heading>Error</Heading>
+      <SwitchError />
 
       <Heading>Custom</Heading>
       <SwitchCustom />
