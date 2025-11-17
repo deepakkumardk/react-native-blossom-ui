@@ -26,6 +26,19 @@ export function SegmentedButtonMultiSelect() {
   return <SegmentedButton data={buttons} multiSelect />
 }
 
+export function SegmentedButtonDefaultValue() {
+  return (
+    <View>
+      <SegmentedButton data={buttons} defaultValue="Secondary" />
+      <SegmentedButton
+        multiSelect
+        data={buttons}
+        defaultValue={['Primary', 'Secondary']}
+      />
+    </View>
+  )
+}
+
 export function SegmentedButtonModes() {
   return (
     <View>
