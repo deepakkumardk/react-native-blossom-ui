@@ -301,6 +301,10 @@ export interface SegmentedButtonProps extends BaseUIProps {
    */
   data?: ControlButtonProps[]
   /**
+   * default selected value(s)
+   */
+  defaultValue?: string | string[]
+  /**
    * Mode of the button view
    */
   mode?: ButtonMode

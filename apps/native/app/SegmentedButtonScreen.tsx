@@ -9,6 +9,7 @@ import {
   SegmentedButtonStatuses,
   SegmentedButtonDisabled,
   SegmentedButtonCustom,
+  SegmentedButtonDefaultValue,
 } from '@react-native-blossom-ui/showcase'
 
 import {Heading, AppScrollView} from '../components'
@@ -18,6 +19,9 @@ export default function SegmentedButtonScreen() {
     <AppScrollView>
       <Heading>Usage</Heading>
       <SegmentedButtonUsage />
+
+      <Heading>Default Value</Heading>
+      <SegmentedButtonDefaultValue />
 
       <Heading>Multi Select</Heading>
       <SegmentedButtonMultiSelect />

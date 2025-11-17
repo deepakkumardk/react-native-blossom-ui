@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {StyleSheet} from 'react-native'
 import {View} from '../view'
 import {SegmentedButtonProps} from '../types'
@@ -14,6 +14,7 @@ const SegmentedButton = (props: SegmentedButtonProps) => {
 
   const {
     data = [],
+    defaultValue,
     fullWidth,
     borderRadius,
     withVerticalDivider,
@@ -37,6 +38,32 @@ const SegmentedButton = (props: SegmentedButtonProps) => {
     },
     [mode, rest.disabled, selectedIndexes],
   )
+
+  useEffect(() => {
+    if (!defaultValue) return
+
+    if (multiSelect && Array.isArray(defaultValue)) {
+      const indexes = data.reduce<number[]>((acc, item, index) => {
+        if (
+          defaultValue.includes(item.value || item.label || item.title || '')
+        ) {
+          acc.push(index)
+        }
+        return acc
+      }, [])
+
+      setSelectedIndexes(indexes)
+    } else {
+      const index = data.findIndex(
+        (item) =>
+          defaultValue === (item.value || item.label || item.title || ''),
+      )
+      if (index !== -1) {
+        setSelectedIndexes([index])
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <View row style={[styles.container, rest.style]}>
@@ -91,12 +118,13 @@ const SegmentedButton = (props: SegmentedButtonProps) => {
           ]}
           onPress={() => {
             setSelectedIndexes((prev) => {
-              if (prev.includes(index)) {
-                return prev.filter((itemValue) => itemValue !== index)
-              }
-              return multiSelect ? prev.concat(index) : [index]
+              return prev.includes(index)
+                ? prev.filter((i) => i !== index)
+                : multiSelect
+                  ? [...prev, index]
+                  : [index]
             })
-            onPress?.(item.value || item.label || '', index)
+            onPress?.(item.value || item.label || item.title || '', index)
           }}
         />
       ))}
