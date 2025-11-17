@@ -64,11 +64,11 @@ const Checkbox = (props: CheckboxProps) => {
   const onPress = useCallback(() => {
     if (disabled) return
 
-    void onValueChange?.(indeterminate ? true : !value)
+    void onValueChange?.(indeterminate ? true : !fieldValue)
     if (!isControlled) {
       setFieldValue?.(indeterminate ? true : !fieldValue)
     }
-  }, [disabled, fieldValue, indeterminate, isControlled, onValueChange, value])
+  }, [disabled, fieldValue, indeterminate, isControlled, onValueChange])
 
   return (
     <BaseBooleanField status={status} size={size} disabled={disabled} {...rest}>

@@ -301,6 +301,10 @@ export interface SegmentedButtonProps extends BaseUIProps {
    */
   data?: ControlButtonProps[]
   /**
+   * default selected value(s)
+   */
+  defaultValue?: string | string[]
+  /**
    * Mode of the button view
    */
   mode?: ButtonMode
@@ -324,12 +328,11 @@ export interface SegmentedButtonProps extends BaseUIProps {
   /**
    * active color when the button is selected
    */
-  activeColor?: string
+  activeColor?: ColorValue
   /**
    * inactive color when the button is unselected
    */
-  inactiveColor?: string
-
+  inactiveColor?: ColorValue
   /**
    * Container style
    */
@@ -574,9 +577,10 @@ export interface DividerProps extends ViewProps {
   spacing?: DimensionValue
   /**
    * Color of the divider
-   * @default background900
+   *
+   * default vale from theme `background900`
    */
-  color?: string
+  color?: ColorValue
   /**
    * Label inside the divider
    */
@@ -747,17 +751,17 @@ export interface IconProps extends RNTextProps, OmitSizeProps {
    * Size of the icon, can also be passed as fontSize in the style object.
    * @default 24
    */
-  size?: number | undefined
+  size?: number
 
   /**
-   * Name of the icon to show
+   * Name of the icon to show from the given family
    */
   name: string
 
   /**
-   * Set custom icon color
+   * Set custom icon color to the icon
    */
-  color?: ColorValue | number
+  color?: ColorValue
 }
 
 /**
@@ -787,7 +791,7 @@ export interface BaseBooleanFieldProps extends BaseUIProps, Children {
   /**
    * Set custom color
    */
-  color?: string
+  color?: ColorValue
 
   /**
    * Label text above the input

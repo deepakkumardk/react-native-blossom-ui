@@ -74,51 +74,66 @@ const BaseBooleanField = (props: BaseBooleanFieldProps) => {
         style={[
           styles.textFieldsContainer,
           {borderColor: colors[getBorderColorName(status, isDark)]},
-          position === 'right' || !adjacent ? styles.alignEndRightPosition : {},
-          position === 'right' && !adjacent && styles.alignLeftRightPosition,
           position === 'left' ? styles.startMargin : styles.endMargin,
           textFieldsContainerStyle,
         ]}>
-        {label ? (
-          <SizedText
-            size={size}
+        {/* Wrapping with another view to fix the error text alignment */}
+        <View>
+          {label ? (
+            <SizedText
+              size={size}
+              style={[
+                styles.label,
+                disabled && {
+                  color: colors.text400,
+                },
+                position === 'left' && !adjacent ? styles.textAlignEnd : {},
+                position === 'right' && adjacent ? styles.textAlignEnd : {},
+                labelStyle,
+              ]}>
+              {label}
+            </SizedText>
+          ) : null}
+
+          {caption ? (
+            <SizedText
+              size={size}
+              mode="caption"
+              style={[
+                position === 'left' && !adjacent ? styles.textAlignEnd : {},
+                position === 'right' && adjacent ? styles.textAlignEnd : {},
+                disabled && {
+                  color: colors.text400,
+                },
+                captionStyle,
+              ]}>
+              {caption}
+            </SizedText>
+          ) : null}
+
+          <Animated.View
             style={[
-              styles.label,
-              disabled && {
-                color: colors.text400,
+              {
+                height: animatedHeight,
+                opacity: animatedOpacity,
               },
-              labelStyle,
+              styles.row,
             ]}>
-            {label}
-          </SizedText>
-        ) : null}
-
-        {caption ? (
-          <SizedText size={size} mode="caption" style={captionStyle}>
-            {caption}
-          </SizedText>
-        ) : null}
-
-        <Animated.View
-          style={[
-            {
-              height: animatedHeight,
-              opacity: animatedOpacity,
-            },
-            styles.row,
-          ]}>
-          <SizedText
-            onLayout={onLayout}
-            style={[
-              styles.errorText,
-              !adjacent && styles.alignRight,
-              errorStyle,
-            ]}
-            size={size}
-            status="error">
-            {error}
-          </SizedText>
-        </Animated.View>
+            <SizedText
+              onLayout={onLayout}
+              style={[
+                styles.errorText,
+                !adjacent && styles.alignRight,
+                position === 'left' && !adjacent ? styles.textAlignEnd : {},
+                position === 'right' && adjacent ? styles.textAlignEnd : {},
+                errorStyle,
+              ]}
+              size={size}
+              status="error">
+              {error}
+            </SizedText>
+          </Animated.View>
+        </View>
       </View>
     </View>
   )
@@ -133,7 +148,6 @@ const styles = StyleSheet.create({
   outerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'transparent',
   },
   textFieldsContainer: {
     paddingHorizontal: 2,
@@ -144,6 +158,9 @@ const styles = StyleSheet.create({
   },
   positionRight: {
     flexDirection: 'row-reverse',
+  },
+  textAlignEnd: {
+    textAlign: 'right',
   },
   apart: {
     justifyContent: 'space-between',
@@ -167,8 +184,14 @@ const styles = StyleSheet.create({
     // flexShrink: 1,
     // flex: 1,
     // flexGrow: 1,
+    // flexWrap: 'wrap',
+    // textAlign: 'right',
+    // alignSelf: 'flex-start',
+    width: '100%',
   },
   alignRight: {
-    right: 0,
+    // right: 0,
+    // textAlign: 'right',
+    // alignSelf: 'flex-end',
   },
 })

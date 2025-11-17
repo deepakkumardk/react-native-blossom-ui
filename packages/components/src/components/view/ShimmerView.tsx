@@ -106,7 +106,7 @@ const ShimmerView = (props: ShimmerViewProps) => {
           }),
           backgroundColor: animation.interpolate({
             inputRange: [0, 1],
-            outputRange: [colors.backgroundTransparent500, color],
+            outputRange: [colors.backgroundTransparent500, color as string],
           }),
         },
         rest.style,
