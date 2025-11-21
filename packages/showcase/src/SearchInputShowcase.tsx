@@ -14,6 +14,19 @@ export function SearchInputUsage() {
   )
 }
 
+export function SearchInputWithClearIcon() {
+  return (
+    <View>
+      <SearchInput
+        label="Search user"
+        placeholder="Type to search"
+        size="medium"
+        withClearIcon
+      />
+    </View>
+  )
+}
+
 export function AnimatedSearchInput() {
   const placeholders = [
     `Search 'Awesome'`,

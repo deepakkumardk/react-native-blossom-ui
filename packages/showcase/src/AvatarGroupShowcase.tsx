@@ -1,6 +1,11 @@
 import React from 'react'
 import {Image} from 'react-native'
-import {AvatarGroup, Text, View} from '@react-native-blossom-ui/components'
+import {
+  AvatarGroup,
+  Spacer,
+  Text,
+  View,
+} from '@react-native-blossom-ui/components'
 
 const AVATAR_GROUP_DATA = Array.from({length: 8}).map((_, index) => ({
   url: `https://picsum.photos/200/300?random=${index}`,
@@ -18,6 +23,7 @@ export function AvatarGroupMaxCount() {
   return (
     <View>
       <AvatarGroup avatars={AVATAR_GROUP_DATA} />
+      <Spacer />
       <AvatarGroup max={2} avatars={AVATAR_GROUP_DATA.slice(0, 2)} />
     </View>
   )
@@ -27,7 +33,9 @@ export function AvatarGroupSizes() {
   return (
     <View style={{justifyContent: 'space-evenly'}}>
       <AvatarGroup size="small" avatars={AVATAR_GROUP_DATA} />
+      <Spacer />
       <AvatarGroup size="medium" avatars={AVATAR_GROUP_DATA} />
+      <Spacer />
       <AvatarGroup size="large" avatars={AVATAR_GROUP_DATA} />
     </View>
   )
@@ -37,10 +45,15 @@ export function AvatarGroupStatuses() {
   return (
     <View style={{justifyContent: 'space-evenly'}}>
       <AvatarGroup status="primary" avatars={AVATAR_GROUP_DATA} />
+      <Spacer />
       <AvatarGroup status="accent" avatars={AVATAR_GROUP_DATA} />
+      <Spacer />
       <AvatarGroup status="success" avatars={AVATAR_GROUP_DATA} />
+      <Spacer />
       <AvatarGroup status="info" avatars={AVATAR_GROUP_DATA} />
+      <Spacer />
       <AvatarGroup status="warning" avatars={AVATAR_GROUP_DATA} />
+      <Spacer />
       <AvatarGroup status="error" avatars={AVATAR_GROUP_DATA} />
     </View>
   )

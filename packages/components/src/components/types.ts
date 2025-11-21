@@ -592,7 +592,8 @@ export interface DividerProps extends ViewProps {
   labelPosition?: 'left' | 'right' | 'center'
 }
 
-export interface ShimmerViewProps extends DividerProps {
+export interface ShimmerViewProps
+  extends Omit<DividerProps, 'spacing' | 'label' | 'labelPosition'> {
   /**
    * Set it to false to disable the animation
    * @default true

@@ -23,6 +23,7 @@ const SearchInput = (props: SearchInputProps, ref: React.Ref<RNTextInput>) => {
     onQueryChange,
     status,
     animatedPlaceholderProps,
+    withClearIcon,
     ...rest
   } = useMergedProps('SearchInput', props, {colors, isDark})
 
@@ -45,7 +46,7 @@ const SearchInput = (props: SearchInputProps, ref: React.Ref<RNTextInput>) => {
       value={searchQuery}
       onChangeText={setSearchQuery}
       right={
-        searchQuery ? (
+        searchQuery && withClearIcon ? (
           <Icon
             family="Ionicons"
             status={status}
