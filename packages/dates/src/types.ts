@@ -341,9 +341,10 @@ export interface DatePickerProps extends BaseDatePickerProps, BaseDateProps {
 
   /**
    * Separator string to display for the multiple and range modes.
-   *
-   * @default
+   * default value is -
    * ' to ' for "range" mode and ' ... ' for "multiple" mode
+   *
+   * @default to
    */
   dateDisplayDelimiter?: string
 }
