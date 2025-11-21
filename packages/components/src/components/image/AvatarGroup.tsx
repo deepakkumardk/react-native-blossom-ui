@@ -15,7 +15,7 @@ function AvatarGroup(props: AvatarGroupProps) {
   const {colors, isDark} = useBlossomTheme()
 
   const {
-    avatars,
+    avatars = [],
     max = 3,
     spacing = -16,
     bringToFront,
