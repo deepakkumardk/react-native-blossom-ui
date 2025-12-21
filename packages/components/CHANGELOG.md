@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/components
 
+## 0.17.2
+
+### Patch Changes
+
+- 5f6e98a: Fix `withClearIcon` prop for SearchInput
+
 ## 0.17.1
 
 ### Patch Changes
