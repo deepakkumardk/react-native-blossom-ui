@@ -60,7 +60,7 @@ export function PopoverPosition() {
         onBackdropPress={() => {
           setShowPopover(false)
         }}>
-        <Text typography="h4">{'I am Popover Content'.repeat(2)}</Text>
+        <Text typography="h4">{'I am Popover Content. '.repeat(2)}</Text>
       </Popover>
     </View>
   )
