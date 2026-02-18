@@ -5,6 +5,7 @@ import {
   Icon,
   useBlossomTheme,
   AvatarProps,
+  BlossomProvider,
 } from '@react-native-blossom-ui/components'
 import {Stack} from 'expo-router'
 import {StatusBar} from 'expo-status-bar'
@@ -20,7 +21,7 @@ export default function Layout() {
   const [isDark, setIsDark] = useState(false)
 
   return (
-    <BlossomThemeProvider
+    <BlossomProvider
       theme={isDark ? darkTheme : lightTheme}
       isDark={isDark}
       options={options}>
@@ -37,7 +38,7 @@ export default function Layout() {
         onPress={() => setIsDark((prev) => !prev)}>
         <Icon name="contrast" size={40} />
       </TouchableOpacity>
-    </BlossomThemeProvider>
+    </BlossomProvider>
   )
 }
 

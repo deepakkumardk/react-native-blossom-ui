@@ -1214,3 +1214,23 @@ export interface ProgressBarProps extends BaseUIProps {
    */
   style?: StyleProp<ViewStyle>
 }
+
+/**
+ * Overlay Props
+ */
+
+export interface OverlayNode {
+  id: string
+  type: 'modal' | 'popover' | 'tooltip' | 'menu'
+
+  content: ReactNode
+
+  top: number
+  left: number
+
+  withBackdrop?: boolean
+  disableBackgroundInteraction?: boolean
+  backdropBehavior?: 'interactive' | 'dismiss' | 'block'
+
+  onDismiss?: () => void
+}

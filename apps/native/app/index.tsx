@@ -136,6 +136,10 @@ const dataList = [
     navigateTo: './IconScreen',
   },
   {
+    title: 'Overlay',
+    navigateTo: './OverlayScreen',
+  },
+  {
     title: 'Popover',
     navigateTo: './PopoverScreen',
   },

@@ -9,5 +9,6 @@ export * from './modal'
 export * from './select'
 export * from './icon'
 export * from './progressBar'
+export * from './overlay'
 
 export * from './types'
