@@ -8,11 +8,12 @@ import {
   Surface,
   Checkbox,
   Spacer,
+  SegmentedButton,
 } from '@react-native-blossom-ui/components'
 import {useWindowDimensions} from 'react-native'
 
 export function OverlayUsage() {
-  const {show, dismiss} = useOverlay()
+  const {show} = useOverlay()
 
   const toastContent = useMemo(
     () => (
@@ -26,19 +27,90 @@ export function OverlayUsage() {
   return (
     <Button
       onPress={() => {
-        const id = show({
+        show({
           type: 'popover',
           content: toastContent,
-          onDismiss() {
-            dismiss(id)
-          },
           top: 250,
           left: 150,
           withBackdrop: true,
-          disableBackgroundInteraction: true,
+          backdropBehavior: 'dismiss',
+          dismissOnBackPress: true,
+          backdropStyle: {backgroundColor: 'rgba(0,0,0,0.5)'},
         })
       }}>
       Show Overlay
+    </Button>
+  )
+}
+
+export function OverlayBackdropBehavior() {
+  const {show, dismiss} = useOverlay()
+  const overlayId = useRef('')
+  const [backdropBehavior, setBackdropBehavior] = useState<
+    'interactive' | 'block' | 'dismiss'
+  >('interactive')
+
+  const toastContent = useMemo(
+    () => (
+      <Surface style={{padding: 16, borderRadius: 8, backgroundColor: 'gray'}}>
+        <Text>I am Overlay Content</Text>
+        <Button onPress={() => dismiss(overlayId.current)}>Close</Button>
+      </Surface>
+    ),
+    [dismiss],
+  )
+
+  return (
+    <>
+      <SegmentedButton
+        data={[{title: 'interactive'}, {title: 'block'}, {title: 'dismiss'}]}
+        onPress={(value, i) => {
+          setBackdropBehavior(value as 'interactive' | 'block' | 'dismiss')
+        }}
+      />
+      <Button
+        onPress={() => {
+          overlayId.current = show({
+            type: 'popover',
+            content: toastContent,
+            top: 250,
+            left: 150,
+            withBackdrop: true,
+            backdropBehavior,
+          })
+        }}>
+        Show Overlay
+      </Button>
+    </>
+  )
+}
+
+export function OverlayDuration() {
+  const {show} = useOverlay()
+
+  const toastContent = useMemo(
+    () => (
+      <Surface style={{padding: 16, borderRadius: 8, backgroundColor: 'gray'}}>
+        <Text>I am Overlay Content</Text>
+      </Surface>
+    ),
+    [],
+  )
+
+  return (
+    <Button
+      onPress={() => {
+        show({
+          type: 'popover',
+          content: toastContent,
+          top: 250,
+          left: 150,
+          withBackdrop: true,
+          backdropBehavior: 'dismiss',
+          duration: 2000,
+        })
+      }}>
+      Show Auto Hide Overlay
     </Button>
   )
 }
@@ -66,7 +138,7 @@ export function OverlayUpdate() {
             top: 300,
             left: 100,
             withBackdrop: true,
-            disableBackgroundInteraction: false,
+            backdropBehavior: 'interactive',
           })
         }}>
         Show Overlay
@@ -86,7 +158,7 @@ export function OverlayUpdate() {
 }
 
 export function OverlayRandom() {
-  const {show, update, dismissLast, dismissAll} = useOverlay()
+  const {show, update, dismissAll} = useOverlay()
 
   const [autoCreate, setAutoCreate] = useState(false)
   const [disableBackgroundInteraction, setDisableBackgroundInteraction] =
@@ -121,20 +193,13 @@ export function OverlayRandom() {
       content: toastContent,
       top: topRandom(),
       left: leftRandom(),
-      onDismiss() {
-        disableBackgroundInteraction && dismissLast()
-      },
       withBackdrop: true,
-      disableBackgroundInteraction,
+      backdropBehavior: disableBackgroundInteraction
+        ? 'dismiss'
+        : 'interactive',
+      dismissOnBackPress: true,
     })
-  }, [
-    disableBackgroundInteraction,
-    dismissLast,
-    leftRandom,
-    show,
-    toastContent,
-    topRandom,
-  ])
+  }, [disableBackgroundInteraction, leftRandom, show, toastContent, topRandom])
 
   useEffect(() => {
     if (!autoCreate) {

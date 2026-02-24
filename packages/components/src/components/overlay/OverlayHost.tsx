@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, BackHandler} from 'react-native'
 
 import {OverlayNode} from '../types'
 import {OverlayContext} from './OverlayContext'
@@ -19,6 +19,26 @@ function OverlayHost() {
     }
   }, [manager])
 
+  useEffect(() => {
+    const subscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        if (!overlays.length) return false
+
+        const top = overlays[overlays.length - 1]
+
+        if (top.dismissOnBackPress) {
+          manager?.dismiss(top.id)
+          return true
+        }
+
+        return false
+      },
+    )
+
+    return () => subscription.remove()
+  }, [overlays, manager])
+
   if (!manager) {
     if (__DEV__) {
       console.error(
@@ -34,17 +54,7 @@ function OverlayHost() {
       pointerEvents="box-none"
       collapsable={false}>
       {overlays.map((node, index) => (
-        // <View
-        //   key={node.id}
-        //   style={{
-        //     position: 'absolute',
-        //     top: node.top,
-        //     left: node.left,
-        //     backgroundColor: 'green',
-        //     padding: 18,
-        //   }}>
         <OverlayContainer key={node.id} node={node} stackIndex={index} />
-        // </View>
       ))}
     </View>
   )

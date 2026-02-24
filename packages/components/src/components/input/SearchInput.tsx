@@ -23,7 +23,7 @@ const SearchInput = (props: SearchInputProps, ref: React.Ref<RNTextInput>) => {
     onQueryChange,
     status,
     animatedPlaceholderProps,
-    withClearIcon,
+    withClearIcon = true,
     ...rest
   } = useMergedProps('SearchInput', props, {colors, isDark})
 

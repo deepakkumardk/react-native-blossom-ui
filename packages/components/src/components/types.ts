@@ -1219,18 +1219,49 @@ export interface ProgressBarProps extends BaseUIProps {
  * Overlay Props
  */
 
+export type OverlayType =
+  | 'dialog'
+  | 'menu'
+  | 'modal'
+  | 'popover'
+  | 'sheet'
+  | 'snackbar'
+  | 'spotlight'
+  | 'toast'
+  | 'tooltip'
+
+export type OverlayBackdropBehavior = 'interactive' | 'block' | 'dismiss'
+
 export interface OverlayNode {
   id: string
-  type: 'modal' | 'popover' | 'tooltip' | 'menu'
+  type: OverlayType
 
   content: ReactNode
 
   top: number
   left: number
 
+  backdropStyle?: StyleProp<ViewStyle>
+
   withBackdrop?: boolean
-  disableBackgroundInteraction?: boolean
-  backdropBehavior?: 'interactive' | 'dismiss' | 'block'
+  /**
+   * Control the behavior of the backdrop when the overlay is open
+   * - interactive: allows interaction with the backdrop
+   * - block: won't allow any interaction with the backdrop and won't trigger onDismiss when the backdrop is pressed
+   * - dismiss: will trigger onDismiss when the backdrop is pressed but won't allow any interaction with the backdrop
+   *
+   * @default interactive
+   */
+  backdropBehavior?: OverlayBackdropBehavior
+  /**
+   * Control whether the overlay should be dismissed when the back button is pressed on Android
+   * @platform android
+   */
+  dismissOnBackPress?: boolean
+
+  // stackMode?: 'stack' | 'replace'
+
+  duration?: number
 
   onDismiss?: () => void
 }

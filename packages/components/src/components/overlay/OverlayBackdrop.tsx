@@ -6,13 +6,10 @@ import {View} from '../view'
 function OverlayBackdrop({
   onPress,
   style,
-  disableBackgroundInteraction,
-  // backdropBehavior = 'dismiss',
+  backdropBehavior = 'dismiss',
   ...rest
-}: PressableProps &
-  ViewProps &
-  Pick<OverlayNode, 'disableBackgroundInteraction'>) {
-  if (disableBackgroundInteraction) {
+}: PressableProps & ViewProps & Pick<OverlayNode, 'backdropBehavior'>) {
+  if (backdropBehavior === 'dismiss') {
     return (
       <Pressable
         // pointerEvents="box-only"
@@ -27,13 +24,21 @@ function OverlayBackdrop({
     )
   }
 
-  return (
-    <View
-      pointerEvents="none"
-      style={[StyleSheet.absoluteFillObject, style]}
-      {...rest}
-    />
-  )
+  if (backdropBehavior === 'block') {
+    return <View style={[StyleSheet.absoluteFillObject, style]} {...rest} />
+  }
+
+  if (backdropBehavior === 'interactive') {
+    return (
+      <View
+        pointerEvents="none"
+        style={[StyleSheet.absoluteFillObject, style]}
+        {...rest}
+      />
+    )
+  }
+
+  return null
 }
 
 export default OverlayBackdrop

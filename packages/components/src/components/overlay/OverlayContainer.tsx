@@ -1,7 +1,8 @@
-import React from 'react'
-import {Animated, StyleSheet, View} from 'react-native'
+import React, {useEffect} from 'react'
+import {Animated, BackHandler, StyleSheet, View} from 'react-native'
 import {OverlayNode} from '../types'
 import OverlayBackdrop from './OverlayBackdrop'
+import {useOverlay} from './useOverlay'
 
 function OverlayContainer({
   node,
@@ -11,18 +12,31 @@ function OverlayContainer({
   stackIndex: number
 }) {
   const zIndex = 100 + stackIndex
+  const {dismiss} = useOverlay()
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout | undefined
+    if (node.duration) {
+      timeoutId = setTimeout(() => dismiss(node.id), node.duration)
+      return () => clearTimeout(timeoutId)
+    }
+    return undefined
+  }, [dismiss, node.duration, node.id])
 
   return (
     <View
       style={StyleSheet.absoluteFill}
-      pointerEvents={node.disableBackgroundInteraction ? 'auto' : 'box-none'}
-      // pointerEvents={node.backdropBehavior === 'block' ? 'auto' : 'box-none'}
-    >
+      pointerEvents={
+        node.backdropBehavior === 'interactive' ? 'box-none' : 'auto'
+      }>
       {node.withBackdrop && (
         <OverlayBackdrop
-          onPress={node.onDismiss}
-          // backdropBehavior={node.backdropBehavior}
-          disableBackgroundInteraction={node.disableBackgroundInteraction}
+          onPress={() => {
+            dismiss(node.id)
+            node?.onDismiss?.()
+          }}
+          backdropBehavior={node.backdropBehavior}
+          style={node.backdropStyle}
         />
       )}
 
