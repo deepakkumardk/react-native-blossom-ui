@@ -15,6 +15,7 @@ import {
   ColorValue,
   FlatListProps,
   ImageSourcePropType,
+  EasingFunction,
 } from 'react-native'
 
 import {
@@ -1264,4 +1265,37 @@ export interface OverlayNode {
   duration?: number
 
   onDismiss?: () => void
+
+  animationConfig?: AnimationConfig
+}
+
+export type AnimationPhase =
+  | 'idle'
+  | 'entering'
+  | 'entered'
+  | 'exiting'
+  | 'exited'
+
+export interface AnimationConfig {
+  /**
+   * @default 200
+   */
+  duration?: number
+  delay?: number
+  /**
+   * @default timing
+   */
+  type?: 'timing' | 'spring' | 'decay'
+  /**
+   * @default ease-out
+   */
+  easing?: EasingFunction
+
+  /**
+   * @default true
+   */
+  useNativeDriver?: boolean
+
+  onAnimationStart?: () => void
+  onAnimationEnd?: (finished: boolean) => void
 }

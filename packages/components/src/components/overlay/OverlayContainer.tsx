@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react'
-import {Animated, BackHandler, StyleSheet, View} from 'react-native'
+import React, {useEffect, useState, useCallback} from 'react'
+import {Animated, StyleSheet, View} from 'react-native'
 import {OverlayNode} from '../types'
 import OverlayBackdrop from './OverlayBackdrop'
 import {useOverlay} from './useOverlay'
+import {useAnimatedController} from './useAnimatedController'
 
 function OverlayContainer({
   node,
@@ -14,14 +15,45 @@ function OverlayContainer({
   const zIndex = 100 + stackIndex
   const {dismiss} = useOverlay()
 
+  const [visible, setVisible] = useState(true)
+
+  const {animatedValue, phase} = useAnimatedController(
+    visible,
+    node.animationConfig,
+  )
+
+  const requestDismiss = useCallback(() => {
+    setVisible(false)
+  }, [])
+
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout | undefined
-    if (node.duration) {
-      timeoutId = setTimeout(() => dismiss(node.id), node.duration)
-      return () => clearTimeout(timeoutId)
+    if (!node.duration) return undefined
+
+    const timeoutId = setTimeout(() => {
+      requestDismiss()
+    }, node.duration)
+
+    return () => clearTimeout(timeoutId)
+  }, [node.duration, requestDismiss])
+
+  useEffect(() => {
+    if (phase === 'exited') {
+      dismiss(node.id)
+      node.onDismiss?.()
     }
-    return undefined
-  }, [dismiss, node.duration, node.id])
+  }, [phase, dismiss, node])
+
+  const animatedStyle = {
+    opacity: animatedValue,
+    transform: [
+      {
+        scale: animatedValue.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0.95, 1],
+        }),
+      },
+    ],
+  }
 
   return (
     <View
@@ -31,10 +63,7 @@ function OverlayContainer({
       }>
       {node.withBackdrop && (
         <OverlayBackdrop
-          onPress={() => {
-            dismiss(node.id)
-            node?.onDismiss?.()
-          }}
+          onPress={requestDismiss}
           backdropBehavior={node.backdropBehavior}
           style={node.backdropStyle}
         />
@@ -42,18 +71,31 @@ function OverlayContainer({
 
       <View
         pointerEvents="auto"
-        // pointerEvents="box-none"
-        style={{
-          position: 'absolute',
-          top: node.top,
-          left: node.left,
-          zIndex,
-          overflow: 'hidden',
-        }}>
-        <Animated.View>{node.content}</Animated.View>
+        style={[
+          styles.animatedContainer,
+          {
+            top: node.top,
+            left: node.left,
+            zIndex,
+          },
+          node.type === 'toast' && styles.horizontalCenter,
+        ]}>
+        <Animated.View style={animatedStyle}>{node.content}</Animated.View>
       </View>
     </View>
   )
 }
 
 export default OverlayContainer
+
+const styles = StyleSheet.create({
+  animatedContainer: {
+    overflow: 'hidden',
+    position: 'absolute',
+  },
+  horizontalCenter: {
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+})
