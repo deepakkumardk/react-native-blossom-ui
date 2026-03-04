@@ -180,4 +180,9 @@ const dataList = [
     title: 'DateSelectPicker',
     navigateTo: './DateSelectPickerScreen',
   },
+  // Overlay library
+  {
+    title: 'Overlay',
+    navigateTo: './OverlayScreen',
+  },
 ]

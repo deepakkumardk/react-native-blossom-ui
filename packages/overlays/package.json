@@ -1,7 +1,7 @@
 {
-  "name": "@react-native-blossom-ui/showcase",
+  "name": "@react-native-blossom-ui/overlays",
   "version": "0.17.2",
-  "description": "Showcase components for Blossom UI components",
+  "description": "Overlays components of Blossom UI",
   "license": "MIT",
   "main": "./src/index",
   "types": "./dist/index.d.ts",
@@ -9,7 +9,15 @@
     "dist",
     "src"
   ],
-  "keywords": [],
+  "keywords": [
+    "react-native",
+    "overlay",
+    "toast",
+    "dialog",
+    "snackbar",
+    "menu",
+    "popover"
+  ],
   "author": "Deepak Kumar <dpk950@gmail.com>",
   "scripts": {
     "build": "tsup",
@@ -19,10 +27,9 @@
     "lint": "eslint src/ --fix",
     "prepublish": "yarn build"
   },
+  "dependencies": {},
   "devDependencies": {
     "@react-native-blossom-ui/components": "*",
-    "@react-native-blossom-ui/dates": "*",
-    "@react-native-blossom-ui/overlays": "*",
     "@react-native-blossom-ui/typescript-config": "*",
     "@types/chroma-js": "2.4.4",
     "@types/react": "~18.2.0",
@@ -34,8 +41,6 @@
   },
   "peerDependencies": {
     "@react-native-blossom-ui/components": "*",
-    "@react-native-blossom-ui/dates": "*",
-    "@react-native-blossom-ui/overlays": "*",
     "react": "*",
     "react-native": "*",
     "react-native-vector-icons": "*"
