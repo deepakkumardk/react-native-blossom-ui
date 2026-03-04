@@ -185,4 +185,8 @@ const dataList = [
     title: 'Overlay',
     navigateTo: './OverlayScreen',
   },
+  {
+    title: 'Toast',
+    navigateTo: './ToastScreen',
+  },
 ]

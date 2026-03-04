@@ -30,6 +30,7 @@ export * from './ShimmerViewShowcase'
 export * from './SurfaceShowcase'
 export * from './ProgressBarShowcase'
 export * from './OverlayShowcase'
+export * from './ToastShowcase'
 
 export * from './DatePickerShowcase'
 export * from './CalendarShowcase'
