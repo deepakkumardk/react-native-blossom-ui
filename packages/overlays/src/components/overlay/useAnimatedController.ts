@@ -1,6 +1,6 @@
 import {useRef, useState, useEffect} from 'react'
 import {Animated, Easing} from 'react-native'
-import {AnimationConfig, AnimationPhase} from '../../types'
+import {AnimationConfig, AnimationPhase} from './types'
 
 export function useAnimatedController(
   visible: boolean,

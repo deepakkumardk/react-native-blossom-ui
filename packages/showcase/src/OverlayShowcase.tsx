@@ -10,12 +10,12 @@ import {
   Spacer,
   SegmentedButton,
 } from '@react-native-blossom-ui/components'
-import {useOverlay} from '@react-native-blossom-ui/overlays'
+import {Overlay, useOverlay} from '@react-native-blossom-ui/overlays'
 
 export function OverlayUsage() {
   const {show} = useOverlay()
 
-  const toastContent = useMemo(
+  const overlayContent = useMemo(
     () => (
       <Surface style={{padding: 16, borderRadius: 8, backgroundColor: 'gray'}}>
         <Text>I am Overlay Content</Text>
@@ -29,7 +29,7 @@ export function OverlayUsage() {
       onPress={() => {
         show({
           type: 'popover',
-          content: toastContent,
+          content: overlayContent,
           top: 250,
           left: 150,
           withBackdrop: true,
@@ -50,7 +50,7 @@ export function OverlayBackdropBehavior() {
     'interactive' | 'block' | 'dismiss'
   >('interactive')
 
-  const toastContent = useMemo(
+  const overlayContent = useMemo(
     () => (
       <Surface style={{padding: 16, borderRadius: 8, backgroundColor: 'gray'}}>
         <Text>I am Overlay Content</Text>
@@ -72,7 +72,7 @@ export function OverlayBackdropBehavior() {
         onPress={() => {
           overlayId.current = show({
             type: 'popover',
-            content: toastContent,
+            content: overlayContent,
             top: 250,
             left: 150,
             withBackdrop: true,
@@ -88,7 +88,7 @@ export function OverlayBackdropBehavior() {
 export function OverlayDuration() {
   const {show} = useOverlay()
 
-  const toastContent = useMemo(
+  const overlayContent = useMemo(
     () => (
       <Surface style={{padding: 16, borderRadius: 8, backgroundColor: 'gray'}}>
         <Text>I am Overlay Content</Text>
@@ -102,7 +102,7 @@ export function OverlayDuration() {
       onPress={() => {
         show({
           type: 'popover',
-          content: toastContent,
+          content: overlayContent,
           top: 250,
           left: 150,
           withBackdrop: true,
@@ -119,7 +119,7 @@ export function OverlayUpdate() {
   const {show, update, dismiss} = useOverlay()
   const overlayId = useRef('')
 
-  const toastContent = useMemo(
+  const overlayContent = useMemo(
     () => (
       <Surface style={{padding: 16, borderRadius: 8, backgroundColor: 'gray'}}>
         <Text>I am Overlay Content</Text>
@@ -134,7 +134,7 @@ export function OverlayUpdate() {
         onPress={() => {
           overlayId.current = show({
             type: 'popover',
-            content: toastContent,
+            content: overlayContent,
             top: 300,
             left: 100,
             withBackdrop: true,
@@ -178,7 +178,7 @@ export function OverlayRandom() {
     [screenWidth],
   )
 
-  const toastContent = useMemo(
+  const overlayContent = useMemo(
     () => (
       <Surface style={{padding: 16, borderRadius: 8, backgroundColor: 'gray'}}>
         <Text>I am Overlay Content</Text>
@@ -190,7 +190,7 @@ export function OverlayRandom() {
   const createOverlay = useCallback(() => {
     overlayId.current = show({
       type: 'popover',
-      content: toastContent,
+      content: overlayContent,
       top: topRandom(),
       left: leftRandom(),
       withBackdrop: true,
@@ -199,7 +199,13 @@ export function OverlayRandom() {
         : 'interactive',
       dismissOnBackPress: true,
     })
-  }, [disableBackgroundInteraction, leftRandom, show, toastContent, topRandom])
+  }, [
+    disableBackgroundInteraction,
+    leftRandom,
+    show,
+    overlayContent,
+    topRandom,
+  ])
 
   useEffect(() => {
     if (!autoCreate) {
@@ -238,5 +244,35 @@ export function OverlayRandom() {
       </Button>
       <Button onPress={dismissAll}>Dismiss All</Button>
     </View>
+  )
+}
+
+export function OverlayImperativeAPI() {
+  const overlayContent = useMemo(
+    () => (
+      <Surface style={{padding: 16, borderRadius: 8, backgroundColor: 'teal'}}>
+        <Text>I am shown from the Overlay Imperative API</Text>
+        <Button onPress={Overlay.dismissLast}>Close</Button>
+      </Surface>
+    ),
+    [],
+  )
+
+  return (
+    <Button
+      onPress={() => {
+        Overlay.show({
+          type: 'popover',
+          content: overlayContent,
+          top: 550,
+          left: 10,
+          withBackdrop: true,
+          backdropBehavior: 'dismiss',
+          dismissOnBackPress: true,
+          backdropStyle: {backgroundColor: 'rgba(0,0,0,0.25)'},
+        })
+      }}>
+      Show Overlay
+    </Button>
   )
 }

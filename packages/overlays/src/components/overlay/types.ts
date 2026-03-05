@@ -1,33 +1,39 @@
+import {ReactNode} from 'react'
+import {
+  EasingFunction,
+  PressableProps,
+  StyleProp,
+  ViewProps,
+  ViewStyle,
+} from 'react-native'
+
 /**
  * Overlay Provider Props
  */
-
-import {ReactNode} from 'react'
-import {EasingFunction, StyleProp, ViewStyle} from 'react-native'
 
 export type Listener = () => void
 
 export type OverlayUpdate = Partial<Omit<OverlayNode, 'id'>>
 
-export interface OverlayManagerProps {
+export interface OverlayManagerProps extends OverlayActions {
   subscribe(listener: Listener): () => void
   getState(): OverlayNode[]
   has(id: string): boolean
-  show(node: OverlayNode): void
-  update(id: string, updatedNode: OverlayUpdate): void
-  dismiss(id: string): void
-  dismissLast(): void
-  dismissAll(): void
 }
+
 export type OverlayContextValue = OverlayManagerProps
 
-export type UseOverlayReturn = {
-  show: (config: Omit<OverlayNode, 'id'>) => string
+export type OverlayActions = {
+  show: (node: Omit<OverlayNode, 'id'>) => string
   update: (id: string, updatedNode: Partial<Omit<OverlayNode, 'id'>>) => void
   dismiss: (id: string) => void
   dismissLast: () => void
   dismissAll: () => void
 }
+
+export type OverlayBackdropProps = PressableProps &
+  ViewProps &
+  Pick<OverlayNode, 'backdropBehavior'>
 
 /**
  * Components types

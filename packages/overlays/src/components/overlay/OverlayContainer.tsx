@@ -3,7 +3,7 @@ import {Animated, StyleSheet, View} from 'react-native'
 import OverlayBackdrop from './OverlayBackdrop'
 import {useOverlay} from './useOverlay'
 import {useAnimatedController} from './useAnimatedController'
-import {OverlayNode} from '../../types'
+import {OverlayNode} from './types'
 
 function OverlayContainer({
   node,

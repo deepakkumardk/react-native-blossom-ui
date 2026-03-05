@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {View, StyleSheet, BackHandler} from 'react-native'
 
-import {OverlayNode} from '../../types'
+import {OverlayNode} from './types'
 import {OverlayContext} from './OverlayContext'
 import OverlayContainer from './OverlayContainer'
 

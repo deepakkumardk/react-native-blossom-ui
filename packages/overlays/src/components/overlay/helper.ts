@@ -1,4 +1,4 @@
-import {OverlayNode, OverlayType} from '../../types'
+import {OverlayNode, OverlayType} from './types'
 
 const overlayTypeAndBehaviorMap: Record<
   OverlayType,

@@ -1,18 +1,17 @@
 import React from 'react'
-import {Pressable, PressableProps, StyleSheet, ViewProps} from 'react-native'
+import {Pressable, StyleSheet} from 'react-native'
 import {View} from '@react-native-blossom-ui/components'
-import {OverlayNode} from '../../types'
+import {OverlayBackdropProps} from './types'
 
 function OverlayBackdrop({
   onPress,
   style,
   backdropBehavior = 'dismiss',
   ...rest
-}: PressableProps & ViewProps & Pick<OverlayNode, 'backdropBehavior'>) {
+}: OverlayBackdropProps) {
   if (backdropBehavior === 'dismiss') {
     return (
       <Pressable
-        // pointerEvents="box-only"
         accessibilityRole="button"
         onPress={onPress}
         style={(state) => [

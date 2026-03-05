@@ -3,7 +3,7 @@ import {
   OverlayManagerProps,
   OverlayNode,
   OverlayUpdate,
-} from '../../types'
+} from './types'
 
 export function createOverlayManager(): OverlayManagerProps {
   let overlays: OverlayNode[] = []
@@ -31,9 +31,12 @@ export function createOverlayManager(): OverlayManagerProps {
       return getIndex(id) !== -1
     },
 
-    show(node: OverlayNode) {
-      overlays = [...overlays, node]
+    show(node: Omit<OverlayNode, 'id'>) {
+      const id = Math.random().toString(36).substring(2, 9)
+      const nodeWithId = {...node, id}
+      overlays = [...overlays, nodeWithId]
       emit()
+      return id
     },
 
     update(id: string, updatedNode: OverlayUpdate) {

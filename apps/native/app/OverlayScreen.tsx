@@ -6,6 +6,7 @@ import {
   OverlayRandom,
   OverlayBackdropBehavior,
   OverlayDuration,
+  OverlayImperativeAPI,
 } from '@react-native-blossom-ui/showcase'
 import {Heading, AppScrollView} from '../components'
 
@@ -26,6 +27,9 @@ export default function OverlayScreen() {
 
       <Heading>Random Overlay Positions</Heading>
       <OverlayRandom />
+
+      <Heading>Imperative API</Heading>
+      <OverlayImperativeAPI />
     </AppScrollView>
   )
 }
