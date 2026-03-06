@@ -38,6 +38,15 @@ export const Overlay: OverlayActions = {
     overlayBridge.controller.dismissLast()
   },
 
+  dismissScope(scope: string) {
+    if (!overlayBridge.controller) {
+      console.warn('OverlayProvider is not mounted.')
+      return
+    }
+
+    overlayBridge.controller.dismissScope(scope)
+  },
+
   dismissAll() {
     if (!overlayBridge.controller) {
       console.warn('OverlayProvider is not mounted.')

@@ -1,5 +1,5 @@
 import React, {useMemo, ReactNode, useEffect} from 'react'
-import {createOverlayManager} from './OverlayManager'
+import {createOverlayController} from './OverlayController'
 import OverlayHost from './OverlayHost'
 import {OverlayContext} from './OverlayContext'
 import {OverlayContextValue} from './types'
@@ -7,7 +7,7 @@ import {overlayBridge} from './overlayBridge'
 
 function OverlayProvider({children}: {children: ReactNode}) {
   const contextValue: OverlayContextValue = useMemo(
-    () => createOverlayManager(),
+    () => createOverlayController(),
     [],
   )
 

@@ -1,4 +1,11 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
+import React, {
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import {useWindowDimensions} from 'react-native'
 
 import {
@@ -158,6 +165,8 @@ export function OverlayUpdate() {
 }
 
 export function OverlayRandom() {
+  // using scope to automatically dismiss overlays on unmount
+  const scopeId = useOverlayScope()
   const {show, update, dismissAll} = useOverlay()
 
   const [autoCreate, setAutoCreate] = useState(false)
@@ -190,6 +199,7 @@ export function OverlayRandom() {
   const createOverlay = useCallback(() => {
     overlayId.current = show({
       type: 'popover',
+      scope: scopeId,
       content: overlayContent,
       top: topRandom(),
       left: leftRandom(),
@@ -200,11 +210,12 @@ export function OverlayRandom() {
       dismissOnBackPress: true,
     })
   }, [
-    disableBackgroundInteraction,
-    leftRandom,
     show,
+    scopeId,
     overlayContent,
     topRandom,
+    leftRandom,
+    disableBackgroundInteraction,
   ])
 
   useEffect(() => {
@@ -252,7 +263,7 @@ export function OverlayImperativeAPI() {
     () => (
       <Surface style={{padding: 16, borderRadius: 8, backgroundColor: 'teal'}}>
         <Text>I am shown from the Overlay Imperative API</Text>
-        <Button onPress={Overlay.dismissLast}>Close</Button>
+        <Button onPress={() => Overlay.dismissLast()}>Close</Button>
       </Surface>
     ),
     [],
@@ -275,4 +286,18 @@ export function OverlayImperativeAPI() {
       Show Overlay
     </Button>
   )
+}
+
+export function useOverlayScope() {
+  const scopeId = useId()
+
+  useEffect(() => {
+    return () => {
+      console.log('return -> dismissScope')
+      Overlay.dismissScope(scopeId)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return scopeId
 }

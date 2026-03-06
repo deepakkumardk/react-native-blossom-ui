@@ -1,11 +1,11 @@
 import {
   Listener,
-  OverlayManagerProps,
+  OverlayControllerProps,
   OverlayNode,
   OverlayUpdate,
 } from './types'
 
-export function createOverlayManager(): OverlayManagerProps {
+export function createOverlayController(): OverlayControllerProps {
   let overlays: OverlayNode[] = []
   const listeners = new Set<Listener>()
 
@@ -61,11 +61,25 @@ export function createOverlayManager(): OverlayManagerProps {
       emit()
     },
 
-    dismissLast() {
+    dismissLast(type?: OverlayNode['type']) {
       if (overlays.length === 0) return
 
-      const last = overlays[overlays.length - 1]
+      let last = overlays[overlays.length - 1]
+      if (type && last.type !== type) {
+        const lastOfType = [...overlays]
+          .reverse()
+          .find((item) => item.type === type)
+        if (!lastOfType) return
+        last = lastOfType
+      }
+
       overlays = overlays.filter((item) => item.id !== last.id)
+      emit()
+    },
+
+    dismissScope(scope: string) {
+      overlays = overlays.filter((item) => item.scope !== scope)
+
       emit()
     },
 

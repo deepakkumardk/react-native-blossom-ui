@@ -5,15 +5,13 @@ import {
   View,
   SegmentedButton,
 } from '@react-native-blossom-ui/components'
-import {useToast, ToastStatus} from '@react-native-blossom-ui/overlays'
+import {ToastStatus, Toast} from '@react-native-blossom-ui/overlays'
 
 export function ToastUsage() {
-  const toast = useToast()
-
   return (
     <Button
       onPress={() => {
-        toast.show({
+        Toast.show({
           message: 'This is a toast message!',
           description: 'This is a description for the toast message.',
         })
@@ -24,13 +22,11 @@ export function ToastUsage() {
 }
 
 export function ToastDuration() {
-  const toast = useToast()
-
   return (
     <View>
       <Button
         onPress={() => {
-          toast.show({
+          Toast.show({
             message: 'This is a toast message!',
             description: 'This is a description for the toast message.',
             duration: 500,
@@ -40,7 +36,7 @@ export function ToastDuration() {
       </Button>
       <Button
         onPress={() => {
-          toast.show({
+          Toast.show({
             message: 'This is a toast message!',
             description: 'This is a description for the toast message.',
             duration: 5000,
@@ -53,13 +49,11 @@ export function ToastDuration() {
 }
 
 export function ToastPosition() {
-  const toast = useToast()
-
   return (
     <View>
       <Button
         onPress={() => {
-          toast.show({
+          Toast.show({
             message: 'This is a toast message!',
             description: 'This is a description for the toast message.',
             position: 'top',
@@ -70,7 +64,7 @@ export function ToastPosition() {
 
       <Button
         onPress={() => {
-          toast.show({
+          Toast.show({
             message: 'This is a toast message!',
             description: 'This is a description for the toast message.',
             position: 'bottom',
@@ -83,7 +77,6 @@ export function ToastPosition() {
 }
 
 export function ToastStatuses() {
-  const toast = useToast()
   const [status, setStatus] = useState<ToastStatus>('default')
 
   return (
@@ -103,7 +96,7 @@ export function ToastStatuses() {
 
       <Button
         onPress={() => {
-          toast.show({
+          Toast.show({
             message: 'This is a toast message!',
             description: 'This is a description for the toast message.',
             status,

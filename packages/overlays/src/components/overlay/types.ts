@@ -15,19 +15,20 @@ export type Listener = () => void
 
 export type OverlayUpdate = Partial<Omit<OverlayNode, 'id'>>
 
-export interface OverlayManagerProps extends OverlayActions {
+export interface OverlayControllerProps extends OverlayActions {
   subscribe(listener: Listener): () => void
   getState(): OverlayNode[]
   has(id: string): boolean
 }
 
-export type OverlayContextValue = OverlayManagerProps
+export type OverlayContextValue = OverlayControllerProps
 
 export type OverlayActions = {
   show: (node: Omit<OverlayNode, 'id'>) => string
   update: (id: string, updatedNode: Partial<Omit<OverlayNode, 'id'>>) => void
   dismiss: (id: string) => void
-  dismissLast: () => void
+  dismissLast: (type?: OverlayNode['type']) => void
+  dismissScope: (scope: string) => void
   dismissAll: () => void
 }
 
@@ -81,6 +82,7 @@ export interface OverlayNode {
 
   // stackMode?: 'stack' | 'replace'
 
+  scope?: string
   duration?: number
 
   onDismiss?: () => void
