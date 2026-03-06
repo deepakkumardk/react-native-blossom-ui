@@ -189,4 +189,8 @@ const dataList = [
     title: 'Toast',
     navigateTo: './ToastScreen',
   },
+  {
+    title: 'Snackbar',
+    navigateTo: './SnackbarScreen',
+  },
 ]

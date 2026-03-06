@@ -79,6 +79,7 @@ function OverlayContainer({
             zIndex,
           },
           node.type === 'toast' && styles.horizontalCenter,
+          node.type === 'snackbar' && styles.horizontalCenter,
         ]}>
         <Animated.View style={animatedStyle}>{node.content}</Animated.View>
       </View>
