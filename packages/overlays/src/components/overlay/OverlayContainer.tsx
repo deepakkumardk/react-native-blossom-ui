@@ -80,6 +80,7 @@ function OverlayContainer({
           },
           node.type === 'toast' && styles.horizontalCenter,
           node.type === 'snackbar' && styles.horizontalCenter,
+          node.type === 'sheet' && styles.alignBottom,
         ]}>
         <Animated.View style={animatedStyle}>{node.content}</Animated.View>
       </View>
@@ -95,6 +96,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   horizontalCenter: {
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+  alignBottom: {
+    top: undefined,
+    bottom: 16,
     left: 0,
     right: 0,
     alignItems: 'center',

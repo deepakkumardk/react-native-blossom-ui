@@ -193,4 +193,8 @@ const dataList = [
     title: 'Snackbar',
     navigateTo: './SnackbarScreen',
   },
+  {
+    title: 'ActionSheet',
+    navigateTo: './ActionSheetScreen',
+  },
 ]

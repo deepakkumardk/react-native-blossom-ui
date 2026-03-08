@@ -39,7 +39,7 @@ function SnackbarView(props: SnackbarViewProps) {
       ]}>
       <Text
         typography="s3"
-        style={[styles.textStyle, textStyle]}
+        style={[styles.textStyle, {color: colors.bgLight100}, textStyle]}
         numberOfLines={numberOfLines}>
         {text}
       </Text>
@@ -49,7 +49,9 @@ function SnackbarView(props: SnackbarViewProps) {
           accessibilityRole="button"
           activeOpacity={0.7}
           onPress={onActionPress}>
-          <Text typography="b1" style={actionTextStyle}>
+          <Text
+            typography="b1"
+            style={[{color: colors.bgLight100}, actionTextStyle]}>
             {actionText}
           </Text>
         </TouchableOpacity>
