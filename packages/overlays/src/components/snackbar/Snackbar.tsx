@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dimensions} from 'react-native'
+import {Animated, Dimensions, StyleSheet} from 'react-native'
 import {Overlay} from '../overlay'
 import SnackbarView from './SnackbarView'
 import {SnackbarHandlerOptions, SnackbarOptions} from './types'
@@ -14,28 +14,61 @@ export const Snackbar: SnackbarHandlerOptions = {
     const offset = options.offset ?? DEFAULT_OFFSET
     const position = options.position ?? 'bottom'
 
-    const snackbarId = Overlay.show({
+    Overlay.show({
       type: 'snackbar',
-      content: (
-        <SnackbarView
-          text={options.text}
-          actionText={options.actionText}
-          actionTextStyle={options.actionTextStyle}
-          textStyle={options.textStyle}
-          numberOfLines={options.numberOfLines}
-          containerStyle={options.containerStyle}
-          onActionPress={() => {
-            Overlay.dismiss(snackbarId)
-            options.onActionPress?.()
-          }}
-        />
-      ),
       duration: options.duration ?? DEFAULT_DURATION,
       top: position === 'top' ? offset : screenHeight - offset,
       left: 0,
       withBackdrop: false,
       backdropBehavior: 'interactive',
       onDismiss: options.onHide,
+      containerStyle: styles.horizontalCenter,
+
+      renderAnimated: ({progress, requestDismiss}) => {
+        const scale = progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0.95, 1],
+        })
+
+        const translateY = progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [12, 0],
+        })
+
+        const shadowOpacity = progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 0.25],
+        })
+
+        return (
+          <Animated.View
+            style={{
+              opacity: progress,
+              shadowOpacity,
+              transform: [
+                {
+                  translateY,
+                },
+                {
+                  scale,
+                },
+              ],
+            }}>
+            <SnackbarView
+              text={options.text}
+              actionText={options.actionText}
+              actionTextStyle={options.actionTextStyle}
+              textStyle={options.textStyle}
+              numberOfLines={options.numberOfLines}
+              containerStyle={options.containerStyle}
+              onActionPress={() => {
+                requestDismiss()
+                options.onActionPress?.()
+              }}
+            />
+          </Animated.View>
+        )
+      },
     })
   },
 
@@ -43,3 +76,11 @@ export const Snackbar: SnackbarHandlerOptions = {
     Overlay.dismissLast('snackbar')
   },
 }
+
+const styles = StyleSheet.create({
+  horizontalCenter: {
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+})

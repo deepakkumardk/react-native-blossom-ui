@@ -43,18 +43,6 @@ function OverlayContainer({
     }
   }, [phase, dismiss, node])
 
-  const animatedStyle = {
-    opacity: animatedValue,
-    transform: [
-      {
-        scale: animatedValue.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0.95, 1],
-        }),
-      },
-    ],
-  }
-
   return (
     <View
       style={StyleSheet.absoluteFill}
@@ -78,11 +66,15 @@ function OverlayContainer({
             left: node.left,
             zIndex,
           },
-          node.type === 'toast' && styles.horizontalCenter,
-          node.type === 'snackbar' && styles.horizontalCenter,
-          node.type === 'sheet' && styles.alignBottom,
+          node.containerStyle,
         ]}>
-        <Animated.View style={animatedStyle}>{node.content}</Animated.View>
+        {node.renderAnimated ? (
+          node.renderAnimated({progress: animatedValue, phase, requestDismiss})
+        ) : (
+          <Animated.View style={{opacity: animatedValue}}>
+            {node.content}
+          </Animated.View>
+        )}
       </View>
     </View>
   )
@@ -94,17 +86,5 @@ const styles = StyleSheet.create({
   animatedContainer: {
     overflow: 'hidden',
     position: 'absolute',
-  },
-  horizontalCenter: {
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-  },
-  alignBottom: {
-    top: undefined,
-    bottom: 16,
-    left: 0,
-    right: 0,
-    alignItems: 'center',
   },
 })

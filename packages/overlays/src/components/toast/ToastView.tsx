@@ -52,7 +52,7 @@ function ToastView(props: ToastViewProps) {
       style={[
         styles.container,
         {
-          backgroundColor: colors.background100,
+          backgroundColor: isDark ? colors.bgDark900 : colors.bgLight100,
         },
       ]}>
       {getStatusIcon() && (
@@ -79,19 +79,10 @@ export default ToastView
 
 const styles = StyleSheet.create({
   container: {
-    padding: 12,
+    padding: 14,
     borderRadius: 8,
     alignItems: 'center',
     gap: 10,
-
-    elevation: 10,
-    shadowColor: '#ccc',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
   },
 })
 

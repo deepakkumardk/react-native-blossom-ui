@@ -6,9 +6,10 @@ import {
   Text,
   useMergedProps,
   useBlossomTheme,
-  Divider,
 } from '@react-native-blossom-ui/components'
 import {ActionSheetViewProps} from './types'
+
+const HORIZONTAL_PADDING = 16
 
 function ActionSheetView(props: ActionSheetViewProps) {
   const {colors, isDark} = useBlossomTheme()
@@ -36,51 +37,61 @@ function ActionSheetView(props: ActionSheetViewProps) {
     <View>
       <View
         style={[
-          styles.container,
+          isDark ? styles.containerDark : styles.containerLight,
           {
-            backgroundColor: isDark ? colors.bgDark900 : colors.bgLight100,
-            width: screenWidth - 16,
+            width: screenWidth - HORIZONTAL_PADDING,
           },
           containerStyle,
         ]}>
         {title ? (
-          <Text typography="h6" style={[styles.titleStyle, titleStyle]}>
+          <Text typography="h6" style={[styles.textStyle, titleStyle]}>
             {title}
           </Text>
         ) : null}
 
         {message ? (
-          <Text typography="s2" style={[styles.messageStyle, messageStyle]}>
+          <Text typography="l3" style={[styles.textStyle, messageStyle]}>
             {message}
           </Text>
         ) : null}
 
         {title || message ? (
-          <Divider height={1} style={styles.divider} />
+          <View
+            style={[
+              styles.divider,
+              isDark ? styles.itemDividerDark : styles.itemDividerLight,
+            ]}
+          />
         ) : null}
 
-        {options?.map((option, index) => (
-          <View key={option.key}>
+        {options?.map((item, index) => (
+          <View key={item.key}>
             <TouchableOpacity
               accessibilityRole="button"
-              disabled={option.disabled}
+              disabled={item.disabled}
               activeOpacity={0.7}
               style={[styles.item, itemStyle]}
               onPress={() => {
-                onItemPress?.(option.key, index)
+                onItemPress?.(item.key, index)
               }}>
-              {option.icon}
+              {item.icon}
               <Text
                 typography="s2"
                 style={[
-                  option.destructive && {color: colors.error500},
-                  option.textStyle,
+                  item.destructive && {color: colors.error500},
+                  item.textStyle,
                 ]}
                 numberOfLines={2}>
-                {option.label}
+                {item.label}
               </Text>
             </TouchableOpacity>
-            <Divider height={1} />
+            {index !== options.length - 1 && (
+              <View
+                style={
+                  isDark ? styles.itemDividerDark : styles.itemDividerLight
+                }
+              />
+            )}
           </View>
         ))}
       </View>
@@ -92,7 +103,11 @@ function ActionSheetView(props: ActionSheetViewProps) {
           style={[
             styles.item,
             styles.cancelButton,
-            {backgroundColor: colors.background100},
+            {
+              backgroundColor: isDark
+                ? colors.background100
+                : colors.bgLight100,
+            },
           ]}
           onPress={() => {
             onItemPress?.('cancel', options.length)
@@ -111,44 +126,45 @@ function ActionSheetView(props: ActionSheetViewProps) {
 export default ActionSheetView
 
 const styles = StyleSheet.create({
-  container: {
-    // gap: 16,
-    // padding: 16,
-    borderRadius: 16,
-    // justifyContent: 'space-between',
-    // alignItems: 'center',
+  containerLight: {
+    borderRadius: 14,
+    backgroundColor: '#F2F2F7',
+  },
+  containerDark: {
+    borderRadius: 14,
+    backgroundColor: '#1C1C1E',
   },
   itemTextStyle: {
-    // flex: 1,
     fontWeight: 'bold',
   },
   cancelTextStyle: {
-    // flex: 1,
     fontWeight: '500',
   },
-  titleStyle: {
+  textStyle: {
     textAlign: 'center',
     paddingHorizontal: 8,
-    paddingTop: 16,
-  },
-  messageStyle: {
-    textAlign: 'center',
     paddingTop: 16,
   },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    // alignSelf: 'center',
-    // gap: 12,
     paddingHorizontal: 16,
     paddingVertical: 20,
   },
   cancelButton: {
-    marginTop: 8,
+    marginTop: 12,
     borderRadius: 16,
   },
   divider: {
     marginTop: 16,
+  },
+  itemDividerLight: {
+    backgroundColor: 'rgba(60,60,67,0.29)',
+    height: 1,
+  },
+  itemDividerDark: {
+    backgroundColor: 'rgba(84,84,88,0.65)',
+    height: 1,
   },
 })

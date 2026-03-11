@@ -1,41 +1,52 @@
 import React from 'react'
-import {Dimensions, Easing} from 'react-native'
+import {Animated, StyleSheet} from 'react-native'
 import {Overlay} from '../overlay'
 import ActionSheetView from './ActionSheetView'
 import {ActionSheetHandlerOptions, ActionSheetOptions} from './types'
 
 export const ActionSheet: ActionSheetHandlerOptions = {
   show: (options: ActionSheetOptions) => {
-    // const {height: screenHeight} = Dimensions.get('window')
-
-    const ActionSheetId = Overlay.show({
+    Overlay.show({
       type: 'sheet',
-      content: (
-        <ActionSheetView
-          title={options.title}
-          titleStyle={options.titleStyle}
-          message={options.message}
-          messageStyle={options.messageStyle}
-          options={options.options}
-          withCancelButton={options.withCancelButton}
-          containerStyle={options.containerStyle}
-          onItemPress={(key, index) => {
-            Overlay.dismiss(ActionSheetId)
-            options.onItemPress?.(key, index)
-          }}
-        />
-      ),
       top: 0,
       left: 0,
       withBackdrop: true,
       backdropBehavior: 'dismiss',
       onDismiss: options.onHide,
-      backdropStyle: {
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
-      },
-      animationConfig: {
-        duration: 200,
-        easing: Easing.out(Easing.ease),
+      backdropStyle: styles.backdropStyle,
+      containerStyle: styles.alignBottom,
+
+      renderAnimated: ({progress, requestDismiss}) => {
+        const translateY = progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [120, 0],
+        })
+
+        return (
+          <Animated.View
+            style={{
+              opacity: progress,
+              transform: [
+                {
+                  translateY,
+                },
+              ],
+            }}>
+            <ActionSheetView
+              title={options.title}
+              titleStyle={options.titleStyle}
+              message={options.message}
+              messageStyle={options.messageStyle}
+              options={options.options}
+              withCancelButton={options.withCancelButton}
+              containerStyle={options.containerStyle}
+              onItemPress={(key, index) => {
+                requestDismiss()
+                options.onItemPress?.(key, index)
+              }}
+            />
+          </Animated.View>
+        )
       },
     })
   },
@@ -44,3 +55,16 @@ export const ActionSheet: ActionSheetHandlerOptions = {
     Overlay.dismissLast('sheet')
   },
 }
+
+const styles = StyleSheet.create({
+  alignBottom: {
+    top: undefined,
+    bottom: 24,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+  backdropStyle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+  },
+})

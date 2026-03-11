@@ -1,63 +1,58 @@
-import {useRef, useState, useEffect} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {Animated, Easing} from 'react-native'
-import {AnimationConfig, AnimationPhase} from './types'
+import {AnimationPhase, OverlayAnimationConfig} from './types'
 
 export function useAnimatedController(
   visible: boolean,
-  config?: AnimationConfig,
+  animationConfig?: OverlayAnimationConfig,
 ) {
   const animatedValue = useRef(new Animated.Value(0)).current
+
   const [phase, setPhase] = useState<AnimationPhase>(
     visible ? 'entered' : 'exited',
   )
 
   useEffect(() => {
-    const toValue = visible ? 1 : 0
-    const nextPhase = visible ? 'entering' : 'exiting'
+    let animation: Animated.CompositeAnimation
 
-    setPhase(nextPhase)
+    if (visible) {
+      setPhase('entering')
 
-    config?.onAnimationStart?.()
+      const enterDriver = animationConfig?.enter ?? defaultEnter
+      animation = enterDriver(animatedValue)
 
-    const animationType = config?.type ?? 'timing'
+      animation.start(() => {
+        setPhase('entered')
+      })
+    } else {
+      setPhase('exiting')
 
-    const defaultConfig = {
-      toValue,
-      useNativeDriver: config?.useNativeDriver ?? true,
+      const exitDriver = animationConfig?.exit ?? defaultExit
+      animation = exitDriver(animatedValue)
+
+      animation.start(() => {
+        setPhase('exited')
+      })
     }
-    const animation =
-      animationType === 'spring'
-        ? Animated.spring(animatedValue, defaultConfig)
-        : animationType === 'decay'
-          ? Animated.decay(animatedValue, {
-              ...defaultConfig,
-              velocity: toValue,
-            })
-          : Animated.timing(animatedValue, {
-              ...defaultConfig,
-              duration: config?.duration ?? 200,
-              easing: config?.easing ?? Easing.out(Easing.ease),
-            })
 
-    animation.start(({finished}) => {
-      if (!finished) {
-        config?.onAnimationEnd?.(finished)
-        return
-      }
+    return () => animation?.stop()
+  }, [visible, animationConfig, animatedValue])
 
-      const finalPhase = visible ? 'entered' : 'exited'
-      setPhase(finalPhase)
-
-      config?.onAnimationEnd?.(finished)
-    })
-
-    return () => {
-      animation.stop()
-    }
-  }, [animatedValue, visible, config])
-
-  return {
-    animatedValue,
-    phase,
-  }
+  return {animatedValue, phase}
 }
+
+const defaultEnter = (value: Animated.Value) =>
+  Animated.timing(value, {
+    toValue: 1,
+    duration: 200,
+    easing: Easing.out(Easing.cubic),
+    useNativeDriver: true,
+  })
+
+const defaultExit = (value: Animated.Value) =>
+  Animated.timing(value, {
+    toValue: 0,
+    duration: 200,
+    easing: Easing.in(Easing.cubic),
+    useNativeDriver: true,
+  })

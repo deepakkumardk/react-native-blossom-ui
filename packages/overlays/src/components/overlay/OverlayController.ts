@@ -33,7 +33,7 @@ export function createOverlayController(): OverlayControllerProps {
 
     show(node: Omit<OverlayNode, 'id'>) {
       const id = Math.random().toString(36).substring(2, 9)
-      const nodeWithId = {...node, id}
+      const nodeWithId = {...node, id} as OverlayNode
       overlays = [...overlays, nodeWithId]
       emit()
       return id

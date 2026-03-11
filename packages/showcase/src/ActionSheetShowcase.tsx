@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Button, View} from '@react-native-blossom-ui/components'
+import {Button, useBlossomTheme} from '@react-native-blossom-ui/components'
 import {ActionSheet} from '@react-native-blossom-ui/overlays'
 
 export function ActionSheetUsage() {
@@ -17,6 +17,43 @@ export function ActionSheetUsage() {
           onItemPress: (key, index) => {
             console.log('ActionSheet action pressed!', key, index)
           },
+        })
+      }}>
+      Show ActionSheet
+    </Button>
+  )
+}
+
+export function ActionSheetIosFeel() {
+  const {colors} = useBlossomTheme()
+  return (
+    <Button
+      onPress={() => {
+        ActionSheet.show({
+          message: 'This is a ActionSheet message!',
+          options: [
+            {
+              key: 'option1',
+              label: 'Option 1',
+              textStyle: {color: colors.info500},
+            },
+            {
+              key: 'option2',
+              label: 'Option 2',
+              textStyle: {color: colors.info500},
+            },
+            {
+              key: 'option3',
+              label: 'Option 3',
+              destructive: true,
+            },
+          ],
+
+          onItemPress: (key, index) => {
+            console.log('ActionSheet action pressed!', key, index)
+          },
+          withCancelButton: true,
+          cancelButtonTextStyle: {color: colors.error500},
         })
       }}>
       Show ActionSheet

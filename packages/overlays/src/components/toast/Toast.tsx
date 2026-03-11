@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dimensions} from 'react-native'
+import {Animated, Dimensions, Easing, StyleSheet} from 'react-native'
 import {Overlay} from '../overlay'
 import ToastView from './ToastView'
 import {ToastHandlerOptions, ToastOptions} from './types'
@@ -33,6 +33,24 @@ export const Toast: ToastHandlerOptions = {
       withBackdrop: false,
       backdropBehavior: 'interactive',
       onDismiss: toastOptions.onHide,
+      containerStyle: styles.horizontalCenter,
+      animationConfig: {
+        enter: (value: Animated.Value) =>
+          Animated.timing(value, {
+            toValue: 1,
+            duration: 250,
+            easing: Easing.out(Easing.ease),
+            useNativeDriver: true,
+          }),
+
+        exit: (value: Animated.Value) =>
+          Animated.timing(value, {
+            toValue: 0,
+            duration: 200,
+            easing: Easing.in(Easing.ease),
+            useNativeDriver: true,
+          }),
+      },
     })
   },
 
@@ -40,3 +58,11 @@ export const Toast: ToastHandlerOptions = {
     Overlay.dismissLast('toast')
   },
 }
+
+const styles = StyleSheet.create({
+  horizontalCenter: {
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+})
