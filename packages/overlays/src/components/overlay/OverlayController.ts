@@ -33,7 +33,7 @@ export function createOverlayController(): OverlayControllerProps {
 
     show(node: Omit<OverlayNode, 'id'>) {
       const id = Math.random().toString(36).substring(2, 9)
-      const nodeWithId = {...node, id} as OverlayNode
+      const nodeWithId = {...node, id, visible: true} as OverlayNode
       overlays = [...overlays, nodeWithId]
       emit()
       return id
@@ -54,10 +54,22 @@ export function createOverlayController(): OverlayControllerProps {
     },
 
     dismiss(id: string) {
-      const next = overlays.filter((item) => item.id !== id)
-      if (next.length === overlays.length) return
+      const index = getIndex(id)
+      if (index === -1) return
+
+      const next = [...overlays]
+
+      next[index] = {
+        ...next[index],
+        visible: false,
+      }
 
       overlays = next
+      emit()
+    },
+
+    remove(id: string) {
+      overlays = overlays.filter((item) => item.id !== id)
       emit()
     },
 
@@ -73,19 +85,20 @@ export function createOverlayController(): OverlayControllerProps {
         last = lastOfType
       }
 
-      overlays = overlays.filter((item) => item.id !== last.id)
-      emit()
+      this.update(last.id, {visible: false})
     },
 
     dismissScope(scope: string) {
-      overlays = overlays.filter((item) => item.scope !== scope)
+      overlays = overlays.map((item) =>
+        item.scope === scope ? {...item, visible: false} : item,
+      )
 
       emit()
     },
 
     dismissAll() {
       if (!overlays.length) return
-      overlays = []
+      overlays = overlays.map((item) => ({...item, visible: false}))
       emit()
     },
   }

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react'
+import React, {useEffect, useCallback} from 'react'
 import {Animated, StyleSheet, View} from 'react-native'
 import OverlayBackdrop from './OverlayBackdrop'
 import {useOverlay} from './useOverlay'
@@ -13,18 +13,16 @@ function OverlayContainer({
   stackIndex: number
 }) {
   const zIndex = 100 + stackIndex
-  const {dismiss} = useOverlay()
-
-  const [visible, setVisible] = useState(true)
+  const {dismiss, remove} = useOverlay()
 
   const {animatedValue, phase} = useAnimatedController(
-    visible,
+    !!node.visible,
     node.animationConfig,
   )
 
   const requestDismiss = useCallback(() => {
-    setVisible(false)
-  }, [])
+    dismiss(node.id)
+  }, [dismiss, node.id])
 
   useEffect(() => {
     if (!node.duration) return undefined
@@ -38,10 +36,10 @@ function OverlayContainer({
 
   useEffect(() => {
     if (phase === 'exited') {
-      dismiss(node.id)
+      remove(node.id)
       node.onDismiss?.()
     }
-  }, [phase, dismiss, node])
+  }, [phase, remove, node])
 
   return (
     <View

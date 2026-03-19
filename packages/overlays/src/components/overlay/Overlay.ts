@@ -29,6 +29,15 @@ export const Overlay: OverlayActions = {
     overlayBridge.controller.dismiss(id)
   },
 
+  remove(id: string) {
+    if (!overlayBridge.controller) {
+      console.warn('OverlayProvider is not mounted.')
+      return
+    }
+
+    overlayBridge.controller.remove(id)
+  },
+
   dismissLast() {
     if (!overlayBridge.controller) {
       console.warn('OverlayProvider is not mounted.')

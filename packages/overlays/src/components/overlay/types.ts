@@ -28,6 +28,7 @@ export type OverlayActions = {
   show: (node: Omit<OverlayNode, 'id'>) => string
   update: (id: string, updatedNode: Partial<Omit<OverlayNode, 'id'>>) => void
   dismiss: (id: string) => void
+  remove: (id: string) => void
   dismissLast: (type?: OverlayNode['type']) => void
   dismissScope: (scope: string) => void
   dismissAll: () => void
@@ -55,6 +56,7 @@ export type OverlayType =
 export type OverlayBackdropBehavior = 'interactive' | 'block' | 'dismiss'
 
 export interface BaseOverlayNode {
+  visible?: boolean
   /**
    * Unique identifier for the overlay node.
    * This is used internally to manage the overlay stack and should not be provided by the user.

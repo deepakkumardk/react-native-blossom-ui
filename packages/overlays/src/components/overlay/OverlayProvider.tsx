@@ -1,5 +1,5 @@
 import React, {useMemo, ReactNode, useEffect} from 'react'
-import {createOverlayController} from './OverlayController'
+import {createOverlayController} from './overlayController'
 import OverlayHost from './OverlayHost'
 import {OverlayContext} from './OverlayContext'
 import {OverlayContextValue} from './types'
