@@ -293,7 +293,6 @@ export function useOverlayScope() {
 
   useEffect(() => {
     return () => {
-      console.log('return -> dismissScope')
       Overlay.dismissScope(scopeId)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

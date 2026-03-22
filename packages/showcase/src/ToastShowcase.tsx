@@ -5,7 +5,7 @@ import {
   View,
   SegmentedButton,
 } from '@react-native-blossom-ui/components'
-import {ToastStatus, Toast} from '@react-native-blossom-ui/overlays'
+import {ToastStatus, Toast, ToastTheme} from '@react-native-blossom-ui/overlays'
 
 export function ToastUsage() {
   return (
@@ -71,6 +71,32 @@ export function ToastPosition() {
           })
         }}>
         Show Bottom Toast
+      </Button>
+    </View>
+  )
+}
+
+export function ToastThemes() {
+  const [theme, setTheme] = useState<ToastTheme>('auto')
+
+  return (
+    <View>
+      <SegmentedButton
+        data={[{title: 'auto'}, {title: 'light'}, {title: 'dark'}]}
+        onPress={(value) => {
+          setTheme(value as ToastTheme)
+        }}
+      />
+
+      <Button
+        onPress={() => {
+          Toast.show({
+            message: 'This is a Toast message!',
+            description: 'This is a description for the toast message.',
+            theme,
+          })
+        }}>
+        Show Toast
       </Button>
     </View>
   )

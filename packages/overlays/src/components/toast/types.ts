@@ -1,10 +1,13 @@
 export type ToastStatus = 'default' | 'info' | 'success' | 'warning' | 'error'
 
+export type ToastTheme = 'light' | 'dark' | 'auto'
+
 export interface ToastViewProps {
   message: string
   description?: string
   status?: ToastStatus
   shouldUseNativeAndroidToast?: boolean
+  theme?: ToastTheme
 }
 
 export type AndroidToastViewProps = Pick<
@@ -19,6 +22,7 @@ export interface ToastOptions {
   offset?: number
   duration?: number
   position?: 'top' | 'bottom'
+  theme?: ToastTheme
   onShow?: () => void
   onHide?: () => void
 }

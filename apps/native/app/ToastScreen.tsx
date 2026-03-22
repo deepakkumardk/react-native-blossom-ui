@@ -5,6 +5,7 @@ import {
   ToastDuration,
   ToastPosition,
   ToastStatuses,
+  ToastThemes,
 } from '@react-native-blossom-ui/showcase'
 import {Heading, AppScrollView} from '../components'
 
@@ -22,6 +23,9 @@ export default function ToastScreen() {
 
       <Heading>Status</Heading>
       <ToastStatuses />
+
+      <Heading>Themes</Heading>
+      <ToastThemes />
     </AppScrollView>
   )
 }

@@ -25,6 +25,7 @@ export const Toast: ToastHandlerOptions = {
           message={toastOptions.message}
           description={toastOptions.description}
           status={toastOptions.status}
+          theme={toastOptions.theme}
         />
       ),
       duration: toastOptions.duration ?? DEFAULT_DURATION,

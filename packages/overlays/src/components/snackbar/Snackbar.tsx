@@ -65,6 +65,7 @@ export const Snackbar: SnackbarHandlerOptions = {
                 requestDismiss()
                 options.onActionPress?.()
               }}
+              theme={options.theme}
             />
           </Animated.View>
         )

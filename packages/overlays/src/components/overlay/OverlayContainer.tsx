@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback} from 'react'
+import React, {useEffect, useCallback, useMemo} from 'react'
 import {Animated, StyleSheet, View} from 'react-native'
 import OverlayBackdrop from './OverlayBackdrop'
 import {useOverlay} from './useOverlay'
@@ -24,6 +24,14 @@ function OverlayContainer({
     dismiss(node.id)
   }, [dismiss, node.id])
 
+  const pointerEvents = useMemo(() => {
+    if (node.backdropBehavior === 'interactive') {
+      return 'box-none'
+    }
+
+    return 'auto'
+  }, [node.backdropBehavior])
+
   useEffect(() => {
     if (!node.duration) return undefined
 
@@ -42,11 +50,7 @@ function OverlayContainer({
   }, [phase, remove, node])
 
   return (
-    <View
-      style={StyleSheet.absoluteFill}
-      pointerEvents={
-        node.backdropBehavior === 'interactive' ? 'box-none' : 'auto'
-      }>
+    <View style={StyleSheet.absoluteFill} pointerEvents={pointerEvents}>
       {node.withBackdrop && (
         <OverlayBackdrop
           onPress={requestDismiss}
@@ -56,7 +60,9 @@ function OverlayContainer({
       )}
 
       <View
-        pointerEvents="auto"
+        // Use "box-none" so the overlay container itself doesn't block touches,
+        // while still allowing its children to receive touch events.
+        pointerEvents="box-none"
         style={[
           styles.animatedContainer,
           {

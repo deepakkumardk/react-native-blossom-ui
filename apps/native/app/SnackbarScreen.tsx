@@ -6,6 +6,7 @@ import {
   SnackbarPosition,
   SnackbarNumberOfLines,
   SnackbarCustom,
+  SnackbarThemes,
 } from '@react-native-blossom-ui/showcase'
 import {Heading, AppScrollView} from '../components'
 
@@ -24,8 +25,8 @@ export default function SnackbarScreen() {
       <Heading>Number of Lines</Heading>
       <SnackbarNumberOfLines />
 
-      <Heading>Number of Lines</Heading>
-      <SnackbarNumberOfLines />
+      <Heading>Themes</Heading>
+      <SnackbarThemes />
 
       <Heading>Custom</Heading>
       <SnackbarCustom />

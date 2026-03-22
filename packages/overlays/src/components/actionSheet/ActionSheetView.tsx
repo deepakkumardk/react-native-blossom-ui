@@ -34,7 +34,7 @@ function ActionSheetView(props: ActionSheetViewProps) {
   })
 
   return (
-    <View>
+    <View style={styles.outerContainer}>
       <View
         style={[
           isDark ? styles.containerDark : styles.containerLight,
@@ -126,6 +126,9 @@ function ActionSheetView(props: ActionSheetViewProps) {
 export default ActionSheetView
 
 const styles = StyleSheet.create({
+  outerContainer: {
+    marginBottom: 24,
+  },
   containerLight: {
     borderRadius: 14,
     backgroundColor: '#F2F2F7',

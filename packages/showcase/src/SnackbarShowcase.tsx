@@ -1,7 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-import {Button, View} from '@react-native-blossom-ui/components'
-import {Snackbar} from '@react-native-blossom-ui/overlays'
+import {
+  Button,
+  SegmentedButton,
+  View,
+} from '@react-native-blossom-ui/components'
+import {Snackbar, SnackbarTheme} from '@react-native-blossom-ui/overlays'
 
 export function SnackbarUsage() {
   return (
@@ -119,6 +123,32 @@ export function SnackbarPosition() {
           })
         }}>
         Show Bottom Snackbar
+      </Button>
+    </View>
+  )
+}
+
+export function SnackbarThemes() {
+  const [theme, setTheme] = useState<SnackbarTheme>('auto')
+
+  return (
+    <View>
+      <SegmentedButton
+        data={[{title: 'auto'}, {title: 'light'}, {title: 'dark'}]}
+        onPress={(value) => {
+          setTheme(value as SnackbarTheme)
+        }}
+      />
+
+      <Button
+        onPress={() => {
+          Snackbar.show({
+            text: 'This is a Snackbar message!',
+            actionText: 'Undo',
+            theme,
+          })
+        }}>
+        Show Snackbar
       </Button>
     </View>
   )

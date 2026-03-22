@@ -90,14 +90,8 @@ function BottomSheet(props: BottomSheetProps) {
         renderAnimated,
       })
     }
-  }, [
-    children,
-    backdropBehavior,
-    backdropStyle,
-    containerStyle,
-    update,
-    renderAnimated,
-  ])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [children, backdropBehavior, backdropStyle, containerStyle, update])
 
   return null
 }

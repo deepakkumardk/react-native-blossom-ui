@@ -24,7 +24,9 @@ function OverlayBackdrop({
   }
 
   if (backdropBehavior === 'block') {
-    return <View style={[StyleSheet.absoluteFillObject, style]} {...rest} />
+    return (
+      <Pressable style={[StyleSheet.absoluteFillObject, style]} {...rest} />
+    )
   }
 
   if (backdropBehavior === 'interactive') {

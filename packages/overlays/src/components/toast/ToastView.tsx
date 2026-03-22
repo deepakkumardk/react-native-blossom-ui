@@ -20,6 +20,7 @@ function ToastView(props: ToastViewProps) {
     message,
     description,
     status = 'default',
+    theme = 'auto',
     shouldUseNativeAndroidToast,
   } = useMergedProps('ToastView', props, {
     colors,
@@ -42,6 +43,26 @@ function ToastView(props: ToastViewProps) {
     return ''
   }, [status])
 
+  const getBackgroundColor = useCallback(() => {
+    const themeColorMap: Record<typeof theme, string> = {
+      light: colors.bgLight100,
+      dark: colors.bgDark900,
+      auto: isDark ? colors.bgDark900 : colors.bgLight100,
+    }
+
+    return themeColorMap[theme]
+  }, [colors.bgLight100, colors.bgDark900, isDark, theme])
+
+  const getTextColor = useCallback(() => {
+    const themeColorMap: Record<typeof theme, string> = {
+      light: colors.bgDark800,
+      dark: colors.bgLight100,
+      auto: isDark ? colors.bgLight100 : colors.bgDark800,
+    }
+
+    return themeColorMap[theme]
+  }, [colors.bgLight100, colors.bgDark800, isDark, theme])
+
   if (shouldUseNativeAndroidToast) {
     return <AndroidToastView message={message} description={description} />
   }
@@ -52,7 +73,7 @@ function ToastView(props: ToastViewProps) {
       style={[
         styles.container,
         {
-          backgroundColor: isDark ? colors.bgDark900 : colors.bgLight100,
+          backgroundColor: getBackgroundColor(),
         },
       ]}>
       {getStatusIcon() && (
@@ -64,9 +85,11 @@ function ToastView(props: ToastViewProps) {
         />
       )}
       <View>
-        <Text typography="s3">{message}</Text>
+        <Text typography="s3" style={{color: getTextColor()}}>
+          {message}
+        </Text>
         {description && (
-          <Text typography="l3" style={{color: colors.text200}}>
+          <Text typography="l3" style={{color: getTextColor()}}>
             {description}
           </Text>
         )}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import {StyleSheet, TouchableOpacity, useWindowDimensions} from 'react-native'
 
 import {
@@ -21,25 +21,46 @@ function SnackbarView(props: SnackbarViewProps) {
     actionTextStyle,
     onActionPress,
     numberOfLines = 2,
+    theme = 'dark',
     containerStyle,
   } = useMergedProps('SnackbarView', props, {
     colors,
     isDark,
   })
 
+  const getBackgroundColor = useCallback(() => {
+    const themeColorMap: Record<typeof theme, string> = {
+      light: colors.bgLight100,
+      dark: colors.bgDark800,
+      auto: isDark ? colors.bgDark800 : colors.bgLight100,
+    }
+
+    return themeColorMap[theme]
+  }, [colors.bgLight100, colors.bgDark800, isDark, theme])
+
+  const getTextColor = useCallback(() => {
+    const themeColorMap: Record<typeof theme, string> = {
+      light: colors.bgDark800,
+      dark: colors.bgLight100,
+      auto: isDark ? colors.bgLight100 : colors.bgDark800,
+    }
+
+    return themeColorMap[theme]
+  }, [colors.bgLight100, colors.bgDark800, isDark, theme])
+
   return (
     <View
       style={[
         styles.container,
         {
-          backgroundColor: colors.bgDark800,
+          backgroundColor: getBackgroundColor(),
           width: screenWidth - 32,
         },
         containerStyle,
       ]}>
       <Text
         typography="s3"
-        style={[styles.textStyle, {color: colors.bgLight100}, textStyle]}
+        style={[styles.textStyle, {color: getTextColor()}, textStyle]}
         numberOfLines={numberOfLines}>
         {text}
       </Text>
@@ -51,7 +72,7 @@ function SnackbarView(props: SnackbarViewProps) {
           onPress={onActionPress}>
           <Text
             typography="b1"
-            style={[{color: colors.bgLight100}, actionTextStyle]}>
+            style={[{color: getTextColor()}, actionTextStyle]}>
             {actionText}
           </Text>
         </TouchableOpacity>
