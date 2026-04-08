@@ -62,7 +62,7 @@ function Modal(props: ModalProps) {
         onDismiss: handleDismiss,
 
         backdropStyle: [styles.backdropStyle, backdropStyle],
-        containerStyle: [styles.alignCenter, containerStyle],
+        containerStyle: [styles.alignCenter],
         renderAnimated,
       })
     } else {
@@ -79,12 +79,11 @@ function Modal(props: ModalProps) {
       update(overlayIdRef.current, {
         backdropBehavior,
         backdropStyle: [styles.backdropStyle, backdropStyle],
-        containerStyle: [styles.alignCenter, containerStyle],
         renderAnimated,
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [children, backdropBehavior, backdropStyle, containerStyle, update])
+  }, [children, backdropBehavior, backdropStyle, update])
 
   return null
 }
@@ -98,7 +97,8 @@ const styles = StyleSheet.create({
   alignCenter: {
     top: 0,
     bottom: 0,
-    alignItems: 'center',
+
     justifyContent: 'center',
+    alignItems: 'center',
   },
 })

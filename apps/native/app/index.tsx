@@ -122,6 +122,7 @@ const dataList = [
       {title: 'ActionSheet', navigateTo: './ActionSheetScreen'},
       {title: 'BottomSheet', navigateTo: './BottomSheetOverlayScreen'},
       {title: 'Modal', navigateTo: './ModalOverlayScreen'},
+      {title: 'Dialog', navigateTo: './DialogScreen'},
     ],
   },
 ]

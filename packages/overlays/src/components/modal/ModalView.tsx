@@ -25,9 +25,10 @@ export default ModalView
 
 const styles = StyleSheet.create({
   container: {
+    marginHorizontal: 24,
     borderRadius: 14,
     padding: 16,
-    margin: 24,
+    maxWidth: '100%',
 
     ...Platform.select({
       web: {
