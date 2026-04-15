@@ -32,7 +32,7 @@ function DialogAlert(props: DialogProps) {
     <Modal
       visible={visible}
       backdropBehavior={backdropBehavior}
-      containerStyle={containerStyle}
+      style={containerStyle}
       backdropStyle={backdropStyle}
       onDismiss={onDismiss}>
       {icon && <Dialog.Icon>{icon}</Dialog.Icon>}

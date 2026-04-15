@@ -8,17 +8,15 @@ import {
 } from '@react-native-blossom-ui/components'
 import {ModalProps} from './types'
 
-function ModalView(props: Pick<ModalProps, 'children' | 'containerStyle'>) {
+function ModalView(props: Pick<ModalProps, 'children' | 'style'>) {
   const {colors, isDark} = useBlossomTheme()
 
-  const {children, containerStyle} = useMergedProps('ModalView', props, {
+  const {children, style} = useMergedProps('ModalView', props, {
     colors,
     isDark,
   })
 
-  return (
-    <Surface style={[styles.container, containerStyle]}>{children}</Surface>
-  )
+  return <Surface style={[styles.container, style]}>{children}</Surface>
 }
 
 export default ModalView

@@ -21,6 +21,8 @@ function Modal(props: ModalProps) {
     children,
     backdropBehavior = 'dismiss',
     backdropStyle,
+    dismissOnBackPress,
+    style,
     containerStyle,
     onDismiss,
   } = useMergedProps('Modal', props, {
@@ -35,11 +37,11 @@ function Modal(props: ModalProps) {
           style={{
             opacity: progress,
           }}>
-          <ModalView containerStyle={containerStyle}>{children}</ModalView>
+          <ModalView style={style}>{children}</ModalView>
         </Animated.View>
       )
     },
-    [containerStyle, children],
+    [style, children],
   )
 
   const handleDismiss = useCallback(() => {
@@ -54,15 +56,15 @@ function Modal(props: ModalProps) {
       if (overlayIdRef.current) return
 
       overlayIdRef.current = show({
-        type: 'sheet',
+        type: 'modal',
         top: 0,
         left: 0,
         withBackdrop: true,
         backdropBehavior,
         onDismiss: handleDismiss,
-
+        dismissOnBackPress,
         backdropStyle: [styles.backdropStyle, backdropStyle],
-        containerStyle: [styles.alignCenter],
+        containerStyle: [styles.alignCenter, style],
         renderAnimated,
       })
     } else {
@@ -79,11 +81,12 @@ function Modal(props: ModalProps) {
       update(overlayIdRef.current, {
         backdropBehavior,
         backdropStyle: [styles.backdropStyle, backdropStyle],
+        containerStyle: [styles.alignCenter, style],
         renderAnimated,
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [children, backdropBehavior, backdropStyle, update])
+  }, [children, backdropBehavior, backdropStyle, style, update])
 
   return null
 }
@@ -97,6 +100,8 @@ const styles = StyleSheet.create({
   alignCenter: {
     top: 0,
     bottom: 0,
+    left: 0,
+    right: 0,
 
     justifyContent: 'center',
     alignItems: 'center',

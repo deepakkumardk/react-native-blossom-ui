@@ -123,6 +123,8 @@ const dataList = [
       {title: 'BottomSheet', navigateTo: './BottomSheetOverlayScreen'},
       {title: 'Modal', navigateTo: './ModalOverlayScreen'},
       {title: 'Dialog', navigateTo: './DialogScreen'},
+      {title: 'LoadingOverlay', navigateTo: './LoadingOverlayScreen'},
+      {title: 'ProgressDialog', navigateTo: './ProgressDialogScreen'},
     ],
   },
 ]
