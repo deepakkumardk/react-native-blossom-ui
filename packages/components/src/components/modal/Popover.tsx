@@ -20,9 +20,9 @@ import {Surface, View} from '../view'
 import {PopoverProps, PopoverRef} from '../types'
 import {useMergedProps, useDeviceInfo} from '../../common'
 
-const OFFSET_PADDING = 16
+// Platform-specific offsets to account for status bar and navigation differences
 const TOP_DEFAULT_OFFSET = Platform.OS === 'android' ? 36 : 0
-const BOTTOM_DEFAULT_OFFSET = Platform.OS === 'android' ? -30 : 0
+const BOTTOM_DEFAULT_OFFSET = Platform.OS === 'android' ? 0 : 0
 
 /**
  * Show a UI relative to the target view
@@ -54,6 +54,8 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
   const {width: deviceWidth, isPortrait, isLandscape} = useDeviceInfo()
 
   const [showContent, setShowContent] = useState(visible)
+  const [contentWidth, setContentWidth] = useState(0)
+  const [contentHeight, setContentHeight] = useState(0)
 
   const [positionStyle, setPositionStyle] = useState<{
     left?: number
@@ -62,6 +64,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
     bottom?: number
     maxWidth?: number
     targetWidth?: number
+    position?: 'absolute' | 'relative'
   }>({})
 
   useImperativeHandle(
@@ -101,6 +104,8 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
         left: {
           right: deviceWidth - pageX + offset,
           top: pageY,
+          // TODO: fix this for left position
+          position: 'absolute',
         },
         right: {
           left: pageX + width + offset,
@@ -108,7 +113,7 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
         },
         top: {
           left: pageX,
-          bottom: -pageY + offset + TOP_DEFAULT_OFFSET,
+          bottom: -pageY + offset + TOP_DEFAULT_OFFSET + contentHeight,
         },
         bottom: {
           left: pageX,
@@ -120,9 +125,10 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
         ...positionStyleMap[position],
         ...(!fitTargetWidth &&
           !wrapContent &&
-          (position === 'top' || position === 'bottom') && {
-            left: OFFSET_PADDING,
-            right: OFFSET_PADDING,
+          (position === 'top' || position === 'bottom') &&
+          {
+            // left: OFFSET_PADDING,
+            // right: OFFSET_PADDING,
           }),
         maxWidth: offsetWidthMap[position],
         targetWidth: width,
@@ -150,7 +156,10 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
         targetElement = targetRef.current as unknown as HTMLElement
       }
 
-      if (!targetElement) return
+      if (!targetElement) {
+        console.warn('Popover: Unable to find target element for measurement')
+        return
+      }
 
       const {
         width,
@@ -175,7 +184,10 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
         targetRef?.current
       const node = nativeRef ? findNodeHandle(nativeRef) : null
 
-      if (!node) return
+      if (!node) {
+        console.warn('Popover: Unable to find native node for measurement')
+        return
+      }
 
       // TODO: update measurement logic with ref
       UIManager.measure(
@@ -190,11 +202,21 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
           pageX: number,
           pageY: number,
         ) => {
-          updatePositionStyle({width, height, pageX, pageY})
+          if (width > 0 && height > 0) {
+            updatePositionStyle({width, height, pageX, pageY})
+          }
         },
       )
     }
-  }, [deviceWidth, fitTargetWidth, offset, position, targetRef, wrapContent])
+  }, [
+    contentHeight,
+    deviceWidth,
+    fitTargetWidth,
+    offset,
+    position,
+    targetRef,
+    wrapContent,
+  ])
 
   useEffect(() => {
     setShowContent(visible)
@@ -206,10 +228,6 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
     measureContent()
   }, [measureContent, showContent, isPortrait, isLandscape])
 
-  // if (showContent) {
-  //   measureContent()
-  // }
-
   return (
     <View>
       <View ref={targetViewRef}>{Target}</View>
@@ -218,11 +236,17 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
         transparent
         visible={showContent}
         onRequestClose={onBackdropPress}
-        supportedOrientations={['portrait', 'landscape']}>
+        supportedOrientations={['portrait', 'landscape']}
+        accessibilityViewIsModal
+        statusBarTranslucent>
         <Pressable
-          accessibilityRole="alert"
+          accessibilityRole="button"
+          accessibilityLabel="Close popover"
           style={styles.backdrop}
-          onPress={onBackdropPress}
+          onPress={(e) => {
+            e.stopPropagation()
+            onBackdropPress?.()
+          }}
         />
         {/* NOTE: This is wrapped to skip the touch event inside the content view */}
         <View>
@@ -237,7 +261,11 @@ const Popover = (props: PopoverProps, ref?: React.Ref<PopoverRef>) => {
               },
               fitTargetWidth && {width: positionStyle.targetWidth},
               contentStyle,
-            ]}>
+            ]}
+            onLayout={(e) => {
+              setContentWidth(e.nativeEvent.layout.width)
+              setContentHeight(e.nativeEvent.layout.height)
+            }}>
             {/* Render children only once the content has been measured to fix flicker issue */}
             {positionStyle.maxWidth || positionStyle.targetWidth
               ? children
@@ -256,12 +284,13 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   content: {
-    position: 'absolute',
     margin: 0,
     padding: 8,
     borderRadius: 8,
     borderWidth: 1,
     maxWidth: '100%',
+    // To wrap content width
+    alignSelf: 'flex-start',
   },
   shadow: {
     // android

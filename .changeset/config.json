@@ -12,6 +12,7 @@
     [
       "@react-native-blossom-ui/components",
       "@react-native-blossom-ui/dates",
+      "@react-native-blossom-ui/overlays",
       "@react-native-blossom-ui/showcase"
     ]
   ],

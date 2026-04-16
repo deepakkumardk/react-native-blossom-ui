@@ -28,7 +28,7 @@
 
 ## ✨ Features
 
-- 📦 **32+ Ready-to-use Components** — Buttons, Inputs, Cards, Modals, and more
+- 📦 **40+ Ready-to-use Components** — Buttons, Inputs, Cards, Modals, and more
 - 🎨 **Themeable & Dark Mode** — Out-of-the-box theme support, easy customization
 - ⚡ **Fast & Lightweight** — No unnecessary dependencies, optimized for performance
 - 🛠️ **Fully Customizable** — Override styles, icons, and behaviors to match your brand
@@ -62,6 +62,12 @@ function MyApp() {
 ```
 
 Explore more components and usage in the [Documentation](https://docs-react-native-blossom-ui.vercel.app/).
+
+## Packages Available
+
+- **@react-native-blossom-ui/components** - Curated set of basic components
+- **@react-native-blossom-ui/dates** - Dates related components like DatePicker, Calendar etc.
+- **@react-native-blossom-ui/overlays** - Overlay/Modal related components
 
 ## 💡 Why Blossom UI?
 

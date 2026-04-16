@@ -8,6 +8,7 @@ module.exports = {
         'packages',
         'components',
         'dates',
+        'overlays',
         'showcase',
         'apps',
         'release',
