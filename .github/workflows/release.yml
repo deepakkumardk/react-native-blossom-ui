@@ -11,39 +11,30 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      pull-requests: write
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js 18
-        uses: actions/setup-node@v3
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
         run: yarn
 
-      - name: Updating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Capture New Release Version
-        run: |
-          yarn changeset status --output=release.json
-          echo "NEW_VERSION=$(jq -r '.releases[0].newVersion' release.json)" >> "$GITHUB_ENV"
-          rm release.json
-
-      - name: Run Auto Publish
-        id: autopublish
-        uses: jamilomar/autopublish-changesets-action@v0.0.11
+      - name: Create Release Pull Request or Publish
+        id: changesets
+        uses: changesets/action@v1
         with:
-          commitMessage: 'build(release): v${{env.NEW_VERSION}}'
-          versionScript: yarn version-packages
-          publishScript: yarn changeset publish
+          version: yarn version-packages
+          publish: yarn changeset publish --provenance
+          commit: 'build(release): version packages'
+          title: 'build(release): version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
