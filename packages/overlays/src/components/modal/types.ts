@@ -32,10 +32,6 @@ export interface ModalProps {
    */
   style?: StyleProp<ViewStyle>
   /**
-   * Style for the container of the Modal.
-   */
-  containerStyle?: StyleProp<ViewStyle>
-  /**
    * Style for the backdrop of the Modal.
    */
   backdropStyle?: StyleProp<ViewStyle>

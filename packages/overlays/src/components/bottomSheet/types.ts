@@ -26,7 +26,7 @@ export interface BottomSheetProps {
   /**
    * style for the container of the BottomSheet
    */
-  containerStyle?: StyleProp<ViewStyle>
+  style?: StyleProp<ViewStyle>
   /**
    * style for the backdrop of the BottomSheet
    */

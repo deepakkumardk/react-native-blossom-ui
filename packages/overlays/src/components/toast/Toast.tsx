@@ -34,7 +34,7 @@ export const Toast: ToastHandlerOptions = {
       withBackdrop: false,
       backdropBehavior: 'interactive',
       onDismiss: toastOptions.onHide,
-      containerStyle: styles.horizontalCenter,
+      contentStyle: styles.horizontalCenter,
       animationConfig: {
         enter: (value: Animated.Value) =>
           Animated.timing(value, {

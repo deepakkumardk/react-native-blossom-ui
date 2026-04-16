@@ -14,7 +14,7 @@ export const ActionSheet: ActionSheetHandlerOptions = {
       backdropBehavior: 'dismiss',
       onDismiss: options.onHide,
       backdropStyle: styles.backdropStyle,
-      containerStyle: styles.alignBottom,
+      contentStyle: styles.alignBottom,
 
       renderAnimated: ({progress, requestDismiss}) => {
         const translateY = progress.interpolate({
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   backdropStyle: {
     backgroundColor: 'rgba(0, 0, 0, 0.25)',

@@ -22,7 +22,7 @@ export const Snackbar: SnackbarHandlerOptions = {
       withBackdrop: false,
       backdropBehavior: 'interactive',
       onDismiss: options.onHide,
-      containerStyle: styles.horizontalCenter,
+      contentStyle: styles.horizontalCenter,
 
       renderAnimated: ({progress, requestDismiss}) => {
         const scale = progress.interpolate({

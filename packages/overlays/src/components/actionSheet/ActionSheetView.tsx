@@ -79,7 +79,7 @@ function ActionSheetView(props: ActionSheetViewProps) {
                 typography="s2"
                 style={[
                   item.destructive && {color: colors.error500},
-                  item.textStyle,
+                  item.labelStyle,
                 ]}
                 numberOfLines={2}>
                 {item.label}

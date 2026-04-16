@@ -74,6 +74,11 @@ export interface BaseOverlayNode {
    */
   content?: ReactNode
 
+  /**
+   * Custom styles for the overlay content
+   */
+  contentStyle?: StyleProp<ViewStyle>
+
   top: number
   left: number
 
@@ -139,11 +144,6 @@ export interface BaseOverlayNode {
    * @returns A ReactNode that represents the content of the overlay. This content will be rendered with the provided animation.
    */
   renderAnimated?: (ctx: OverlayAnimationProps) => React.ReactNode
-
-  /**
-   * Custom styles for the overlay container.
-   */
-  containerStyle?: StyleProp<ViewStyle>
 }
 
 export type OverlayNodeContent = BaseOverlayNode & {

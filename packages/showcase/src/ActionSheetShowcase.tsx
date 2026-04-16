@@ -35,12 +35,12 @@ export function ActionSheetIosFeel() {
             {
               key: 'option1',
               label: 'Option 1',
-              textStyle: {color: colors.info500},
+              labelStyle: {color: colors.info500},
             },
             {
               key: 'option2',
               label: 'Option 2',
-              textStyle: {color: colors.info500},
+              labelStyle: {color: colors.info500},
             },
             {
               key: 'option3',

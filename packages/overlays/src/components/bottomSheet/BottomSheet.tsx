@@ -21,7 +21,7 @@ function BottomSheet(props: BottomSheetProps) {
     children,
     backdropBehavior = 'dismiss',
     backdropStyle,
-    containerStyle,
+    style,
     onDismiss,
   } = useMergedProps('BottomSheet', props, {
     colors,
@@ -45,13 +45,11 @@ function BottomSheet(props: BottomSheetProps) {
               },
             ],
           }}>
-          <BottomSheetView containerStyle={containerStyle}>
-            {children}
-          </BottomSheetView>
+          <BottomSheetView style={style}>{children}</BottomSheetView>
         </Animated.View>
       )
     },
-    [containerStyle, children],
+    [style, children],
   )
 
   useEffect(() => {
@@ -67,7 +65,7 @@ function BottomSheet(props: BottomSheetProps) {
           onDismiss?.()
         },
         backdropStyle: [styles.backdropStyle, backdropStyle],
-        containerStyle: [styles.alignBottom, containerStyle],
+        contentStyle: [styles.alignBottom, style],
         renderAnimated,
       })
     } else if (overlayIdRef.current) {
@@ -86,12 +84,12 @@ function BottomSheet(props: BottomSheetProps) {
       update(overlayIdRef.current, {
         backdropBehavior,
         backdropStyle: [styles.backdropStyle, backdropStyle],
-        containerStyle: [styles.alignBottom, containerStyle],
+        contentStyle: [styles.alignBottom, style],
         renderAnimated,
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [children, backdropBehavior, backdropStyle, containerStyle, update])
+  }, [children, backdropBehavior, backdropStyle, style, update])
 
   return null
 }
@@ -108,5 +106,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 })

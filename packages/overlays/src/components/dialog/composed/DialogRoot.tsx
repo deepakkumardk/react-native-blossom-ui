@@ -16,7 +16,7 @@ function DialogRoot(props: DialogBaseProps) {
     children,
     backdropBehavior = 'dismiss',
     backdropStyle,
-    containerStyle,
+    style,
     onDismiss,
   } = useMergedProps('DialogRoot', props, {
     colors,
@@ -27,7 +27,7 @@ function DialogRoot(props: DialogBaseProps) {
     <Modal
       visible={visible}
       backdropBehavior={backdropBehavior}
-      containerStyle={containerStyle}
+      style={style}
       backdropStyle={backdropStyle}
       onDismiss={onDismiss}>
       {children}

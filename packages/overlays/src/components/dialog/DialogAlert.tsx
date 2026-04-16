@@ -21,7 +21,7 @@ function DialogAlert(props: DialogProps) {
     actions,
     backdropBehavior = 'dismiss',
     backdropStyle,
-    containerStyle,
+    style,
     onDismiss,
   } = useMergedProps('DialogAlert', props, {
     colors,
@@ -32,7 +32,7 @@ function DialogAlert(props: DialogProps) {
     <Modal
       visible={visible}
       backdropBehavior={backdropBehavior}
-      style={containerStyle}
+      style={style}
       backdropStyle={backdropStyle}
       onDismiss={onDismiss}>
       {icon && <Dialog.Icon>{icon}</Dialog.Icon>}

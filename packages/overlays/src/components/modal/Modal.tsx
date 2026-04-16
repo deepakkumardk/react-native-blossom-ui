@@ -23,7 +23,6 @@ function Modal(props: ModalProps) {
     backdropStyle,
     dismissOnBackPress,
     style,
-    containerStyle,
     onDismiss,
   } = useMergedProps('Modal', props, {
     colors,
@@ -64,7 +63,7 @@ function Modal(props: ModalProps) {
         onDismiss: handleDismiss,
         dismissOnBackPress,
         backdropStyle: [styles.backdropStyle, backdropStyle],
-        containerStyle: [styles.alignCenter, style],
+        contentStyle: [styles.alignCenter, style],
         renderAnimated,
       })
     } else {
@@ -81,7 +80,7 @@ function Modal(props: ModalProps) {
       update(overlayIdRef.current, {
         backdropBehavior,
         backdropStyle: [styles.backdropStyle, backdropStyle],
-        containerStyle: [styles.alignCenter, style],
+        contentStyle: [styles.alignCenter, style],
         renderAnimated,
       })
     }

@@ -9,14 +9,12 @@ import {
 } from '@react-native-blossom-ui/components'
 import {BottomSheetProps} from './types'
 
-function BottomSheetView(
-  props: Pick<BottomSheetProps, 'children' | 'containerStyle'>,
-) {
+function BottomSheetView(props: Pick<BottomSheetProps, 'children' | 'style'>) {
   const {colors, isDark} = useBlossomTheme()
 
   const {width: screenWidth} = useWindowDimensions()
 
-  const {children, containerStyle} = useMergedProps('BottomSheetView', props, {
+  const {children, style} = useMergedProps('BottomSheetView', props, {
     colors,
     isDark,
   })
@@ -29,7 +27,7 @@ function BottomSheetView(
           {
             width: screenWidth,
           },
-          containerStyle,
+          style,
         ]}>
         {children}
       </Surface>

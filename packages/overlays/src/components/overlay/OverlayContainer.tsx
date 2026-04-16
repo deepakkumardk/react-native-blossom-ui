@@ -70,7 +70,7 @@ function OverlayContainer({
             left: node.left,
             zIndex,
           },
-          node.containerStyle,
+          node.contentStyle,
         ]}>
         {node.renderAnimated ? (
           node.renderAnimated({progress: animatedValue, phase, requestDismiss})

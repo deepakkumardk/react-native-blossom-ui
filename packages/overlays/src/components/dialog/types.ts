@@ -29,7 +29,7 @@ export interface DialogBaseProps {
   /**
    * Style for the container of the Dialog.
    */
-  containerStyle?: StyleProp<ViewStyle>
+  style?: StyleProp<ViewStyle>
   /**
    * Style for the backdrop of the Dialog.
    */
