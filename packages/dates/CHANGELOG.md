@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/dates
 
+## 0.18.0
+
+### Patch Changes
+
+- 4e01217: Update dates types export
+
 ## 0.17.2
 
 ## 0.17.1
