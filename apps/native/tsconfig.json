@@ -14,6 +14,9 @@
       "@react-native-blossom-ui/dates": [
         "../../packages/dates/src"
       ],
+      "@react-native-blossom-ui/overlays": [
+        "../../packages/overlays/src"
+      ],
       "@react-native-blossom-ui/showcase": [
         "../../packages/showcase/src"
       ],

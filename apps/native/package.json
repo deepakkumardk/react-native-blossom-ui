@@ -21,6 +21,7 @@
     "@expo/vector-icons": "^13.0.0",
     "@react-native-blossom-ui/components": "*",
     "@react-native-blossom-ui/dates": "*",
+    "@react-native-blossom-ui/overlays": "*",
     "@react-native-blossom-ui/showcase": "*",
     "expo": "^49.0.21",
     "expo-constants": "~14.4.2",
