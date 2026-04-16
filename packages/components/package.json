@@ -1,6 +1,6 @@
 {
   "name": "@react-native-blossom-ui/components",
-  "version": "0.17.2",
+  "version": "0.18.0",
   "description": "Awesome Blossom UI",
   "license": "MIT",
   "main": "./src/index",

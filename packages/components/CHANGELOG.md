@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/components
 
+## 0.18.0
+
+### Patch Changes
+
+- 4e01217: Fix popover wrap content issue
+
 ## 0.17.2
 
 ### Patch Changes
