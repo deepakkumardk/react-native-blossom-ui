@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/overlays
 
+## 0.18.1
+
+### Patch Changes
+
+- 1c2fca3: Fix interactive backdropBehavior scroll issue on web
+
 ## 0.18.0
 
 ### Minor Changes

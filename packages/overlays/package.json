@@ -1,6 +1,6 @@
 {
   "name": "@react-native-blossom-ui/overlays",
-  "version": "0.18.0",
+  "version": "0.18.1",
   "description": "Overlays components of Blossom UI",
   "license": "MIT",
   "main": "./src/index",
