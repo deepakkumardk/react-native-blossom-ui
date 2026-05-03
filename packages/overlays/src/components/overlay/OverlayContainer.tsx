@@ -1,17 +1,11 @@
 import React, {useEffect, useCallback, useMemo} from 'react'
-import {Animated, StyleSheet, View} from 'react-native'
+import {Animated, Platform, StyleSheet, View} from 'react-native'
 import OverlayBackdrop from './OverlayBackdrop'
 import {useOverlay} from './useOverlay'
 import {useAnimatedController} from './useAnimatedController'
-import {OverlayNode} from './types'
+import {OverlayContainerProps} from './types'
 
-function OverlayContainer({
-  node,
-  stackIndex,
-}: {
-  node: OverlayNode
-  stackIndex: number
-}) {
+function OverlayContainer({node, stackIndex}: OverlayContainerProps) {
   const zIndex = 100 + stackIndex
   const {dismiss, remove} = useOverlay()
 
@@ -90,5 +84,10 @@ const styles = StyleSheet.create({
   animatedContainer: {
     overflow: 'hidden',
     position: 'absolute',
+    // Disable scroll for web overlays to prevent background scrolling when an overlay is open
+    ...(Platform.OS === 'web' && {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      position: 'fixed' as any,
+    }),
   },
 })

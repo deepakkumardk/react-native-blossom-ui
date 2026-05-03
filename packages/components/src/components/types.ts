@@ -84,12 +84,14 @@ export interface LinkProps extends TextProps {
 export interface ExpandableTextProps extends TextProps {
   /**
    * Open/show label of the text component
-   * @default "Read more"
+   *
+   * @default 'Read more'
    */
   showLabel?: string
   /**
    * Close/hide label of the text component
-   * @default "Read less"
+   *
+   * @default 'Read less'
    */
   hideLabel?: string
 

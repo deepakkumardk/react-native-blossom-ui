@@ -47,8 +47,11 @@ export interface LoadingOverlayProps
     ActivityIndicatorProps {}
 
 export interface ProgressDialogProps
-  extends Pick<ModalProps, 'visible'>,
-    Omit<Partial<ModalProps>, 'children' | 'visible'> {
+  extends Omit<Partial<ModalProps>, 'children' | 'visible'> {
+  /**
+   * Whether the ProgressDialog is visible or not.
+   */
+  visible?: boolean
   /**
    * The label to be displayed next to the ActivityIndicator. If not provided, it will default to "Loading...".
    *

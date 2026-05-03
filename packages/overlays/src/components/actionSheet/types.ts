@@ -66,7 +66,7 @@ export interface ActionSheetViewProps {
   /**
    * Label for the cancel button. If not provided, it will default to "Cancel".
    *
-   * @default 'Cancel'
+   * @default Cancel
    */
   cancelButtonLabel?: string
   /**
@@ -88,11 +88,23 @@ export interface ActionSheetViewProps {
 }
 
 export interface ActionSheetOptions extends ActionSheetViewProps {
+  /**
+   * Callback function that is called when the ActionSheet is shown. This can be used to perform any setup or side effects when the ActionSheet becomes visible.
+   */
   onShow?: () => void
+  /**
+   * Callback function that is called when the ActionSheet is dismissed. This can be used to perform any cleanup or side effects when the ActionSheet becomes not visible.
+   */
   onHide?: () => void
 }
 
 export interface ActionSheetHandlerOptions {
+  /**
+   * Show an ActionSheet with the given options. If an ActionSheet is already visible, it will be replaced with the new one.
+   */
   show: (options: ActionSheetOptions) => void
+  /**
+   * Hide the currently visible ActionSheet, if any. If there are multiple ActionSheets visible, it will hide the most recently shown one.
+   */
   hide: () => void
 }

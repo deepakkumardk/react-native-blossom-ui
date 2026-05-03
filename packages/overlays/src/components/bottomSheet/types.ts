@@ -20,7 +20,7 @@ export interface BottomSheetProps {
    * - 'block': The backdrop will be rendered and will block interactions with it. Tapping on the backdrop will not do anything.
    * - 'dismiss': The backdrop will be rendered and tapping on it will trigger the `onDismiss` callback, but it will not allow any interactions with the backdrop itself.
    *
-   * @default 'interactive'
+   * @default interactive
    */
   backdropBehavior?: 'interactive' | 'block' | 'dismiss'
   /**
