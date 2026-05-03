@@ -1,4 +1,5 @@
 import {ButtonProps} from '@react-native-blossom-ui/components'
+import {ReactNode} from 'react'
 import {StyleProp, ViewStyle} from 'react-native'
 
 export interface DialogBaseProps {
@@ -7,9 +8,9 @@ export interface DialogBaseProps {
    */
   visible: boolean
   /**
-   * The content of the Dialog.
+   * The content of the Dialog, which can be any React node.
    */
-  children?: React.ReactNode
+  children?: ReactNode
   /**
    * Callback function that is called when the Dialog is dismissed.
    * This is invoked whenever the Dialog becomes not visible, for example when the user taps
@@ -40,7 +41,7 @@ export interface DialogProps extends Omit<DialogBaseProps, 'children'> {
   /**
    * icon to be displayed at the top of the Dialog
    */
-  icon?: React.ReactNode
+  icon?: ReactNode
   /**
    * title to be displayed below the icon
    */

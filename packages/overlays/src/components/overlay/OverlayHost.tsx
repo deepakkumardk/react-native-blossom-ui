@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {View, StyleSheet, BackHandler} from 'react-native'
+import {View, StyleSheet, BackHandler, Platform} from 'react-native'
 
 import {OverlayNode} from './types'
 import {OverlayContext} from './OverlayContext'
@@ -20,6 +20,8 @@ function OverlayHost() {
   }, [manager])
 
   useEffect(() => {
+    if (Platform.OS !== 'android') return undefined
+
     const subscription = BackHandler.addEventListener(
       'hardwareBackPress',
       () => {

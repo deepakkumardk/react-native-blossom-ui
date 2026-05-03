@@ -15,6 +15,9 @@
     "dates"
   ],
   "author": "Deepak Kumar <dpk950@gmail.com>",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
