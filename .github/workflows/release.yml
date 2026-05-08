@@ -5,8 +5,6 @@ on:
     branches:
       - main
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
-
 jobs:
   release:
     name: Release
@@ -17,24 +15,33 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js 20
-        uses: actions/setup-node@v4
+        uses: actions/checkout@v6
         with:
-          node-version: 20
-          registry-url: 'https://registry.npmjs.org'
+          fetch-depth: 0
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
 
       - name: Install Dependencies
         run: yarn
+
+      - name: Capture New Release Version
+        run: |
+          yarn changeset status --output=release.json
+          echo "NEW_VERSION=$(jq -r '.releases[0].newVersion' release.json)" >> "$GITHUB_ENV"
+          echo "${{env.NEW_VERSION}}"
+          rm release.json
 
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
         with:
           version: yarn version-packages
-          publish: yarn changeset publish --provenance
-          commit: 'build(release): version packages'
-          title: 'build(release): version packages'
+          publish: yarn changeset publish
+          # Update with version and publish commit message and PR title
+          commit: 'build(release): v${{env.NEW_VERSION}}'
+          title: 'build(release): v${{env.NEW_VERSION}}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useRef} from 'react'
-import {Animated, StyleSheet} from 'react-native'
+import {Animated, Platform, StyleSheet} from 'react-native'
 
 import {
   useMergedProps,
@@ -103,6 +103,10 @@ const styles = StyleSheet.create({
     right: 0,
 
     justifyContent: 'center',
-    alignItems: 'center',
+    ...Platform.select({
+      web: {
+        alignItems: 'center',
+      },
+    }),
   },
 })
