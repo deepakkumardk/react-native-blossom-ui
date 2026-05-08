@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/overlays
 
+## 0.18.2
+
+### Patch Changes
+
+- e77a0a1: Fix Modal based component wrap content issue
+
 ## 0.18.1
 
 ### Patch Changes
