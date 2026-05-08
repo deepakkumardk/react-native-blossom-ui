@@ -6,6 +6,10 @@
     "apps/*",
     "packages/*"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deepakkumardk/react-native-blossom-ui.git"
+  },
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",

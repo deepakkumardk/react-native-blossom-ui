@@ -14,9 +14,14 @@
     "calendar",
     "dates"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deepakkumardk/react-native-blossom-ui.git"
+  },
   "author": "Deepak Kumar <dpk950@gmail.com>",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "scripts": {
     "build": "tsup",
