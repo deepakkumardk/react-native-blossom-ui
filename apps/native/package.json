@@ -29,7 +29,7 @@
     "expo-router": "~3.5.24",
     "expo-screen-orientation": "~7.0.5",
     "expo-status-bar": "~1.12.1",
-    "react": "~18.2.0",
+    "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.5",
     "react-native-gesture-handler": "~2.16.1",
@@ -42,6 +42,7 @@
     "@babel/core": "^7.23.7",
     "@babel/plugin-proposal-export-namespace-from": "7.18.9",
     "@expo/webpack-config": "^19.0.0",
+    "snack-sdk": "6.5.1",
     "typescript": "~5.3.3"
   }
 }

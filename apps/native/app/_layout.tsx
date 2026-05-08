@@ -12,9 +12,9 @@ import {StatusBar} from 'expo-status-bar'
 import {TouchableOpacity} from 'react-native'
 import * as Font from 'expo-font'
 import {Ionicons, MaterialCommunityIcons} from '@expo/vector-icons'
-import lightTheme from '../lightTheme.json'
-import darkTheme from '../darkTheme.json'
-import options from '../options.json'
+import lightTheme from '../themes/lightTheme.json'
+import darkTheme from '../themes/darkTheme.json'
+import options from '../themes/options.json'
 
 export default function Layout() {
   const [isDark, setIsDark] = useState(false)
@@ -32,7 +32,7 @@ export default function Layout() {
           position: 'absolute',
           bottom: 0,
           end: 0,
-          padding: 40,
+          padding: 80,
         }}
         onPress={() => setIsDark((prev) => !prev)}>
         <Icon name="contrast" size={40} />

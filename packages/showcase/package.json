@@ -19,16 +19,14 @@
     "lint": "eslint src/ --fix",
     "prepublish": "yarn build"
   },
-  "dependencies": {
-    "@react-native-blossom-ui/components": "*",
-    "@react-native-blossom-ui/dates": "*"
-  },
   "devDependencies": {
     "@react-native-blossom-ui/typescript-config": "*"
   },
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-vector-icons": "*"
+    "react-native-vector-icons": "*",
+    "@react-native-blossom-ui/components": "*",
+    "@react-native-blossom-ui/dates": "*"
   }
 }

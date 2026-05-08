@@ -1,72 +1,62 @@
+// App.tsx
 import React, {useState} from 'react'
-import {StyleSheet, Switch} from 'react-native'
-import {StatusBar} from 'expo-status-bar'
+import {ExpoRoot} from 'expo-router'
+import Head from 'expo-router/head'
+import {BlossomThemeProvider} from '@react-native-blossom-ui/components'
+import RootLayout from './components/RootLayout'
+import lightTheme from './themes/lightTheme.json'
+import darkTheme from './themes/darkTheme.json'
+import options from './themes/options.json'
 
-import {
-  Button,
-  BlossomThemeProvider,
-  Surface,
-  Text,
-  useBlossomTheme,
-} from '@react-native-blossom-ui/components'
-
-import lightTheme from './lightTheme.json'
-import darkTheme from './darkTheme.json'
-
-export function Native({onPress}: {onPress: () => void}) {
-  const {colors, isDark} = useBlossomTheme()
-
-  return (
-    <Surface style={styles.container}>
-      <Switch value={isDark} onValueChange={() => onPress()} />
-      <Text typography="h1">Native</Text>
-      <Text style={[styles.header, {backgroundColor: colors.background500}]}>
-        Native
-      </Text>
-
-      <Button
-        onPress={() => {
-          console.log('Native -> onPress')
-        }}
-        title="Blossom Button"
-      />
-      <Button status="accent">Blossom Button UI</Button>
-
-      <Button
-        style={{
-          backgroundColor: 'green',
-        }}
-        title="Click Me">
-        <Text>With Children</Text>
-      </Button>
-      <StatusBar style={!isDark ? 'dark' : 'light'} />
-    </Surface>
-  )
+const isSnackEnv = () => {
+  try {
+    // eslint-disable-next-line no-restricted-globals
+    return location?.hostname.includes('snack-web')
+  } catch (error) {
+    return false
+  }
 }
 
-export default function Container() {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+const App = require.context('./app', true) as any
+
+export default function ExpoRouterApp() {
+  const IS_SNACK = isSnackEnv()
   const [isDark, setIsDark] = useState(false)
 
+  // Normal path (non-Snack) — just mount RootLayout / ExpoRoot as you already had
+  // if (true) {
+  //   return (
+  //     <Head.Provider>
+  //       <RootLayout>
+  //         <ExpoRoot
+  //           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //           // @ts-ignore
+  //           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  //           context={App}
+  //           location="/"
+  //         />
+  //       </RootLayout>
+  //     </Head.Provider>
+  //   )
+  // }
+
+  // Snack path — put the BlossomThemeProvider ABOVE ExpoRoot and provide bridge
   return (
-    <BlossomThemeProvider
-      theme={isDark ? darkTheme : lightTheme}
-      isDark={isDark}>
-      <Native
-        onPress={() => {
-          setIsDark((prev) => !prev)
-        }}
-      />
-    </BlossomThemeProvider>
+    <Head.Provider>
+      {/* <SnackThemeBridge.Provider value={{isSnack: true, isDark, setIsDark}}> */}
+      <RootLayout>
+        <ExpoRoot
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          context={App}
+          location="/"
+        />
+      </RootLayout>
+      {/* </SnackThemeBridge.Provider> */}
+    </Head.Provider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  header: {
-    fontSize: 46,
-  },
-})
