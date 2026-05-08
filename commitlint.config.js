@@ -13,6 +13,7 @@ module.exports = {
         'apps',
         'release',
         'config',
+        'pipeline',
       ],
     ],
     'scope-case': [2, 'always', 'kebab-case'],
