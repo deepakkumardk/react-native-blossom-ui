@@ -95,7 +95,7 @@ export const getFlatStyle = (
     return obj
   }
 
-  return style as ViewStyle | TextStyle
+  return style
 }
 
 export const isColor = (color?: unknown) => {

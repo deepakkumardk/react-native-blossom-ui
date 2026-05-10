@@ -269,94 +269,96 @@ function Calendar(props: CalendarProps) {
   }, [currentMonth, currentYear])
 
   return (
-    <Surface style={containerStyle}>
-      <View row style={styles.header}>
-        <TouchableOpacity
-          accessibilityRole="button"
-          activeOpacity={0.5}
-          onPress={onMonthHeaderPress}>
-          <Text>
-            {formattedMonth}
-            <Icon name="chevron-down" family="Ionicons" size={16} />
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          accessibilityRole="button"
-          activeOpacity={0.5}
-          onPress={onYearHeaderPress}>
-          <Text>
-            {currentYear}
-            <Icon name="chevron-down" family="Ionicons" size={16} />
-          </Text>
-        </TouchableOpacity>
-
-        <View row style={styles.rightIcons}>
-          <Icon
-            name="chevron-back"
-            family="Ionicons"
-            onPress={onPrevPress}
-            disabled={yearsRef.current?.hasMinYear()}
-          />
+    <View style={styles.container}>
+      <Surface style={containerStyle}>
+        <View row style={styles.header}>
           <TouchableOpacity
             accessibilityRole="button"
             activeOpacity={0.5}
-            disabled={viewMode !== 'Days'}
-            onPress={onTodayPress}>
-            <Text
-              status="primary"
-              style={[
-                styles.todayText,
-                viewMode !== 'Days' && {
-                  color: colors.text400,
-                },
-              ]}>
-              Today
+            onPress={onMonthHeaderPress}>
+            <Text>
+              {formattedMonth}
+              <Icon name="chevron-down" family="Ionicons" size={16} />
             </Text>
           </TouchableOpacity>
-          <Icon
-            name="chevron-forward"
-            family="Ionicons"
-            onPress={onNextPress}
-            disabled={yearsRef.current?.hasMaxYear()}
-          />
-        </View>
-      </View>
+          <TouchableOpacity
+            accessibilityRole="button"
+            activeOpacity={0.5}
+            onPress={onYearHeaderPress}>
+            <Text>
+              {currentYear}
+              <Icon name="chevron-down" family="Ionicons" size={16} />
+            </Text>
+          </TouchableOpacity>
 
-      {viewMode === 'Days' && (
-        <MonthDaysList
-          datePickerMode={datePickerMode}
-          selectedDate={selectedDate}
-          selectedEndDate={selectedEndDate}
-          selectedDates={multipleSelectedDates}
-          currentMonth={currentMonth}
-          currentYear={currentYear}
-          onItemPress={onDatePress}
-          disablePastDates={disablePastDates}
-          disableFutureDates={disableFutureDates}
-          disableDates={transformedDisabledDates}
-          disabledDaysOfWeek={disabledDaysOfWeek}
-          displayDateFormat={displayDateFormat}
-          outputDateFormat={outputDateFormat}
-          showAdjacentMonthDays={showAdjacentMonthDays}
-          minDate={minDate}
-          maxDate={maxDate}
-        />
-      )}
-      {viewMode === 'Month' && (
-        <MonthNamesList
-          currentMonth={currentMonth}
-          onItemPress={onMonthPress}
-        />
-      )}
-      {viewMode === 'Year' && (
-        <YearList
-          ref={yearsRef}
-          {...yearListProps}
-          currentYear={currentYear}
-          onItemPress={onYearPress}
-        />
-      )}
-    </Surface>
+          <View row style={styles.rightIcons}>
+            <Icon
+              name="chevron-back"
+              family="Ionicons"
+              onPress={onPrevPress}
+              disabled={yearsRef.current?.hasMinYear()}
+            />
+            <TouchableOpacity
+              accessibilityRole="button"
+              activeOpacity={0.5}
+              disabled={viewMode !== 'Days'}
+              onPress={onTodayPress}>
+              <Text
+                status="primary"
+                style={[
+                  styles.todayText,
+                  viewMode !== 'Days' && {
+                    color: colors.text400,
+                  },
+                ]}>
+                Today
+              </Text>
+            </TouchableOpacity>
+            <Icon
+              name="chevron-forward"
+              family="Ionicons"
+              onPress={onNextPress}
+              disabled={yearsRef.current?.hasMaxYear()}
+            />
+          </View>
+        </View>
+
+        {viewMode === 'Days' && (
+          <MonthDaysList
+            datePickerMode={datePickerMode}
+            selectedDate={selectedDate}
+            selectedEndDate={selectedEndDate}
+            selectedDates={multipleSelectedDates}
+            currentMonth={currentMonth}
+            currentYear={currentYear}
+            onItemPress={onDatePress}
+            disablePastDates={disablePastDates}
+            disableFutureDates={disableFutureDates}
+            disableDates={transformedDisabledDates}
+            disabledDaysOfWeek={disabledDaysOfWeek}
+            displayDateFormat={displayDateFormat}
+            outputDateFormat={outputDateFormat}
+            showAdjacentMonthDays={showAdjacentMonthDays}
+            minDate={minDate}
+            maxDate={maxDate}
+          />
+        )}
+        {viewMode === 'Month' && (
+          <MonthNamesList
+            currentMonth={currentMonth}
+            onItemPress={onMonthPress}
+          />
+        )}
+        {viewMode === 'Year' && (
+          <YearList
+            ref={yearsRef}
+            {...yearListProps}
+            currentYear={currentYear}
+            onItemPress={onYearPress}
+          />
+        )}
+      </Surface>
+    </View>
   )
 }
 
@@ -374,5 +376,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     maxWidth: 280,
     marginHorizontal: 8,
+  },
+  container: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 })

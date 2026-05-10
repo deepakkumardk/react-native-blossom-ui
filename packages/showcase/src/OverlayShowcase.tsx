@@ -176,7 +176,9 @@ export function OverlayRandom() {
   const {width: screenWidth, height: screenHeight} = useWindowDimensions()
 
   const overlayId = useRef('')
-  const intervalIdRef = useRef<NodeJS.Timeout>()
+  const intervalIdRef = useRef<ReturnType<typeof setInterval> | undefined>(
+    undefined,
+  )
 
   const topRandom = useCallback(
     () => (Math.random() * screenHeight) / 2,

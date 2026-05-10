@@ -142,7 +142,7 @@ const sizeMap = {
 }
 
 const checkIconSize = {
-  small: 14,
-  medium: 16,
-  large: 18,
+  small: 13,
+  medium: 14,
+  large: 16,
 }
