@@ -15,11 +15,7 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-      "assets/fonts/*",
       "**/*"
-    ],
-    "assetPlugins": [
-      "expo-asset"
     ],
     "ios": {
       "supportsTablet": true
@@ -32,7 +28,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png",
-      "output": "server",
       "bundler": "metro"
     },
     "plugins": [
