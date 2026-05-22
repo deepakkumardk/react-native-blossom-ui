@@ -1,0 +1,29 @@
+name: Snack Upload
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  upload-snack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Run snack-upload.js
+        run: |
+          cd apps/native
+          NODE_ENV=${{ github.ref_name == 'dev' && 'development' || 'production' }} node scripts/snack-upload.js --accessToken=${{ secrets.EXPO_SNACK_ACCESS_TOKEN }}
+        env:
+          EXPO_SNACK_ACCESS_TOKEN: ${{ secrets.EXPO_SNACK_ACCESS_TOKEN }}

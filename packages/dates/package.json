@@ -37,11 +37,6 @@
   "devDependencies": {
     "@react-native-blossom-ui/components": "*",
     "@react-native-blossom-ui/typescript-config": "*",
-    "@types/chroma-js": "2.4.4",
-    "@types/react": "~19.1.10",
-    "@types/react-native-vector-icons": "6.4.18",
-    "react": "19.1.0",
-    "react-native": "0.81.5",
     "tsup": "^8.5.1"
   },
   "peerDependencies": {

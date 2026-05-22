@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {TouchableOpacity} from 'react-native'
 import {
   BlossomThemeProvider,
   ComponentManager,
@@ -10,12 +11,9 @@ import {OverlayProvider} from '@react-native-blossom-ui/overlays'
 import {Stack} from 'expo-router'
 import {StatusBar} from 'expo-status-bar'
 
-import * as Font from 'expo-font'
-import {TouchableOpacity} from 'react-native'
-
-import lightTheme from '../lightTheme.json'
-import darkTheme from '../darkTheme.json'
-import options from '../options.json'
+import lightTheme from '../themes/lightTheme.json'
+import darkTheme from '../themes/darkTheme.json'
+import options from '../themes/options.json'
 
 export default function Layout() {
   const [isDark, setIsDark] = useState(false)
