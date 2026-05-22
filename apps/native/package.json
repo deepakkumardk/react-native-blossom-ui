@@ -5,6 +5,7 @@
   "license": "MIT",
   "main": "expo-router/entry",
   "scripts": {
+    "start": "expo start",
     "dev": "expo start --web",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -17,18 +18,19 @@
     "pre-build": "node scripts/pre-build.js > app.json"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~55.0.11",
     "@expo/vector-icons": "^15.0.2",
     "@react-native-blossom-ui/components": "*",
     "@react-native-blossom-ui/dates": "*",
     "@react-native-blossom-ui/overlays": "*",
     "@react-native-blossom-ui/showcase": "*",
-    "expo": "~55.0.23",
+    "expo": "~55.0.26",
     "expo-constants": "~55.0.16",
-    "expo-font": "~55.0.7",
-    "expo-image": "~55.0.10",
+    "expo-font": "~55.0.8",
+    "expo-image": "~55.0.11",
     "expo-linking": "~55.0.15",
-    "expo-router": "~55.0.14",
-    "expo-screen-orientation": "~55.0.14",
+    "expo-router": "~55.0.16",
+    "expo-screen-orientation": "~55.0.16",
     "expo-status-bar": "~55.0.6",
     "react": "19.2.0",
     "react-dom": "19.2.0",
@@ -40,9 +42,9 @@
     "uuid": "^3.0.0"
   },
   "devDependencies": {
-    "@expo/webpack-config": "19.0.1",
     "@types/react": "~19.2.2",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
+    "snack-sdk": "6.6.2",
     "typescript": "~5.9.2"
   }
 }
