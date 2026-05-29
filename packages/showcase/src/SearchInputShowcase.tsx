@@ -1,6 +1,12 @@
 import React from 'react'
 
-import {View, SearchInput, Icon} from '@react-native-blossom-ui/components'
+import {
+  View,
+  SearchInput,
+  Icon,
+  Text,
+  Spacer,
+} from '@react-native-blossom-ui/components'
 
 export function SearchInputUsage() {
   return (
@@ -61,6 +67,9 @@ export function AnimatedSearchInput() {
 export function SearchInputSizes() {
   return (
     <View>
+      <Text typography="b1">Outlined Mode Inputs</Text>
+      <Spacer />
+
       <SearchInput label="Search user" placeholder="eg. Blossom" size="small" />
       <SearchInput
         label="Search user"
@@ -68,6 +77,10 @@ export function SearchInputSizes() {
         size="medium"
       />
       <SearchInput label="Search user" placeholder="eg. Blossom" size="large" />
+
+      <Spacer />
+      <Text typography="b1">Flat Mode Inputs</Text>
+      <Spacer />
 
       <SearchInput
         mode="flat"

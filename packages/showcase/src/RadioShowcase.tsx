@@ -20,7 +20,7 @@ export function RadioUsage() {
 export function RadioDefaultValue() {
   return (
     <View>
-      <Radio defaultValue />
+      <Radio defaultValue label="Default Value Radio" />
     </View>
   )
 }
