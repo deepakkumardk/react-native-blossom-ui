@@ -14,8 +14,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["assets/fonts/*", "**/*"],
-    "assetPlugins": ["expo-asset"],
+    "assetBundlePatterns": [
+      "assets/fonts/*",
+      "**/*"
+    ],
+    "assetPlugins": [
+      "expo-asset"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -30,6 +35,12 @@
       "output": "server",
       "bundler": "metro"
     },
-    "plugins": ["expo-router", "expo-screen-orientation"]
+    "plugins": [
+      "expo-router",
+      "expo-screen-orientation"
+    ],
+    "experiments": {
+      "reactCompiler": false
+    }
   }
 }

@@ -24,5 +24,12 @@ config.resolver.nodeModulesPaths = [
 config.resolver.disableHierarchicalLookup = true
 // config.resolver.disableHierarchicalLookup = false
 
+// 4. Prevent Metro from resolving @types packages as runtime modules
+config.resolver.blockList = [
+  ...(config.resolver.blockList || []),
+  // Block @types packages from being resolved as runtime dependencies
+  /\/@types\/[^/]+\/package\.json$/,
+]
+
 // module.exports = wrapWithReanimatedMetroConfig(config)
 module.exports = config
