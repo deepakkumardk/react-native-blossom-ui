@@ -15,9 +15,10 @@ Please fill out this pull request template to help us review your changes.
 
 - [ ] Bug fix
 - [ ] New feature
+- [ ] Expo Upgrade
 - [ ] Breaking change
-- [ ] Documentation update
 - [ ] Refactor
+- [ ] Documentation update
 - [ ] Other (please describe):
 
 ## Checklist
@@ -33,6 +34,9 @@ Please fill out this pull request template to help us review your changes.
   - [ ] Android Emulator
   - [ ] Android Physical device
   - [ ] Web
+  - [ ] Web Production build
+  - [ ] Expo Snack deployment
+  - [ ] Expo Snack on all 3 platforms
 
 ## Screenshots (if applicable)
 

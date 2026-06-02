@@ -32,7 +32,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png",
-      "output": "single",
+      "output": "static",
       "bundler": "metro"
     },
     "plugins": [
