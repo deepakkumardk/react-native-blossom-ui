@@ -1,72 +1,38 @@
-import React, {useState} from 'react'
-import {StyleSheet, Switch} from 'react-native'
-import {StatusBar} from 'expo-status-bar'
+import React from 'react'
+import {ExpoRoot} from 'expo-router'
+import Head from 'expo-router/head'
 
-import {
-  Button,
-  BlossomThemeProvider,
-  Surface,
-  Text,
-  useBlossomTheme,
-} from '@react-native-blossom-ui/components'
-
-import lightTheme from './lightTheme.json'
-import darkTheme from './darkTheme.json'
-
-export function Native({onPress}: {onPress: () => void}) {
-  const {colors, isDark} = useBlossomTheme()
-
-  return (
-    <Surface style={styles.container}>
-      <Switch value={isDark} onValueChange={() => onPress()} />
-      <Text typography="h1">Native</Text>
-      <Text style={[styles.header, {backgroundColor: colors.background500}]}>
-        Native
-      </Text>
-
-      <Button
-        onPress={() => {
-          console.log('Native -> onPress')
-        }}
-        title="Blossom Button"
-      />
-      <Button status="accent">Blossom Button UI</Button>
-
-      <Button
-        style={{
-          backgroundColor: 'green',
-        }}
-        title="Click Me">
-        <Text>With Children</Text>
-      </Button>
-      <StatusBar style={!isDark ? 'dark' : 'light'} />
-    </Surface>
-  )
+const isSnackEnv = () => {
+  try {
+    // eslint-disable-next-line no-restricted-globals
+    return location?.hostname.includes('snack-runtime')
+  } catch (error) {
+    return false
+  }
 }
 
-export default function Container() {
-  const [isDark, setIsDark] = useState(false)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const IS_SNACK = isSnackEnv()
+// console.log('IS_SNACK:', IS_SNACK)
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+const App = require.context('./app', true) as any
+
+/**
+ * Will be only used by Snack Web, as mobile will go to _layout file as entry file
+ */
+export default function ExpoRouterApp() {
   return (
-    <BlossomThemeProvider
-      theme={isDark ? darkTheme : lightTheme}
-      isDark={isDark}>
-      <Native
-        onPress={() => {
-          setIsDark((prev) => !prev)
-        }}
+    <Head.Provider>
+      <ExpoRoot
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        context={App}
+        location="/"
       />
-    </BlossomThemeProvider>
+    </Head.Provider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  header: {
-    fontSize: 46,
-  },
-})

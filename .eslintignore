@@ -9,3 +9,6 @@ web-report/
 .yarn/
 .vscode/
 .eslintrc.js
+
+babel.config.js
+metro.config.js

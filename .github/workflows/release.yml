@@ -1,4 +1,4 @@
-name: Release
+name: Release Packages
 
 on:
   push:
@@ -7,12 +7,13 @@ on:
 
 jobs:
   release:
-    name: Release
+    name: Release Packages
     runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write
       pull-requests: write
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v6
@@ -26,6 +27,9 @@ jobs:
 
       - name: Install Dependencies
         run: yarn
+
+      - name: Run Build
+        run: yarn build
 
       - name: Capture New Release Version
         run: |
@@ -41,7 +45,7 @@ jobs:
           version: yarn version-packages
           publish: yarn changeset publish
           # Update with version and publish commit message and PR title
-          commit: 'build(release): v${{env.NEW_VERSION}}'
-          title: 'build(release): v${{env.NEW_VERSION}}'
+          commit: "build(release): v${{env.NEW_VERSION}}"
+          title: "build(release): v${{env.NEW_VERSION}}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

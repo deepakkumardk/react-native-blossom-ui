@@ -5,9 +5,6 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "react": [
-        "../../node_modules/@types/react"
-      ],
       "@react-native-blossom-ui/components": [
         "../../packages/components/src"
       ],
