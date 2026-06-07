@@ -125,6 +125,7 @@ const dataList = [
       {title: 'Dialog', navigateTo: './DialogScreen'},
       {title: 'LoadingOverlay', navigateTo: './LoadingOverlayScreen'},
       {title: 'ProgressDialog', navigateTo: './ProgressDialogScreen'},
+      {title: 'Popover', navigateTo: './PopoverOverlayScreen'},
     ],
   },
 ]
