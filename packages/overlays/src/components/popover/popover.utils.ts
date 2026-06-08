@@ -1,4 +1,4 @@
-import {Dimensions, LayoutRectangle} from 'react-native'
+import {Dimensions, LayoutRectangle, Platform, StatusBar} from 'react-native'
 import {PopoverArrowStyle, PopoverPosition, PopoverPositionStyle} from './types'
 
 const SCREEN_PADDING = 16
@@ -6,6 +6,9 @@ const ARROW_SIZE = 8
 const HALF_ARROW_SIZE = ARROW_SIZE / 2
 
 const OFFSET_PADDING = 4
+
+const ANDROID_STATUS_BAR_HEIGHT =
+  Platform.OS === 'android' ? (StatusBar.currentHeight ?? 24) : 0
 
 export function calculatePopoverPosition({
   anchor,
@@ -53,23 +56,35 @@ export function calculatePopoverPosition({
 
   const positionStyleMap: Record<PopoverPosition, PopoverPositionStyle> = {
     left: {
-      top: centerY + offsetY,
+      top: centerY + offsetY + ANDROID_STATUS_BAR_HEIGHT,
       right: deviceWidth - pageX + offsetX + OFFSET_PADDING + ARROW_OFFSET,
       maxWidth: pageX - offsetX - SCREEN_PADDING,
     },
     right: {
-      top: centerY + offsetY,
+      top: centerY + offsetY + ANDROID_STATUS_BAR_HEIGHT,
       left: pageX + width + offsetX + OFFSET_PADDING + ARROW_OFFSET,
       maxWidth: deviceWidth - (pageX + width + offsetX) - SCREEN_PADDING,
     },
     top: {
       left: (fitTargetWidth ? pageX : centerX) + offsetX,
-      bottom: deviceHeight - pageY + offsetY + OFFSET_PADDING + ARROW_OFFSET,
+      bottom:
+        deviceHeight -
+        pageY +
+        offsetY +
+        OFFSET_PADDING -
+        ANDROID_STATUS_BAR_HEIGHT +
+        ARROW_OFFSET,
       maxWidth: deviceWidth - SCREEN_PADDING,
     },
     bottom: {
       left: (fitTargetWidth ? pageX : centerX) + offsetX,
-      top: pageY + height + offsetY + OFFSET_PADDING + ARROW_OFFSET,
+      top:
+        pageY +
+        height +
+        offsetY +
+        OFFSET_PADDING +
+        ANDROID_STATUS_BAR_HEIGHT +
+        ARROW_OFFSET,
       maxWidth: deviceWidth - SCREEN_PADDING,
     },
   }
