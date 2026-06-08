@@ -1,5 +1,11 @@
 # @react-native-blossom-ui/overlays
 
+## 0.19.0
+
+### Minor Changes
+
+- b5142a2: Add Popover component
+
 ## 0.18.2
 
 ### Patch Changes
