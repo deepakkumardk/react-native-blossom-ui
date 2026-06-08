@@ -45,7 +45,7 @@ jobs:
           version: yarn version-packages
           publish: yarn changeset publish
           # Update with version and publish commit message and PR title
-          commit: "build(release): v${{env.NEW_VERSION}}"
-          title: "build(release): v${{env.NEW_VERSION}}"
+          commit: 'build(release): v${{env.NEW_VERSION}}'
+          title: 'build(release): v${{env.NEW_VERSION}}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
