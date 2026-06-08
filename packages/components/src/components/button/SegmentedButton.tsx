@@ -147,13 +147,13 @@ const styles = StyleSheet.create({
   itemButton: {
     borderRadius: 0,
     // TODO handle left and right width
-    borderWidth: 0.5,
+    borderWidth: StyleSheet.hairlineWidth,
   },
 })
 
 const sizeStyle = {
   small: {
-    paddingVertical: 6,
+    paddingVertical: 8,
   },
   medium: {
     paddingVertical: 9,

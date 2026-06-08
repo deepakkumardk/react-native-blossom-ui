@@ -5,7 +5,7 @@
     "scheme": "native",
     "version": "1.0.0",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -27,9 +27,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png",
-      "output": "server",
+      "output": "static",
       "bundler": "metro"
     },
-    "plugins": ["expo-router", "expo-screen-orientation"]
+    "plugins": ["expo-router", "expo-screen-orientation"],
+    "experiments": {
+      "reactCompiler": false
+    }
   }
 }

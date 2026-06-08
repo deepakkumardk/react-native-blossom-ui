@@ -5,3 +5,5 @@ export * from './actionSheet'
 export * from './bottomSheet'
 export * from './modal'
 export * from './dialog'
+
+export * from './popover'

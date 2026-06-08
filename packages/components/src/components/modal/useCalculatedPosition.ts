@@ -11,7 +11,7 @@ const HEIGHT_OFFSET = 10
 export const useCalculatedPosition = (
   popoverHeight: number,
   isVisible?: boolean,
-  targetRef?: RefObject<View>,
+  targetRef?: RefObject<View | null>,
 ) => {
   const {height: deviceHeight} = useWindowDimensions()
 
